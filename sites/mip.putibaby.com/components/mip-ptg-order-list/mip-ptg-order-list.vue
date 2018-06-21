@@ -12,10 +12,10 @@
         </p>  
 
          <div class="info">
-			<!-- <mip-img layout="responsive" width="85px" height="22px"
-                  class="header" src="{{ order.master.header.small }}" ></mip-img> -->  
-                <mip-img layout="responsive" width="85px" height="22px"
-                  class="header" src="i/age.png" ></mip-img>
+		 <mip-img layout="responsive" width="85px" height="22px"
+                  class="header" v-bind:src="order.master.header.small" ></mip-img>  
+               <!-- <mip-img layout="responsive" width="85px" height="22px"
+                  class="header" src="i/age.png" ></mip-img> --> 
                   <span class="name">{{ order.master.name }}</span>
             <span class="price">￥{{ order.master.ptg_price }}</span>
             <div class="message">
@@ -219,6 +219,7 @@ export default {
           { message: 'Foo' },
           { message: 'Bar' }
         ],
+		
         list:[{"id":15345,"type":"paidan","interview_type":"offline","desc_str":"终止单，已分账","order_number":"74823287","state":"finished_but_failed_paid","contract_deposit_min":0.12,"is_xudan":false,"xudanInfo":null,"already_xudan":false,"already_shanghu_invited":false,"last_changed_at":"2018-05-22T07:25:35.000Z","master_type":"yuesao","need_realtime_video_interview":false,"isAskQuestions":false,"isPayMonthly":false,"isPayMonthlyText":"","isPtgPassed":false,"shanghu_at":"2018-10-21T16:00:00.000Z","hasLastPay":true,"master":{"id":68442,"name":"TEST","header":{"small":"http://media-img.putibaby.com/admin_uploaded/1ffb80b1f3cdd791f6ce2e6f76a2e8a9.jpg@!small","big":"http://media-img.putibaby.com/admin_uploaded/1ffb80b1f3cdd791f6ce2e6f76a2e8a9.jpg@!big","fixw":"http://media-img.putibaby.com/admin_uploaded/1ffb80b1f3cdd791f6ce2e6f76a2e8a9.jpg@!fixw","raw":"http://media-img.putibaby.com/admin_uploaded/1ffb80b1f3cdd791f6ce2e6f76a2e8a9.jpg@!raw"},"ptg_price":11200,"work_year":7,"age":30,"jiguan":"北京市","username":"1065269","phone_number":""}}]
     }
   },

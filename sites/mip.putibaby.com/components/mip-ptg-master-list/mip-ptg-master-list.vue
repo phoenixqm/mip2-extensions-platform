@@ -3,6 +3,7 @@
 
 <div class="root">
 
+
   <div class="rec_a">
       <a href="/verify_phone_number_mip" >
         <mip-img class="rec_icon" layout="fixed" width="80px" height="50px" src='i/bwtj.png' ></mip-img>
@@ -41,11 +42,7 @@
         <td>上户城市：</td>
         <td>
           <select name="city" class="city">
-            <%if(data.city == ''){%>
-               <option value="">不限</option>
-            <%}else{%>
-               <option value="<%=data.city%>"><%=data.city%></option>
-            <%}%>
+            <option value="">不限</option>
             <option value="北京">北京</option>
             <option value="天津">天津</option>
             <option value="哈尔滨">哈尔滨</option>
@@ -93,11 +90,7 @@
         <td>月嫂籍贯：</td>
         <td>
           <select name="jiguan" class="jiguan">
-            <%if(data.jiguan == ''){%>
-               <option value="">不限</option>
-            <%}else{%>
-               <option value="<%=data.jiguan%>"><%=data.jiguan%></option>
-            <%}%>
+            <option value="">不限</option>
             <option value="北京">北京</option>
             <option value="天津">天津</option>
             <option value="上海">上海</option>
@@ -139,27 +132,49 @@
         <td>期望价格：</td>
         <td>
           <select name="priceFromSel" class="priceFromSel">
-             <option selected="" value="<%=data.priceFromSel%>"><%=data.priceFromSel%>元</option>
-            <% for(var j=0; j<=50000; j+=1000) {%>
-                <option
-                <%if(j==0){%>selected="true"<%}%>
-                value="<%= j %>">
-                  <%= j %>元
-                </option>
-              <%}%>
-
+            <option value="0">0元</option>
+            <option value="1000">1000元</option>
+            <option value="2000">2000元</option>
+            <option value="3000">3000元</option>
+            <option value="4000">4000元</option>
+            <option value="5000">5000元</option>
+            <option value="6000">6000元</option>
+            <option value="7000">7000元</option>
+            <option value="8000">8000元</option>
+            <option value="9000">9000元</option>
+            <option value="10000">10000元</option>
+            <option value="12000">12000元</option>
+            <option value="14000">14000元</option>
+            <option value="16000">16000元</option>
+            <option value="18000">18000元</option>
+            <option value="20000">20000元</option>
+            <option value="25000">25000元</option>
+            <option value="30000">30000元</option>
+            <option value="35000">35000元</option>
+            <option value="40000">40000元</option>
           </select>
         </td>
         <td><span class="from_to">--</span></td>
         <td>
          <select name="priceToSel" class="priceToSel">
-          <option selected="" value="<%=data.priceToSel%>"><%=data.priceToSel%>元</option>
-          <% for(var j=0; j<=50000; j+=1000) {%>
-            <option value="<%= j %>">
-              <%= j %>元
-            </option>
-          <%}%>
-         </select>
+            <option value="5000">5000元</option>
+            <option value="6000">6000元</option>
+            <option value="7000">7000元</option>
+            <option value="8000">8000元</option>
+            <option value="9000">9000元</option>
+            <option value="10000">10000元</option>
+            <option value="12000">12000元</option>
+            <option value="14000">14000元</option>
+            <option value="16000">16000元</option>
+            <option value="18000">18000元</option>
+            <option value="20000">20000元</option>
+            <option value="25000">25000元</option>
+            <option value="30000">30000元</option>
+            <option value="35000">35000元</option>
+            <option value="40000">40000元</option>
+            <option value="45000">45000元</option>
+            <option value="50000">50000元</option>
+          </select>
         </td>
       </tr>
 
@@ -167,25 +182,29 @@
         <td>年龄要求:</td>
         <td>
           <select name="ageFromSel" class="ageFromSel">
-            <option selected="" value="<%=data.ageFromSel%>"><%=data.ageFromSel%>岁</option>
-            <% for(var j=20; j<=55; j+=5) {%>
-              <option
-                <%if(j==20){%>selected="true"<%}%>
-              value="<%= j %>">
-                <%= j %>岁
-              </option>
-            <%}%>
+            <option value="">不限</option>
+            <option value="20">20岁</option>
+            <option value="25">25岁</option>
+            <option value="30">30岁</option>
+            <option value="35">35岁</option>
+            <option value="40">40岁</option>
+            <option value="45">45岁</option>
+            <option value="50">50岁</option>
+            <option value="55">55岁</option>
           </select>
         </td>
         <td>--</td>
         <td>  
           <select name="ageToSel" class="ageToSel">     
-            <option selected="" value="<%=data.ageToSel%>"><%=data.ageToSel%>岁</option>
-            <% for(var j=20; j<=55; j+=5) {%>
-              <option value="<%= j %>">
-                <%= j %>岁
-              </option>
-            <%}%>
+            <option value="">不限</option>
+            <option value="20">20岁</option>
+            <option value="25">25岁</option>
+            <option value="30">30岁</option>
+            <option value="35">35岁</option>
+            <option value="40">40岁</option>
+            <option value="45">45岁</option>
+            <option value="50">50岁</option>
+            <option value="55">55岁</option>
           </select>
         </td>
     </tr>
@@ -194,29 +213,31 @@
       <td>从业年限:</td>
       <td>
         <select name="workYearFromSel" class="workYearFromSel">
-          <option selected="" value="<%=data.workYearFromSel%>"><%=data.workYearFromSel%>年</option>
-          <% for(var j=1; j<=10; j+=1) {%>
-            <option
-              <%if(j==1){%>selected="true"<%}%>
-            value="<%= j %>">
-              <%= j %>年
-            </option>
-          <%}%>
+          <option value="1">1年</option>
+          <option value="2">2年</option>
+          <option value="3">3年</option>
+          <option value="4">4年</option>
+          <option value="5">5年</option>
+          <option value="6">6年</option>
+          <option value="7">7年</option>
+          <option value="8">8年</option>
+          <option value="9">9年</option>
+          <option value="10">10年</option>
         </select>
       </td>
       <td><span class="from_to">--</span></td>
       <td>
         <select name="workYearToSel" class="workYearToSel">
-          <%if(data.workYearToSel == ''){%>
-            <option selected="" value="">不限</option>
-          <%}else{%>
-            <option selected="" value="<%=data.workYearToSel%>"><%=data.workYearToSel%>年</option>
-          <%}%>
-          <% for(var j=1; j<=10; j+=1) {%>
-            <option value="<%= j %>">
-              <%= j %>年
-            </option>
-          <%}%>
+          <option value="1">1年</option>
+          <option value="2">2年</option>
+          <option value="3">3年</option>
+          <option value="4">4年</option>
+          <option value="5">5年</option>
+          <option value="6">6年</option>
+          <option value="7">7年</option>
+          <option value="8">8年</option>
+          <option value="9">9年</option>
+          <option value="10">10年</option>
         </select>
       </td>
     </tr>
@@ -225,7 +246,8 @@
   </mip-sidebar>
 </mip-form>
 
-<mip-infinitescroll data-src="<%= data.url %>" template="myTemplate">
+
+<mip-infinitescroll data-src="{{ data.url }}" template="myTemplate">
 
    <script type="application/json">
         {
@@ -294,12 +316,13 @@
     </div>
   <div class="cardList">
 </mip-infinitescroll>
-<script src="https://c.mipcdn.com/static/v1/mip-bind/mip-bind.js"></script>
+<!-- <script src="https://c.mipcdn.com/static/v1/mip-bind/mip-bind.js"></script>
 <script src="https://c.mipcdn.com/static/v1/mip-mustache/mip-mustache.js"></script>
 <script src="https://c.mipcdn.com/static/v1/mip-form/mip-form.js"></script>
 <script src="https://c.mipcdn.com/static/v1/mip-sidebar/mip-sidebar.js"></script>
-<script src="https://c.mipcdn.com/static/v1/mip-infinitescroll/mip-infinitescroll.js"></script>
-    </div>
+<script src="https://c.mipcdn.com/static/v1/mip-infinitescroll/mip-infinitescroll.js"></script> -->
+
+</div>
 </template>
 
 
@@ -336,6 +359,9 @@
   /*padding-left: 10%;*/
   text-align: center;
 }
+
+
+
 .header .links td mip-img{
   height: 34px;
   width: 39.5px;
@@ -349,6 +375,7 @@
 .has{
   display: inline-block;
 }
+
 
 mip-img.head_image {
   height: 50px;
@@ -385,6 +412,7 @@ body{
   overflow:-Scroll;
   overflow-x:hidden;
 }
+
 
 .root{
   padding: 2% 2.5%;
@@ -423,27 +451,20 @@ body{
   right:8px;
   margin-top: -16px;
 }
-.cardList .masterCard .mC_info .starBox mip-img{
-  width: 12px;
-  height: 12px;
-  display: inline-block;
-}
-.cardList .masterCard .mC_info .mC_Des{
-  width: 100%;
-  line-height: 1;
-  margin-top: 10px;
-  margin-left: 70px;
-}
+
+
 .cardList .masterCard .mC_info .mC_Des mip-img{
   display: inline-block;
 }
-.cardList .masterCard .mC_info .mC_Des span{
+.cardList .masterCard .mC_info .mC_Des .card_span{
   color: #999;
   display: inline-block;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
+
+
 .cardList .masterCard .mC_info .mC_Des span:nth-of-type(1){
   width: 30px;
 }
@@ -453,6 +474,7 @@ body{
 .cardList .masterCard .mC_info .mC_Des span:nth-of-type(3){
   width: 60px;
 }
+
 .cardList .masterCard .mC_info .mC_Des .icon{
   width: 11px;
   height: 11px;
@@ -468,6 +490,8 @@ body{
   width: 90%;
   margin-left: 70px;
 }
+
+
 .cardList .masterCard .mC_price{
   width: 100%;
   height: 35px;
@@ -479,7 +503,7 @@ body{
   position: absolute;
 }
 .cardList .masterCard .mC_price .line{
-  background-image: url(../i/select_master_card_huanbian.png);
+  /*background-image: url(../i/select_master_card_huanbian.png);*/
   background-size: contain;
   height: 4px;
   width: 100%;
@@ -506,7 +530,7 @@ body{
 }
 
 .line{
-  background: url(../i/show_master_card_footer_hb.png);
+  /*background: url(../i/show_master_card_footer_hb.png);*/
   width: 100%;
   height: 2px;
   background-size: contain;
@@ -580,6 +604,7 @@ td.secondCol {
   width: 83px;
 }
 
+
 #right-sidebar{
   width: 300px;
   padding-left: 10px;
@@ -599,14 +624,14 @@ td.secondCol {
   height: 50px;
   z-index: 99999;
 }
-.root .rec_a .mip-layout-fixed {
+.root .rec_a mip-layout-fixed {
   display: inline-block;
   position: fixed;
   bottom: 60px;
   right: 6px;
 }
 
-.root .rec_a .rec_icon: {
+.root .rec_a .rec_icon {
   position: fixed;
   display: inline-block;
   width: 80px;
@@ -628,15 +653,15 @@ export default {
       type: String,
       default: null
     },
-	dataJsonstr :{
-	  type: String,
-	  default: null
-	  
-	}        
+    dataJsonstr :{
+	    type: String,
+	    default: null
+	  }        
   },
   data () {
-	console.log(this);
-	var pdata = JSON.parse(this.dataJsonstr);
+    console.log(this);
+    this.dataJsonstr = this.dataJsonstr || '{"list":[]}';
+    var pdata = JSON.parse(this.dataJsonstr);
     return {
 		  list: pdata.list,
     }

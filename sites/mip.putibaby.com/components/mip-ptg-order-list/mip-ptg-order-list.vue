@@ -219,10 +219,6 @@ export default {
 	console.log(this);
 	var pdata = JSON.parse(this.dataJsonstr);
     return {
-        items: [
-          { message: 'Foo' },
-          { message: 'Bar' }
-        ],
 		list: pdata.list,
     }
   },

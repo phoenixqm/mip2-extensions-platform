@@ -33,7 +33,10 @@
         </div> 
         <div class="row_footer">
                <div class="btn_list">
-                  <div class="btn tuijianBtn" v-if="state.showTuijianBtn(order.order_number)" @click="handleTuijianBtn">推荐</div>
+                  <div v-model="order" class="btn tuijianBtn" v-if="order.showBtn_tuijian" @click="handleBtn_tuijian(order)">推荐</div>
+                  <div v-model="order" class="btn tuijianBtn" v-if="order.showBtn_shipinyuyue" @click="handleBtn_shipinyuyue(order)">发起视频预约</div>
+                  <div v-model="order" class="btn tuijianBtn" v-if="order.showBtn_qianyue" @click="handleBtn_qianyue(order)">签约</div>
+                  <div v-model="order" class="btn tuijianBtn" v-if="order['签约']" @click="handleBtn_qianyue(order)">签约</div>
                   <div class="btn showBtn">查看合同</div>
                   <div class="btn depositBtn">交定金</div>
                   <div class="btn payBtn">付款</div>
@@ -239,10 +242,14 @@ export default {
       console.log('should set data');
 
     },
-    handleTuijianBtn (order_number) {
-    	console.log('handleTuijianBtn');
-    	console.log(order_number);
-    }
+    handleBtn_shipinyuyue (order) {
+    	console.log('handleBtn_shipinyuyue');
+    	console.log(order);
+    },
+    handleBtn_qianyue (order) {
+    	console.log('handleBtn_qianyue');
+    	console.log(order);
+    },    
   }
 
 

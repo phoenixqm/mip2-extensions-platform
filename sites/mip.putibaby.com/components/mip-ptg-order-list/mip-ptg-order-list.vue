@@ -33,7 +33,7 @@
         </div> 
         <div class="row_footer">
                <div class="btn_list">
-                  <div class="btn tjBtn">推荐</div>
+                  <div class="btn tuijianBtn" v-if="state.showTuijianBtn(order.order_number)" @click="handleTuijianBtn">推荐</div>
                   <div class="btn showBtn">查看合同</div>
                   <div class="btn depositBtn">交定金</div>
                   <div class="btn payBtn">付款</div>
@@ -220,6 +220,9 @@ export default {
 	var pdata = JSON.parse(this.dataJsonstr);
     return {
 		list: pdata.list,
+		state: {
+			showTuijianBtn:true
+		}
     }
   },
   computed: {
@@ -235,6 +238,10 @@ export default {
     load_data () {
       console.log('should set data');
 
+    },
+    handleTuijianBtn (order_number) {
+    	console.log('handleTuijianBtn');
+    	console.log(order_number);
     }
   }
 

@@ -38,28 +38,41 @@
         <div class="row" >
           <div class="left" >真实姓名</div>
           <div class="right" >
-            <input class="input" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名">
+            <input class="input" v-model="contract_mama_name" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名">
             <div target="username">姓名不符合规范</div>
           </div>
         </div>
         <div class="row" >
           <div class="left" >手机号</div>
           <div class="right" >
-            <input class="input" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码">
+            <input class="input" v-model="contract_mama_phone_number" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码">
             <div target="phone_number">手机号码错误</div>
           </div>
         </div>
-        <div class="row" >
+        <div class="row" > 
           <div class="left" >身份证号</div>
           <div class="right" >
-            <input class="input" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码">
+            <input class="input" v-model="contract_mama_id_card" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码">
             <div target="identity">身份证号码错误</div>
           </div>
         </div>
 
-        <div class="row_photo"  >
+		<div class="row_photo"  >
           <div>
-            <mip-img class="id_photo"  src="i/vvv.png" ></mip-img>
+            <input id="f" type="file" name="f" v-on:change="change" display="none"/>
+
+           	<mip-img class="id_photo"  src="i/vvv.png" ></mip-img>
+			
+            <span>身份证正面</span>
+    			<p>
+					<mip-img class="id_photo" layout="responsive" width="185" height="110" id="preview" alt="" name="pic"></mip-img>
+				</p>
+          </div>
+        </div>
+
+        <div class="row_photo"  >
+		  <div>
+           	<mip-img class="id_photo"  src="i/vvv.png" ></mip-img>
             <span>身份证正面</span>
           </div>
             <!-- <mip-img class="mama_info" src="i/vvv.png" alt="请上传照片" ></mip-img> -->
@@ -80,35 +93,35 @@
           <div class="left" >服务时间</div>
           <div class="right" >
             <div class="quantian">
-              <input type="radio" name="service_time" value="quantian"> 全天</input>
+              <input type="radio" name="service_time" value="quantian" v-model="contract_is_offer_allday_service"> 全天</input>
             </div>
             <div class="baiban">
-              <input type="radio" name="service_time" value="baiban"> 白班</input>
+              <input type="radio" name="service_time" value="baiban" v-model="contract_is_offer_allday_service"> 白班</input>
             </div>
           </div>
         </div>
         <div class="row" >
           <div class="left" >上户日期</div>
           <div class="right" >
-            <input class="input_date"  type='date' value='' placeholder='请选择月份/年份'/>
+            <input class="input_date" v-model="contract_shanghu_at" type='date' value='' placeholder='请选择月份/年份'/>
           </div>
         </div>
         <div class="row" >
           <div class="left" >上户时长</div>
           <div class="right" >
-            <input class="input_sc"  type='number' value='' />天
+            <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' />天
           </div>
         </div>
         <div class="row" >
           <div class="left" >26天薪资</div>
           <div class="right" >
-            <input class="inputReadOnly"  type='number' value='' readOnly="readOnly" /> 元
+			<input class="inputReadOnly" type='number' value='' readOnly="readOnly" />{{contract_master_price}} 元
           </div>
         </div>
         <div class="row" >
           <div class="left" >总金额</div>
           <div class="right" >
-            <input class="inputReadOnly"  type='number' value='' readOnly="readOnly" /> 元
+			<input class="inputReadOnly"  type='number' value='' readOnly="readOnly" />{{contract_price}} 元
           </div>
         </div>
         <div class="row" >
@@ -120,7 +133,7 @@
         <div class="row" >
           <div class="left" >定金</div>
           <div class="right" >
-            <input class="inputReadOnly" type='number' value=''/> 元
+			<input class="inputReadOnly" type='number' value='' readOnly="readOnly"/>{{contract_deposit}} 元
           </div>
         </div>
       </div>
@@ -141,14 +154,14 @@
         <div class="row">
           <a href="http://localhost:10066/edit_contract_extra">
             <div class="left" >补充条款</div>
-            <div class="extra_text" ></div>
+            <div class="extra_text" v-model="contract_extra" ></div>
             <mip-img layout="responsive" width="16" height="16" class="jt" src='i/jt-right2.png' ></mip-img>
           </a>
         </div>
         <div class="row" >
           <div class="left" >上户地点</div>
           <div class="right" >
-            <textarea class="input_address" type='text' value='' placeholder='请输入上户的详细地址' ></textarea>
+            <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' ></textarea>
           </div>
         </div>
       </div>
@@ -237,7 +250,7 @@
         position:  absolute;
         top: 10px;
         left: 12px;
-        border-radius: 4px;
+        blrder-radius: 4px;
       }
       .mama_name {
         position: absolute;
@@ -590,6 +603,57 @@
 </style>
 
 <script>
+
+
+var API = {};
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    var error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  }
+}
+
+function parseJSON(response) {
+   return response.json()
+}
+
+API.wrapRet_ = function(api, opts, cb) {
+  console.log('posting to ' + api);
+  fetch(api,{  
+    method: 'POST',
+    credentials: "same-origin",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opts)
+  })
+  .then(checkStatus)
+  .then(parseJSON)
+  .then(ret => {
+    if(ret.success) cb(true, ret.data);
+    else cb(false, ret.error);
+  })  
+  .catch(e => {
+    console.error(e.message); 
+    cb(false, e.message);
+  });
+}
+
+
+API.uploadFile = function(data, cb) {
+  API.wrapRet_(
+    '/api/upload_image', 
+    {
+      'data': data,
+      'target': 'media/image-[md5].jpg'
+    },
+    cb);
+};
+
+
 export default {
   mounted () {
     console.log('This is my first custom component !')
@@ -611,11 +675,52 @@ export default {
   data () {
 	console.log(this);
 	var pdata = JSON.parse(this.dataJsonstr);
+	console.log('1111:',pdata);
+	var data = pdata.order;
+	var master_price = data.master.price_26day;//月嫂价格
+
+	var master_price = !!data.contract_is_offer_allday_service ? 
+	data.master.yuesao_allday_price : 
+	data.master.yuesao_daytime_price;
+	master_price = master_price / 100;
+
+	var price = Math.round(master_price /26 * data.contract_shanghu_length);//通过月嫂价格和上户时长计算的总金额
+	var deposit = Math.round(master_price /26 * data.contract_deposit_min * data.contract_shanghu_length);//通过月嫂价格和上户时长计算的订金
+	if(data.contract_shanghu_length == 0){
+	  	price = 0;
+		deposit = 0;
+		//master_price = 0;
+	}else if(price != data.contract_price) {
+		 price = data.contract_price;
+		deposit = data.contract_deposit;
+		master_price = Math.round(data.contract_price / data.contract_shanghu_length * 26 );
+	}
+
     return {
-		  master: pdata.order.master
+		  master: pdata.order.master,
+		  	contract_mama_name: data.contract_mama_name,
+			contract_mama_phone_number: data.contract_mama_phone_number,
+			contract_mama_id_card: data.contract_mama_id_card,
+			contract_shanghu_at: data.contract_shanghu_at,
+			contract_shanghu_length: data.contract_shanghu_length,
+			contract_location: data.contract_location,
+			contract_price: price,
+			contract_master_price: master_price,
+			contract_deposit: deposit,
+			contract_is_pay_monthly: !!data.contract_is_pay_monthly,
+			contract_is_offer_allday_service: data.contract_is_offer_allday_service,
+			is_show_pay_monthly_btn: data.contract_shanghu_length >= 42 ? true : false,
+			hardcode_deposit: data.hardcode_deposit,
+			contract_mama_id_card_list: data.contract_mama_id_card_list,
+			pics:[],
+		 
+
     }
   },
   computed: {
+	amount: function () {
+																														
+	},
     
   },
   methods: {
@@ -628,7 +733,125 @@ export default {
     load_data () {
       console.log('should set data');
 
-    }
+    },
+  change () {
+    var pic = document.getElementById("preview"),
+        file = document.getElementById("f");
+
+    var ext=file.value.substring(file.value.lastIndexOf(".")+1).toLowerCase();
+
+     // gif在IE浏览器暂时无法显示
+     if(ext!='png'&&ext!='jpg'&&ext!='jpeg'){
+         console.warn("图片的格式必须为png或者jpg或者jpeg格式！"); 
+         return;
+     }
+       this.html5Reader(file);
+     
+},
+uploadFile_(myBase64, fn){
+
+  API.uploadFile(myBase64, function(isOk, res){
+	console.log(res);
+  });
+
+},
+html5Reader (file){
+
+             var that = this;
+     var file = file.files[0];
+  //   var reader = new FileReader();
+  //   reader.readAsDataURL(file);
+   //  reader.onload = function(e){
+
+  //       var pic = document.getElementById("preview").childNodes[1];
+  //       pic.src=this.result;
+  //   }
+
+					function toDataUrl(url, callback) {
+					    var xhr = new XMLHttpRequest();
+					    xhr.onload = function() {
+					        var reader = new FileReader();
+					        reader.onloadend = function() {
+					            callback(reader.result);
+					        };
+					        reader.readAsDataURL(xhr.response);
+					    };
+					    xhr.open('GET', url);
+					    xhr.responseType = 'blob';
+					    xhr.send();
+					}
+					function normalImageSize(w,h) {
+						var nw = 800, nh = 1000;
+						if (w <= nw && h <= nh) {
+							return [w,h];
+						}
+						if (w >= h) {
+							nh = h / (w/nw);
+						} else {
+							nw = w / (h/nh);
+						}
+						return [nw, nh];
+					}
+					function toDataUrl_v2(file, callback) {
+						// ref https://sebastianblade.com/browser-side-image-compress-and-upload/
+						// console.warn("2");
+
+						var reader 	= new FileReader();
+						var image 	= new Image();
+						var canvas 	= document.createElement('canvas');
+						var context = canvas.getContext('2d');
+
+						image.addEventListener('load', function () {  
+						  	// console.warn("5");
+						  	// 规范图片尺寸
+							var S = normalImageSize(image.naturalWidth,image.naturalHeight);
+							canvas.width = S[0];
+							canvas.height = S[1]; 							 
+							// 将图片绘制到 canvas 画布上
+							context.drawImage(image, 0, 0, S[0],S[1]);
+							var quality = 30;
+							var filetype = 'image/jpeg';
+							compressedImageDataURL = canvas.toDataURL(filetype, quality/100);
+							callback(compressedImageDataURL);
+						});
+
+						image.addEventListener('error', function () {  
+						  	console.warn('Image load error');
+						});
+					    reader.onloadend = function(e) {
+					    	// console.warn("4");
+							var dataURL = e.target.result;
+							// fileReader.result (data:image/png;base64,iVBORw0KG...)
+							image.src = dataURL;
+
+					    };
+
+				//	    var xhr = new XMLHttpRequest();
+				//	    xhr.onload = function() {
+							// console.warn("3");
+					        reader.readAsDataURL(file);
+				//	    };
+				//	    xhr.open('GET', url);
+				//	    xhr.responseType = 'blob';
+				//	    xhr.send();
+
+					}
+
+
+			    		console.log(file);
+					toDataUrl_v2(file, function(myBase64) {
+			    		// console.warn(6);
+                         console.log(myBase64);
+						 that.uploadFile_(myBase64, 'id_card_zheng');
+		    
+					});
+
+
+
+
+
+
+ }
   }
 
 

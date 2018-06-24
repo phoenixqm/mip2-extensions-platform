@@ -173,10 +173,10 @@
 
 
 <style scoped>
-      .wrapper {
-        margin: 0 auto;
-        text-align: center;
-      }
+.wrapper {
+  margin: 0 auto;
+  text-align: center;
+}
       * {
         margin: 0px;
         padding: 0px;
@@ -605,25 +605,24 @@ export default {
 	dataJsonstr :{
 	  type: String,
 	  default: null
-
-	}
+	  
+	}        
   },
   data () {
 	console.log(this);
 	var pdata = JSON.parse(this.dataJsonstr);
     return {
-      master: pdata.order.master,
-		  order: pdata.order
+		  master: pdata.order.master
     }
   },
   computed: {
-
+    
   },
   methods: {
     init () {
       console.log('should loading');
       console.log(this.dataJson);
-
+	  
     },
 
     load_data () {

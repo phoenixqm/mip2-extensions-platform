@@ -12,7 +12,6 @@
          <div class="starBox">
               <mip-img v-for="s in data.shanghu_data.star_1_list" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_star.png" ></mip-img>
               <mip-img v-for="s in data.shanghu_data.star_0_list" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_unstar.png" ></mip-img>
-
         </div>
         <p class="mC_Des">
           <span>
@@ -195,9 +194,11 @@
                       400-618-8835
                   </a>
               </td>
-              <td class="td1s">
+              <td class="td-fav" @click="this.handleFav">
                   <a class="a">
-                      <mip-img layout="responisve" width="15px" height="15px" src="i/v2/fav.png" ></mip-img>
+                      <mip-img v-if="data.info.isfav" layout="responisve" width="15px" height="15px" src="i/v2/fav.png" ></mip-img>
+                      <mip-img v-else-if="!data.info.isfav" layout="responisve" width="15px" height="15px" src="i/v2/nofav.png" ></mip-img>
+                      <mip-img v-else layout="responisve" width="15px" height="15px" src="i/v2/nofav.png" ></mip-img>
                   </a>
               </td>                    
 
@@ -676,7 +677,9 @@ export default {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
     return {
-		  data: pdata.data
+		  data: pdata.data,
+		isLogin:pdata.isLogin,
+		isUnion:pdata.isUnion
     }
   },
   computed: {
@@ -686,9 +689,70 @@ export default {
     init () {
       console.log('should loading');
       console.log(this.dataJson);
-	  
-    },
+	   function checkStatus(response) {
+	if (response.status >= 200 && response.status < 300) {
+	  return response
+	} else {
+	  var error = new Error(response.statusText)
+	  error.response = response
+	  throw error
+	}
+  }
 
+  function parseJSON(response) {
+	return response.json()
+  }
+
+	var self = this;
+
+
+	  fetch('/api/get_master_info_for_me',{	
+        method: 'POST',
+        credentials: "same-origin",
+	    headers: {
+	      'Content-Type': 'application/json'
+	    },
+	    body: JSON.stringify({
+		  master_id: this.data.info.id
+	  	})
+      })
+      .then(data => {
+		  return data.json();
+      })
+      .then(data => {
+		  console.log(data);
+          //self.data.info.isfav = data.data.fav;
+         self.$set(self.data.info, 'isfav', data.data.fav);
+      })  
+      .catch(e => {
+		  console.error(e.message); 
+
+	   })
+    },
+	checkLogin_() {
+
+		if(!this.isLogin){
+				window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
+           return;
+		}
+
+		return true;
+	},
+	reload_() {
+
+	},
+    handleFav(){
+        console.log('handleFav');
+		if(!this.checkLogin_()) return;
+		
+		if(this.data.info.fav) {
+         self.$set(self.data.info,'isfav',false);
+			this.unfavMaster_(this.data.info.id, this.reload_);
+		} else {
+         self.$set(self.data.info,'isfav',true);
+			this.favMaster_(this.data.info.id, this.reload_);
+		}
+	},
     load_data () {
       console.log('should set data');
 

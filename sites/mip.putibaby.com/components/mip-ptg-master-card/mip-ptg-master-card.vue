@@ -62,10 +62,10 @@
     <table>
       <tbody>
         <tr>
-          <td>{{ m.skill_list[0].title }}<br />{{ m.skill_list[0].ok_cc }}</td>
-          <td>{{ m.skill_list[1].title }}<br />{{ m.skill_list[1].ok_cc }}</td>
-          <td>{{ m.skill_list[2].title }}<br />{{ m.skill_list[2].ok_cc }}</td>
-          <td>{{ m.skill_list[3].title }}<br />{{ m.skill_list[3].ok_cc }}</td>
+          <td>{{ data.skill_list[0].title }}<br />{{ data.skill_list[0].ok_cc }}</td>
+          <td>{{ data.skill_list[1].title }}<br />{{ data.skill_list[1].ok_cc }}</td>
+          <td>{{ data.skill_list[2].title }}<br />{{ data.skill_list[2].ok_cc }}</td>
+          <td>{{ data.skill_list[3].title }}<br />{{ data.skill_list[3].ok_cc }}</td>
         </tr>
       </tbody>
     </table>
@@ -84,10 +84,10 @@
     <table>
       <tbody>
         <tr>
-          <td>{{ m.skill_list_yuer[0].title }}<br />{{ m.skill_list_yuer[0].ok_cc }}</td>
-          <td>{{ m.skill_list_yuer[1].title }}<br />{{ m.skill_list_yuer[1].ok_cc }}</td>
-          <td>{{ m.skill_list_yuer[2].title }}<br />{{ m.skill_list_yuer[2].ok_cc }}</td>
-          <td>{{ m.skill_list_yuer[3].title }}<br />{{ m.skill_list_yuer[3].ok_cc }}</td>
+          <td>{{ data.skill_list_yuer[0].title }}<br />{{ data.skill_list_yuer[0].ok_cc }}</td>
+          <td>{{ data.skill_list_yuer[1].title }}<br />{{ data.skill_list_yuer[1].ok_cc }}</td>
+          <td>{{ data.skill_list_yuer[2].title }}<br />{{ data.skill_list_yuer[2].ok_cc }}</td>
+          <td>{{ data.skill_list_yuer[3].title }}<br />{{ data.skill_list_yuer[3].ok_cc }}</td>
         </tr>
       </tbody>
     </table>
@@ -104,8 +104,8 @@
       </div>
     <!-- </a> -->
     <div class="picList">
-      <p v-if="m.xc_list.length == 0">没有照片</p>
-      <div v-if="m.xc_list.length > 0">
+      <p v-if="data.xc_list.length == 0">没有照片</p>
+      <div v-if="data.xc_list.length > 0">
           <mip-img v-for="j in [0,1,2,3]" layout="responsive" popup width="70px" height="70px"
            :src="data.xc_list[j].small" ></mip-img>            
       </div>
@@ -191,22 +191,22 @@
           <tr>
               <td class="td1">
                   <a class="a" href='tel:400-618-8835'>
-                      <mip-img layout="responisve" width="15px" height="15px" :src="i/v2/phone.png" ></mip-img>&nbsp;
+                      <mip-img layout="responisve" width="15px" height="15px" src="i/v2/phone.png" ></mip-img>&nbsp;
                       400-618-8835
                   </a>
               </td>
               <td class="td1s">
                   <a class="a">
-                      <mip-img layout="responisve" width="15px" height="15px" :src="i/v2/fav.png" ></mip-img>
+                      <mip-img layout="responisve" width="15px" height="15px" src="i/v2/fav.png" ></mip-img>
                   </a>
               </td>                    
 
               <td v-if="data.info.mianshi" class="td2">
-                  <a :href="'/update_time?master_code=' + data.data.codeid">预约视频面试</a>
+                  <a :href="'/update_time?master_code=' + data.codeid">预约视频面试</a>
               </td>
 
               <td v-else class="td2_active">
-                  <a :href="'/order_list?master_code=' + data.data.codeid">[订单状态]-查看预约</a>
+                  <a :href="'/order_list?master_code=' + data.codeid">[订单状态]-查看预约</a>
               </td> 
               
           </tr>

@@ -656,6 +656,51 @@ td.secondCol {
 </style>
 
 <script>
+
+var API = {};
+
+
+API.wrapRet_ = function(api, opts, cb) {
+  console.log('posting to ' + api);
+  fetch(api,{  
+    method: 'POST',
+    credentials: "same-origin",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opt)
+  })
+  .then(checkStatus)
+  .then(parseJSON)
+  .then(ret => {
+    if(ret.success) cb(true, ret.data);
+    else cb(false, ret.error);
+  })  
+  .catch(e => {
+    console.error(e.message); 
+    cb(false, e.message);
+  });
+}
+
+
+API.favMaster = function(masterId, cb) {
+  API.wrapRet_(
+    '/api/fav_master', 
+    {
+      'master_id': masterId
+    },
+    cb);
+}
+
+
+API.unfavMaster = function(masterId, cb) {
+  API.wrapRet_(
+    '/api/unfav_master', 
+    {
+      'master_id': masterId
+    },cb);
+}
+
 export default {
   mounted () {
     console.log('This is master card component !')
@@ -668,7 +713,7 @@ export default {
       type: String,
       default: null
     },
-	  dataJsonstr :{
+    dataJsonstr :{
       type: String,
       default: null
     }
@@ -677,9 +722,9 @@ export default {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
     return {
-		  data: pdata.data,
-		isLogin:pdata.isLogin,
-		isUnion:pdata.isUnion
+      data: pdata.data,
+      isLogin:pdata.isLogin,
+      isUnion:pdata.isUnion
     }
   },
   computed: {
@@ -689,76 +734,73 @@ export default {
     init () {
       console.log('should loading');
       console.log(this.dataJson);
-	   function checkStatus(response) {
-	if (response.status >= 200 && response.status < 300) {
-	  return response
-	} else {
-	  var error = new Error(response.statusText)
-	  error.response = response
-	  throw error
-	}
-  }
+      this.reload_();
+    },
 
-  function parseJSON(response) {
-	return response.json()
-  }
+  checkLogin_() {
+    if(!this.isLogin){
+        window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
+           return;
+    }
+    return true;
+  },
 
-	var self = this;
+  reload_() {
+    console.log('reloading');
+    function checkStatus(response) {
+      if (response.status >= 200 && response.status < 300) {
+        return response;
+      } else {
+        var error = new Error(response.statusText);
+        error.response = response;
+        throw error;
+      }
+    }
 
+    function parseJSON(response) {
+      return response.json()
+    }
 
-	  fetch('/api/get_master_info_for_me',{	
+    var self = this;
+    fetch('/api/get_master_info_for_me',{  
         method: 'POST',
         credentials: "same-origin",
-	    headers: {
-	      'Content-Type': 'application/json'
-	    },
-	    body: JSON.stringify({
-		  master_id: this.data.info.id
-	  	})
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          master_id: this.data.info.id
+        })
       })
+      .then(checkStatus)
+      // .then(data => {
+      //   return data.json();
+      // })
+      .then(parseJSON)
       .then(data => {
-		  return data.json();
-      })
-      .then(data => {
-		  console.log(data);
-          //self.data.info.isfav = data.data.fav;
-         self.$set(self.data.info, 'isfav', data.data.fav);
+        console.log(data);
+        self.$set(self.data.info, 'isfav', data.data.fav);
       })  
       .catch(e => {
-		  console.error(e.message); 
-
-	   })
-    },
-	checkLogin_() {
-
-		if(!this.isLogin){
-				window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
-           return;
-		}
-
-		return true;
-	},
-	reload_() {
-
-	},
-    handleFav(){
-        console.log('handleFav');
-		if(!this.checkLogin_()) return;
-		
-		if(this.data.info.fav) {
-         self.$set(self.data.info,'isfav',false);
-			this.unfavMaster_(this.data.info.id, this.reload_);
-		} else {
-         self.$set(self.data.info,'isfav',true);
-			this.favMaster_(this.data.info.id, this.reload_);
-		}
-	},
-    load_data () {
+        console.error(e.message); 
+      });
+  },
+  handleFav(){
+    console.log('handleFav');
+    if(!this.checkLogin_()) return;
+    
+    if(this.data.info.fav) {
+      self.$set(self.data.info,'isfav',false);
+      API.unfavMaster_(this.data.info.id, this.reload_);
+    } else {
+      self.$set(self.data.info,'isfav',true);
+      API.favMaster_(this.data.info.id, this.reload_);
+    }
+  },
+  load_data () {
       console.log('should set data');
-
     }
   }
-
 
 }
 </script>

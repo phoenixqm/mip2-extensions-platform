@@ -658,7 +658,19 @@ td.secondCol {
 <script>
 
 var API = {};
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    var error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  }
+}
 
+function parseJSON(response) {
+   return response.json()
+}
 
 API.wrapRet_ = function(api, opts, cb) {
   console.log('posting to ' + api);
@@ -668,7 +680,7 @@ API.wrapRet_ = function(api, opts, cb) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(opt)
+    body: JSON.stringify(opts)
   })
   .then(checkStatus)
   .then(parseJSON)
@@ -682,6 +694,15 @@ API.wrapRet_ = function(api, opts, cb) {
   });
 }
 
+
+API.getMasterInfo = function(masterId, cb) {
+  API.wrapRet_(
+    '/api/get_master_info_for_me', 
+    {
+      'master_id': masterId
+    },
+    cb);
+};
 
 API.favMaster = function(masterId, cb) {
   API.wrapRet_(
@@ -747,54 +768,31 @@ export default {
 
   reload_() {
     console.log('reloading');
-    function checkStatus(response) {
-      if (response.status >= 200 && response.status < 300) {
-        return response;
-      } else {
-        var error = new Error(response.statusText);
-        error.response = response;
-        throw error;
-      }
-    }
-
-    function parseJSON(response) {
-      return response.json()
-    }
 
     var self = this;
-    fetch('/api/get_master_info_for_me',{  
-        method: 'POST',
-        credentials: "same-origin",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          master_id: this.data.info.id
-        })
-      })
-      .then(checkStatus)
-      // .then(data => {
-      //   return data.json();
-      // })
-      .then(parseJSON)
-      .then(data => {
-        console.log(data);
-        self.$set(self.data.info, 'isfav', data.data.fav);
-      })  
-      .catch(e => {
-        console.error(e.message); 
-      });
+	API.getMasterInfo(this.data.info.id, function(isOK, data){
+		if (isOk) {
+            self.$set(self.data.info, 'isfav', data.data.fav);
+		  } else {
+			console.warn(data);
+		  }
+	});
+
   },
   handleFav(){
     console.log('handleFav');
     if(!this.checkLogin_()) return;
     
-    if(this.data.info.fav) {
-      self.$set(self.data.info,'isfav',false);
-      API.unfavMaster_(this.data.info.id, this.reload_);
+    if(this.data.info.isfav) {
+      this.$set(this.data.info,'isfav',false);
+	  console.log(this.data.info);
+      console.log('unFav');
+      API.unfavMaster(this.data.info.id, this.reload_);
     } else {
-      self.$set(self.data.info,'isfav',true);
-      API.favMaster_(this.data.info.id, this.reload_);
+      this.$set(this.data.info,'isfav',true);
+	  console.log(this.data.info);
+      console.log('Fav');
+      API.favMaster(this.data.info.id, this.reload_);
     }
   },
   load_data () {

@@ -1,7 +1,7 @@
 
 <template>
 <div>
-    <div  v-for="order in list">
+    <div  class="row" v-for="order in list">
         <p class='row_p'>
             <span class="status">
                    {{ order.desc_str }}
@@ -32,20 +32,24 @@
 
         </div> 
         <div class="row_footer">
-               <div class="btn_list">
+     		 <div class="btn_list">
                   <div class="btn tuijianBtn" v-if="order.showBtn_tuijian" @click="handleBtn_tuijian(order)">推荐</div>
                   <div class="btn tuijianBtn" v-if="order.showBtn_shipinyuyue" @click="handleBtn_shipinyuyue(order)">发起视频预约</div>
                   <div class="btn tuijianBtn" v-if="order.showBtn_qianyue" @click="handleBtn_qianyue(order)">签约</div>
-                  <div class="btn tuijianBtn" v-if="order['签约']" @click="handleBtn_qianyue(order)">签约</div>
-                  <div class="btn showBtn">查看合同</div>
-                  <div class="btn depositBtn">交定金</div>
-                  <div class="btn payBtn">付款</div>
-                  <div class="btn shanghuBtn">续签</div>
-                  <div class="btn xudanBtn">续签</div>
-                  <div class="btn delBtn">删除</div>
-                  <div class="btn callBtn">联系客服</div>
-               </div>
-              <div class="clear"></div>
+                  <div class="btn " v-if="order.showBtn_chakanshipin" @click="handleBtn_chakanshipin(order)">查看视频</div>
+                  <div class="btn tuijianBtn" v-if="order.showBtn_wodeyuyue" @click="handleBtn_wodeyuyue(order)">我的预约</div>                  
+                  <div class="btn tuijianBtn" v-if="order.showBtn_buheshi" @click="handleBtn_buheshi(order)">不合适</div>
+                  <div class="btn tuijianBtn" v-if="order.showBtn_shanchu" @click="handleBtn_shanchu(order)">删除</div>
+                  <div class="btn tuijianBtn" v-if="order.showBtn_dianhualianxi" @click="handleBtn_dianhualianxi(order)">电话联系</div>
+                  <div class="btn tuijianBtn" v-if="order.showBtn_nidinghetong" @click="handleBtn_nidinghetong(order)">拟定合同</div>
+                  <div class="btn tuijianBtn" v-if="order.showBtn_chakanhetong" @click="handleBtn_chakanhetong(order)">查看合同</div>
+                  <div class="btn tuijianBtn" v-if="order.showBtn_jiaodingjin" @click="handleBtn_jiaodingjin(order)">交定金</div>                 
+                  <div class="btn tuijianBtn" v-if="order.showBtn_shanghu" @click="handleBtn_shanghu(order)">上户</div>
+                  <div class="btn tuijianBtn" v-if="order.showBtn_lianxikefu" @click="handleBtn_lianxikefu(order)">联系客服</div>
+                  <div class="btn tuijianBtn" v-if="order.showBtn_fukuan" @click="handleBtn_fukuan(order)">付款</div>
+                  <div class="btn tuijianBtn" v-if="order.showBtn_xuqian" @click="handleBtn_xuqian(order)">续签</div>
+              </div> 
+		  <div class="clear"></div>
         </div>
     </div>
 </div>
@@ -60,7 +64,7 @@
 }
 
 body{
-   background-color: #f3f3f3;
+   background-color: #f3f3f3 !important;
 }
 .row{
    background: #fff;
@@ -221,6 +225,7 @@ export default {
   data () {
 	console.log(this);
 	var pdata = JSON.parse(this.dataJsonstr);
+    console.log(pdata.list);
     return {
 		list: pdata.list,
 		state: {
@@ -242,14 +247,56 @@ export default {
       console.log('should set data');
 
     },
+	handleBtn_tuijian(order){
+      window.location.href = '/show_master?id=' + order.master.id;
+    },
+
     handleBtn_shipinyuyue (order) {
-    	console.log('handleBtn_shipinyuyue');
-    	console.log(order);
+      window.location.href = '/video_interview_master?master_id=' + order.master.id;
     },
     handleBtn_qianyue (order) {
     	console.log('handleBtn_qianyue');
-    	console.log(order);
-    },    
+      window.location.href = '/show_master?u=' + order.master.username;
+    },  
+    handleBtn_chakanshipin (order) {
+      console.log('handleBtn_chakanshipin');
+      console.log(order);
+      window.location.href = '/show_my_qs_list?id=' + order.id;
+    }, 
+    handleBtn_wodeyuyue (order) {
+      console.log('handleBtn_qianyue');
+      window.location.href = '/show_my_realtime_video_interview?id=' + order.id;
+    }, 
+    handleBtn_buheshi (order) {
+      console.log('handleBtn_qianyue');
+      // window.location.href = '/show_master?u=' + order.master.username;
+      
+    }, 
+    handleBtn_shanchu (order) {
+      console.log('handleBtn_qianyue');
+      // window.location.href = '/show_master?u=' + order.master.username;
+    },     
+    handleBtn_dianhualianxi (order) {
+      console.log('handleBtn_qianyue');
+      window.location.href = 'tel:' + order.master.phone_number;
+    }, 
+    handleBtn_nidinghetong (order) {
+      console.log('handleBtn_qianyue');
+      window.location.href = '/edit_yuesao_contract?id=' + order.id;
+    }, 
+    handleBtn_chakanhetong (order) {
+      console.log('handleBtn_qianyue');
+      window.location.href = '/v2_show_yuesao_contract?id=' + order.id;
+    }, 
+    handleBtn_qianyue (order) {
+      console.log('handleBtn_qianyue');
+      window.location.href = '/show_master?u=' + order.master.username;
+    }, 
+    handleBtn_qianyue (order) {
+      console.log('handleBtn_qianyue');
+      window.location.href = '/show_master?u=' + order.master.username;
+    },
+      
   }
 
 

@@ -850,7 +850,7 @@ export default {
       var data = this.props.data.order;
       var obj = this.state;
       var master = data.master;
-
+	  if(1){}
       else if (fn == "contract_shanghu_length") {
         // 改动上户天数 如果小于42 按月支付为 否
         if (e.target.value <= 42) {
@@ -920,7 +920,7 @@ export default {
       obj.contract_deposit = deposit;
       obj.contract_is_pay_monthly = !!contract_is_pay_monthly;
       obj.contract_is_offer_allday_service = contract_is_offer_allday_service;
-      obj.is_show_pay_monthly_btn = contract_shanghu_length >= 42 ? true = false;
+      obj.is_show_pay_monthly_btn = contract_shanghu_length >= 42 ? true : false;
       obj.hardcode_deposit = hardcode_deposit;
       obj.pics = [];
 
@@ -1017,172 +1017,81 @@ export default {
       }
       API.wrapRet_(
         '/api/submit_contract', {
-          'id': JSON.parse(this.dataJsonstr).order.id;
+          'id': JSON.parse(this.dataJsonstr).order.id
         },
         cb);
 
     },
 
-    // html5Reader(file) {
-    //   var that = this;
-    //   var file = file.files[0];
-    //
-    //   function toDataUrl(url, callback) {
-    //     var xhr = new XMLHttpRequest();
-    //     xhr.onload = function() {
-    //       var reader = new FileReader();
-    //       reader.onloadend = function() {
-    //         callback(reader.result);
-    //       };
-    //       reader.readAsDataURL(xhr.response);
-    //     };
-    //     xhr.open('GET', url);
-    //     xhr.responseType = 'blob';
-    //     xhr.send();
-    //   }
-    //
-    //   function normalImageSize(w, h) {
-    //     var nw = 800,
-    //       nh = 1000;
-    //     if (w <= nw && h <= nh) {
-    //       return [w, h];
-    //     }
-    //     if (w >= h) {
-    //       nh = h / (w / nw);
-    //     } else {
-    //       nw = w / (h / nh);
-    //     }
-    //     return [nw, nh];
-    //   }
-    //
-    //   function toDataUrl_v2(file, callback) {
-    //     // ref https://sebastianblade.com/browser-side-image-compress-and-upload/
-    //
-    //     var reader = new FileReader();
-    //     var image = new Image();
-    //     var canvas = document.createElement('canvas');
-    //     var context = canvas.getContext('2d');
-    //
-    //     image.addEventListener('load', function() {
-    //       // console.warn("5");
-    //       // 规范图片尺寸
-    //       var S = normalImageSize(image.naturalWidth, image.naturalHeight);
-    //       canvas.width = S[0];
-    //       canvas.height = S[1];
-    //       // 将图片绘制到 canvas 画布上
-    //       context.drawImage(image, 0, 0, S[0], S[1]);
-    //       var quality = 30;
-    //       var filetype = 'image/jpeg';
-    //       compressedImageDataURL = canvas.toDataURL(filetype, quality / 100);
-    //       callback(compressedImageDataURL);
-    //     });
-    //
-    //     image.addEventListener('error', function() {
-    //       console.warn('Image load error');
-    //     });
-    //     reader.onloadend = function(e) {
-    //       var dataURL = e.target.result;
-    //       // fileReader.result (data:image/png;base64,iVBORw0KG...)
-    //       image.src = dataURL;
-    //     };
-    //     reader.readAsDataURL(file);
-    //   }
-    //   toDataUrl_v2(file, function(myBase64) {
-    //     that.uploadFile_(myBase64, 'id_card_zheng');
-    //   });
-    // }
+     html5Reader(file) {
+       var that = this;
+       var file = file.files[0];
+    
+      function toDataUrl(url, callback) {
+         var xhr = new XMLHttpRequest();
+         xhr.onload = function() {
+           var reader = new FileReader();
+           reader.onloadend = function() {
+             callback(reader.result);
+           };
+           reader.readAsDataURL(xhr.response);
+         };
+         xhr.open('GET', url);
+         xhr.responseType = 'blob';
+         xhr.send();
+       }
+    
+      function normalImageSize(w, h) {
+         var nw = 800,
+           nh = 1000;
+         if (w <= nw && h <= nh) {
+           return [w, h];
+         }
+         if (w >= h) {
+           nh = h / (w / nw);
+         } else {
+           nw = w / (h / nh);
+         }
+         return [nw, nh];
+     }
+    
+      function toDataUrl_v2(file, callback) {
+         // ref https://sebastianblade.com/browser-side-image-compress-and-upload/
+    
+         var reader = new FileReader();
+         var image = new Image();
+         var canvas = document.createElement('canvas');
+         var context = canvas.getContext('2d');
+    
+         image.addEventListener('load', function() {
+           // console.warn("5");
+           // 规范图片尺寸
+           var S = normalImageSize(image.naturalWidth, image.naturalHeight);
+           canvas.width = S[0];
+           canvas.height = S[1];
+           // 将图片绘制到 canvas 画布上
+           context.drawImage(image, 0, 0, S[0], S[1]);
+           var quality = 30;
+           var filetype = 'image/jpeg';
+           compressedImageDataURL = canvas.toDataURL(filetype, quality / 100);
+           callback(compressedImageDataURL);
+         });
+    
+        image.addEventListener('error', function() {
+           console.warn('Image load error');
+         });
+         reader.onloadend = function(e) {
+           var dataURL = e.target.result;
+           // fileReader.result (data:image/png;base64,iVBORw0KG...)
+           image.src = dataURL;
+         };
+         reader.readAsDataURL(file);
+       }
+       toDataUrl_v2(file, function(myBase64) {
+         that.uploadFile_(myBase64, 'id_card_zheng');
+       });
+     }
   }
-
-  // gif在IE浏览器暂时无法显示
-  if (ext != 'png' && ext != 'jpg' && ext != 'jpeg') {
-    console.warn("图片的格式必须为png或者jpg或者jpeg格式！");
-    return;
-  }
-  this.html5Reader(file);
-
-},
-// uploadFile_(myBase64, fn) {
-//     API.uploadFile(myBase64, function(isOk, res) {
-//       console.log(res);
-//     });
-//   },
-html5Reader(file) {
-  var that = this;
-  var file = file.files[0];
-
-  function toDataUrl(url, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.onload = function() {
-      var reader = new FileReader();
-      reader.onloadend = function() {
-        callback(reader.result);
-      };
-      reader.readAsDataURL(xhr.response);
-    };
-    xhr.open('GET', url);
-    xhr.responseType = 'blob';
-    xhr.send();
-  }
-
-  function normalImageSize(w, h) {
-    var nw = 800,
-      nh = 1000;
-    if (w <= nw && h <= nh) {
-      return [w, h];
-    }
-    if (w >= h) {
-      nh = h / (w / nw);
-    } else {
-      nw = w / (h / nh);
-    }
-    return [nw, nh];
-  }
-
-  function toDataUrl_v2(file, callback) {
-    // ref https://sebastianblade.com/browser-side-image-compress-and-upload/
-    // console.warn("2");
-
-    var reader = new FileReader();
-    var image = new Image();
-    var canvas = document.createElement('canvas');
-    var context = canvas.getContext('2d');
-
-    image.addEventListener('load', function() {
-      // console.warn("5");
-      // 规范图片尺寸
-      var S = normalImageSize(image.naturalWidth, image.naturalHeight);
-      canvas.width = S[0];
-      canvas.height = S[1];
-      // 将图片绘制到 canvas 画布上
-      context.drawImage(image, 0, 0, S[0], S[1]);
-      var quality = 30;
-      var filetype = 'image/jpeg';
-      compressedImageDataURL = canvas.toDataURL(filetype, quality / 100);
-      callback(compressedImageDataURL);
-    });
-
-    image.addEventListener('error', function() {
-      console.warn('Image load error');
-    });
-    reader.onloadend = function(e) {
-      // console.warn("4");
-      var dataURL = e.target.result;
-      // fileReader.result (data:image/png;base64,iVBORw0KG...)
-      image.src = dataURL;
-    };
-    reader.readAsDataURL(file);
-  }
-
-
-
-  // console.log(file);
-  toDataUrl_v2(file, function(myBase64) {
-    console.log(myBase64);
-    that.uploadFile_(myBase64, 'id_card_zheng');
-  });
-
-}
-}
 
 }
 </script>

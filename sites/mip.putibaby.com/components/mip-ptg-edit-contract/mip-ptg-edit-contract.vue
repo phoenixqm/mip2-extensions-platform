@@ -38,54 +38,56 @@
         <div class="row" >
           <div class="left" >真实姓名</div>
           <div class="right" >
-            <input class="input" v-model="contract_mama_name" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名">
+            <input class="input" v-model="contract_mama_name" v-on:change="handleChange_.bind(this,'contract_mama_name')" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名">
             <div target="username">姓名不符合规范</div>
           </div>
         </div>
         <div class="row" >
           <div class="left" >手机号</div>
           <div class="right" >
-            <input class="input" v-model="contract_mama_phone_number" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码">
+            <input class="input" v-model="contract_mama_phone_number" v-on:change="handleChange_.bind(this,'contract_mama_phone_number')`" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码">
             <div target="phone_number">手机号码错误</div>
           </div>
         </div>
         <div class="row" > 
           <div class="left" >身份证号</div>
           <div class="right" >
-            <input class="input" v-model="contract_mama_id_card" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码">
+            <input class="input" v-model="contract_mama_id_card" v-on:change="handleChange_bind(this,'contract_mama_id_card')" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码">
             <div target="identity">身份证号码错误</div>
           </div>
         </div>
 
 		<div class="row_photo"  >
           <div>
-            <input id="f" type="file" name="f" v-on:change="change" display="none"/>
+            <input id="fz" type="file" class="uploadfile" name="f" v-on:change="changeZ" display="none"/>
 
-           	<mip-img class="id_photo"  src="i/vvv.png" ></mip-img>
+           	<mip-img class="id_photo"  :src="contract_mama_id_card_zheng" @click="fileSelectZ"></mip-img>
 			
             <span>身份证正面</span>
-    			<p>
-					<mip-img class="id_photo" layout="responsive" width="185" height="110" id="preview" alt="" name="pic"></mip-img>
-				</p>
+    		
           </div>
         </div>
 
-        <div class="row_photo"  >
-		  <div>
-           	<mip-img class="id_photo"  src="i/vvv.png" ></mip-img>
-            <span>身份证正面</span>
-          </div>
-            <!-- <mip-img class="mama_info" src="i/vvv.png" alt="请上传照片" ></mip-img> -->
-        </div>
-
-        <div class="row_photo"  >
+		<div class="row_photo"  >
           <div>
-            <mip-img class="id_photo"  src="i/vvv.png" ></mip-img>
+            <input id="ff" type="file" class="uploadfile" name="f" v-on:change="changeF" display="none"/>
+
+           	<mip-img class="id_photo"  :src="contract_mama_id_card_fan" @click="fileSelectF"></mip-img>
+
             <span>身份证反面</span>
+
           </div>
-          <!-- <mip-img class="mama_info" src="i/vvv.png" alt="请上传照片" ></mip-img> -->
+		</div>
+
+        <div class="row_photo"  >
+	
+        </div>
+
+        <div class="row_photo"  >
+         
         </div>
       </div>
+	  
 
       <div class="shanghu_info">
         <div class="sub_head" >上户信息</div>
@@ -93,23 +95,23 @@
           <div class="left" >服务时间</div>
           <div class="right" >
             <div class="quantian">
-              <input type="radio" name="service_time" value="quantian" v-model="contract_is_offer_allday_service"> 全天</input>
+              <input type="radio" name="service_time" value="quantian" v-model="contract_is_offer_allday_service" v-on:change="handleChange_.bind(this,'contract_is_offer_allday_service')" > 全天</input>
             </div>
             <div class="baiban">
-              <input type="radio" name="service_time" value="baiban" v-model="contract_is_offer_allday_service"> 白班</input>
+              <input type="radio" name="service_time" value="baiban" v-model="contract_is_offer_allday_service" v-on:change="handleChange_.bind(this,'contract_is_offer_allday_service')"> 白班</input>
             </div>
           </div>
         </div>
         <div class="row" >
           <div class="left" >上户日期</div>
           <div class="right" >
-            <input class="input_date" v-model="contract_shanghu_at" type='date' value='' placeholder='请选择月份/年份'/>
+            <input class="input_date" v-model="contract_shanghu_at" type='date' value='' placeholder='请选择月份/年份' v-on:change="handleChange_.bind(this,'contract_shanghu_at')"/>
           </div>
         </div>
         <div class="row" >
           <div class="left" >上户时长</div>
           <div class="right" >
-            <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' />天
+            <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:change="handleChange_.bind(this,'contract_shanghu_length')" />天
           </div>
         </div>
         <div class="row" >
@@ -133,7 +135,7 @@
         <div class="row" >
           <div class="left" >定金</div>
           <div class="right" >
-			<input class="inputReadOnly" type='number' value='' readOnly="readOnly"/>{{contract_deposit}} 元
+			<input class="inputReadOnly" type='number' value='' readOnly="readOnly" v-on:change="handleChange_.bind(this,'contract_deposit')"/>{{contract_deposit}} 元
           </div>
         </div>
       </div>
@@ -161,7 +163,7 @@
         <div class="row" >
           <div class="left" >上户地点</div>
           <div class="right" >
-            <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' ></textarea>
+            <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:change="handleChange_.bind(this,'contract_location')"></textarea>
           </div>
         </div>
       </div>
@@ -176,7 +178,7 @@
       </div>
 
       <div class="submit">
-        <input class="btn" type="submit" value="我同意以上所有条款，提交">
+        <input class="btn" type="submit" value="我同意以上所有条款，提交" v-on:click="submit"/>
       </div>
 
   </mip-form>
@@ -227,7 +229,7 @@
         margin: 0 auto;
         position: relative;
         background-color: #fff;
-        height: 450px;
+        height: 345px;
       }
       .mama_info {
         background: #fff;
@@ -596,7 +598,10 @@
         top: 15px;
         margin-left: -35px;
         text-align: center;
-      }
+	  }
+	  .row_photo .uploadfile {
+		display: none;
+	  }
 
 
 
@@ -662,6 +667,7 @@ export default {
     this.init()
   },
   props: {
+  
     src: {
       type: String,
       default: null
@@ -711,7 +717,9 @@ export default {
 			contract_is_offer_allday_service: data.contract_is_offer_allday_service,
 			is_show_pay_monthly_btn: data.contract_shanghu_length >= 42 ? true : false,
 			hardcode_deposit: data.hardcode_deposit,
-			contract_mama_id_card_list: data.contract_mama_id_card_list,
+			contract_mama_id_card_zheng: data.contract_mama_id_card_list[0],
+
+			contract_mama_id_card_fan: data.contract_mama_id_card_list[1],
 			pics:[],
 		 
 
@@ -734,9 +742,19 @@ export default {
       console.log('should set data');
 
     },
-  change () {
+	fileSelectZ() {
+	  //console.log('88:',this);
+	  	this.cur_image_fn = 'zheng';
+		document.getElementById("fz").click();
+	},
+	fileSelectF() {
+	  this.cur_image_fn = 'fan';
+		document.getElementById("ff").click();
+	},
+
+  changeZ () {
     var pic = document.getElementById("preview"),
-        file = document.getElementById("f");
+        file = document.getElementById("fz");
 
     var ext=file.value.substring(file.value.lastIndexOf(".")+1).toLowerCase();
 
@@ -748,24 +766,55 @@ export default {
        this.html5Reader(file);
      
 },
-uploadFile_(myBase64, fn){
 
+changeF () {
+	var pic = document.getElementById("fan"),
+	file = document.getElementById("ff");
+	var ext =  file.value.substring(file.value.lastIndexOf(".")+1).toLowerCase();
+	if(ext!='png'&&ext!='jpg'&&ext!='jpeg'){
+	console.log("图片的格式必须为png或者jpg或者jpeg格式! ");
+	return;
+	}
+	this.html5Reader(file);
+},
+
+uploadFile_(myBase64, fn){
+	var self = this;
   API.uploadFile(myBase64, function(isOk, res){
-	console.log(res);
+	console.log('2222',res);
+	if(self.cur_image_fn == 'zheng') {
+	self.$set(self,'contract_mama_id_card_zheng',res.raw);
+	self.cur_image_fn = '';
+  }else if(self.cur_image_fn =='fan'){
+	self.$set(self,'contract_mama_id_card_fan',res.raw);
+	self.cur_image_fn = '';
+  }
   });
 
 },
+
+submit () {
+
+	console.log('thisdata:',JSON.parse(this.dataJsonstr));
+	console.log('data:',this.data);
+	console.log('this:',this._data);
+
+  API.wrapRet_(
+    '/api/submit_contract', 
+    {
+      'order': this._data
+    },
+    cb);
+
+},
+
+
+
 html5Reader (file){
 
              var that = this;
      var file = file.files[0];
-  //   var reader = new FileReader();
-  //   reader.readAsDataURL(file);
-   //  reader.onload = function(e){
 
-  //       var pic = document.getElementById("preview").childNodes[1];
-  //       pic.src=this.result;
-  //   }
 
 					function toDataUrl(url, callback) {
 					    var xhr = new XMLHttpRequest();
@@ -838,10 +887,10 @@ html5Reader (file){
 					}
 
 
-			    		console.log(file);
+			    	//	console.log(file);
 					toDataUrl_v2(file, function(myBase64) {
 			    		// console.warn(6);
-                         console.log(myBase64);
+                         //console.log('44444444',myBase64);
 						 that.uploadFile_(myBase64, 'id_card_zheng');
 		    
 					});

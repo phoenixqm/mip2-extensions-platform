@@ -204,6 +204,70 @@ body{
 </style>
 
 <script>
+
+var API = {};
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    var error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  }
+}
+
+function parseJSON(response) {
+   return response.json()
+}
+
+API.wrapRet_ = function(api, opts, cb) {
+  console.log('posting to ' + api);
+  fetch(api,{  
+    method: 'POST',
+    credentials: "same-origin",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opts)
+  })
+  .then(checkStatus)
+  .then(parseJSON)
+  .then(ret => {
+    if(ret.success) cb(true, ret.data);
+    else cb(false, ret.error);
+  })  
+  .catch(e => {
+    console.error(e.message); 
+    cb(false, e.message);
+  });
+}
+
+API.rejectInterview = function(masterId, cb) {
+  API.wrapRet_(
+    '/api/reject_interview', 
+    {
+      'id': masterId
+    },
+    cb);
+};
+
+API.hideFinishedOrder = function(masterId, cb) {
+  API.wrapRet_(
+    '/api/hide_finished_order', 
+    {
+      'id': masterId
+    },
+    cb);
+};
+
+API.doShanghu = function(masterId, cb) {
+  API.wrapRet_(
+    '/api/do_shanghu', 
+    {
+      'id': masterId
+    },
+    cb);
+};
 export default {
   mounted () {
     console.log('This is my first custom component !')
@@ -247,7 +311,17 @@ export default {
       console.log('should set data');
 
     },
-	handleBtn_tuijian(order){
+
+    reload_(){
+      var href = self.location.href;
+      if(href.indexOf('?') >= 0){
+        self.location.href = href + '&_=' + Math.random();
+      }
+      else{
+        self.location.href = href + '?_=' + Math.random();
+      }
+    },
+	  handleBtn_tuijian(order){
       window.location.href = '/show_master?id=' + order.master.id;
     },
 
@@ -255,48 +329,83 @@ export default {
       window.location.href = '/video_interview_master?master_id=' + order.master.id;
     },
     handleBtn_qianyue (order) {
-    	console.log('handleBtn_qianyue');
       window.location.href = '/show_master?u=' + order.master.username;
     },  
     handleBtn_chakanshipin (order) {
-      console.log('handleBtn_chakanshipin');
-      console.log(order);
       window.location.href = '/show_my_qs_list?id=' + order.id;
     }, 
     handleBtn_wodeyuyue (order) {
-      console.log('handleBtn_qianyue');
       window.location.href = '/show_my_realtime_video_interview?id=' + order.id;
     }, 
     handleBtn_buheshi (order) {
-      console.log('handleBtn_qianyue');
-      // window.location.href = '/show_master?u=' + order.master.username;
+      if(!confirm('确定?')) return;
+      API.rejectInterview(order.id,function(isOK, data){
+      if (isOk) {
+        this.reload_();
+        } else {
+        console.warn(data);
+        }
+      });
+
+      // $.post('/api/reject_interview', {
+      //   'id': x.id
+      // })
+      // .done(function(ret) {
+      //   if(ret && ret.success) {
+      //     this.reload_();
+      //     return;
+      //   }
+
+      //   alert('操作失败: ' + ret?ret.error:'');
+      // }.bind(this))
+      // .fail(function(err) {
+      //   alert('操作失败: ' + err);
+      // });
       
     }, 
     handleBtn_shanchu (order) {
-      console.log('handleBtn_qianyue');
-      // window.location.href = '/show_master?u=' + order.master.username;
+      if(!confirm('确定要删除?')) return;
+      API.hideFinishedOrder(order.id,function(isOK, data){
+      if (isOk) {
+        this.reload_();
+        } else {
+        console.warn(data);
+        }
+      });
+
     },     
     handleBtn_dianhualianxi (order) {
-      console.log('handleBtn_qianyue');
       window.location.href = 'tel:' + order.master.phone_number;
     }, 
     handleBtn_nidinghetong (order) {
-      console.log('handleBtn_qianyue');
       window.location.href = '/edit_yuesao_contract?id=' + order.id;
     }, 
     handleBtn_chakanhetong (order) {
-      console.log('handleBtn_qianyue');
       window.location.href = '/v2_show_yuesao_contract?id=' + order.id;
     }, 
-    handleBtn_qianyue (order) {
-      console.log('handleBtn_qianyue');
-      window.location.href = '/show_master?u=' + order.master.username;
+    handleBtn_jiaodingjin (order) {
+      window.location.href = '/v2_do_pay?order_id=' + order.id;
     }, 
-    handleBtn_qianyue (order) {
-      console.log('handleBtn_qianyue');
-      window.location.href = '/show_master?u=' + order.master.username;
+    handleBtn_shanghu (order) {
+      if(!confirm('确定要现在执行上户?')) return;
+      API.doShanghu(order.id,function(isOK, data){
+      if (isOk) {
+        this.reload_();
+        } else {
+        console.warn(data);
+        }
+      });    
     },
-      
+
+    handleBtn_lianxikefu (order) {
+      window.location.href = 'tel:400-618-8835';
+    }, 
+    handleBtn_fukuan (order) {
+      window.location.href = '/v2_do_pay?order_id=' + order.id;
+    }, 
+    handleBtn_xuqian (order) {
+      window.location.href = '/v2_edit_xudan_yuesao_contract?order_id=' + order.id;
+    }, 
   }
 
 

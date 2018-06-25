@@ -190,15 +190,14 @@
           <tr>
               <td class="td1">
                   <a class="a" href='tel:400-618-8835'>
-                      <mip-img layout="responisve" width="15px" height="15px" src="i/v2/phone.png" ></mip-img>&nbsp;
-                      400-618-8835
+                      <mip-img layout="responisve" width="38px" height="32px" src="i/card_ph.png" ></mip-img>
                   </a>
               </td>
               <td class="td-fav" @click="this.handleFav">
                   <a class="a">
-                      <mip-img v-if="data.info.isfav" layout="responisve" width="15px" height="15px" src="i/v2/fav.png" ></mip-img>
-                      <mip-img v-else-if="!data.info.isfav" layout="responisve" width="15px" height="15px" src="i/v2/nofav.png" ></mip-img>
-                      <mip-img v-else layout="responisve" width="15px" height="15px" src="i/v2/nofav.png" ></mip-img>
+                      <mip-img v-if="data.info.isfav" layout="responisve" width="29px" height="35px" src="i/has_fav.png" ></mip-img>
+                      <mip-img v-else-if="!data.info.isfav" layout="responisve" width="21px" height="35px" src="i/un_fav.png" ></mip-img>
+                      <mip-img v-else layout="responisve" width="21px" height="35px" src="i/un_fav.png" ></mip-img>
                   </a>
               </td>                    
 
@@ -206,7 +205,7 @@
                   <a :href="'/update_time?master_code=' + data.codeid">预约视频面试</a>
               </td>
 
-              <td v-else class="td2_active">
+              <td v-else class="td2">
                   <a :href="'/order_list?master_code=' + data.codeid">[订单状态]-查看预约</a>
               </td> 
               
@@ -570,10 +569,11 @@ td.secondCol {
 .tbl{
     width:100%;
     text-align: center;
-    height: 40px;
+    height: 50px;
     border-top: 1px solid #ddd;
     position: fixed;
     bottom: 0;
+    background-color: #fff;
 }
 .tbl td{
     border-right:1px solid #ddd;
@@ -583,13 +583,6 @@ td.secondCol {
     background-color: #fff;
 }
 
-.td2_active { 
-    cursor: pointer;
-    background-color: #999;
-}
-.td2_active a{ 
-    color:white !important;
-}
 .td2{
     cursor: pointer;
     background-color: #adcd41;

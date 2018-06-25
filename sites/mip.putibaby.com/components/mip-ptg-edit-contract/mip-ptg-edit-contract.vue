@@ -60,9 +60,7 @@
       <div class="row_photo">
         <div>
           <input id="fz" type="file" class="uploadfile" name="f" v-on:change="changeZ" display="none" />
-
           <mip-img class="id_photo" :src="contract_mama_id_card_zheng" @click="fileSelectZ"></mip-img>
-
           <span>身份证正面</span>
 
         </div>
@@ -163,7 +161,7 @@
       <div class="row">
         <div class="left">上户地点</div>
         <div class="right">
-          <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:change="handleChange_.bind(this,'contract_location')"></textarea>
+          <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:change="contract_locationChange_"></textarea>
         </div>
       </div>
     </div>
@@ -765,13 +763,10 @@ export default {
       console.log(this.dataJson);
 
     },
-
     load_data() {
       console.log('should set data');
-
     },
     fileSelectZ() {
-      //console.log('88:',this);
       this.cur_image_fn = 'zheng';
       document.getElementById("fz").click();
     },
@@ -779,25 +774,22 @@ export default {
       this.cur_image_fn = 'fan';
       document.getElementById("ff").click();
     },
-
     changeZ() {
       var pic = document.getElementById("preview"),
         file = document.getElementById("fz");
 
       var ext = file.value.substring(file.value.lastIndexOf(".") + 1).toLowerCase();
-
       // gif在IE浏览器暂时无法显示
       if (ext != 'png' && ext != 'jpg' && ext != 'jpeg') {
         console.warn("图片的格式必须为png或者jpg或者jpeg格式！");
         return;
       }
       this.html5Reader(file);
-
     },
-
     changeF() {
       var pic = document.getElementById("fan"),
         file = document.getElementById("ff");
+
       var ext = file.value.substring(file.value.lastIndexOf(".") + 1).toLowerCase();
       if (ext != 'png' && ext != 'jpg' && ext != 'jpeg') {
         console.log("图片的格式必须为png或者jpg或者jpeg格式! ");
@@ -805,7 +797,6 @@ export default {
       }
       this.html5Reader(file);
     },
-
     uploadFile_(myBase64, fn) {
       var self = this;
       API.uploadFile(myBase64, function(isOk, res) {
@@ -818,27 +809,221 @@ export default {
           self.cur_image_fn = '';
         }
       });
+    },
+
+
+    contract_is_offer_allday_serviceChange_(fn) {
+      if (fn == 'contract_is_offer_allday_service') {
+        contract_is_offer_allday_service = true;
+        contract_master_price = master.yuesao_allday_price / 100;
+      } else {
+        contract_is_offer_allday_service = false;
+        contract_master_price = master.yuesao_daytime_price / 100;
+      }
+      this.saveIt_();
+    },
+    contract_mama_nameChange_(fn) {
+
+    },
+    contract_mama_phone_numberChange_(fn, e) {
+
+    },
+    contract_mama_id_cardChange_(fn, e) {
+
+    },
+    contract_shanghu_lengthChange_(fn) {
+      if (fn == 'contract_shanghu_length') {
+        var djb = 0.12; //定金比默认值
+        // 定金比分段函数
+        if (contract_shanghu_length <= 25 && contract_shanghu_length >= 16) {
+          djb = 0.2;
+        } else if (contract_shanghu_length <= 15 && contract_shanghu_length >= 10) {
+          djb = 0.3;
+        } else if (contract_shanghu_length <= 9 && contract_shanghu_length >= 0) {
+          djb = 1.0;
+        }
+        contract_deposit_min = djb;
+      }
+    },
+
+    handleChange_(fn, e) {
+      var data = this.props.data.order;
+      var obj = this.state;
+      var master = data.master;
+
+      else if (fn == "contract_shanghu_length") {
+        // 改动上户天数 如果小于42 按月支付为 否
+        if (e.target.value <= 42) {
+          // obj.contract_is_pay_monthly = false;
+          obj.is_show_pay_monthly_btn = false;
+        } else {
+          obj.is_show_pay_monthly_btn = true;
+          // obj.contract_is_pay_monthly = true;
+        }
+        obj[fn] = e.target.value;
+        var length = e.target.value;
+
+        var djb = 0.12; //定金比默认值
+        // 定金比分段函数
+        if (length <= 25 && length >= 16) {
+          djb = 0.2;
+        } else if (length <= 15 && length >= 10) {
+          djb = 0.3;
+        } else if (length <= 9 && length >= 0) {
+          djb = 1.0;
+        }
+
+        data.contract_deposit_min = djb;
+        obj.contract_deposit_min = djb;
+
+
+      } else {
+        obj[fn] = e.target.value;
+      }
+
+      //如果修改了上户天数 或 26薪资 重新计算订金和总金额
+      obj.contract_price = Math.round(this.state.contract_master_price / 26 * this.state.contract_shanghu_length * 100) / 100;
+      //计算订金
+      if (obj.contract_is_pay_monthly) {
+        obj['contract_deposit'] = Math.round(this.state.contract_master_price * data.contract_deposit_min * 100) / 100;
+      } else {
+        obj['contract_deposit'] = Math.round(data.contract_deposit_min * obj['contract_master_price'] / 26 * obj['contract_shanghu_length'] * 100) / 100;
+        //obj['contract_deposit'] = Math.round(data.contract_deposit_min * Math.round(obj['contract_master_price'] * obj['contract_shanghu_length'])*100)/100;
+      }
+
+      this.setState(obj);
+
+      if (this.saveTimer_) {
+        clearTimeout(this.saveTimer_);
+      }
+      this.saveTimer_ = setTimeout(this.saveIt_, 500);
+    },
+
+    saveIt_() {
+      // var data = this.props.data.order;
+      var obj = {};
+
+      if (contract_deposit_min == 1) {
+        obj.contract_deposit = obj.contract_price;
+      }
+      var pdata = JOSN.parse(this.dataJsonstr);
+      obj.id = pdata.order.id;
+      obj.contract_mama_id_card_list = contract_mama_id_card_zheng + ',' + contract_mama_id_card_fan;
+      obj.contract_mama_name = contract_mama_name;
+      obj.contract_mama_phone_number = contract_mama_phone_number;
+      obj.contract_mama_id_card = contract_mama_id_card;
+      obj.contract_shanghu_at = contract_shanghu_at;
+      obj.contract_shanghu_length = contract_shanghu_length;
+      obj.contract_location = contract_location;
+      obj.contract_price = price;
+      obj.contract_master_price = master_price;
+      obj.contract_deposit = deposit;
+      obj.contract_is_pay_monthly = !!contract_is_pay_monthly;
+      obj.contract_is_offer_allday_service = contract_is_offer_allday_service;
+      obj.is_show_pay_monthly_btn = contract_shanghu_length >= 42 ? true = false;
+      obj.hardcode_deposit = hardcode_deposit;
+      obj.pics = [];
+
+      API.wrapRet_(
+        '/api/set_contract', obj,
+        cb);
 
     },
 
-    submit() {
+    handleSubmit_() {
+      var pdata = JSON.parse(this.dataJsonstr);
 
-      console.log('thisdata:', JSON.parse(this.dataJsonstr));
-      console.log('data:', this.data);
-      console.log('this:', this._data);
+      // 检查基本信息
+      // var info = oa({}, this.state);
+      if (pdata.order.contract_deposit_min == 1) {
+        contract_deposit = contract_price;
+      }
 
+      if (!/\S+/.test(contract_mama_name)) {
+        alert('请填写正确的姓名');
+        return;
+      }
+      if (!/\S+/.test(contract_mama_phone_number)) {
+        alert('请填写正确的电话号码');
+        return;
+      }
+
+      var idCard = contract_mama_id_card;
+
+      function Trim(str) {
+        idCard = str.replace(/\s/gi, '');
+        return idCard;
+      }
+      Trim(idCard);
+
+      //15位和18位身份证号码的正则表达式
+      var regIdCard = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+      //如果通过该验证，说明身份证格式正确，但准确性还需计算
+      if (regIdCard.test(idCard)) {
+        if (idCard.length == 18) {
+          var idCardWi = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2); //将前17位加权因子保存在数组里
+          var idCardY = new Array(1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2); //这是除以11后，可能产生的11位余数、验证码，也保存成数组
+          var idCardWiSum = 0; //用来保存前17位各自乖以加权因子后的总和
+          for (var i = 0; i < 17; i++) {
+            idCardWiSum += idCard.substring(i, i + 1) * idCardWi[i];
+          }
+          var idCardMod = idCardWiSum % 11; //计算出校验码所在数组的位置
+          var idCardLast = idCard.substring(17); //得到最后一位身份证号码
+          //如果等于2，则说明校验码是10，身份证号码最后一位应该是X
+          if (idCardMod == 2) {
+            if (idCardLast == "X" || idCardLast == "x") {
+              // alert("恭喜通过验证啦！");
+            } else {
+              alert("身份证号码错误！");
+              return;
+            }
+          } else {
+            //用计算出的验证码与最后一位身份证号码匹配，如果一致，说明通过，否则是无效的身份证号码
+            if (idCardLast == idCardY[idCardMod]) {
+              // alert("恭喜通过验证啦！");
+            } else {
+              alert("身份证号码错误！");
+              return;
+            }
+          }
+        }
+      } else {
+        alert("身份证格式不正确!");
+        return;
+      }
+
+      if (!/^\d\d\d\d\-\d\d\-\d\d$/.test(contract_shanghu_at)) {
+        alert('请填写正确的上户时间，类似2017-01-01');
+        return;
+      }
+      if (!contract_price || +contract_price < 1) {
+        alert('请填写正确的价格');
+        return;
+      }
+
+      if (!/\S+/.test(contract_location)) {
+        alert('请填写正确的上户地点');
+        return;
+      }
+
+      var idCard_z = contract_mama_id_card_list[0];
+      var idCard_f = contract_mama_id_card_list[1];
+      if (!idCard_z || idCard_z == null || !idCard_f || idCard_f == null) {
+        alert('请确认身份证正反面都已上传无误');
+        return;
+      }
+      if (!confirm("请确认填写的信息正确无误")) {
+        return;
+      }
       API.wrapRet_(
         '/api/submit_contract', {
-          'order': this._data
+          'id': JSON.parse(this.dataJsonstr).order.id;
         },
         cb);
 
     },
 
-
-
     html5Reader(file) {
-
       var that = this;
       var file = file.files[0];
 
@@ -872,7 +1057,6 @@ export default {
 
       function toDataUrl_v2(file, callback) {
         // ref https://sebastianblade.com/browser-side-image-compress-and-upload/
-        // console.warn("2");
 
         var reader = new FileReader();
         var image = new Image();
@@ -897,32 +1081,15 @@ export default {
           console.warn('Image load error');
         });
         reader.onloadend = function(e) {
-          // console.warn("4");
           var dataURL = e.target.result;
           // fileReader.result (data:image/png;base64,iVBORw0KG...)
           image.src = dataURL;
-
         };
-
-        //	    var xhr = new XMLHttpRequest();
-        //	    xhr.onload = function() {
-        // console.warn("3");
         reader.readAsDataURL(file);
-        //	    };
-        //	    xhr.open('GET', url);
-        //	    xhr.responseType = 'blob';
-        //	    xhr.send();
-
       }
-
-      //	console.log(file);
       toDataUrl_v2(file, function(myBase64) {
-        // console.warn(6);
-        //console.log('44444444',myBase64);
         that.uploadFile_(myBase64, 'id_card_zheng');
-
       });
-
     }
   }
 
@@ -935,7 +1102,6 @@ export default {
 
 },
 uploadFile_(myBase64, fn) {
-
     API.uploadFile(myBase64, function(isOk, res) {
       console.log(res);
     });

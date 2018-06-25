@@ -733,6 +733,7 @@ export default {
 
     return {
       master: pdata.order.master,
+	  order: pdata.order,
       contract_mama_name: data.contract_mama_name,
       contract_mama_phone_number: data.contract_mama_phone_number,
       contract_mama_id_card: data.contract_mama_id_card,
@@ -815,10 +816,10 @@ export default {
     contract_is_offer_allday_serviceChange_(fn) {
       if (fn == 'contract_is_offer_allday_service') {
         contract_is_offer_allday_service = true;
-        contract_master_price = master.yuesao_allday_price / 100;
+        contract_master_price = this.master.yuesao_allday_price / 100;
       } else {
         contract_is_offer_allday_service = false;
-        contract_master_price = master.yuesao_daytime_price / 100;
+        contract_master_price = this.master.yuesao_daytime_price / 100;
       }
       this.saveIt_();
     },
@@ -906,8 +907,7 @@ export default {
       if (contract_deposit_min == 1) {
         obj.contract_deposit = obj.contract_price;
       }
-      var pdata = JOSN.parse(this.dataJsonstr);
-      obj.id = pdata.order.id;
+      obj.id = this.order.id;
       obj.contract_mama_id_card_list = contract_mama_id_card_zheng + ',' + contract_mama_id_card_fan;
       obj.contract_mama_name = contract_mama_name;
       obj.contract_mama_phone_number = contract_mama_phone_number;
@@ -926,7 +926,7 @@ export default {
 
       API.wrapRet_(
         '/api/set_contract', obj,
-        cb);
+		function(isOk,res){console.log(res);});
 
     },
 

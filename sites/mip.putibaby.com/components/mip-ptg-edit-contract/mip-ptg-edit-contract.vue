@@ -38,21 +38,21 @@
       <div class="row">
         <div class="left">真实姓名</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_name" v-on:change="contract_mama_name_change_" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名">
+          <input class="input" v-model="contract_mama_name" v-on:blur="contract_mama_name_change_" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名">
           <div target="username">姓名不符合规范</div>
         </div>
       </div>
       <div class="row">
         <div class="left">手机号</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_phone_number" v-on:change="contract_mama_phone_number_change_" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码">
+          <input class="input" v-model="contract_mama_phone_number" v-on:blur="contract_mama_phone_number_change_" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码">
           <div target="phone_number">手机号码错误</div>
         </div>
       </div>
       <div class="row">
         <div class="left">身份证号</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_id_card" v-on:change="contract_mama_id_card_change_" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码">
+          <input class="input" v-model="contract_mama_id_card" v-on:blur="contract_mama_id_card_change_" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码">
           <div target="identity">身份证号码错误</div>
         </div>
       </div>
@@ -111,7 +111,7 @@
       <div class="row">
         <div class="left">上户时长</div>
         <div class="right">
-          <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:change="contract_shanghu_length_change_" />天
+          <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:blur="contract_shanghu_length_change_" />天
         </div>
       </div>
       <div class="row">
@@ -799,6 +799,7 @@ export default {
 
       contract_mama_id_card_fan: data.contract_mama_id_card_list[1],
       pics: [],
+	  contract_deposit_min: data.contract_deposit_min,
 
 
     }
@@ -847,15 +848,18 @@ export default {
       this.html5Reader(file);
     },
     uploadFile_(myBase64, fn) {
+	  console.log('dsjfjkshfkjhkfhk:',this);
       var self = this;
       API.uploadFile(myBase64, function(isOk, res) {
-        console.log('2222', res);
+        console.log('2222', self);
         if (self.cur_image_fn == 'zheng') {
           self.$set(self, 'contract_mama_id_card_zheng', res.raw);
           self.cur_image_fn = '';
+		  self.saveIt_();
         } else if (self.cur_image_fn == 'fan') {
           self.$set(self, 'contract_mama_id_card_fan', res.raw);
           self.cur_image_fn = '';
+		  self.saveIt_();
         }
       });
     },
@@ -870,6 +874,7 @@ export default {
       } else {
         this.contract_master_price = this.master.yuesao_daytime_price / 100;
       }
+	  console.log('999999999999999999:',this.contract_master_price);
       this.saveIt_();
     },
     contract_mama_name_change_(fn) {
@@ -914,7 +919,8 @@ export default {
     saveIt_() {
 
      this.contract_price = Math.round(this.contract_master_price /26 * this.contract_shanghu_length * 100)/100;
-	
+console.log('this.contract_price:',this.contract_price);
+console.log("min:",this.contract_deposit_min);
 	 this.contract_deposit = this.contract_shanghu_length > 42 ? 
 			(this.contract_is_pay_monthly == 1 ? 
 			Math.round(this.contract_master_price * this.contract_deposit_min * 100)/100 : 
@@ -922,6 +928,7 @@ export default {
 			Math.round(this.contract_deposit_min * this.contract_master_price /26 * this.contract_shanghu_length*100)/100;
 
 
+console.log('this.contract_price:',this.contract_deposit);
       // var data = this.props.data.order;
       var obj = {};
 
@@ -929,8 +936,8 @@ export default {
         obj.contract_deposit = obj.contract_price;
       }
       obj.id = this.order.id;
-	  console.log(this.contract_mama_id_card_zheng);
-	  console.log(this.contract_mama_phone_number);
+	  console.log('zheng',this.contract_mama_id_card_zheng);
+	  console.log('fan',this.contract_mama_id_card_fan);
 	  console.log('tupian:',this);
       obj.contract_mama_id_card_list = this.contract_mama_id_card_zheng + ',' + this.contract_mama_id_card_fan;
       obj.contract_mama_name = this.contract_mama_name;
@@ -949,7 +956,7 @@ export default {
       obj.pics = [];
 	  obj.mama_id = this.order.mama.id;
 
-	  console.log(obj.contract_mama_id_card_list);
+	  console.log('obj:',obj);
       API.wrapRet_(
         '/api/set_contract', obj,
         function(isOk,res){

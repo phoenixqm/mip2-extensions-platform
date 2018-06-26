@@ -47,7 +47,7 @@
                   <div class="btn tuijianBtn" v-if="order.showBtn_shanghu" @click="handleBtn_shanghu(order)">上户</div>
                   <div class="btn tuijianBtn" v-if="order.showBtn_lianxikefu" @click="handleBtn_lianxikefu(order)">联系客服</div>
                   <div class="btn tuijianBtn" v-if="order.showBtn_fukuan" @click="handleBtn_fukuan(order)">付款</div>
-                  <div class="btn tuijianBtn" v-if="order.showBtn_xuqian" @click="handleBtn_xuqian(order)">续签</div>
+                  <!-- <div class="btn tuijianBtn" v-if="order.showBtn_xuqian" @click="handleBtn_xuqian(order)">续签</div> -->
               </div> 
 		  <div class="clear"></div>
         </div>
@@ -325,7 +325,7 @@ export default {
       }
     },
 	  handleBtn_tuijian(order){
-      window.location.href = '/show_master?id=' + order.master.id;
+      window.location.href = '/master_card?mcode=' + order.master.mcode;
     },
 
     handleBtn_shipinyuyue (order) {
@@ -341,7 +341,7 @@ export default {
       window.location.href = '/show_my_realtime_video_interview?id=' + order.id;
     }, 
     handleBtn_buheshi (order) {
-      if(!confirm('确定?')) return;
+      // if(!confirm('确定?')) return;
       API.rejectInterview(order.id,function(isOK, data){
       if (isOk) {
         this.reload_();
@@ -350,23 +350,9 @@ export default {
         }
       });
 
-      // $.post('/api/reject_interview', {
-      //   'id': x.id
-      // })
-      // .done(function(ret) {
-      //   if(ret && ret.success) {
-      //     this.reload_();
-      //     return;
-      //   }
-
-      //   alert('操作失败: ' + ret?ret.error:'');
-      // }.bind(this))
-      // .fail(function(err) {
-      //   alert('操作失败: ' + err);
-      // });
     }, 
     handleBtn_shanchu (order) {
-      if(!confirm('确定要删除?')) return;
+      // if(!confirm('确定要删除?')) return;
       API.hideFinishedOrder(order.id,function(isOK, data){
       if (isOk) {
         this.reload_();
@@ -380,7 +366,7 @@ export default {
       window.location.href = 'tel:' + order.master.phone_number;
     }, 
     handleBtn_nidinghetong (order) {
-      window.location.href = '/edit_yuesao_contract?id=' + order.id;
+      window.location.href = '/edit_contract?id=' + order.id;
     }, 
     handleBtn_chakanhetong (order) {
       window.location.href = '/v2_show_yuesao_contract?id=' + order.id;

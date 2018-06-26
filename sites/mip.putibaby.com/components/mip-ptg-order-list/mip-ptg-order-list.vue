@@ -1,6 +1,6 @@
 
 <template>
-<div>
+<div class="root">
     <div  class="row" v-for="order in list">
         <p class='row_p'>
             <span class="status">
@@ -65,6 +65,9 @@
 
 body{
    background-color: #f3f3f3 !important;
+}
+.root{
+  background-color:#f3f3f3;
 }
 .row{
    background: #fff;
@@ -260,11 +263,11 @@ API.hideFinishedOrder = function(masterId, cb) {
     cb);
 };
 
-API.doShanghu = function(masterId, cb) {
+API.doShanghu = function(orderId, cb) {
   API.wrapRet_(
     '/api/do_shanghu', 
     {
-      'id': masterId
+      'id': orderId
     },
     cb);
 };
@@ -386,7 +389,7 @@ export default {
       window.location.href = '/v2_do_pay?order_id=' + order.id;
     }, 
     handleBtn_shanghu (order) {
-      if(!confirm('确定要现在执行上户?')) return;
+      
       API.doShanghu(order.id,function(isOK, data){
       if (isOk) {
         this.reload_();

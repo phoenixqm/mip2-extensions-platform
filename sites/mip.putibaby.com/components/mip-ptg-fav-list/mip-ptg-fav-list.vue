@@ -1,28 +1,27 @@
 
 <template>
 <div class="row">
-  <div v-for="order in list">
-    <div class="root" @click="handleBtn(order)">
+  <div v-for="fav in favlist">
+    <div class="root" @click="handleBtn(fav)">
       <mip-img layout="responsive" width="85px" height="22px"
-                  class="header" v-bind:src="order.master.header.small" ></mip-img>
+                  class="header" v-bind:src="fav.master.header.small" ></mip-img>
       <!-- <img src={master.header.small} class="img"} /> -->
-      <div class="name">{{ order.master.name }}</div>
-      <div class="price">￥{{ order.master.price.ptg_price/100 }}</div>
+      <div class="name">{{ fav.master.name }}</div>
+      <div class="price">￥{{ fav.master.price.ptg_price/100 }}</div>
       <div class="info">
-        <mip-img layout="responsive" width="85px" height="22px"
+        <mip-img layout="responsive" width="12px" height="12px"
                     class="age_img" src="i/age.png" ></mip-img>
-        <span class="age">{{ order.master.age }}岁</span>
-        <mip-img layout="responsive" width="85px" height="22px"
+        <span class="age">{{ fav.master.age }}岁</span>
+        <mip-img layout="responsive" width="12px" height="12px"
                     class="work_year_img" src="i/work_year.png" ></mip-img>
-        <span class="work_year">{{ order.master.work_year }}年</span>
-        <mip-img layout="responsive" width="85px" height="22px"
+        <span class="work_year">{{ fav.master.work_year }}年</span>
+        <mip-img layout="responsive" width="12px" height="12px"
                     class="jiguan_img" src="i/jiguan.png" ></mip-img>
-        <span class="jiguan">{{ order.master.jiguan }}</span>
+        <span class="jiguan">{{ fav.master.jiguan }}</span>
       </div>
-      <mip-img layout="responsive" width="85px" height="22px"
+      <mip-img layout="responsive" width="10px" height="10px"
                     class="jt" src="i/jt-right.png" ></mip-img>
     </div>
-    <div class="clear"></div>
   </div>
 </div>  
 </template>
@@ -39,76 +38,83 @@ body{
 }
 .row{
   background-color: #f3f3f3;
+  height:100%;
 }
 .root{
     background: #fff;
     position: relative;
-    height: 72;
+    height: 72px;
     overflow: hidden;
     cursor: pointer;
     margin-top: 10px;
+	border:solid 1px #ddd;
   }
 
   .header{
-    width: 50;
-    height: 50;
+    width: 50px;
+    height: 50px;
     position: absolute;
-    top: 10;
-    left: 10;
-    border-radius: 5;
+    top: 10px;
+    left: 10px;
+    border-radius: 5px;
   }
 
   .name{
-    font-size:  16;
+    font-size:  16px;
     font-weight: bold;
     color: #333;
     position: absolute;
-    top: 15;
-    left: 70;
+    top: 15px;
+    left: 70px;
   }
 
   .price{
-    font-size:  16;
+    font-size:  16px;
     font-weight: bold;
     color: red;
     position: absolute;
-    top: 15;
-    left: 130;
+    top: 15px;
+    left: 130px;
   }
 
   .info{
-    font-size:  14;
+    font-size:  14px;
     color: #666;
     position: absolute;
-    top: 40;
-    left: 70;
+    top: 40px;
+    left: 70px;
   }
 
   .icon{
-    width: 14;
+    width: 14px;
     position: relative;
-    top: 0;
+    top: 0px;
     display: inline-block;
-    margin-right: 5;
+    margin-right: 5px;
   }
 
   .age{
     display: inline-block;
-    margin-right: 10;
+    margin-right: 10px;
   }
 
   .work_year{
     display: inline-block;
-    margin-right: 10;
+    margin-right: 10px;
   }
 
   .jt{
     position: absolute;
-    right: 10;
-    height: 20;
-    top: 26;
+    right: 10px;
+	width:15px;
+    height: 15px;
+    top: 26px;
   }
-
+ .age_img,.work_year_img,.jiguan_img{
+ 	width:12px!important;
+	height:12px!important;
+	display:inline-block;
+ } 
 </style>
 
 <script>
@@ -150,15 +156,6 @@ API.wrapRet_ = function(api, opts, cb) {
   });
 }
 
-API.rejectInterview = function(masterId, cb) {
-  API.wrapRet_(
-    '/api/reject_interview', 
-    {
-      'id': masterId
-    },
-    cb);
-};
-
 
 
 export default {
@@ -182,9 +179,9 @@ export default {
   data () {
 	console.log(this);
 	var pdata = JSON.parse(this.dataJsonstr);
-    console.log(pdata.list);
+    console.log(pdata.favlist);
     return {
-		list: pdata.list,
+		favlist: pdata.favlist,
 		state: {
 			showTuijianBtn:true
 		}
@@ -205,8 +202,8 @@ export default {
 
     },
 
-	  handleBtn(order){
-      window.location.href = '/show_master?u=' + order.username;
+	  handleBtn(fav){
+      window.location.href = '/master_card?mcode=' + fav.master.mcode;
     },
 
   }

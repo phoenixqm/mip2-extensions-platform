@@ -11,7 +11,6 @@
         <p class="mS_masterName">{{ data.info.name }}</p>
          <div class="starBox">
               <mip-img v-for="s in data.shanghu_data.star_1_list" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_star.png" ></mip-img>
-              <mip-img v-for="s in data.shanghu_data.star_0_list" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_unstar.png" ></mip-img>
         </div>
         <p class="mC_Des">
           <span>

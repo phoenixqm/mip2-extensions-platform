@@ -201,11 +201,11 @@
               </td>                    
 
               <td v-if="data.info.can_online_interview" class="td2">
-                  <a :href="'/update_time?master_code=' + data.codeid">预约视频面试</a>
+                  <a :href="'/update_time?mcode=' + data.codeid">预约视频面试</a>
               </td>
 
               <td v-else class="td2">
-                  <a :href="'/order_list?master_code=' + data.codeid">[订单状态]-查看预约</a>
+                  <a :href="'/order_list?mcode=' + data.codeid">[订单状态]-查看预约</a>
               </td> 
               
           </tr>

@@ -38,28 +38,28 @@
       <div class="row">
         <div class="left">真实姓名</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_name" v-on:blur="contract_mama_name_change_" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名">
+		  <input class="input" v-model="contract_mama_name" v-on:blur="contract_mama_name_change_" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名" v-bind:readOnly="rea">
           <div target="username">姓名不符合规范</div>
         </div>
       </div>
       <div class="row">
         <div class="left">手机号</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_phone_number" v-on:blur="contract_mama_phone_number_change_" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码">
+          <input class="input" v-model="contract_mama_phone_number" v-on:blur="contract_mama_phone_number_change_" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码" v-bind:readOnly="rea">
           <div target="phone_number">手机号码错误</div>
         </div>
       </div>
       <div class="row">
         <div class="left">身份证号</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_id_card" v-on:blur="contract_mama_id_card_change_" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码">
+          <input class="input" v-model="contract_mama_id_card" v-on:blur="contract_mama_id_card_change_" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码" v-bind:readOnly="rea" >
           <div target="identity">身份证号码错误</div>
         </div>
       </div>
 
       <div class="row_photo">
         <div>
-          <input id="fz" type="file" class="uploadfile" name="f" v-on:change="changeZ" display="none" />
+          <input id="fz" type="file" class="uploadfile" name="f" v-on:change="changeZ" display="none" v-bind:disabled="rea"/>
           <mip-img class="id_photo" :src="contract_mama_id_card_zheng" @click="fileSelectZ"></mip-img>
           <span>身份证正面</span>
 
@@ -68,7 +68,7 @@
 
       <div class="row_photo">
         <div>
-          <input id="ff" type="file" class="uploadfile" name="f" v-on:change="changeF" display="none" />
+          <input id="ff" type="file" class="uploadfile" name="f" v-on:change="changeF" display="none"  v-bind:disabled="rea"/>
 
           <mip-img class="id_photo" :src="contract_mama_id_card_fan" @click="fileSelectF"></mip-img>
 
@@ -93,10 +93,10 @@
         <div class="left">服务时间</div>
         <div class="right">
           <div class="quantian">
-            <input type="radio" name="service_time" value="true" :checked="contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_"> 全天</input>
+            <input type="radio" name="service_time" value="true" :checked="contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 全天</input>
           </div>
           <div class="baiban">
-            <input type="radio" name="service_time" value="false" :checked="!contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_"> 白班</input>
+            <input type="radio" name="service_time" value="false" :checked="!contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 白班</input>
 	
 
           </div>
@@ -105,13 +105,13 @@
       <div class="row">
         <div class="left">上户日期</div>
         <div class="right">
-          <input class="input_date" v-model="contract_shanghu_at" type='date' value='' placeholder='请选择月份/年份' v-on:change="contract_shanghu_at_change_" />
+          <input class="input_date" v-model="contract_shanghu_at" type='date' value='' placeholder='请选择月份/年份' v-on:change="contract_shanghu_at_change_" :readOnly="rea" />
         </div>
       </div>
       <div class="row">
         <div class="left">上户时长</div>
         <div class="right">
-          <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:blur="contract_shanghu_length_change_" />天
+          <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:blur="contract_shanghu_length_change_" :readOnly="rea"/>天
         </div>
       </div>
       <div class="row">
@@ -738,7 +738,18 @@ function toDataUrl_v2(file, callback) {
 
 export default {
   mounted() {
-    console.log('This is my first custom component !')
+    console.log('This is my first custom component !');
+    console.log('mounted:',this);
+	var readonly = JSON.parse(this.dataJsonstr).readonly;
+	console.log('readonly:',readonly);
+	if(readonly == 1){
+		var ele = document.querySelectorAll("input");
+		console.log('ele:',ele);
+
+
+		this.rea = true;
+	}
+	
   },
   firstInviewCallback() {
     this.init()
@@ -780,6 +791,7 @@ export default {
     }
 
     return {
+	  rea:false,
       master: pdata.order.master,
 	  order: pdata.order,
       contract_mama_name: data.contract_mama_name,
@@ -1010,7 +1022,8 @@ console.log('this.contract_price:',this.contract_deposit);
 //      }
       API.wrapRet_(
         '/api/submit_contract', {
-          'id': this.order.id
+          'id': this.order.id,
+		  'readonly':1,
         },
 		function(isOk,res){
 		  console.log('res1111111:',res);

@@ -163,7 +163,7 @@
       <div class="row">
         <div class="left">上户地点</div>
         <div class="right">
-          <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:change="contract_location_change_"></textarea>
+          <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:change="contract_location_change_" v-bind:readOnly="rea" ></textarea>
         </div>
       </div>
     </div>

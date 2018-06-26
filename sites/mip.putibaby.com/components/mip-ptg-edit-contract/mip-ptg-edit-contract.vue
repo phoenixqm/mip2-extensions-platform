@@ -93,10 +93,12 @@
         <div class="left">服务时间</div>
         <div class="right">
           <div class="quantian">
-            <input type="radio" name="service_time" value="quantian" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_"> 全天</input>
+            <input type="radio" name="service_time" value="true" :checked="contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_"> 全天</input>
           </div>
           <div class="baiban">
-            <input type="radio" name="service_time" value="baiban" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_"> 白班</input>
+            <input type="radio" name="service_time" value="false" :checked="!contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_"> 白班</input>
+	
+
           </div>
         </div>
       </div>
@@ -176,7 +178,7 @@
     </div>
 
     <div class="submit">
-      <input class="btn" type="submit" value="我同意以上所有条款，提交" v-on:click="submit" />
+      <input class="btn" type="submit" value="我同意以上所有条款，提交" v-on:click="handleSubmit_" />
     </div>
 
   </mip-form>
@@ -860,41 +862,66 @@ export default {
 
 
     contract_is_offer_allday_service_change_(fn) {
-      if (fn == 'contract_is_offer_allday_service') {
-        contract_is_offer_allday_service = true;
-        contract_master_price = this.master.yuesao_allday_price / 100;
+	
+	  console.log('this:',this);
+	  console.log('change:',fn);
+      if (this.contract_is_offer_allday_service) {
+        this.contract_master_price = this.master.yuesao_allday_price / 100;
       } else {
-        contract_is_offer_allday_service = false;
-        contract_master_price = this.master.yuesao_daytime_price / 100;
+        this.contract_master_price = this.master.yuesao_daytime_price / 100;
       }
       this.saveIt_();
     },
     contract_mama_name_change_(fn) {
-
+	  //contract_mama_name = this.contract_mama_name;
+      this.saveIt_();
     },
-    contract_mama_phone_number_change_(fn, e) {
-
+    contract_mama_phone_number_change_(fn) {
+		contract_mama_phone_number = this.contract_mama_phone_number;
+		this.saveIt_();
     },
     contract_mama_id_card_change_(fn, e) {
-
+        //contract_mama_id_card = this.contract_mama_id_card;
+        this.saveIt_();
     },
+	contract_shanghu_at_change_(){
+	contract_shanghu_at = this.contract_shanghu_at;
+	this.saveIt_();
+	
+	},
     contract_shanghu_length_change_(fn) {
-      if (fn == 'contract_shanghu_length') {
+      
         var djb = 0.12; //定金比默认值
         // 定金比分段函数
-        if (contract_shanghu_length <= 25 && contract_shanghu_length >= 16) {
+        if (this.contract_shanghu_length <= 25 && this.contract_shanghu_length >= 16) {
           djb = 0.2;
-        } else if (contract_shanghu_length <= 15 && contract_shanghu_length >= 10) {
+        } else if (this.contract_shanghu_length <= 15 && this.contract_shanghu_length >= 10) {
           djb = 0.3;
-        } else if (contract_shanghu_length <= 9 && contract_shanghu_length >= 0) {
+        } else if (this.contract_shanghu_length <= 9 && this.contract_shanghu_length >= 0) {
           djb = 1.0;
         }
-        contract_deposit_min = djb;
-      }
+        this.contract_deposit_min = djb; 
+
+
+      this.saveIt_();
     },
+	contract_location_change_(){
+	contract_location = this.contract_location;
+	this.saveIt_();
+	},
 
 
     saveIt_() {
+
+     this.contract_price = Math.round(this.contract_master_price /26 * this.contract_shanghu_length * 100)/100;
+	
+	 this.contract_deposit = this.contract_shanghu_length > 42 ? 
+			(this.contract_is_pay_monthly == 1 ? 
+			Math.round(this.contract_master_price * this.contract_deposit_min * 100)/100 : 
+			Math.round(this.contract_deposit_min * this.contract_master_price /26 * this.contract_shanghu_length*100)/100) :
+			Math.round(this.contract_deposit_min * this.contract_master_price /26 * this.contract_shanghu_length*100)/100;
+
+
       // var data = this.props.data.order;
       var obj = {};
 
@@ -904,6 +931,7 @@ export default {
       obj.id = this.order.id;
 	  console.log(this.contract_mama_id_card_zheng);
 	  console.log(this.contract_mama_phone_number);
+	  console.log('tupian:',this);
       obj.contract_mama_id_card_list = this.contract_mama_id_card_zheng + ',' + this.contract_mama_id_card_fan;
       obj.contract_mama_name = this.contract_mama_name;
       obj.contract_mama_phone_number = this.contract_mama_phone_number;
@@ -911,14 +939,15 @@ export default {
       obj.contract_shanghu_at = this.contract_shanghu_at;
       obj.contract_shanghu_length = this.contract_shanghu_length;
       obj.contract_location = this.contract_location;
-      obj.contract_price = this.price;
-      obj.contract_master_price = this.master_price;
-      obj.contract_deposit = this.deposit;
+      obj.contract_price = this.contract_price;
+      obj.contract_master_price = this.contract_master_price;
+      obj.contract_deposit = this.contract_deposit;
       obj.contract_is_pay_monthly = !!this.contract_is_pay_monthly;
       obj.contract_is_offer_allday_service = this.contract_is_offer_allday_service;
       obj.is_show_pay_monthly_btn = this.contract_shanghu_length >= 42 ? true : false;
       obj.hardcode_deposit = this.hardcode_deposit;
       obj.pics = [];
+	  obj.mama_id = this.order.mama.id;
 
 	  console.log(obj.contract_mama_id_card_list);
       API.wrapRet_(
@@ -931,23 +960,16 @@ export default {
 
     handleSubmit_() {
       var pdata = JSON.parse(this.dataJsonstr);
+	  console.log("submitpdata:",pdata);
+	  console.log('submitthis:',this);
 
       // 检查基本信息
       // var info = oa({}, this.state);
-      if (pdata.order.contract_deposit_min == 1) {
-        contract_deposit = contract_price;
+      if (this.contract_deposit_min == 1) {
+        this.contract_deposit = this.contract_price;
       }
 
-      if (!/\S+/.test(contract_mama_name)) {
-        alert('请填写正确的姓名');
-        return;
-      }
-      if (!/\S+/.test(contract_mama_phone_number)) {
-        alert('请填写正确的电话号码');
-        return;
-      }
-
-      var idCard = contract_mama_id_card;
+      var idCard = this.contract_mama_id_card;
 
       function Trim(str) {
         idCard = str.replace(/\s/gi, '');
@@ -969,56 +991,23 @@ export default {
           var idCardMod = idCardWiSum % 11; //计算出校验码所在数组的位置
           var idCardLast = idCard.substring(17); //得到最后一位身份证号码
           //如果等于2，则说明校验码是10，身份证号码最后一位应该是X
-          if (idCardMod == 2) {
-            if (idCardLast == "X" || idCardLast == "x") {
-              // alert("恭喜通过验证啦！");
-            } else {
-              alert("身份证号码错误！");
-              return;
-            }
-          } else {
-            //用计算出的验证码与最后一位身份证号码匹配，如果一致，说明通过，否则是无效的身份证号码
-            if (idCardLast == idCardY[idCardMod]) {
-              // alert("恭喜通过验证啦！");
-            } else {
-              alert("身份证号码错误！");
-              return;
-            }
-          }
-        }
-      } else {
-        alert("身份证格式不正确!");
-        return;
+               }
       }
-
-      if (!/^\d\d\d\d\-\d\d\-\d\d$/.test(contract_shanghu_at)) {
-        alert('请填写正确的上户时间，类似2017-01-01');
-        return;
-      }
-      if (!contract_price || +contract_price < 1) {
-        alert('请填写正确的价格');
-        return;
-      }
-
-      if (!/\S+/.test(contract_location)) {
-        alert('请填写正确的上户地点');
-        return;
-      }
-
-      var idCard_z = contract_mama_id_card_list[0];
-      var idCard_f = contract_mama_id_card_list[1];
-      if (!idCard_z || idCard_z == null || !idCard_f || idCard_f == null) {
-        alert('请确认身份证正反面都已上传无误');
-        return;
-      }
-      if (!confirm("请确认填写的信息正确无误")) {
-        return;
-      }
+   
+      //var idCard_z = contract_mama_id_card_list[0];
+      //var idCard_f = contract_mama_id_card_list[1];
+	  var idCard_z = this.contract_mama_id_card_zheng;
+	  var idCard_f = this.contract_mama_id_card_fan;
+   //      if (!confirm("请确认填写的信息正确无误")) {
+//        return;
+//      }
       API.wrapRet_(
         '/api/submit_contract', {
-          'id': JSON.parse(this.dataJsonstr).order.id
+          'id': this.order.id
         },
-        cb);
+		function(isOk,res){
+		  console.log('res1111111:',res);
+		});
 
     },
 

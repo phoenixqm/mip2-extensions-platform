@@ -369,7 +369,7 @@ export default {
       window.location.href = '/edit_contract?id=' + order.id;
     }, 
     handleBtn_chakanhetong (order) {
-      window.location.href = '/v2_show_yuesao_contract?id=' + order.id;
+      window.location.href = '/edit_contract?id=' + order.id+'&readonly=1';
     }, 
     handleBtn_jiaodingjin (order) {
       window.location.href = '/v2_do_pay?order_id=' + order.id;

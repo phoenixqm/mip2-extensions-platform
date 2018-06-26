@@ -325,7 +325,7 @@ export default {
       }
     },
 	  handleBtn_tuijian(order){
-      window.location.href = '/show_master?id=' + order.master.id;
+      window.location.href = '/master_card?mcode=' + order.master.mcode;
     },
 
     handleBtn_shipinyuyue (order) {
@@ -380,7 +380,7 @@ export default {
       window.location.href = 'tel:' + order.master.phone_number;
     }, 
     handleBtn_nidinghetong (order) {
-      window.location.href = '/edit_yuesao_contract?id=' + order.id;
+      window.location.href = '/edit_contract?id=' + order.id;
     }, 
     handleBtn_chakanhetong (order) {
       window.location.href = '/v2_show_yuesao_contract?id=' + order.id;

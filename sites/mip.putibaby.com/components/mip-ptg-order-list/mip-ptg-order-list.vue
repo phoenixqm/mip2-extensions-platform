@@ -341,7 +341,7 @@ export default {
       window.location.href = '/show_my_realtime_video_interview?id=' + order.id;
     }, 
     handleBtn_buheshi (order) {
-      if(!confirm('确定?')) return;
+      // if(!confirm('确定?')) return;
       API.rejectInterview(order.id,function(isOK, data){
       if (isOk) {
         this.reload_();
@@ -350,23 +350,9 @@ export default {
         }
       });
 
-      // $.post('/api/reject_interview', {
-      //   'id': x.id
-      // })
-      // .done(function(ret) {
-      //   if(ret && ret.success) {
-      //     this.reload_();
-      //     return;
-      //   }
-
-      //   alert('操作失败: ' + ret?ret.error:'');
-      // }.bind(this))
-      // .fail(function(err) {
-      //   alert('操作失败: ' + err);
-      // });
     }, 
     handleBtn_shanchu (order) {
-      if(!confirm('确定要删除?')) return;
+      // if(!confirm('确定要删除?')) return;
       API.hideFinishedOrder(order.id,function(isOK, data){
       if (isOk) {
         this.reload_();

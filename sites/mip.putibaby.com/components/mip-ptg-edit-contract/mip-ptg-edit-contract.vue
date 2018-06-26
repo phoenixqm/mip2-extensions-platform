@@ -38,21 +38,21 @@
       <div class="row">
         <div class="left">真实姓名</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_name" v-on:change="contract_mama_nameChange_" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名">
+          <input class="input" v-model="contract_mama_name" v-on:change="contract_mama_name_change_" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名">
           <div target="username">姓名不符合规范</div>
         </div>
       </div>
       <div class="row">
         <div class="left">手机号</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_phone_number" v-on:change="contract_mama_phone_numberChange_" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码">
+          <input class="input" v-model="contract_mama_phone_number" v-on:change="contract_mama_phone_number_change_" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码">
           <div target="phone_number">手机号码错误</div>
         </div>
       </div>
       <div class="row">
         <div class="left">身份证号</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_id_card" v-on:change="contract_mama_id_cardChange_" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码">
+          <input class="input" v-model="contract_mama_id_card" v-on:change="contract_mama_id_card_change_" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码">
           <div target="identity">身份证号码错误</div>
         </div>
       </div>
@@ -93,23 +93,23 @@
         <div class="left">服务时间</div>
         <div class="right">
           <div class="quantian">
-            <input type="radio" name="service_time" value="quantian" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_serviceChange_"> 全天</input>
+            <input type="radio" name="service_time" value="quantian" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_"> 全天</input>
           </div>
           <div class="baiban">
-            <input type="radio" name="service_time" value="baiban" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_serviceChange_"> 白班</input>
+            <input type="radio" name="service_time" value="baiban" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_"> 白班</input>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="left">上户日期</div>
         <div class="right">
-          <input class="input_date" v-model="contract_shanghu_at" type='date' value='' placeholder='请选择月份/年份' v-on:change="contract_shanghu_atChange_" />
+          <input class="input_date" v-model="contract_shanghu_at" type='date' value='' placeholder='请选择月份/年份' v-on:change="contract_shanghu_at_change_" />
         </div>
       </div>
       <div class="row">
         <div class="left">上户时长</div>
         <div class="right">
-          <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:change="contract_shanghu_lengthChange_" />天
+          <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:change="contract_shanghu_length_change_" />天
         </div>
       </div>
       <div class="row">
@@ -133,7 +133,7 @@
       <div class="row">
         <div class="left">定金</div>
         <div class="right">
-          <input class="inputReadOnly" type='number' value='' readOnly="readOnly" v-on:change="contract_depositChange_" />{{contract_deposit}} 元
+          <input class="inputReadOnly" type='number' value='' readOnly="readOnly" v-on:change="contract_deposit_change_" />{{contract_deposit}} 元
         </div>
       </div>
     </div>
@@ -161,7 +161,7 @@
       <div class="row">
         <div class="left">上户地点</div>
         <div class="right">
-          <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:change="contract_locationChange_"></textarea>
+          <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:change="contract_location_change_"></textarea>
         </div>
       </div>
     </div>
@@ -687,6 +687,52 @@ API.uploadFile = function(data, cb) {
     cb);
 };
 
+function normalImageSize(w, h) {
+    var nw = 800,
+        nh = 1000;
+    if (w <= nw && h <= nh) {
+      return [w, h];
+    }
+    if (w >= h) {
+      nh = h / (w / nw);
+    } else {
+      nw = w / (h / nh);
+    }
+    return [nw, nh];
+}
+    
+function toDataUrl_v2(file, callback) {
+   // ref https://sebastianblade.com/browser-side-image-compress-and-upload/
+
+   var reader = new FileReader();
+   var image = new Image();
+   var canvas = document.createElement('canvas');
+   var context = canvas.getContext('2d');
+
+   image.addEventListener('load', function() {
+     // console.warn("5");
+     // 规范图片尺寸
+     var S = normalImageSize(image.naturalWidth, image.naturalHeight);
+     canvas.width = S[0];
+     canvas.height = S[1];
+     // 将图片绘制到 canvas 画布上
+     context.drawImage(image, 0, 0, S[0], S[1]);
+     var quality = 30;
+     var filetype = 'image/jpeg';
+     compressedImageDataURL = canvas.toDataURL(filetype, quality / 100);
+     callback(compressedImageDataURL);
+   });
+
+   image.addEventListener('error', function() {
+       console.warn('Image load error');
+   });
+   reader.onloadend = function(e) {
+     var dataURL = e.target.result;
+     // fileReader.result (data:image/png;base64,iVBORw0KG...)
+     image.src = dataURL;
+   };
+   reader.readAsDataURL(file);
+}
 
 export default {
   mounted() {
@@ -813,7 +859,7 @@ export default {
     },
 
 
-    contract_is_offer_allday_serviceChange_(fn) {
+    contract_is_offer_allday_service_change_(fn) {
       if (fn == 'contract_is_offer_allday_service') {
         contract_is_offer_allday_service = true;
         contract_master_price = this.master.yuesao_allday_price / 100;
@@ -823,16 +869,16 @@ export default {
       }
       this.saveIt_();
     },
-    contract_mama_nameChange_(fn) {
+    contract_mama_name_change_(fn) {
 
     },
-    contract_mama_phone_numberChange_(fn, e) {
+    contract_mama_phone_number_change_(fn, e) {
 
     },
-    contract_mama_id_cardChange_(fn, e) {
+    contract_mama_id_card_change_(fn, e) {
 
     },
-    contract_shanghu_lengthChange_(fn) {
+    contract_shanghu_length_change_(fn) {
       if (fn == 'contract_shanghu_length') {
         var djb = 0.12; //定金比默认值
         // 定金比分段函数
@@ -847,58 +893,6 @@ export default {
       }
     },
 
-    handleChange_(fn, e) {
-      var data = this.props.data.order;
-      var obj = this.state;
-      var master = data.master;
-	  if(1){}
-      else if (fn == "contract_shanghu_length") {
-        // 改动上户天数 如果小于42 按月支付为 否
-        if (e.target.value <= 42) {
-          // obj.contract_is_pay_monthly = false;
-          obj.is_show_pay_monthly_btn = false;
-        } else {
-          obj.is_show_pay_monthly_btn = true;
-          // obj.contract_is_pay_monthly = true;
-        }
-        obj[fn] = e.target.value;
-        var length = e.target.value;
-
-        var djb = 0.12; //定金比默认值
-        // 定金比分段函数
-        if (length <= 25 && length >= 16) {
-          djb = 0.2;
-        } else if (length <= 15 && length >= 10) {
-          djb = 0.3;
-        } else if (length <= 9 && length >= 0) {
-          djb = 1.0;
-        }
-
-        data.contract_deposit_min = djb;
-        obj.contract_deposit_min = djb;
-
-
-      } else {
-        obj[fn] = e.target.value;
-      }
-
-      //如果修改了上户天数 或 26薪资 重新计算订金和总金额
-      obj.contract_price = Math.round(this.state.contract_master_price / 26 * this.state.contract_shanghu_length * 100) / 100;
-      //计算订金
-      if (obj.contract_is_pay_monthly) {
-        obj['contract_deposit'] = Math.round(this.state.contract_master_price * data.contract_deposit_min * 100) / 100;
-      } else {
-        obj['contract_deposit'] = Math.round(data.contract_deposit_min * obj['contract_master_price'] / 26 * obj['contract_shanghu_length'] * 100) / 100;
-        //obj['contract_deposit'] = Math.round(data.contract_deposit_min * Math.round(obj['contract_master_price'] * obj['contract_shanghu_length'])*100)/100;
-      }
-
-      this.setState(obj);
-
-      if (this.saveTimer_) {
-        clearTimeout(this.saveTimer_);
-      }
-      this.saveTimer_ = setTimeout(this.saveIt_, 500);
-    },
 
     saveIt_() {
       // var data = this.props.data.order;
@@ -908,25 +902,30 @@ export default {
         obj.contract_deposit = obj.contract_price;
       }
       obj.id = this.order.id;
-      obj.contract_mama_id_card_list = contract_mama_id_card_zheng + ',' + contract_mama_id_card_fan;
-      obj.contract_mama_name = contract_mama_name;
-      obj.contract_mama_phone_number = contract_mama_phone_number;
-      obj.contract_mama_id_card = contract_mama_id_card;
-      obj.contract_shanghu_at = contract_shanghu_at;
-      obj.contract_shanghu_length = contract_shanghu_length;
-      obj.contract_location = contract_location;
-      obj.contract_price = price;
-      obj.contract_master_price = master_price;
-      obj.contract_deposit = deposit;
-      obj.contract_is_pay_monthly = !!contract_is_pay_monthly;
-      obj.contract_is_offer_allday_service = contract_is_offer_allday_service;
-      obj.is_show_pay_monthly_btn = contract_shanghu_length >= 42 ? true : false;
-      obj.hardcode_deposit = hardcode_deposit;
+	  console.log(this.contract_mama_id_card_zheng);
+	  console.log(this.contract_mama_phone_number);
+      obj.contract_mama_id_card_list = this.contract_mama_id_card_zheng + ',' + this.contract_mama_id_card_fan;
+      obj.contract_mama_name = this.contract_mama_name;
+      obj.contract_mama_phone_number = this.contract_mama_phone_number;
+      obj.contract_mama_id_card = this.contract_mama_id_card;
+      obj.contract_shanghu_at = this.contract_shanghu_at;
+      obj.contract_shanghu_length = this.contract_shanghu_length;
+      obj.contract_location = this.contract_location;
+      obj.contract_price = this.price;
+      obj.contract_master_price = this.master_price;
+      obj.contract_deposit = this.deposit;
+      obj.contract_is_pay_monthly = !!this.contract_is_pay_monthly;
+      obj.contract_is_offer_allday_service = this.contract_is_offer_allday_service;
+      obj.is_show_pay_monthly_btn = this.contract_shanghu_length >= 42 ? true : false;
+      obj.hardcode_deposit = this.hardcode_deposit;
       obj.pics = [];
 
+	  console.log(obj.contract_mama_id_card_list);
       API.wrapRet_(
         '/api/set_contract', obj,
-		function(isOk,res){console.log(res);});
+        function(isOk,res){
+		  console.log(res);
+	    });
 
     },
 
@@ -1026,67 +1025,9 @@ export default {
      html5Reader(file) {
        var that = this;
        var file = file.files[0];
+
     
-      function toDataUrl(url, callback) {
-         var xhr = new XMLHttpRequest();
-         xhr.onload = function() {
-           var reader = new FileReader();
-           reader.onloadend = function() {
-             callback(reader.result);
-           };
-           reader.readAsDataURL(xhr.response);
-         };
-         xhr.open('GET', url);
-         xhr.responseType = 'blob';
-         xhr.send();
-       }
-    
-      function normalImageSize(w, h) {
-         var nw = 800,
-           nh = 1000;
-         if (w <= nw && h <= nh) {
-           return [w, h];
-         }
-         if (w >= h) {
-           nh = h / (w / nw);
-         } else {
-           nw = w / (h / nh);
-         }
-         return [nw, nh];
-     }
-    
-      function toDataUrl_v2(file, callback) {
-         // ref https://sebastianblade.com/browser-side-image-compress-and-upload/
-    
-         var reader = new FileReader();
-         var image = new Image();
-         var canvas = document.createElement('canvas');
-         var context = canvas.getContext('2d');
-    
-         image.addEventListener('load', function() {
-           // console.warn("5");
-           // 规范图片尺寸
-           var S = normalImageSize(image.naturalWidth, image.naturalHeight);
-           canvas.width = S[0];
-           canvas.height = S[1];
-           // 将图片绘制到 canvas 画布上
-           context.drawImage(image, 0, 0, S[0], S[1]);
-           var quality = 30;
-           var filetype = 'image/jpeg';
-           compressedImageDataURL = canvas.toDataURL(filetype, quality / 100);
-           callback(compressedImageDataURL);
-         });
-    
-        image.addEventListener('error', function() {
-           console.warn('Image load error');
-         });
-         reader.onloadend = function(e) {
-           var dataURL = e.target.result;
-           // fileReader.result (data:image/png;base64,iVBORw0KG...)
-           image.src = dataURL;
-         };
-         reader.readAsDataURL(file);
-       }
+
        toDataUrl_v2(file, function(myBase64) {
          that.uploadFile_(myBase64, 'id_card_zheng');
        });

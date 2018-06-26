@@ -200,7 +200,7 @@
                   </a>
               </td>                    
 
-              <td v-if="data.info.mianshi" class="td2">
+              <td v-if="data.info.can_online_interview" class="td2">
                   <a :href="'/update_time?master_code=' + data.codeid">预约视频面试</a>
               </td>
 
@@ -677,6 +677,7 @@ API.wrapRet_ = function(api, opts, cb) {
   .then(checkStatus)
   .then(parseJSON)
   .then(ret => {
+	//console.log(ret);
     if(ret.success) cb(true, ret.data);
     else cb(false, ret.error);
   })  
@@ -749,6 +750,10 @@ export default {
       console.log(this.dataJson);
       this.reload_();
     },
+	created() {
+
+      this.reload_();
+	},
 
   checkLogin_() {
     if(!this.isLogin){
@@ -762,9 +767,11 @@ export default {
     console.log('reloading');
 
     var self = this;
-	API.getMasterInfo(this.data.info.id, function(isOK, data){
+	API.getMasterInfo(this.data.info.id, function(isOk, data){
 		if (isOk) {
-            self.$set(self.data.info, 'isfav', data.data.fav);
+            self.$set(self.data.info, 'isfav', data.fav);
+            self.$set(self.data.info, 'can_online_interview', data.can_online_interview);
+			//console.log(self);
 		  } else {
 			console.warn(data);
 		  }

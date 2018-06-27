@@ -11,7 +11,7 @@
 	  <!--<div id="err" class="err" v-if="errPhoneNumber">错误的手机号</div>-->
       <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:blur="changeVerifySms_">
 	  <!--<div id="smsSend" class="smsSend" @click="getVerify_" v-bind:disabled="smsDisable">获取验证码</div>-->
-	  <input class="smsSend" type="button" @click="getVerify_" v-bind:disabled="smsDisabled" value="获取验证码"></input>
+	  <input class="smsSend" type="button" @click="getVerify_" v-bind:disabled="smsDisabled" v-bind:value="text" ></input>
     </div>
     <div id="err" class="err" v-if="errSms">错误的验证码</div>
       <div id="err" class="err" v-if="errPhoneNumber">错误的手机号</div>
@@ -321,6 +321,9 @@ export default {
       sms: '',
       smsDisabled: true,
       subDisabled: true,
+	  text:'获取验证码',
+	  djs:0,
+	  
     }
   },
   computed: {
@@ -335,7 +338,6 @@ export default {
       console.log('should set data');
     },
     changePhoneNumber_() {
-	  console.log('changePhone:',this);
       if (!/^1\d{10}$/.test(this.phoneNumber)) {
 		console.log('phonenumber:',this.phoneNumber);
         this.errPhoneNumber = true;
@@ -344,7 +346,6 @@ export default {
         this.errPhoneNumber = false;
         this.smsDisabled = false;
       }
-	  console.log('111111:',this);
     },
     changeVerifySms_() {
       if (!/^\d{4,6}$/.test(this.sms)) {
@@ -355,14 +356,30 @@ export default {
         this.subDisabled = false;
       }
     },
+	daojishi_() {
+	  if(this.djs == 1){
+		var self = this;
+self.smsDisabled=true;
+		var t = 6;
+		var daojishi = setInterval(function(){
+		  t--;
+			self.text = t + 'S后可重新获取';
+			if( t ==0 ){
+			  self.text='获取验证码';
+			  self.smsDisabled=false;
+			  console.log('8888:',self.text);
+			clearInterval(daojishi);
+		  }
+		},1000);
+	  }
+	},
     getVerify_() {
-      // if (!/^1\d{10}$/.test(this.phoneNumber)) {
-      //   this.errPh=true;
-      //   return;
-      // }
-      API.sendPhoneNumberVerifySms(this.phoneNumber, function(isOk, res) {
+
+	  this.djs=1;
+	   API.sendPhoneNumberVerifySms(this.phoneNumber, function(isOk, res) {
         console.log(res);
       });
+	  this.daojishi_();
     },
     handleSubmit_() {
 

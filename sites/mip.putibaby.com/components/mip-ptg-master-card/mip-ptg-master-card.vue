@@ -30,7 +30,7 @@
 
   <div class="fuwu">
       <p class="expectCity">
-          服务报价：￥<span class="red">{{ data.info.price.daytime_price/100 }}</span>元
+          服务报价：￥<span class="red">{{ data.info.price.ptg_price/100 }}</span>元
       </p>
       <p class="expectCity">服务区域：{{ data.info.expect_city }}</p>
   </div>
@@ -104,8 +104,8 @@
     <div class="picList">
       <p v-if="data.xc_list.length == 0">没有照片</p>
       <div v-if="data.xc_list.length > 0">
-          <mip-img v-for="j in [0,1,2,3]" layout="responsive" popup width="70px" height="70px"
-           :src="data.xc_list[j].small" ></mip-img>            
+          <mip-img v-for="pic in data.xc_list" layout="responsive" popup width="70px" height="70px"
+           :src="pic.small" ></mip-img>            
       </div>
 
     </div>

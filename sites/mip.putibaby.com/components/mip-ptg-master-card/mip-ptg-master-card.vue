@@ -758,10 +758,14 @@ export default {
   },
 
   checkLogin_() {
-    if(!this.isLogin){
-        window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
+    if (!this.isUnion){
+        window.location.href = '/submit_ph?to=' + encodeURIComponent(window.location.href);
            return;
     }
+    // if (!this.isLogin){
+    //     window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
+    //        return;
+    // }    
     return true;
   },
 

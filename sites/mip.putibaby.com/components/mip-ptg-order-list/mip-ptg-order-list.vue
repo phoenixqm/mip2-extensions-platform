@@ -52,6 +52,14 @@
 		  <div class="clear"></div>
         </div>
     </div>
+
+    <mip-ptg-confirm @childEvent="parentMethod"
+      title='确认操作'
+      msg='确认操作? '
+      okevent="ok"
+      cancelevent="cancel"
+    ></mip-ptg-confirm-one>
+
 </div>
  
 </template>
@@ -256,11 +264,11 @@ API.wrapRet_ = function(api, opts, cb) {
   });
 }
 
-API.rejectInterview = function(masterId, cb) {
+API.rejectInterview = function(orderId, cb) {
   API.wrapRet_(
     '/api/reject_interview', 
     {
-      'id': masterId
+      'id': orderId
     },
     cb);
 };
@@ -353,11 +361,11 @@ export default {
     }, 
     handleBtn_buheshi (order) {
       // if(!confirm('确定?')) return;
-      API.rejectInterview(order.id,function(isOK, data){
-      if (isOk) {
-        this.reload_();
+      API.rejectInterview(order.id, function(isOK, data){
+        if (isOk) {
+          this.reload_();
         } else {
-        console.warn(data);
+          console.warn(data);
         }
       });
 

@@ -1,12 +1,11 @@
-# mip-ptg-master-card
-
-mip-ptg-master-card 组件说明
+# mip-ptg-confirm
+mip-ptg-confirm 组件说明
 
 标题|内容
 ----|----
 类型|通用
 支持布局|responsive,fixed-height,fill,container,fixed
-所需脚本|https://c.mipcdn.com/extensions/platform/v2/mip.putibaby.com/mip-ptg-master-card/mip-ptg-master-card.js
+所需脚本|https://c.mipcdn.com/extensions/platform/v2/mip.putibaby.com/mip-ptg-confirm/mip-ptg-confirm.js
 
 ## 示例
 ### 基本用法
@@ -14,10 +13,13 @@ mip-ptg-master-card 组件说明
 列表数据通过data-jsonstr传递
 
 ```html
-<mip-ptg-master-card
-    data-jsonstr="<%= JSON.stringify(data) %>"
+<mip-ptg-confirm
+	title='title'
+	msg='msg'
+    okevent="ok"
+    cancelevent="cancel"
     >
-</mip-ptg-master-card>   
+</mip-ptg-confirm>   
 ```
 
 ## 属性

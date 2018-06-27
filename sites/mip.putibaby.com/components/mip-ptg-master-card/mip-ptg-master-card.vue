@@ -126,47 +126,46 @@
       <div v-else>
         <table>
           <tbody>
-           <!--  <tr>
+           <!---->  <tr>
               <td>
                 综合评价
                 <div class="starBox">
-                  <% for(var j = 0;j < Math.round(m.shanghu_data.feedback_total_star/m.shanghu_data.feedback_cc); j++) {%>
-                    <mip-img layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_star.png" ></mip-img>
-                  <%}%>
-                  <% for(var j = 0;j < 5 - Math.round(m.shanghu_data.feedback_total_star/m.shanghu_data.feedback_cc); j++) {%>
-                    <mip-img layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_unstar.png" ></mip-img>
-                  <%}%>
+
+                    <mip-img v-for="j in [...Array(Math.round(data.shanghu_data.feedback_total_star/m.shanghu_data.feedback_cc)).keys()]" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_star.png" ></mip-img>
+
+                    <mip-img v-for="j in [...Array(5-Math.round(data.shanghu_data.feedback_total_star/m.shanghu_data.feedback_cc)).keys()]" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_unstar.png" ></mip-img>
+
                 </div>
               </td>
-            </tr> -->
-            <!-- <tr>
+            </tr> 
+            <tr>
               <td>
-                <span><%= m.last_feedback.shanghu_at %></span>
+                <span>{{ data.last_feedback.shanghu_at }}</span>
                 <span>至</span>
-                <span><%= m.last_feedback.end_at %></span>
-                <span class="left">共<%= m.last_feedback.days %>天</span>
+                <span>{{ data.last_feedback.end_at }}</span>
+                <span class="left">{{ data.last_feedback.days }}天</span>
               </td>
-            </tr> -->
-            <!-- <tr>
+            </tr> 
+            <tr>
               <td class="customer">
-                <mip-img layout="responisve" width="50px" height="50px" src="<%= m.last_feedback.mama_info.header.small %>" ></mip-img>
+                <mip-img layout="responisve" width="50px" height="50px" :src="data.last_feedback.mama_info.header.small" ></mip-img>
                 <div class="customerInfo">
                   <p>
-                    <span><%= m.last_feedback.mama_info.name %> &nbsp;<%= m.last_feedback.mama_info.role %>(<%= m.last_feedback.mama_info.type=='history' ? '历史客户' : '菩提果签约' %>
-                    <%= m.last_feedback.mama_info.master_type == 'yuer' ? '育儿单' : '月嫂单' %>
+                    <span>{{ data.last_feedback.mama_info.name }} &nbsp; {{ data.last_feedback.mama_info.role }}({{ data.last_feedback.mama_info.type=='history' ? '历史客户' : '菩提果签约' }}
+                    {{ data.last_feedback.mama_info.master_type == 'yuer' ? '育儿单' : '月嫂单' }}
                     )
                     </span>
                   </p>
-                  <p>手机：<%= m.last_feedback.mama_info.phone_number %></p>
+                  <p>手机：{{ data.last_feedback.mama_info.phone_number }}</p>
                 </div>
               </td>
-            </tr> -->
-            <!-- <tr>
+            </tr> 
+            <tr>
               <td>
-                <span>拍照:<%= m.last_feedback.record_cc %>张</span>
-                <span class="left">护理记录:<%= m.last_feedback.care_cc %></span>
+                <span>拍照:{{ data.last_feedback.record_cc }}张</span>
+                <span class="left">护理记录:{{ data.last_feedback.care_cc }}</span>
               </td>
-            </tr> -->
+            </tr>
             <tr>
               <td class="customerEvaluate">
                 <!-- <p class="cE_title">客户评价</p> -->

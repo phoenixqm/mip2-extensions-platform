@@ -581,8 +581,8 @@ td.secondCol {
     background-color: #fff;
 }
 .td-fav{
-  padding-left:10px;
-  padding-right: 10px;
+  padding-left:6px;
+  padding-right: 6px;
 }
 .td2{
     cursor: pointer;

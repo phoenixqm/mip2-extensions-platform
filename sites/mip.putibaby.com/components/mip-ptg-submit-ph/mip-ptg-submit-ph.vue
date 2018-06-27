@@ -8,13 +8,10 @@
     </div>
     <div class="get">
       <input id="ph" class="ph" type="number" placeholder="请输入您的手机号码" v-model="phoneNumber" v-on:blur="changePhoneNumber_">
-	  <!--<div id="err" class="err" v-if="errPhoneNumber">错误的手机号</div>-->
-      <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:blur="changeVerifySms_">
-	  <!--<div id="smsSend" class="smsSend" @click="getVerify_" v-bind:disabled="smsDisable">获取验证码</div>-->
+      <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:blur="changeVerifySms_" v-bind:disabled="verifyInput">
 	  <input class="smsSend" type="button" @click="getVerify_" v-bind:disabled="smsDisabled" v-bind:value="text" ></input>
     </div>
-    <div id="err" class="err" v-if="errSms">错误的验证码</div>
-      <div id="err" class="err" v-if="errPhoneNumber">错误的手机号</div>
+	<div id="err" class="err" v-if="err">{{errMessage}}</div>
     <div class="submit">
       <input class="submitbtn" type="submit" value="确认提交" v-on:click="handleSubmit_" v-bind:disabled="subDisabled" />
     </div>
@@ -127,7 +124,7 @@ border-radius:4px;
   position: absolute;
   right: 10px;
   top: 50px;
-  border-radius: 2px;
+  border-radius: 4px;
   line-height: 36px;
   text-align: center;
   background: #46AB49;
@@ -319,11 +316,13 @@ export default {
       errSms: false,
       phoneNumber: '',
       sms: '',
-      smsDisabled: true,
-      subDisabled: true,
 	  text:'获取验证码',
 	  djs:0,
-	  
+	  verifyInput:true,
+	  smsDisabled:true,
+	  subDisabled:true,
+	 err:false,
+	 errMessage:'',
     }
   },
   computed: {
@@ -339,54 +338,85 @@ export default {
     },
     changePhoneNumber_() {
       if (!/^1\d{10}$/.test(this.phoneNumber)) {
-		console.log('phonenumber:',this.phoneNumber);
-        this.errPhoneNumber = true;
-        this.smsDisabled = true;
+		this.errMessage='请输入正确的手机号码';
+		this.err = true;
       } else {
-        this.errPhoneNumber = false;
-        this.smsDisabled = false;
+		this.smsDisabled=false;
+		this.errMessage='';
+		this.err=false;
       }
     },
     changeVerifySms_() {
       if (!/^\d{4,6}$/.test(this.sms)) {
-        this.errSms = true;
-        this.subDisabled = true;
+		this.errMessage = '请输入正确的验证码';
+		this.err=true;
       } else {
-        this.errSms = false;
-        this.subDisabled = false;
+		this.subDisabled=false;
+		this.errMessage='';
+        this.err = false;
       }
     },
 	daojishi_() {
 	  if(this.djs == 1){
 		var self = this;
-self.smsDisabled=true;
-		var t = 6;
+		var t = 3;
 		var daojishi = setInterval(function(){
+		  self.errMessage='';
+		  self.err=false;
 		  t--;
 			self.text = t + 'S后可重新获取';
 			if( t ==0 ){
 			  self.text='获取验证码';
-			  self.smsDisabled=false;
-			  console.log('8888:',self.text);
 			clearInterval(daojishi);
 		  }
 		},1000);
 	  }
 	},
     getVerify_() {
-
+	this.verifyInput=false;
 	  this.djs=1;
+	  var self = this;
 	   API.sendPhoneNumberVerifySms(this.phoneNumber, function(isOk, res) {
-        console.log(res);
+		 console.log('isok',isOk);
+		 console.log('isok',res);
+		 if (isOk) {
+			self.daojishi_();
+		 } else {
+			self.errMessage='该号码已注册';
+			self.err=true;
+		 }
       });
-	  this.daojishi_();
     },
     handleSubmit_() {
 
-      API.verifyPhoneNumber(this.phoneNumber, this.sms, function(isOk, res) {
-        console.log(res);
-      });
-      // window.location.href = '/master_card?mcode=' + fav.master.mcode;
+   		var self = this;
+
+	if (!/^1\d{10}$/.test(this.phoneNumber)) {
+		console.log('phonenumber:',this.phoneNumber);
+        self.errMessage = '请输入正确的手机号码';
+        self.err = true;
+      } else {
+
+
+   if (!/^\d{4,6}$/.test(this.sms)) {
+        self.errMessage = '请输入正确的验证码';
+        self.err = true;
+      } else {
+		self.errMessage = '';
+		self.err=false;
+  	API.verifyPhoneNumber(this.phoneNumber, this.sms, function(isOk, res) {
+	  if(isOk){
+      
+       window.location.href = JSON.parse(self.dataJsonstr).redirect;
+	 }else {
+	   self.errMessage='请输入正确的验证码';
+	   self.err=true;
+	 }
+});
+
+      }     
+      }		
+
     },
   }
 }

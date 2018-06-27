@@ -194,7 +194,7 @@
               <td class="td-fav" @click="this.handleFav">
                   <a class="a">
                       <mip-img v-if="data.info.isfav" layout="responisve" width="29px" height="35px" src="i/has_fav.png" ></mip-img>
-                      <mip-img v-else-if="!data.info.isfav" layout="responisve" width="21px" height="35px" src="i/un_fav.png" ></mip-img>
+                      <mip-img v-else-if="!data.info.isfav" layout="responisve" width="29px" height="35px" src="i/un_fav.png" ></mip-img>
                       <mip-img v-else layout="responisve" width="21px" height="35px" src="i/un_fav.png" ></mip-img>
                   </a>
               </td>                    

@@ -7,14 +7,16 @@
       <span>为了能让菩提果的老师和月嫂更好的为您服务，需要您提供正确的手机号码：</span>
     </div>
     <div class="get">
-      <input id="ph" class="ph" type="number" placeholder="请输入您的手机号码" value="" v-model="phoneNumber" v-on:blur="changePhoneNumber_">
-      <div id="err" class="err" v-if="errPhoneNumber">错误的手机号</div>
-      <input id="code" class="code" type="number" placeholder="输入验证码" value="" v-model="sms" v-on:blur="changeVerifySms_">
-      <div id="smsSend" class="smsSend" @click="getVerify_" v-bind:disabled="smsDisable">获取验证码</div>
+      <input id="ph" class="ph" type="number" placeholder="请输入您的手机号码" v-model="phoneNumber" v-on:blur="changePhoneNumber_">
+	  <!--<div id="err" class="err" v-if="errPhoneNumber">错误的手机号</div>-->
+      <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:blur="changeVerifySms_">
+	  <!--<div id="smsSend" class="smsSend" @click="getVerify_" v-bind:disabled="smsDisable">获取验证码</div>-->
+	  <input class="smsSend" type="button" @click="getVerify_" v-bind:disabled="smsDisabled" value="获取验证码"></input>
     </div>
     <div id="err" class="err" v-if="errSms">错误的验证码</div>
+      <div id="err" class="err" v-if="errPhoneNumber">错误的手机号</div>
     <div class="submit">
-      <input class="btn" type="submit" value="确认提交" v-on:click="handleSubmit_" v-bind:disabled="subDisabled" />
+      <input class="submitbtn" type="submit" value="确认提交" v-on:click="handleSubmit_" v-bind:disabled="subDisabled" />
     </div>
   </mip-form>
 </div>
@@ -74,6 +76,19 @@ a:hover {
   height: 100px;
   position: relative;
 }
+.get .btn1{
+	position: relative;
+    width: 42%;
+    right: -228px;
+    top: 49px;
+    height: 38px;
+border-radius:4px;
+    border-style: none;
+    background-color: #46ab49;
+    color: #fff;
+    text-align: center;
+
+}
 
 .ph {
   position: absolute;
@@ -119,6 +134,7 @@ a:hover {
   color: #fff;
   cursor: pointer;
   width: 45%;
+border-style:none;
 }
 
 .smsSend.disabled {
@@ -127,7 +143,7 @@ a:hover {
   opacity: 0.6;
 }
 
-.submitBtn {
+.submit .submitbtn {
   background: #46AB49;
   color: #fff;
   cursor: pointer;
@@ -136,6 +152,9 @@ a:hover {
   border-radius: 4px;
   margin: 0 auto;
   width: 94%;
+border-style:none;
+left:3%;
+position:relative;
 }
 </style>
 
@@ -293,16 +312,15 @@ export default {
     }
   },
   data() {
-    console.log(this);
+    console.log('data:',this);
     var pdata = JSON.parse(this.dataJsonstr);
-    console.log(pdata.favlist);
     return {
       errPhoneNumber: false,
       errSms: false,
       phoneNumber: '',
       sms: '',
-      smsDisable: true,
-      subDisable: true,
+      smsDisabled: true,
+      subDisabled: true,
     }
   },
   computed: {
@@ -317,13 +335,16 @@ export default {
       console.log('should set data');
     },
     changePhoneNumber_() {
+	  console.log('changePhone:',this);
       if (!/^1\d{10}$/.test(this.phoneNumber)) {
-        this.errPh = true;
+		console.log('phonenumber:',this.phoneNumber);
+        this.errPhoneNumber = true;
         this.smsDisabled = true;
       } else {
-        this.errPh = false;
+        this.errPhoneNumber = false;
         this.smsDisabled = false;
       }
+	  console.log('111111:',this);
     },
     changeVerifySms_() {
       if (!/^\d{4,6}$/.test(this.sms)) {

@@ -115,6 +115,9 @@ export default {
   },
   data () {
     console.log(this);
+	return {
+
+	};
 
   },
   computed: {
@@ -132,13 +135,13 @@ export default {
 
     reload_() {
 
-    }),
+    },
     cancelConfirm() {
       this.$emit(this.cancelevent);
-    }),
+    },
     okConfirm() {
       this.$emit(this.okevent);
-    }),
+    }
   }
 
 }

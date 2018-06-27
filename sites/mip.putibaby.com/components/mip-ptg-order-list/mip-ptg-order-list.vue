@@ -58,7 +58,7 @@
       msg='确认操作? '
       okevent="ok"
       cancelevent="cancel"
-    ></mip-ptg-confirm-one>
+    ></mip-ptg-confirm>
 
 </div>
  

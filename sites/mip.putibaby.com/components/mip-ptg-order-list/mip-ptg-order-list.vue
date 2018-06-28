@@ -1,120 +1,111 @@
-
 <template>
-<div class="root">
-
-    <div  class="row" v-for="order in list">
-        <p class='row_p'>
-            <span class="status">
+  <div class="root">
+    <div class="row" v-for="order in list">
+      <p class='row_p'>
+        <span class="status">
                    {{ order.desc_str }}
             </span>
-              <span class="row_header">
+        <span class="row_header">
                    编号: {{ order.order_number }}
             </span>
-        </p>  
-
-         <div class="info">
-		 <mip-img layout="responsive" width="85px" height="22px"
-                  class="header" v-bind:src="order.master.header.small" ></mip-img>  
-               <!-- <mip-img layout="responsive" width="85px" height="22px"
-                  class="header" src="i/age.png" ></mip-img> --> 
-                  <span class="name">{{ order.master.name }}</span>
-            <span class="price">￥{{ order.master.ptg_price }}</span>
-            <div class="message">
-                <mip-img layout="responsive" width="85px" height="22px"
-                    class="age_img" src="i/age.png" ></mip-img>
-                <span class="age">{{ order.master.age }}岁</span>
-                <mip-img layout="responsive" width="85px" height="22px"
-                    class="work_year_img" src="i/work_year.png" ></mip-img>
-                <span class="work_year">{{ order.master.work_year }}年</span>
-                <mip-img layout="responsive" width="85px" height="22px"
-                    class="jiguan_img" src="i/jiguan.png" ></mip-img>
-                <span class="jiguan">{{ order.master.jiguan }}</span>
-            </div>
-
-        </div> 
-        <div class="row_footer">
-     		 <div class="btn_list">
-                  <div class="tuijianBtn" v-if="order.showBtn_tuijian" @click="handleBtn_tuijian(order)">推荐</div>
-                  <div class="tuijianBtn" v-if="order.showBtn_shipinyuyue" @click="handleBtn_shipinyuyue(order)">发起视频预约</div>
-                  <div class="tuijianBtn" v-if="order.showBtn_qianyue" @click="handleBtn_qianyue(order)">签约</div>
-                  <div class="" v-if="order.showBtn_chakanshipin" @click="handleBtn_chakanshipin(order)">查看视频</div>
-                  <div class="tuijianBtn" v-if="order.showBtn_wodeyuyue" @click="handleBtn_wodeyuyue(order)">我的预约</div>                  
-                  <div class="tuijianBtn" v-if="order.showBtn_buheshi" @click="handleBtn_buheshi(order)">不合适</div>
-                  <div class="tuijianBtn" v-if="order.showBtn_shanchu" @click="handleBtn_shanchu(order)">删除</div>
-                  <div class="tuijianBtn" v-if="order.showBtn_dianhualianxi" @click="handleBtn_dianhualianxi(order)">电话联系</div>
-                  <div class="tuijianBtn" v-if="order.showBtn_nidinghetong" @click="handleBtn_nidinghetong(order)">拟定合同</div>
-                  <div class="tuijianBtn" v-if="order.showBtn_chakanhetong" @click="handleBtn_chakanhetong(order)">查看合同</div>
-                  <div class="tuijianBtn" v-if="order.showBtn_jiaodingjin" @click="handleBtn_jiaodingjin(order)">交定金</div>                 
-                  <div class="tuijianBtn" v-if="order.showBtn_shanghu" @click="handleBtn_shanghu(order)">上户</div>
-                  <div class="tuijianBtn" v-if="order.showBtn_lianxikefu" @click="handleBtn_lianxikefu(order)">联系客服</div>
-                  <div class="tuijianBtn" v-if="order.showBtn_fukuan" @click="handleBtn_fukuan(order)">付款</div>
-                  <!-- <div class="btn tuijianBtn" v-if="order.showBtn_xuqian" @click="handleBtn_xuqian(order)">续签</div> -->
-              </div> 
-		  <div class="clear"></div>
+      </p>
+      <div class="info">
+        <mip-img layout="responsive" width="85px" height="22px" class="header" v-bind:src="order.master.header.small"></mip-img>
+        <!-- <mip-img layout="responsive" width="85px" height="22px"
+                  class="header" src="i/age.png" ></mip-img> -->
+        <span class="name">{{ order.master.name }}</span>
+        <span class="price">￥{{ order.master.ptg_price }}</span>
+        <div class="message">
+          <mip-img layout="responsive" width="85px" height="22px" class="age_img" src="i/age.png"></mip-img>
+          <span class="age">{{ order.master.age }}岁</span>
+          <mip-img layout="responsive" width="85px" height="22px" class="work_year_img" src="i/work_year.png"></mip-img>
+          <span class="work_year">{{ order.master.work_year }}年</span>
+          <mip-img layout="responsive" width="85px" height="22px" class="jiguan_img" src="i/jiguan.png"></mip-img>
+          <span class="jiguan">{{ order.master.jiguan }}</span>
         </div>
+      </div>
+      <div class="row_footer">
+        <div class="btn_list">
+          <div class="tuijianBtn" v-if="order.showBtn_tuijian" @click="handleBtn_tuijian(order)">推荐</div>
+          <div class="tuijianBtn" v-if="order.showBtn_shipinyuyue" @click="handleBtn_shipinyuyue(order)">发起视频预约</div>
+          <div class="tuijianBtn" v-if="order.showBtn_qianyue" @click="handleBtn_qianyue(order)">签约</div>
+          <div class="" v-if="order.showBtn_chakanshipin" @click="handleBtn_chakanshipin(order)">查看视频</div>
+          <div class="tuijianBtn" v-if="order.showBtn_wodeyuyue" @click="handleBtn_wodeyuyue(order)">我的预约</div>
+          <div class="tuijianBtn" v-if="order.showBtn_buheshi" @click="handleBtn_buheshi(order)">不合适</div>
+          <div class="tuijianBtn" v-if="order.showBtn_shanchu" @click="handleBtn_shanchu(order)">删除</div>
+          <div class="tuijianBtn" v-if="order.showBtn_dianhualianxi" @click="handleBtn_dianhualianxi(order)">电话联系</div>
+          <div class="tuijianBtn" v-if="order.showBtn_nidinghetong" @click="handleBtn_nidinghetong(order)">拟定合同</div>
+          <div class="tuijianBtn" v-if="order.showBtn_chakanhetong" @click="handleBtn_chakanhetong(order)">查看合同</div>
+          <div class="tuijianBtn" v-if="order.showBtn_jiaodingjin" @click="handleBtn_jiaodingjin(order)">交定金</div>
+          <div class="tuijianBtn" v-if="order.showBtn_shanghu" @click="handleBtn_shanghu(order)">上户</div>
+          <div class="tuijianBtn" v-if="order.showBtn_lianxikefu" @click="handleBtn_lianxikefu(order)">联系客服</div>
+          <div class="tuijianBtn" v-if="order.showBtn_fukuan" @click="handleBtn_fukuan(order)">付款</div>
+          <!-- <div class="btn tuijianBtn" v-if="order.showBtn_xuqian" @click="handleBtn_xuqian(order)">续签</div> -->
+        </div>
+        <div class="clear"></div>
+      </div>
     </div>
-
-</div>
- 
+  </div>
 </template>
-
-
 <style scoped>
 .wrapper {
   margin: 0 auto;
   text-align: center;
 }
 
-body{
-   background-color: #f3f3f3 !important;
-}
-.root{
-  background-color:#f3f3f3;
-}
-.row{
-   background: #fff;
-   margin-top: 10px;
-   position: relative;
+body {
+  background-color: #f3f3f3 !important;
 }
 
-.row_p{
-   margin: 0px;
-   padding: 0px;
-   line-height: 30px;
-   border: 1px solid #eee;
+.root {
+  background-color: #f3f3f3;
 }
 
-.row_header{
-   height: 30px;
-   line-height: 30px;
-   margin-right: 10px;
-   color: #999;
-   cursor: pointer;
-   float: right;
+.row {
+  background: #fff;
+  margin-top: 10px;
+  position: relative;
 }
+
+.row_p {
+  margin: 0px;
+  padding: 0px;
+  line-height: 30px;
+  border: 1px solid #eee;
+}
+
+.row_header {
+  height: 30px;
+  line-height: 30px;
+  margin-right: 10px;
+  color: #999;
+  cursor: pointer;
+  float: right;
+}
+
 .row_footer {
-   border-top: 1px solid #eee;
-   border-bottom: 1px solid #eee;
-   background-color: #fff;
-   width: 100%;
-   height: 40px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+  width: 100%;
+  height: 40px;
 }
 
 
-.status{
-   height: 30px;
-   line-height: 30px;
-   padding-left: 10px;
-   color: #999;
-   cursor: pointer;
+.status {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 10px;
+  color: #999;
+  cursor: pointer;
 }
 
-.btn_list{
-   float: right;
-   text-align: right;
+.btn_list {
+  float: right;
+  text-align: right;
 }
 
-.tuijianBtn{
+.tuijianBtn {
   border: 1px solid #afd03b;
   display: inline-block;
   border-radius: 3px;
@@ -125,103 +116,103 @@ body{
   color: #afd03b;
   cursor: pointer;
 }
-.info{
-   background: #fff;
-   position: relative;
-   height: 72px;
-   overflow: hidden;
-   cursor: pointer;
+
+.info {
+  background: #fff;
+  position: relative;
+  height: 72px;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-.header{
-   width: 50px;
-   height: 50px;
-   position: absolute;
-   top: 10px;
-   left: 10px;
-   border-radius: 5px;
+.header {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 5px;
 }
 
-.name{
-   font-size: 16px;
-   font-weight: bold;
-   color: #333;
-   position: absolute;
-   top: 15px;
-   left: 70px;
+.name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  position: absolute;
+  top: 15px;
+  left: 70px;
 }
 
-.price{
-   font-size: 16px;
-   font-weight: bold;
-   color: red;
-   position: absolute;
-   top: 15px;
-   left: 130px
+.price {
+  font-size: 16px;
+  font-weight: bold;
+  color: red;
+  position: absolute;
+  top: 15px;
+  left: 130px
 }
 
-.message{
-   font-size: 14px;
-   color: #666;
-   position: absolute;
-   top: 40px;
-   left: 70px;
+.message {
+  font-size: 14px;
+  color: #666;
+  position: absolute;
+  top: 40px;
+  left: 70px;
 }
 
-.age_img{
-   width: 14px;
-   height: 14px;
-   position: relative;
-   top: 0;
-   display: inline-block;
-   margin-right: 2px;
+.age_img {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: 0;
+  display: inline-block;
+  margin-right: 2px;
 }
 
-.age{
-   display: inline-block;
-   margin-right: 10px;
+.age {
+  display: inline-block;
+  margin-right: 10px;
 }
 
-.work_year_img{
-   width: 14px;
-   height: 14px;
-   position: relative;
-   top: 0;
-   display: inline-block;
-   margin-right: 2px;
-}
-.work_year{
-   display: inline-block;
-   margin-right: 10px;
+.work_year_img {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: 0;
+  display: inline-block;
+  margin-right: 2px;
 }
 
-.jiguan_img{
-   width: 14px;
-   height: 14px;
-   position: relative;
-   top: 0;
-   display: inline-block;
-   margin-right: 2px;
+.work_year {
+  display: inline-block;
+  margin-right: 10px;
 }
 
-.btn{
-   border: 1px solid #ccc;
-   display: inline-block;
-   border-radius: 5px;
-   line-height: 1;
-   font-size: 14px;
-   padding: 3px 5px;
-   margin: 8px 5px 8px 5px;
-   color: #666;
-   background: #eee;
-   cursor: pointer;
+.jiguan_img {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  top: 0;
+  display: inline-block;
+  margin-right: 2px;
 }
 
+.btn {
+  border: 1px solid #ccc;
+  display: inline-block;
+  border-radius: 5px;
+  line-height: 1;
+  font-size: 14px;
+  padding: 3px 5px;
+  margin: 8px 5px 8px 5px;
+  color: #666;
+  background: #eee;
+  cursor: pointer;
+}
 </style>
-
 <script>
-
 var API = {};
+
 function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
@@ -233,36 +224,35 @@ function checkStatus(response) {
 }
 
 function parseJSON(response) {
-   return response.json()
+  return response.json()
 }
 
 API.wrapRet_ = function(api, opts, cb) {
   console.log('posting to ' + api);
-  fetch(api,{  
-    method: 'POST',
-    credentials: "same-origin",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(opts)
-  })
-  .then(checkStatus)
-  .then(parseJSON)
-  .then(ret => {
-	console.log(ret);
-    if(ret.success) cb(true, ret.data);
-    else cb(false, ret.error);
-  })  
-  .catch(e => {
-    console.error(e.message); 
-    cb(false, e.message);
-  });
+  fetch(api, {
+      method: 'POST',
+      credentials: "same-origin",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(opts)
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(ret => {
+      console.log(ret);
+      if (ret.success) cb(true, ret.data);
+      else cb(false, ret.error);
+    })
+    .catch(e => {
+      console.error(e.message);
+      cb(false, e.message);
+    });
 }
 
 API.rejectInterview = function(orderId, cb) {
   API.wrapRet_(
-    '/api/reject_interview', 
-    {
+    '/api/reject_interview', {
       'id': orderId
     },
     cb);
@@ -270,8 +260,7 @@ API.rejectInterview = function(orderId, cb) {
 
 API.hideFinishedOrder = function(orderId, cb) {
   API.wrapRet_(
-    '/api/hide_finished_order', 
-    {
+    '/api/hide_finished_order', {
       'id': orderId
     },
     cb);
@@ -279,40 +268,34 @@ API.hideFinishedOrder = function(orderId, cb) {
 
 API.doShanghu = function(orderId, cb) {
   API.wrapRet_(
-    '/api/do_shanghu', 
-    {
+    '/api/do_shanghu', {
       'id': orderId
     },
     cb);
 };
 export default {
-  mounted () {
+  mounted() {
     console.log('This is my first custom component !');
-	var self = this;
-    this.$element.customElement.addEventAction('echo', function (event, str) {
-        console.log(event);
-		console.log(str);
-      });
-       this.$element.customElement.addEventAction('dook', function (event, str)    {
-   		   console.log(event);
-		   console.log(str);
-		   if (event.from == 'handleBtn_shanchu') {
-				
-		   }
-		   var event_order = event.data;
-		   console.log(event.from);
-		   event.from.bind(self)(event.data, true);
-			//var eval_str = 'this.' + event.handler + '(event_order)'
-  		 });
-       this.$element.customElement.addEventAction('docancel', function (event, str)    {
-   		   console.log(event);
-		   console.log(str);
-           
-  		 });
+    var self = this;
+    this.$element.customElement.addEventAction('echo', function(event, str) {
+      console.log(event);
+    });
+    this.$element.customElement.addEventAction('dook', function(event, str) {
+      // console.log(event);
+
+      console.log(event.from);
+      event.from.bind(self)(event.data, true);
+      //var eval_str = 'this.' + event.handler + '(event_order)'
+    });
+    this.$element.customElement.addEventAction('docancel', function(event, str) {
+      console.log(event);
+      console.log(str);
+
+    });
 
 
   },
-   firstInviewCallback () {
+  firstInviewCallback() {
     this.init()
   },
   props: {
@@ -320,131 +303,134 @@ export default {
       type: String,
       default: null
     },
-	dataJsonstr :{
-	  type: String,
-	  default: null
-	  
-	}        
+    dataJsonstr: {
+      type: String,
+      default: null
+
+    }
   },
-  data () {
-	console.log(this);
-	var pdata = JSON.parse(this.dataJsonstr);
+  data() {
+    console.log(this);
+    var pdata = JSON.parse(this.dataJsonstr);
     console.log(pdata.list);
     return {
-		list: pdata.list,
-		state: {
-			showTuijianBtn:true,
-		    show_confirm: false
-		 
-		},
+      list: pdata.list,
+      state: {
+        showTuijianBtn: true,
+        show_confirm: false
+
+      },
     }
   },
   computed: {
-    
+
   },
   methods: {
-    init () {
+    init() {
       console.log('should loading');
       console.log(this.dataJson);
-	  
+
     },
 
-    load_data () {
+    load_data() {
       console.log('should set data');
 
     },
 
-    reload_(){
-	  location.reload();
+    reload_() {
+      location.reload();
       var href = self.location.href;
-      if(href.indexOf('?') >= 0){
+      if (href.indexOf('?') >= 0) {
         self.location.href = href + '&_=' + Math.random();
-      }
-      else{
+      } else {
         self.location.href = href + '?_=' + Math.random();
       }
     },
-	  handleBtn_tuijian(order){
+    handleBtn_tuijian(order) {
       window.location.href = '/master_card?mcode=' + order.master.mcode;
     },
 
-    handleBtn_shipinyuyue (order) {
+    handleBtn_shipinyuyue(order) {
       window.location.href = '/video_interview_master?master_id=' + order.master.id;
     },
-    handleBtn_qianyue (order) {
+    handleBtn_qianyue(order) {
       window.location.href = '/show_master?u=' + order.master.username;
-    },  
-    handleBtn_chakanshipin (order) {
+    },
+    handleBtn_chakanshipin(order) {
       window.location.href = '/show_my_qs_list?id=' + order.id;
-    }, 
-    handleBtn_wodeyuyue (order) {
+    },
+    handleBtn_wodeyuyue(order) {
       window.location.href = '/show_my_realtime_video_interview?id=' + order.id;
-    }, 
-    handleBtn_buheshi (order) {
+    },
+    handleBtn_buheshi(order) {
       // if(!confirm('确定?')) return;
-	  this.$set(this.state, 'show_confirm', true);
-  //    API.rejectInterview(order.id, function(isOk, data){
-  //      if (isOk) {
-  //        this.reload_();
-  //      } else {
-  //        console.warn(data);
-  //      }
-  //    });
+      this.$set(this.state, 'show_confirm', true);
+      //    API.rejectInterview(order.id, function(isOk, data){
+      //      if (isOk) {
+      //        this.reload_();
+      //      } else {
+      //        console.warn(data);
+      //      }
+      //    });
 
-    }, 
-    handleBtn_shanchu (order, skip) {
-	  var self = this;
+    },
+    handleBtn_shanchu(order, skip) {
+      var self = this;
       // if(!confirm('确定要删除?')) return;
-	  if (skip) {   
-	  API.hideFinishedOrder(order.id,function(isOk, data){
-      if (isOk) {
-        self.reload_();
-        } else {
-        console.warn(data);
-        }
-     });
+      if (skip) {
+        API.hideFinishedOrder(order.id, function(isOk, data) {
+          if (isOk) {
+            self.reload_();
+          } else {
+            console.warn(data);
+          }
+        });
 
-	  } else {
+      } else {
 
-	var ele = document.getElementById('ptgconfirm');	
-    console.log(ele);
-     MIP.viewer.eventAction.execute('doshow', ele, {el_id:'orderlist', from: this.handleBtn_shanchu, data:order}); 
-	
+        var ele = document.getElementById('ptgconfirm');
+        // console.log(ele);
+        MIP.viewer.eventAction.execute('doshow', ele, { 
+          el_id: 'orderlist', 
+          msg: '确定要删除?',
+          from: this.handleBtn_shanchu, 
+          data: order });
+
       }
 
-    },     
-    handleBtn_dianhualianxi (order) {
+    },
+    handleBtn_dianhualianxi(order) {
       window.location.href = 'tel:' + order.master.phone_number;
-    }, 
-    handleBtn_nidinghetong (order) {
+    },
+    handleBtn_nidinghetong(order) {
       window.location.href = '/edit_contract?id=' + order.id;
-    }, 
-    handleBtn_chakanhetong (order) {
-      window.location.href = '/edit_contract?id=' + order.id+'&readonly=1';
-    }, 
-    handleBtn_jiaodingjin (order) {
+    },
+    handleBtn_chakanhetong(order) {
+      window.location.href = '/edit_contract?id=' + order.id + '&readonly=1';
+    },
+    handleBtn_jiaodingjin(order) {
       window.location.href = '/v2_do_pay?order_id=' + order.id;
-    }, 
-    handleBtn_shanghu (order) {
+    },
+    handleBtn_shanghu(order) {
       var self = this;
-      API.doShanghu(order.id,function(isOk, data){
-      if (isOk) {
-        self.reload_();
+      API.doShanghu(order.id, function(isOk, data) {
+        if (isOk) {
+          self.reload_();
         } else {
-        console.warn(data);
+          console.warn(data);
         }
-      });    
+      });
     },
 
-    handleBtn_lianxikefu (order) {
+    handleBtn_lianxikefu(order) {
       window.location.href = 'tel:400-618-8835';
-    }, 
-    handleBtn_fukuan (order) {
+    },
+    handleBtn_fukuan(order) {
       window.location.href = '/v2_do_pay?order_id=' + order.id;
-    }, 
-    handleBtn_xuqian (order) {
+    },
+    handleBtn_xuqian(order) {
       window.location.href = '/v2_edit_xudan_yuesao_contract?order_id=' + order.id;
-    }, 
+    },
   }
 
 

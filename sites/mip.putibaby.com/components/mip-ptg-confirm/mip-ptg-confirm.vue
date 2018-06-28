@@ -92,6 +92,7 @@ export default {
       // console.log(event);
       // console.log(str);
       self.show = true;
+      self.msg = event.msg;
       self.current_el_event = event;
       self.current_el_id = event.el_id;
       self.current_el_data = event.data;

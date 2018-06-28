@@ -2,13 +2,12 @@
   <div v-if="show" class="root">
     <div id='fullScreen'></div>
     <div id='floatLayer'>
+      <p class="title">{{ title }}</p>
       <p class="msg">{{ msg }}</p>
-      <span>
-        <button class="btn_cal" @click="cancelConfirm">取消</button>
-      </span>
-      <span>
-        <button class="btn_ok" @click="okConfirm">确定</button>
-      </span>
+      <div class="btn_div">
+        <span class="btn_cal" @click="cancelConfirm">取消</span>
+        <span class="btn_ok" @click="okConfirm">确定</span>
+      </div>  
     </div>
   </div>
 </template>
@@ -36,29 +35,52 @@
 #floatLayer {
   position: fixed;
   width: 80%;
-  height: 150px;
+  height: 120px;
   left: 10%;
   top: 25%;
   background-color: white;
   z-index: 10000;
   border-radius: 5px;
-  padding-top: 50px;
+  padding-top: 30px;
   text-align: center;
 }
 .msg{
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  color:#999; 
+}
+
+.title{
+ margin-bottom:10px;
+ font-size: 18px;
+ color: #333;
+}
+
+.btn_div{
+  width: 100%;
+  border-top: solid 1px #ddd;
 }
 
 .btn_cal{
-  display:inline-block;
-  width:50px;
-  height:30px;
+    display:inline-block;
+    background-color: #fff;
+    font-size: 18px;
+    color: #666;
+    width: 47%;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    border-right: solid 1px #ddd;
 }
 .btn_ok{
-  display:inline-block;
-  width:50px;
-  height:30px;
-  margin-left: 30px;
+   display:inline-block;
+    background-color: #fff;
+    font-size: 18px;
+    color: #afd03b;
+    width: 47%;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
 }
 </style>
 <script>

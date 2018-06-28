@@ -9,7 +9,7 @@
                    编号: {{ order.order_number }}
             </span>
       </p>
-      <div class="info">
+      <div class="info" @click="handleBtn(order)">
         <mip-img layout="responsive" width="85px" height="22px" class="header" v-bind:src="order.master.header.small"></mip-img>
         <!-- <mip-img layout="responsive" width="85px" height="22px"
                   class="header" src="i/age.png" ></mip-img> -->
@@ -346,6 +346,9 @@ export default {
         self.location.href = href + '?_=' + Math.random();
       }
     },
+    handleBtn(order){
+      window.location.href = '/master_card?mcode=' + order.master.mcode;
+    },
     handleBtn_tuijian(order) {
       window.location.href = '/master_card?mcode=' + order.master.mcode;
     },
@@ -380,6 +383,7 @@ export default {
         // console.log(ele);
         MIP.viewer.eventAction.execute('doshow', ele, { 
           el_id: 'orderlist', 
+          title:'提示消息',
           msg: '确定不合适?',
           from: this.handleBtn_buheshi, 
           data: order });
@@ -405,6 +409,7 @@ export default {
         // console.log(ele);
         MIP.viewer.eventAction.execute('doshow', ele, { 
           el_id: 'orderlist', 
+          title:'提示消息',
           msg: '确定要删除?',
           from: this.handleBtn_shanchu, 
           data: order });
@@ -449,6 +454,7 @@ export default {
         // console.log(ele);
         MIP.viewer.eventAction.execute('doshow', ele, { 
           el_id: 'orderlist', 
+          title:'提示消息',
           msg: '确定要现在执行上户?',
           from: this.handleBtn_shanghu, 
           data: order });

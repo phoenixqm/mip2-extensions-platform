@@ -3,10 +3,9 @@
 <div class='root'>
   <mip-form method="get" url="https://www.mipengine.org?we=123">
 
-    <textarea class="textarea" name="edit_contract_extra" validatetype="must" required placeholder="点击输入补充条款，如：上户遇节假日工资多倍结算/休息日约定；双胞胎加收金额；特殊上户要求等……"></textarea>
+    <textarea class="textarea" name="edit_contract_extra" validatetype="must" required placeholder="点击输入补充条款，如：上户遇节假日工资多倍结算/休息日约定；双胞胎加收金额；特殊上户要求等……" v-model="contract_extra"></textarea>
 
-    <input class="mbtn" type="submit" value="提交">
-    <!-- <div class="btn" >确定</div> -->
+    <input class="mbtn" type="submit" value="提交" @click="submit_">
 
   </mip-form>
 
@@ -139,100 +138,16 @@ API.wrapRet_ = function(api, opts, cb) {
 }
 
 
-API.sendPhoneNumberVerifySms = function(phoneNumber, cb) {
-  // if (!/^1\d{10}$/.test(phoneNumber)) {
-  //   cb(false, '错误的手机号');
-  //   return;
-  // }
-
+API.submit_ = function( opts,cb) {
   API.wrapRet_(
-    '/api/send_sms', {
-      'phone_number': phoneNumber
+    '/api/set_contract', {
+      'contract_extra': opts.contract_extra,
+	  'id':opts.id,
+	  'order_id':opts.id,
     },
     cb);
 }
 
-
-API.sendPhoneNumberVerifySmsWithGt = function(phoneNumber, cb) {
-  if (!/^1\d{10}$/.test(phoneNumber)) {
-    cb(false, '错误的手机号');
-    return;
-  }
-
-  // if (window.gt_loading) {
-  //  setTimeout(function(){
-  //      window.gt_loading = false;
-  //  }, 100);
-  //  return;
-  // }
-
-  var handler = function(captchaObj) {
-    // captchaObj.appendTo('#captcha');
-    captchaObj.onReady(function() {
-      $("#wait").hide();
-      captchaObj.verify();
-    }).onSuccess(function() {
-      var result = captchaObj.getValidate();
-      if (!result) {
-        return alert('请完成验证');
-      }
-      // window.gt_loading = false;
-      API.wrapRet_(
-        '/api/send_sms_validate', {
-          'phone_number': phoneNumber,
-          'geetest_challenge': result.geetest_challenge,
-          'geetest_validate': result.geetest_validate,
-          'geetest_seccode': result.geetest_seccode
-        },
-        cb);
-
-    });
-
-    window.captchaObj = captchaObj;
-
-  };
-
-
-  $.ajax({
-    url: "/api/gt_register?t=" + (new Date()).getTime(),
-    type: "get",
-    dataType: "json",
-    success: function(ret) {
-      console.log(ret);
-      var data = ret.data;
-
-      initGeetest({
-        gt: data.gt,
-        challenge: data.challenge,
-        offline: !data.success,
-        new_captcha: data.new_captcha,
-
-        product: "bind",
-        width: "300px"
-      }, handler);
-
-    }
-  });
-
-}
-
-API.verifyPhoneNumber = function(phoneNumber, sms, cb) {
-  // if (!/^1\d{10}$/.test(phoneNumber)) {
-  //   cb(false, '错误的手机号');
-  //   return;
-  // }
-  //
-  // if (!/^\d{4,6}$/.test(sms)) {
-  //   cb(false, '错误的验证码');
-  //   return;
-  // }
-
-  API.wrapRet_(
-    '/api/verify_sms', {
-      'phone_number': phoneNumber,
-      'sms': sms
-    }, cb);
-}
 
 
 export default {
@@ -256,7 +171,7 @@ export default {
     console.log('data:', this);
     var pdata = JSON.parse(this.dataJsonstr);
     return {
-
+		contract_extra:'',
 
     }
   },
@@ -271,7 +186,18 @@ export default {
     load_data() {
       console.log('should set data');
     },
-    changePhoneNumber_() {
+    submit_() {
+	  
+	  var self = this;
+	  var opts={};
+	  opts.contract_extra=self.contract_extra;
+	  opts.id = JSON.parse(self.dataJsonstr).id;
+	  API.submit_(opts,function(isOk,res){
+		if(isOk){
+		  window.location.href ='/edit_contract?id=' + opts.id;
+	  }else{
+	  }
+	  });
 
     },
   }

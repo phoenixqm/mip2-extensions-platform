@@ -427,7 +427,7 @@ export default {
       window.location.href = '/edit_contract?id=' + order.id + '&readonly=1';
     },
     handleBtn_jiaodingjin(order) {
-      window.location.href = '/v2_do_pay?order_id=' + order.id;
+      window.location.href = '/pay/v2_do_pay?order_id=' + order.id;
     },
     handleBtn_shanghu(order) {
       // var self = this;
@@ -466,7 +466,7 @@ export default {
       window.location.href = 'tel:400-618-8835';
     },
     handleBtn_fukuan(order) {
-      window.location.href = '/v2_do_pay?order_id=' + order.id;
+      window.location.href = '/pay/v2_do_pay?order_id=' + order.id;
     },
     handleBtn_xuqian(order) {
       window.location.href = '/v2_edit_xudan_yuesao_contract?order_id=' + order.id;

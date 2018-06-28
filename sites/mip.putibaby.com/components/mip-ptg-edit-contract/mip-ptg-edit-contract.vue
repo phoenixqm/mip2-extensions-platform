@@ -142,7 +142,7 @@
 
     <div class="other_info">
       <div class="row">
-        <a href="http://localhost:10066/edit_contract_skill_req">
+        <a href="/edit_contract_skill_req_mip">
           <div class="left">服务项目</div>
           <div class="extra_text">
             <p>已选
@@ -154,7 +154,7 @@
         </a>
       </div>
       <div class="row">
-        <a href="http://localhost:10066/edit_contract_extra">
+        <a href="/edit_contract_extra_mip">
           <div class="left">补充条款</div>
           <div class="extra_text" v-model="contract_extra"></div>
           <mip-img layout="responsive" width="16" height="16" class="jt" src='i/jt-right2.png'></mip-img>

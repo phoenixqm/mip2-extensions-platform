@@ -4,36 +4,43 @@
   <mip-form method="get" url="https://www.mipengine.org?we=123">
 
     <div class="main_head">请勾选您认为重要的服务选项</div>
-
+	<div class="part" v-for="items in list">
+	  <div class="sub_head">{{items.title}}</div>
+      <div class="item" v-for="it in items.list">
+		<p>{{it.title}}</p>
+        <input type="checkbox" name="services" value="it.title" v-bind:checked="check" @click="changeChecked_(it.id,it.id)" >
+      </div>
+	</div>
+	<!--
     <div class="part">
-      <div class="sub_head">产妇护理</div>
+	  <div class="sub_head">产妇护理</div>
       <div class="item">
         <p>产妇状态观察（恶露、伤口、子宫复旧）</p>
-        <input type="checkbox" name="services" value="cf_zhuangtai" checked>
+        <input type="checkbox" name="services" value="cf_zhuangtai" :checked="cf_zhuangtai">
       </div>
       <div class="item">
         <p>母乳喂养指导</p>
-        <input type="checkbox" name="services" value="cf_weiyang" checked>
+        <input type="checkbox" name="services" value="cf_weiyang" :checked="cf_weiyang">
       </div>
       <div class="item">
         <p>乳房护理</p>
-        <input type="checkbox" name="services" value="cf_rufang" checked>
+        <input type="checkbox" name="services" value="cf_rufang" :checked="cf_rufang">
       </div>
       <div class="item">
         <p>协助擦浴</p>
-        <input type="checkbox" name="services" value="cf_cayu" checked>
+        <input type="checkbox" name="services" value="cf_cayu" :checked="cf_cayu">
       </div>
       <div class="item">
         <p>保健按摩</p>
-        <input type="checkbox" name="services" value="cf_anmo" checked>
+        <input type="checkbox" name="services" value="cf_anmo" :checked="cf_anmo">
       </div>
       <div class="item">
         <p>产后形体恢复</p>
-        <input type="checkbox" name="services" value="cf_xingtihuifu" checked>
+        <input type="checkbox" name="services" value="cf_xingtihuifu" :checked="cf_xingtihuifu">
       </div>
       <div class="item">
         <p>产后恢复指导</p>
-        <input type="checkbox" name="services" value="cf_chanhouhuifu" checked>
+        <input type="checkbox" name="services" value="cf_chanhouhuifu" :checked="cf_chanhouhuifu">
       </div>
     </div>
 
@@ -41,51 +48,51 @@
       <div class="sub_head">新生儿护理</div>
       <div class="item">
         <p>新生儿体温测量</p>
-        <input type="checkbox" name="services" value="xsr_tiwen" checked>
+        <input type="checkbox" name="services" value="xsr_tiwen" :checked="xsr_tiwen">
       </div>
       <div class="item">
         <p>新生儿溢奶</p>
-        <input type="checkbox" name="services" value="xsr_yinai" checked>
+        <input type="checkbox" name="services" value="xsr_yinai" :checked="xsr_yinai">
       </div>
       <div class="item">
         <p>新生儿湿疹</p>
-        <input type="checkbox" name="services" value="qt_shizhen" checked>
+        <input type="checkbox" name="services" value="xsr_shizhen" :checked="xsr_shizhen">
       </div>
       <div class="item">
         <p>新生儿红臀护理</p>
-        <input type="checkbox" name="services" value="qt_hongtun" checked>
+        <input type="checkbox" name="services" value="xsr_hongtun" :checked="xsr_hongtun">
       </div>
       <div class="item">
         <p>新生儿洗澡</p>
-        <input type="checkbox" name="services" value="qt_xizao" checked>
+        <input type="checkbox" name="services" value="xsr_xizao" :checked="xsr_xizao">
       </div>
       <div class="item">
         <p>新生儿抚触</p>
-        <input type="checkbox" name="services" value="qt_fuchu" checked>
+        <input type="checkbox" name="services" value="xsr_fuchu" :checked="xsr_fuchu">
       </div>
       <div class="item">
         <p>新生儿游泳</p>
-        <input type="checkbox" name="services" value="qt_youyong" checked>
+        <input type="checkbox" name="services" value="xsr_youyong" :checked="xsr_youyong">
       </div>
       <div class="item">
         <p>脐带护理</p>
-        <input type="checkbox" name="services" value="qt_qidai" checked>
+        <input type="checkbox" name="services" value="xsr_qidai" :checked="xsr_qidai">
       </div>
       <div class="item">
         <p>黄疸观察</p>
-        <input type="checkbox" name="services" value="qt_huangdan" checked>
+        <input type="checkbox" name="services" value="xsr_huangdan" :checked="xsr_huangdan">
       </div>
       <div class="item">
         <p>“两便”护理</p>
-        <input type="checkbox" name="services" value="qt_liangbian" checked>
+        <input type="checkbox" name="services" value="xsr_liangbian" :checked="sxr_liangbian">
       </div>
       <div class="item">
         <p>“三浴”护理</p>
-        <input type="checkbox" name="services" value="qt_sanyu" checked>
+        <input type="checkbox" name="services" value="xsr_sanyu" :checked="xsr_sanyu">
       </div>
       <div class="item">
         <p>眼耳口鼻护理</p>
-        <input type="checkbox" name="services" value="qt_koubi" checked>
+        <input type="checkbox" name="services" value="xsr_koubi" :checked="qt_koubi">
       </div>
     </div>
 
@@ -93,35 +100,35 @@
       <div class="sub_head">婴儿护理</div>
       <div class="item">
         <p>母乳喂养指导</p>
-        <input type="checkbox" name="services" value="yr_weiyang" checked>
+        <input type="checkbox" name="services" value="yr_weiyang" :checked="yr_weiyang">
       </div>
       <div class="item">
         <p>喂养用具指导</p>
-        <input type="checkbox" name="services" value="yr_yongju" checked>
+        <input type="checkbox" name="services" value="yr_yongju" :checked="yr_yongju">
       </div>
       <div class="item">
         <p>大小便护理</p>
-        <input type="checkbox" name="services" value="yr_daxiaobian" checked>
+        <input type="checkbox" name="services" value="yr_daxiaobian" v-bind:checked="yr_daxiaobian">
       </div>
       <div class="item">
         <p>物品消毒</p>
-        <input type="checkbox" name="services" value="yr_xiaodu" checked>
+		<input type="checkbox" name="services" value="yr_xiaodu" v-bind:checked="yr_xiaodu">
       </div>
       <div class="item">
         <p>常见病预防</p>
-        <input type="checkbox" name="services" value="yr_yufang" checked>
+        <input type="checkbox" name="services" value="yr_yufang" v-bind:checked="yr_yufang">
       </div>
       <div class="item">
         <p>换洗尿布/衣物</p>
-        <input type="checkbox" name="services" value="yr_niaobu" checked>
+        <input type="checkbox" name="services" value="yr_niaobu" v-bind:checked="yr_niaobu">
       </div>
       <div class="item">
         <p>早期潜能开发</p>
-        <input type="checkbox" name="services" value="yr_qianneng" checked>
+        <input type="checkbox" name="services" value="yr_qianneng" v-bind:checked="yr_qianneng">
       </div>
       <div class="item">
         <p>良好习惯养成</p>
-        <input type="checkbox" name="services" value="yr_xiguan" checked>
+        <input type="checkbox" name="services" value="yr_xiguan" v-bind:checked="yr_xiguan">
       </div>
     </div>
 
@@ -129,21 +136,22 @@
       <div class="sub_head">其他服务</div>
       <div class="item">
         <p>产儿房间卫生</p>
-        <input type="checkbox" name="services" value="qt_weisheng" checked>
+        <input type="checkbox" name="services" value="qt_weisheng" v-bind:checked="qt_weisheng">
       </div>
       <div class="item">
         <p>产儿衣物清洗</p>
-        <input type="checkbox" name="services" value="qt_yiwu" checked>
+        <input type="checkbox" name="services" value="qt_yiwu" v-bind:checked="qt_yiwu">
       </div>
       <div class="item">
         <p>产后营养餐制作</p>
-        <input type="checkbox" name="services" value="qt_yingyangcan" checked>
+        <input type="checkbox" name="services" value="qt_yingyangcan" v-bind:checked="qt_yingyangcan">
       </div>
       <div class="item">
         <p>营养配餐指导</p>
-        <input type="checkbox" name="services" value="qt_peican" checked>
+        <input type="checkbox" name="services" value="qt_peican" v-bind:checked="qt_peican">
       </div>
     </div>
+	-->
 
     <input class="mbtn" type="submit" value="提交">
 
@@ -197,6 +205,7 @@ a:hover {
   font-size: 14px;
   position: relative;
   padding-left: 10px;
+  width:100%;
 }
 
 .main_head {
@@ -207,6 +216,7 @@ a:hover {
 .part {
   position: relative;
   margin-bottom: 20px;
+  width:100%;
 }
 
 .sub_head {
@@ -218,6 +228,7 @@ a:hover {
 .item {
   position: relative;
   margin: 5px auto;
+  height:18px;
 }
 
 .item p {
@@ -227,6 +238,7 @@ a:hover {
 .item input {
   position: absolute;
   right: 20px;
+  width:5%;
 }
 
 .mbtn {
@@ -241,7 +253,7 @@ a:hover {
   height: 45px;
   position: relative;
   left: 50%;
-  margin-left: -150px;
+  margin-left: -160px;
   font-size: 20px;
   border-style: none;
 }
@@ -286,95 +298,12 @@ API.wrapRet_ = function(api, opts, cb) {
     });
 }
 
-
-API.sendPhoneNumberVerifySms = function(phoneNumber, cb) {
-  // if (!/^1\d{10}$/.test(phoneNumber)) {
-  //   cb(false, '错误的手机号');
-  //   return;
-  // }
-
-  API.wrapRet_(
-    '/api/send_sms', {
-      'phone_number': phoneNumber
-    },
-    cb);
+API.getSkillList = function(cb){
+	API.wrapRet_(
+	'/api/get_skill_list',{},cb);
+	
 }
-
-
-API.sendPhoneNumberVerifySmsWithGt = function(phoneNumber, cb) {
-  if (!/^1\d{10}$/.test(phoneNumber)) {
-    cb(false, '错误的手机号');
-    return;
-  }
-
-  // if (window.gt_loading) {
-  //  setTimeout(function(){
-  //      window.gt_loading = false;
-  //  }, 100);
-  //  return;
-  // }
-
-  var handler = function(captchaObj) {
-    // captchaObj.appendTo('#captcha');
-    captchaObj.onReady(function() {
-      $("#wait").hide();
-      captchaObj.verify();
-    }).onSuccess(function() {
-      var result = captchaObj.getValidate();
-      if (!result) {
-        return alert('请完成验证');
-      }
-      // window.gt_loading = false;
-      API.wrapRet_(
-        '/api/send_sms_validate', {
-          'phone_number': phoneNumber,
-          'geetest_challenge': result.geetest_challenge,
-          'geetest_validate': result.geetest_validate,
-          'geetest_seccode': result.geetest_seccode
-        },
-        cb);
-
-    });
-
-    window.captchaObj = captchaObj;
-
-  };
-
-
-  $.ajax({
-    url: "/api/gt_register?t=" + (new Date()).getTime(),
-    type: "get",
-    dataType: "json",
-    success: function(ret) {
-      console.log(ret);
-      var data = ret.data;
-
-      initGeetest({
-        gt: data.gt,
-        challenge: data.challenge,
-        offline: !data.success,
-        new_captcha: data.new_captcha,
-
-        product: "bind",
-        width: "300px"
-      }, handler);
-
-    }
-  });
-
-}
-
 API.verifyPhoneNumber = function(phoneNumber, sms, cb) {
-  // if (!/^1\d{10}$/.test(phoneNumber)) {
-  //   cb(false, '错误的手机号');
-  //   return;
-  // }
-  //
-  // if (!/^\d{4,6}$/.test(sms)) {
-  //   cb(false, '错误的验证码');
-  //   return;
-  // }
-
   API.wrapRet_(
     '/api/verify_sms', {
       'phone_number': phoneNumber,
@@ -384,6 +313,13 @@ API.verifyPhoneNumber = function(phoneNumber, sms, cb) {
 
 
 export default {
+  beforeMount(){
+	var self =this;
+	API.getSkillList(function(isOk,res){
+	console.log('re1111111111111111111111s',res);
+	self.list=res.list;
+	});
+  },
   mounted() {
     console.log('This is my first custom component !')
   },
@@ -403,9 +339,11 @@ export default {
   data() {
     console.log('data:', this);
     var pdata = JSON.parse(this.dataJsonstr);
+
     return {
-
-
+		list:list,
+		count:0,
+		check:false,
     }
   },
   computed: {
@@ -422,6 +360,14 @@ export default {
     changePhoneNumber_() {
 
     },
+	changeChecked_(id,state) {
+	console.log(333333333333333333);
+	console.log(id);
+	var cc = 0;
+	
+
+	},
+
   }
 }
 </script>

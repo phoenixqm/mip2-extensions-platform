@@ -68,8 +68,8 @@
     color: #666;
     width: 47%;
     text-align: center;
-    height: 50px;
-    line-height: 50px;
+    height:45px;
+    line-height:45px;
     border-right: solid 1px #ddd;
 }
 .btn_ok{
@@ -79,8 +79,8 @@
     color: #afd03b;
     width: 47%;
     text-align: center;
-    height: 50px;
-    line-height: 50px;
+    height: 45px;
+    line-height: 45px;
 }
 </style>
 <script>

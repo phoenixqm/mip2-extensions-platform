@@ -59,6 +59,7 @@
 .btn_div{
   width: 100%;
   border-top: solid 1px #ddd;
+  height: 50px;
 }
 
 .btn_cal{

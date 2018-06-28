@@ -1,6 +1,7 @@
 
 <template>
 <div class="root">
+
     <div  class="row" v-for="order in list">
         <p class='row_p'>
             <span class="status">
@@ -52,13 +53,6 @@
 		  <div class="clear"></div>
         </div>
     </div>
-
-    <mip-ptg-confirm @childEvent="parentMethod"
-      title='确认操作'
-      msg='确认操作? '
-      okevent="ok"
-      cancelevent="cancel"
-    ></mip-ptg-confirm>
 
 </div>
  
@@ -255,6 +249,7 @@ API.wrapRet_ = function(api, opts, cb) {
   .then(checkStatus)
   .then(parseJSON)
   .then(ret => {
+	console.log(ret);
     if(ret.success) cb(true, ret.data);
     else cb(false, ret.error);
   })  
@@ -273,11 +268,11 @@ API.rejectInterview = function(orderId, cb) {
     cb);
 };
 
-API.hideFinishedOrder = function(masterId, cb) {
+API.hideFinishedOrder = function(orderId, cb) {
   API.wrapRet_(
     '/api/hide_finished_order', 
     {
-      'id': masterId
+      'id': orderId
     },
     cb);
 };
@@ -292,7 +287,30 @@ API.doShanghu = function(orderId, cb) {
 };
 export default {
   mounted () {
-    console.log('This is my first custom component !')
+    console.log('This is my first custom component !');
+	var self = this;
+    this.$element.customElement.addEventAction('echo', function (event, str) {
+        console.log(event);
+		console.log(str);
+      });
+       this.$element.customElement.addEventAction('dook', function (event, str)    {
+   		   console.log(event);
+		   console.log(str);
+		   if (event.from == 'handleBtn_shanchu') {
+				
+		   }
+		   var event_order = event.data;
+		   console.log(event.from);
+		   event.from.bind(self)(event.data, true);
+			//var eval_str = 'this.' + event.handler + '(event_order)'
+  		 });
+       this.$element.customElement.addEventAction('docancel', function (event, str)    {
+   		   console.log(event);
+		   console.log(str);
+           
+  		 });
+
+
   },
    firstInviewCallback () {
     this.init()
@@ -315,8 +333,10 @@ export default {
     return {
 		list: pdata.list,
 		state: {
-			showTuijianBtn:true
-		}
+			showTuijianBtn:true,
+		    show_confirm: false
+		 
+		},
     }
   },
   computed: {
@@ -335,6 +355,7 @@ export default {
     },
 
     reload_(){
+	  location.reload();
       var href = self.location.href;
       if(href.indexOf('?') >= 0){
         self.location.href = href + '&_=' + Math.random();
@@ -361,24 +382,35 @@ export default {
     }, 
     handleBtn_buheshi (order) {
       // if(!confirm('确定?')) return;
-      API.rejectInterview(order.id, function(isOK, data){
-        if (isOk) {
-          this.reload_();
-        } else {
-          console.warn(data);
-        }
-      });
+	  this.$set(this.state, 'show_confirm', true);
+  //    API.rejectInterview(order.id, function(isOk, data){
+  //      if (isOk) {
+  //        this.reload_();
+  //      } else {
+  //        console.warn(data);
+  //      }
+  //    });
 
     }, 
-    handleBtn_shanchu (order) {
+    handleBtn_shanchu (order, skip) {
+	  var self = this;
       // if(!confirm('确定要删除?')) return;
-      API.hideFinishedOrder(order.id,function(isOK, data){
+	  if (skip) {   
+	  API.hideFinishedOrder(order.id,function(isOk, data){
       if (isOk) {
-        this.reload_();
+        self.reload_();
         } else {
         console.warn(data);
         }
-      });
+     });
+
+	  } else {
+
+	var ele = document.getElementById('ptgconfirm');	
+    console.log(ele);
+     MIP.viewer.eventAction.execute('doshow', ele, {el_id:'orderlist', from: this.handleBtn_shanchu, data:order}); 
+	
+      }
 
     },     
     handleBtn_dianhualianxi (order) {
@@ -394,10 +426,10 @@ export default {
       window.location.href = '/v2_do_pay?order_id=' + order.id;
     }, 
     handleBtn_shanghu (order) {
-      
-      API.doShanghu(order.id,function(isOK, data){
+      var self = this;
+      API.doShanghu(order.id,function(isOk, data){
       if (isOk) {
-        this.reload_();
+        self.reload_();
         } else {
         console.warn(data);
         }

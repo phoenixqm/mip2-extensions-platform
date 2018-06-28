@@ -1,6 +1,6 @@
 
 <template>
-<div class="root">
+<div v-if="show" class="root">
 <div id='fullScreen'></div>
 
 <div id='floatLayer'>
@@ -21,7 +21,8 @@
   margin: 0 auto;
   text-align: center;
 }
-  /*人为制造一个占据整个屏幕的Div,其透明度为0.7且z-index为9999使之前的页面被压在底层无法点击*/
+
+/* https://www.cnblogs.com/martianShu/p/5893355.html */
 #fullScreen
 {
     position: fixed;
@@ -33,13 +34,12 @@
     background-color: black;
     z-index: 9999;
 }
-/*浮层,可随意设置大小宽高，但是z-index必须比上面fullScreen大才能显示出来*/
 #floatLayer
 {
     position: fixed;
-    width: 500px;
+    width: 80%;
     height: 500px;
-    left: 34%;
+    left: 10%;
     top: 15%;
     background-color: white;
     z-index: 10000;
@@ -90,12 +90,26 @@ API.wrapRet_ = function(api, opts, cb) {
 
 export default {
   mounted () {
-    console.log('This is master card component !')
+    console.log('This is comfirm component !');
+   var self = this;
+   this.$element.customElement.addEventAction('doshow', function (event, str)    {
+	   console.log(event);
+	   console.log(str);
+	   self.show = true;
+	   self.current_el_event = event;
+	   self.current_el_id = event.el_id;
+	   self.current_el_data = event.data;
+	   //self.$set(this, 'show', true);
+   });
   },
    firstInviewCallback () {
     this.init()
   },
   props: {
+	show: {
+	  type: Boolean,
+	  default: false
+    },
     msg: {
       type: String,
       default: null
@@ -116,13 +130,18 @@ export default {
   data () {
     console.log(this);
 	return {
-
+		show:false
 	};
 
   },
   computed: {
     
   },
+  watch: {
+      show: function (val, oldVal) {
+	   console.log('new: %s, old: %s', val, oldVal);
+	 }
+   },
   methods: {
     init () {
       console.log('should loading');
@@ -137,10 +156,27 @@ export default {
 
     },
     cancelConfirm() {
-      this.$emit(this.cancelevent);
+      //this.$emit(this.cancelevent);
+	  var ele = document.getElementById(this.current_el_id);
+      console.log(ele);
+	  this.current_el_event.el_id = 'ptgconfirm';
+      MIP.viewer.eventAction.execute('docancel', ele, this.current_el_event);
+	  this.current_el_event = {};
+      this.current_el_id = '';
+	  this.current_el_data = {};
+	  this.show = false;
     },
     okConfirm() {
-      this.$emit(this.okevent);
+      //	var ele = document.getElementById('ptgconfirm');	
+	  var ele = document.getElementById(this.current_el_id);
+      console.log(ele);
+	  this.current_el_event.el_id = 'ptgconfirm';
+	  MIP.viewer.eventAction.execute('dook', ele, this.current_el_event);
+	  this.current_el_event = {};
+      this.current_el_id = '';
+	  this.current_el_data = {};
+	  this.show = false;
+
     }
   }
 

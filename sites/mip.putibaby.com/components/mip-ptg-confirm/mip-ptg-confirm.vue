@@ -2,13 +2,13 @@
   <div v-if="show" class="root">
     <div id='fullScreen'></div>
     <div id='floatLayer'>
-      <p>{{ msg }}</p>
-      <p>
-        <button @click="cancelConfirm">取消</button>
-      </p>
-      <p>
-        <button @click="okConfirm">确定</button>
-      </p>
+      <p class="msg">{{ msg }}</p>
+      <span>
+        <button class="btn_cal" @click="cancelConfirm">取消</button>
+      </span>
+      <span>
+        <button class="btn_ok" @click="okConfirm">确定</button>
+      </span>
     </div>
   </div>
 </template>
@@ -36,11 +36,29 @@
 #floatLayer {
   position: fixed;
   width: 80%;
-  height: 500px;
+  height: 150px;
   left: 10%;
-  top: 15%;
+  top: 25%;
   background-color: white;
   z-index: 10000;
+  border-radius: 5px;
+  padding-top: 50px;
+  text-align: center;
+}
+.msg{
+  margin-bottom: 20px;
+}
+
+.btn_cal{
+  display:inline-block;
+  width:50px;
+  height:30px;
+}
+.btn_ok{
+  display:inline-block;
+  width:50px;
+  height:30px;
+  margin-left: 30px;
 }
 </style>
 <script>

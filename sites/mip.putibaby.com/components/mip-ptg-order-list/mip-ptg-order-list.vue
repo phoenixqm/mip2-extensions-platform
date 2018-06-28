@@ -362,16 +362,29 @@ export default {
     handleBtn_wodeyuyue(order) {
       window.location.href = '/show_my_realtime_video_interview?id=' + order.id;
     },
-    handleBtn_buheshi(order) {
-      // if(!confirm('确定?')) return;
-      this.$set(this.state, 'show_confirm', true);
-      //    API.rejectInterview(order.id, function(isOk, data){
-      //      if (isOk) {
-      //        this.reload_();
-      //      } else {
-      //        console.warn(data);
-      //      }
-      //    });
+    handleBtn_buheshi(order, skip) {
+
+      var self = this;
+      if (skip) {
+        API.rejectInterview(order.id, function(isOk, data) {
+          if (isOk) {
+            self.reload_();
+          } else {
+            console.warn(data);
+          }
+        });
+
+      } else {
+
+        var ele = document.getElementById('ptgconfirm');
+        // console.log(ele);
+        MIP.viewer.eventAction.execute('doshow', ele, { 
+          el_id: 'orderlist', 
+          msg: '确定不合适?',
+          from: this.handleBtn_buheshi, 
+          data: order });
+
+      }
 
     },
     handleBtn_shanchu(order, skip) {
@@ -412,14 +425,35 @@ export default {
       window.location.href = '/v2_do_pay?order_id=' + order.id;
     },
     handleBtn_shanghu(order) {
+      // var self = this;
+      // API.doShanghu(order.id, function(isOk, data) {
+      //   if (isOk) {
+      //     self.reload_();
+      //   } else {
+      //     console.warn(data);
+      //   }
+      // });
       var self = this;
-      API.doShanghu(order.id, function(isOk, data) {
-        if (isOk) {
-          self.reload_();
-        } else {
-          console.warn(data);
-        }
-      });
+      if (skip) {
+        API.doShanghu(order.id, function(isOk, data) {
+          if (isOk) {
+            self.reload_();
+          } else {
+            console.warn(data);
+          }
+        });
+
+      } else {
+
+        var ele = document.getElementById('ptgconfirm');
+        // console.log(ele);
+        MIP.viewer.eventAction.execute('doshow', ele, { 
+          el_id: 'orderlist', 
+          msg: '确定要现在执行上户?',
+          from: this.handleBtn_shanghu, 
+          data: order });
+
+      }
     },
 
     handleBtn_lianxikefu(order) {

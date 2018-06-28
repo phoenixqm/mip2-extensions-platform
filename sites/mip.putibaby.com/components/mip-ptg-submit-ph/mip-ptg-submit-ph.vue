@@ -293,7 +293,7 @@ API.verifyPhoneNumber = function(phoneNumber, sms, cb) {
 
 export default {
   mounted() {
-    console.log('This is my first custom component !')
+    console.log('This is pty submit phone number component !')
   },
   firstInviewCallback() {
     this.init()

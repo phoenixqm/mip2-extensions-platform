@@ -275,7 +275,7 @@ API.doShanghu = function(orderId, cb) {
 };
 export default {
   mounted() {
-    console.log('This is my first custom component !');
+    console.log('This is pty order list component !');
     var self = this;
     this.$element.customElement.addEventAction('echo', function(event, str) {
       console.log(event);

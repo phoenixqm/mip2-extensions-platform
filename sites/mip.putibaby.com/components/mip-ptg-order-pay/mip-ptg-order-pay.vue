@@ -15,29 +15,19 @@
       <div class="right">{{ (data.reward_balance/100).toFixed(2) }} 元</div>
       <div :calss="{'checked' : balanceChecked , 'unchecked' : !balanceChecked}" />
     </div>
-    <div class="row" @click="useWxPay">
-      <div class="left">&nbsp;&nbsp;&nbsp;&nbsp;- 微信支付</div>
-      <div class="right">需支付 {{ data.needPay }} 元</div>
-      <div :calss="{'checked' : wxChecked , 'unchecked' : !wxChecked}" />
-    </div>
-    <div class="row" @click="useZfbPay">
-      <div class="left">&nbsp;&nbsp;&nbsp;&nbsp;- 支付宝支付</div>
-      <div class="right">需支付 {{ data.needPay }} 元</div>
-      <div :calss="{'checked' : zfbChecked , 'unchecked' : !zfbChecked}" />
-    </div>
+
     <div class="row" @click="useBankPay">
       <div class="left">&nbsp;&nbsp;&nbsp;&nbsp;- 银行汇款</div>
       <div class="right">查看说明</div>
       <div class="icon go" />
     </div>
-    <div class="btn" @click="doPay">确定支付</div>
-
+    <!-- <div class="btn" @click="doPay">确定支付</div> -->
 <mip-data>
     <script type="application/json">
         {
             "payConfig":{
                 "subject":"支付商品",
-                "fee": 300,
+                "fee": {{ (data.amount/100).toFixed(2) }},
                 "sessionId":"c8fbd3e0-a617-4eac-84b3-1f289c5ce857",
                 "redirectUrl":"https://api.example.com/pay/verifypay",
                 "endpoint":{
@@ -46,7 +36,7 @@
                     "weixin":  "https://api.example.com/pay/weixin"
                 },
                 "postData":{
-                    "orderId": 235,
+				  "orderId": {{ data.order_number }},
                     "token": "xxxx",
                     "anydata":"anydata"
                 }
@@ -56,8 +46,9 @@
 </mip-data>
 <mip-inservice-pay m-bind:pay-config="payConfig" id="payDialog"></mip-inservice-pay>
 <button on="tap:payDialog.toggle">确定支付</button>
-    
     <p class="tip">温馨提示：如果您使用微信支付过程中遇到支付限额问题，建议您使用支付宝进行支付。如有疑问，请拨打菩提果客户服务电话： 400-618-8835。</p>
+
+    
   </div>
 </template>
 <style scoped>

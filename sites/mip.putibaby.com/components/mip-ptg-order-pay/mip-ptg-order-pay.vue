@@ -31,6 +31,32 @@
       <div class="icon go" />
     </div>
     <div class="btn" @click="doPay">确定支付</div>
+
+<mip-data>
+    <script type="application/json">
+        {
+            "payConfig":{
+                "subject":"支付商品",
+                "fee": 300,
+                "sessionId":"c8fbd3e0-a617-4eac-84b3-1f289c5ce857",
+                "redirectUrl":"https://api.example.com/pay/verifypay",
+                "endpoint":{
+                    "baifubao":  "https://api.example.com/pay/baifubao",
+                    "alipay":  "https://api.example.com/pay/alipay",
+                    "weixin":  "https://api.example.com/pay/weixin"
+                },
+                "postData":{
+                    "orderId": 235,
+                    "token": "xxxx",
+                    "anydata":"anydata"
+                }
+            }
+        }
+    </script>
+</mip-data>
+<mip-inservice-pay m-bind:pay-config="payConfig" id="payDialog"></mip-inservice-pay>
+<button on="tap:payDialog.toggle">确定支付</button>
+    
     <p class="tip">温馨提示：如果您使用微信支付过程中遇到支付限额问题，建议您使用支付宝进行支付。如有疑问，请拨打菩提果客户服务电话： 400-618-8835。</p>
   </div>
 </template>

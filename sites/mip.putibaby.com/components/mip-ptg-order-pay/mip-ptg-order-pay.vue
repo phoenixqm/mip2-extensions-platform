@@ -4,49 +4,59 @@
       支付订单{{ data.order_number }}，{{ data.text }}
     </div>
     <div class='row'>
-      <div class="left">支付金额</div>
+      <div class="left">应付金额</div>
       <div class="right">{{ (data.amount/100).toFixed(2) }} 元</div>
     </div>
+    <div class='row'>
+      <div class="left">优惠金额</div>
+      <div class="right">{{ (data.coupon/100).toFixed(2) }} 元</div>
+    </div>
+    <div class='row'>
+      <div class="left">实付金额</div>
+      <div class="right">{{ (data.payamount/100).toFixed(2) }} 元</div>
+    </div>    
     <div class="header">
       支付方式
     </div>
     <div class="row" @click="useBalancePay">
-      <div class="left">&nbsp;&nbsp;&nbsp;&nbsp;- 余额支付</div>
+      <div class="left">余额支付</div>
       <div class="right">{{ (data.reward_balance/100).toFixed(2) }} 元</div>
       <div :calss="{'checked' : balanceChecked , 'unchecked' : !balanceChecked}" />
     </div>
 
-    <div class="row" @click="useBankPay">
-      <div class="left">&nbsp;&nbsp;&nbsp;&nbsp;- 银行汇款</div>
-      <div class="right">查看说明</div>
-      <div class="icon go" />
+    <div class="row" @click="useInservicePay">
+      <div class="left">还需支付</div>
+      <div class="right">{{ (data.payabal/100).toFixed(2) }} 元</div>
+      <div :calss="{'checked' : balanceChecked , 'unchecked' : !balanceChecked}" />
     </div>
     <!-- <div class="btn" @click="doPay">确定支付</div> -->
-<mip-data>
-    <script type="application/json">
-        {
-            "payConfig":{
-                "subject":"支付商品",
-                "fee": {{ (data.amount/100).toFixed(2) }},
-                "sessionId":"c8fbd3e0-a617-4eac-84b3-1f289c5ce857",
-                "redirectUrl":"https://api.example.com/pay/verifypay",
-                "endpoint":{
-                    "baifubao":  "https://api.example.com/pay/baifubao",
-                    "alipay":  "https://api.example.com/pay/alipay",
-                    "weixin":  "https://api.example.com/pay/weixin"
-                },
-                "postData":{
-				  "orderId": {{ data.order_number }},
-                    "token": "xxxx",
-                    "anydata":"anydata"
+
+    <mip-data>
+        <script type="application/json">
+            {
+                "payConfig":{
+                    "subject":"支付商品",
+                    "fee": {{ (data.amount/100).toFixed(2) }},
+                    "sessionId": {{ data.sessionId }},
+                    "redirectUrl": "https://mip.putibaby.com/api/pay/verifypay",
+                    "endpoint":{
+                        "baifubao":  "https://mip.putibaby.com/api/pay/baifubao",
+                        "alipay":  "https://mip.putibaby.com/api/pay/alipay",
+                        "weixin":  "https://mip.putibaby.com/api/pay/weixin"
+                    },
+                    "postData":{
+                        "orderId": {{ data.order_number }},
+                        "token": {{ data.token }},
+                        "anydata":{{ JSON.stringify(data.order_data) }}
+                    }
                 }
             }
-        }
-    </script>
-</mip-data>
-<mip-inservice-pay m-bind:pay-config="payConfig" id="payDialog"></mip-inservice-pay>
-<button on="tap:payDialog.toggle">确定支付</button>
-    <p class="tip">温馨提示：如果您使用微信支付过程中遇到支付限额问题，建议您使用支付宝进行支付。如有疑问，请拨打菩提果客户服务电话： 400-618-8835。</p>
+        </script>
+    </mip-data>
+    <mip-inservice-pay m-bind:pay-config="payConfig" id="payDialog"></mip-inservice-pay>
+    <button on="tap:payDialog.toggle">确定支付</button>
+
+    <p class="tip">温馨提示：如果您使用百度极速支付过程中遇到问题。请拨打菩提果客户服务电话： 400-618-8835。</p>
 
     
   </div>
@@ -58,63 +68,63 @@
 }
 
 .root {
-  background: '#f2f2f2';
+  background: #f2f2f2;
 }
 
 .btn {
-  background: '#FF6867';
-  color: '#fff';
-  cursor: 'pointer';
-  lineHeight: 36px;
-  textAlign: 'center';
+  background: #FF6867;
+  color: #fff;
+  cursor: pointer;
+  line-height: 36px;
+  text-align: center;
   borderRadius: 4;
   margin: 30px 20px;
 }
 
 .row {
   height: 40px;
-  lineHeight: 40px;
-  position: 'relative';
-  background: '#fff';
-  borderBottom: '1px solid #ccc';
+  line-height: 40px;
+  position: relative;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
 }
 
 .header {
-  lineHeight: 3px;
+  line-height: 3px;
   paddingLeft: 10px;
-  borderBottom: '1px solid #ccc';
+  border-bottom: 1px solid #ccc;
 }
 
 .left {
-  position: 'absolute';
+  position: absolute;
   left: 10px;
 }
 
 .right {
-  color: 'rgb(255, 51, 0)';
-  position: 'absolute';
+  color: rgb(255, 51, 0);
+  position: absolute;
   right: 40px;
 }
 
 .icon {
-  position: 'absolute';
+  position: absolute;
   right: 10px;
   top: 5px;
   width: 30px;
   height: 30px;
-  backgroundSize: 'contain';
+  background-size: contain;
 }
 
 .checked {
-  /*backgroundImage: 'url(' + util.i('checked.png') + ')';*/
+  background-image: url('/i/checked.png');
 }
 
 .unchecked {
-  /*backgroundImage: 'url(' + util.i('unchecked.png') + ')';*/
+  background-image: url('/i/unchecked.png');
 }
 
 .go {
-  /*backgroundImage: 'url(' + util.i('jt-right.png') + ')';*/
+  background-image: url('/i/jt-right.png');
 }
 
 .tip {

@@ -26,11 +26,10 @@
 
     <div class="row" @click="useInservicePay">
       <div class="left">还需支付</div>
-      <div class="right">{{ (data.payabal/100).toFixed(2) }} 元</div>
+      <div class="right">{{ (inservicePayAmount/100).toFixed(2) }} 元</div>
       <div :calss="{'checked' : inservicePayChecked , 'unchecked' : !inservicePayChecked}" />
     </div>
     <!-- <div class="btn" @click="doPay">确定支付</div> -->
-
     <mip-data>
         <script type="application/json">
             {
@@ -47,8 +46,7 @@
                     "postData":{
                         "orderId": {{ data.order_number }},
                         "token": "{{ data.token }}",
-                        "anydata":{{ data.order_data }}
-                        "useBalance": {{ data.balanceChecked }}
+                        "useBalance": {{ balanceChecked }}
                     }
                 }
             }
@@ -225,12 +223,29 @@ export default {
     return {
       data:pdata,
       balanceChecked:false,
-      inservicePayChecked:false
+      inservicePayChecked:false,
+	  "payConfig":{
+                    "subject":"支付商品",
+                    "fee": (pdata.payamount/100).toFixed(2),
+                    "sessionId": pdata.sessionId,
+                    "redirectUrl": "https://mip.putibaby.com/api/pay/verifypay",
+                    "endpoint":{
+                        "baifubao":  "https://mip.putibaby.com/api/pay/baifubao",
+                        "alipay":  "https://mip.putibaby.com/api/pay/alipay",
+                        "weixin":  "https://mip.putibaby.com/api/pay/weixin"
+                    },
+                    "postData":{
+						"orderId": pdata.order_number,
+						"useBalance" : false,
+						"token": pdata.token,
+						"anyData" :{}
+                    }
+                }
     }
   },
   computed: {
     inservicePayAmount : function(){
-      if (balanceChecked) {
+      if (this.balanceChecked) {
         return this.data.payamount - this.data.reward_balance;
       } else {
         return this.data.payamount;
@@ -255,7 +270,15 @@ export default {
     },
     useBalancePay() {
       console.log('using balance');
-      balanceChecked = !balanceChecked;
+      this.$set(this, 'balanceChecked', !this.balanceChecked);
+	  if (this.balanceChecked) {
+
+	     this.$set(this.payConfig, 'fee', ((this.data.payamount - this.data.reward_balance)/100).toFixed(2) );
+      } else {
+
+	     this.$set(this.payConfig, 'fee', (this.data.payamount/100).toFixed(2) );
+      }
+	  console.log(this);
     },
     useInservicePay() {
       console.log('using inservice pay');

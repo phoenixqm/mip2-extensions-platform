@@ -238,6 +238,7 @@ export default {
 						"orderId": pdata.order_number,
 						"useBalance" : false,
 						"token": pdata.token,
+                    	"fee": (pdata.payamount/100).toFixed(2),
 						"anyData" :{}
                     }
                 }
@@ -272,12 +273,15 @@ export default {
       console.log('using balance');
       this.$set(this, 'balanceChecked', !this.balanceChecked);
 	  if (this.balanceChecked) {
-
+		this.payConfig.postData.useBalance = true;
 	     this.$set(this.payConfig, 'fee', ((this.data.payamount - this.data.reward_balance)/100).toFixed(2) );
       } else {
 
+		this.payConfig.postData.useBalance = false;
 	     this.$set(this.payConfig, 'fee', (this.data.payamount/100).toFixed(2) );
       }
+		this.payConfig.postData.fee = this.payConfig.fee;
+		MIP.setData({payConfig: this.payConfig});
 	  console.log(this);
     },
     useInservicePay() {

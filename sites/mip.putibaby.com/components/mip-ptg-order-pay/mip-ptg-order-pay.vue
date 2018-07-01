@@ -37,7 +37,7 @@
                 "payConfig":{
                     "subject":"支付商品",
                     "fee": {{ (data.amount/100).toFixed(2) }},
-                    "sessionId": {{ data.sessionId }},
+                    "sessionId": "{{ data.sessionId }}",
                     "redirectUrl": "https://mip.putibaby.com/api/pay/verifypay",
                     "endpoint":{
                         "baifubao":  "https://mip.putibaby.com/api/pay/baifubao",
@@ -46,8 +46,8 @@
                     },
                     "postData":{
                         "orderId": {{ data.order_number }},
-                        "token": {{ data.token }},
-                        "anydata":{{ JSON.stringify(data.order_data) }}
+                        "token": "{{ data.token }}",
+                        "anydata":{{ data.order_data }}
                     }
                 }
             }

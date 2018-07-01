@@ -27,7 +27,7 @@
     <div class="row" @click="useInservicePay">
       <div class="left">还需支付</div>
       <div class="right">{{ (data.payabal/100).toFixed(2) }} 元</div>
-      <div :calss="{'checked' : balanceChecked , 'unchecked' : !balanceChecked}" />
+      <div :calss="{'checked' : inservicePayChecked , 'unchecked' : !inservicePayChecked}" />
     </div>
     <!-- <div class="btn" @click="doPay">确定支付</div> -->
 
@@ -36,8 +36,8 @@
             {
                 "payConfig":{
                     "subject":"支付商品",
-                    "fee": {{ (data.amount/100).toFixed(2) }},
                     "sessionId": "{{ data.sessionId }}",
+                    "fee": {{ (inservicePayAmount/100).toFixed(2) }},
                     "redirectUrl": "https://mip.putibaby.com/api/pay/verifypay",
                     "endpoint":{
                         "baifubao":  "https://mip.putibaby.com/api/pay/baifubao",
@@ -48,6 +48,7 @@
                         "orderId": {{ data.order_number }},
                         "token": "{{ data.token }}",
                         "anydata":{{ data.order_data }}
+                        "useBalance": {{ data.balanceChecked }}
                     }
                 }
             }
@@ -222,11 +223,19 @@ export default {
     var pdata = JSON.parse(this.dataJsonstr);
     console.log(pdata.list);
     return {
-      data:pdata
+      data:pdata,
+      balanceChecked:false,
+      inservicePayChecked:false
     }
   },
   computed: {
-
+    inservicePayAmount : function(){
+      if (balanceChecked) {
+        return this.data.payamount - this.data.reward_balance;
+      } else {
+        return this.data.payamount;
+      }
+    }
   },
   methods: {
     init() {
@@ -246,16 +255,12 @@ export default {
     },
     useBalancePay() {
       console.log('using balance');
+      balanceChecked = !balanceChecked;
     },
-    useWxPay() {
-      console.log('using wx');
-    },
-    useZfbPay() {
-      console.log('using zfb');
-    },
-    useBankPay() {
-      console.log('using bank');
-    },
+    useInservicePay() {
+      console.log('using inservice pay');
+      inservicePayChecked = !inservicePayChecked;
+    }
   }
 
 

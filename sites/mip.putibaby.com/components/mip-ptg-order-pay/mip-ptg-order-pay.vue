@@ -28,7 +28,7 @@
 	  </div>
 	  </div>
 
-      <div class="right balance">¥{{ (data.reward_balance/100).toFixed(2) }} </div>
+      <div class="right balance">¥{{ (balancePayAmount/100).toFixed(2) }} </div>
       <div :class="{'checked' : balanceChecked , 'unchecked' : !balanceChecked}" />
 	  <div class="border"></div>
     </div>
@@ -68,7 +68,8 @@
         </script>
     </mip-data>
     <mip-inservice-pay m-bind:pay-config="payConfig" id="payDialog"></mip-inservice-pay>
-    <button class="button" on="tap:payDialog.toggle">确定支付</button>
+	<button class="button" v-if="inservicePayAmount>0" on="tap:payDialog.toggle">确定支付</button>
+    <button class="button" v-else  @click="submitBalancePay" >余额支付</button>
 
     <p class="tip">温馨提示：如果您使用百度极速支付过程中遇到问题。请拨打菩提果客户服务电话： 400-618-8835。</p>
 
@@ -250,29 +251,17 @@ API.wrapRet_ = function(api, opts, cb) {
     });
 }
 
-API.rejectInterview = function(orderId, cb) {
+API.payOrderWithBalance = function(orderId,type,amount, cb) {
   API.wrapRet_(
-    '/api/reject_interview', {
-      'id': orderId
+    '/api/pay/pay_order_with_balance', {
+      'order_id': orderId,
+	  'type':type,
+	  'amount':amount,
+
     },
     cb);
 };
 
-API.hideFinishedOrder = function(orderId, cb) {
-  API.wrapRet_(
-    '/api/hide_finished_order', {
-      'id': orderId
-    },
-    cb);
-};
-
-API.doShanghu = function(orderId, cb) {
-  API.wrapRet_(
-    '/api/do_shanghu', {
-      'id': orderId
-    },
-    cb);
-};
 
 export default {
   mounted() {
@@ -298,7 +287,8 @@ export default {
   data() {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
-    console.log(pdata.list);
+    console.log('padta:',pdata);
+	
 	var pay_config = {
                     "subject":"支付商品",
                     "fee": (pdata.payamount/100).toFixed(2),
@@ -332,11 +322,21 @@ export default {
   computed: {
     inservicePayAmount : function(){
       if (this.balanceChecked) {
+		if(this.data.payamount<=this.data.reward_balance){
+			return 0;
+		}
         return this.data.payamount - this.data.reward_balance;
       } else {
         return this.data.payamount;
       }
-    }
+    },
+	balancePayAmount: function(){
+		if(this.data.payamount>=this.data.reward_balance){
+			return this.data.reward_balance;
+		  }else{
+		  	return this.data.payamount;
+		  }
+	},
   },
   methods: {
     init() {
@@ -366,7 +366,7 @@ export default {
 
 		this.payConfig.postData.useBalance = false;
 		this.payConfig.postData.amount = this.data.payamount;
-		this.payConfig.postdata.balance_amount = 0;
+		this.payConfig.postData.balance_amount = 0;
 		this.payConfig.fee = (this.data.payamount/100).toFixed(2);
       }
 		this.payConfig.postData.fee = this.payConfig.fee;
@@ -376,9 +376,22 @@ export default {
     useInservicePay() {
       console.log('using inservice pay');
       inservicePayChecked = !inservicePayChecked;
-    }
-  }
+    },
+	submitBalancePay() {
+	  API.payOrderWithBalance(this.data.order_id,this.data.type,this.balancePayAmount,function(isOk,res){
+		if(isOk){
+		
+		var done_page = 'https://mip.putibaby.com/order_list';
+		var xz_url = 'https://xiongzhang.baidu.com/opensc/payment.html' 
+						+ '?id=1544608709261251&redirect_url=' + encodeURIComponent(done_page);	
+		window.location.href=xz_url;
+		}
+    	});
+
+	  }
+  },
 
 
 }
+
 </script>

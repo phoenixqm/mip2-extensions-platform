@@ -18,9 +18,8 @@
 
                 <mip-img v-for="j in order.master.star_1_list" layout="responsive" width="12" height="12"
                  class="iconStar" src="/i/select_master_star.png" /></mip-img>
-
                 <mip-img v-for="j in order.master.star_0_list" layout="responsive" width="12" height="12"
-                 class="iconStar" src="/i/select_master_unstar.png" /></mip-img>
+                 class="iconStar iconStar_no" src="/i/select_master_unstar.png" /></mip-img>
 
               </p>
 
@@ -106,10 +105,19 @@ body {
   padding-right: 10px;
 }
 
+.starBox{
+	position:absolute;
+	left:130px;
+	top:15px;
+}
+
 .starBox mip-img{
      width: 12px;
 	 height: 12px;
 	display: inline-block;
+}
+.iconStar_no{
+   margin-left:-4px;
 }
 .status {
   height: 30px;

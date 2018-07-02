@@ -45,8 +45,14 @@
                     },
                     "postData":{
                         "orderId": {{ data.order_number }},
+						"pay_id": {{ data.pay_id }},
                         "token": "{{ data.token }}",
-                        "useBalance": {{ balanceChecked }}
+                        "useBalance": false,
+						"amount" : {{ inservicePayAmount }},
+						"balance_amount" : 0,
+						"fee": {{ (inservicePayAmount/100).toFixed(2) }}
+						
+
                     }
                 }
             }
@@ -220,11 +226,7 @@ export default {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
     console.log(pdata.list);
-    return {
-      data:pdata,
-      balanceChecked:false,
-      inservicePayChecked:false,
-	  "payConfig":{
+	var pay_config = {
                     "subject":"支付商品",
                     "fee": (pdata.payamount/100).toFixed(2),
                     "sessionId": pdata.sessionId,
@@ -236,13 +238,23 @@ export default {
                     },
                     "postData":{
 						"orderId": pdata.order_number,
+						"order_type": pdata.type,
+						"pay_id": pdata.pay_id,
 						"useBalance" : false,
 						"token": pdata.token,
                     	"fee": (pdata.payamount/100).toFixed(2),
+						"amount" : pdata.payamount,
+						"balance_amount": 0,
 						"anyData" :{}
                     }
-                }
-    }
+                };
+
+	MIP.setData({payConfig: pay_config});
+    return {
+      data:pdata,
+      balanceChecked:false,
+      inservicePayChecked:false,
+	  "payConfig": pay_config   }
   },
   computed: {
     inservicePayAmount : function(){
@@ -274,11 +286,15 @@ export default {
       this.$set(this, 'balanceChecked', !this.balanceChecked);
 	  if (this.balanceChecked) {
 		this.payConfig.postData.useBalance = true;
-	     this.$set(this.payConfig, 'fee', ((this.data.payamount - this.data.reward_balance)/100).toFixed(2) );
+		this.payConfig.postData.amount = this.data.payamount - this.data.reward_balance;
+		this.payConfig.postData.balance_amount = this.data.reward_balance;
+		this.payConfig.fee = ((this.data.payamount - this.data.reward_balance)/100).toFixed(2);
       } else {
 
 		this.payConfig.postData.useBalance = false;
-	     this.$set(this.payConfig, 'fee', (this.data.payamount/100).toFixed(2) );
+		this.payConfig.postData.amount = this.data.payamount;
+		this.payConfig.postdata.balance_amount = 0;
+		this.payConfig.fee = (this.data.payamount/100).toFixed(2);
       }
 		this.payConfig.postData.fee = this.payConfig.fee;
 		MIP.setData({payConfig: this.payConfig});

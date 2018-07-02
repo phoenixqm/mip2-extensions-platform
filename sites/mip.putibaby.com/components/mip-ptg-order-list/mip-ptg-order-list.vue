@@ -14,6 +14,17 @@
         <!-- <mip-img layout="responsive" width="85px" height="22px"
                   class="header" src="i/age.png" ></mip-img> -->
         <span class="name">{{ order.master.name }}</span>
+              <p class="starBox">
+
+                <mip-img v-for="j in order.master.star_1_list" layout="responsive" width="12" height="12"
+                 class="iconStar" src="/i/select_master_star.png" /></mip-img>
+
+                <mip-img v-for="j in order.master.star_0_list" layout="responsive" width="12" height="12"
+                 class="iconStar" src="/i/select_master_unstar.png" /></mip-img>
+
+              </p>
+
+
         <span class="price">￥{{ order.master.ptg_price }}</span>
         <div class="message">
           <mip-img layout="responsive" width="85px" height="22px" class="age_img" src="i/age.png"></mip-img>

@@ -5,29 +5,38 @@
     </div>
     <div class='row'>
       <div class="left">应付金额</div>
-      <div class="right">{{ (data.amount/100).toFixed(2) }} 元</div>
+      <div class="right bold">¥{{ (data.amount/100).toFixed(2) }} </div>
+	  <div class="border"></div>
     </div>
     <div class='row'>
       <div class="left">优惠金额</div>
-      <div class="right">{{ (data.coupon/100).toFixed(2) }} 元</div>
+      <div class="right text_red">- ¥{{ (data.coupon/100).toFixed(2) }} </div>
+	  <div class="border"></div>
     </div>
     <div class='row'>
       <div class="left">实付金额</div>
-      <div class="right">{{ (data.payamount/100).toFixed(2) }} 元</div>
+      <div class="right text_red">¥{{ (data.payamount/100).toFixed(2) }} </div>
     </div>    
     <div class="header">
       支付方式
     </div>
     <div class="row" @click="useBalancePay">
-      <div class="left">余额支付</div>
-      <div class="right">{{ (data.reward_balance/100).toFixed(2) }} 元</div>
-      <div :calss="{'checked' : balanceChecked , 'unchecked' : !balanceChecked}" />
+      <div class="left">余额支付
+	  	<div class="shengyu">(剩余:
+		  <span class="text_red">{{(data.reward_balance/100).toFixed(2)}}
+		  </span>元)
+	  </div>
+	  </div>
+
+      <div class="right balance">¥{{ (data.reward_balance/100).toFixed(2) }} </div>
+      <div :class="{'checked' : balanceChecked , 'unchecked' : !balanceChecked}" />
+	  <div class="border"></div>
     </div>
 
     <div class="row" @click="useInservicePay">
       <div class="left">还需支付</div>
-      <div class="right">{{ (inservicePayAmount/100).toFixed(2) }} 元</div>
-      <div :calss="{'checked' : inservicePayChecked , 'unchecked' : !inservicePayChecked}" />
+      <div class="right">¥{{ (inservicePayAmount/100).toFixed(2) }} </div>
+	  <!-- <div :class="{'checked' : inservicePayChecked , 'unchecked' : !inservicePayChecked}" />-->
     </div>
     <!-- <div class="btn" @click="doPay">确定支付</div> -->
     <mip-data>
@@ -59,7 +68,7 @@
         </script>
     </mip-data>
     <mip-inservice-pay m-bind:pay-config="payConfig" id="payDialog"></mip-inservice-pay>
-    <button on="tap:payDialog.toggle">确定支付</button>
+    <button class="button" on="tap:payDialog.toggle">确定支付</button>
 
     <p class="tip">温馨提示：如果您使用百度极速支付过程中遇到问题。请拨打菩提果客户服务电话： 400-618-8835。</p>
 
@@ -74,6 +83,9 @@
 
 .root {
   background: #f2f2f2;
+  width: 100%;
+  color: #666666;
+  font-size: 14px;
 }
 
 .btn {
@@ -82,33 +94,49 @@
   cursor: pointer;
   line-height: 36px;
   text-align: center;
-  borderRadius: 4;
+  border-radius: 4;
   margin: 30px 20px;
 }
 
 .row {
-  height: 40px;
-  line-height: 40px;
+  padding-top:15px;
+  padding-bottom:15px;
+  height: 14px;
+  line-height: 14px;
   position: relative;
   background: #fff;
-  border-bottom: 1px solid #ccc;
+}
+.border {
+  width:345px;
+  height: 1px;
+  position: relative;
+  top: 28px;
+  background: #f4f4f4;
+  left: 50%;
+  margin-left: -172.5px;
 }
 
 .header {
-  line-height: 3px;
-  paddingLeft: 10px;
-  border-bottom: 1px solid #ccc;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  position: relative;
+  padding-left: 15px;
+  height: 14px;
+  line-height: 14px;
+  background-color:#f4f4f4;
+  color: #999999;
 }
 
 .left {
   position: absolute;
-  left: 10px;
+  left: 15px;
 }
 
 .right {
-  color: rgb(255, 51, 0);
   position: absolute;
-  right: 40px;
+  right: 15px;
+  font-size: 14px;
+  color: #666666;
 }
 
 .icon {
@@ -121,11 +149,23 @@
 }
 
 .checked {
-  background-image: url('/i/checked.png');
+  background-image: url('/i/balance_checked.png');
+  background-size: 22px 22px;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  right: 15px;
+  top: 11px;
 }
 
 .unchecked {
-  background-image: url('/i/unchecked.png');
+  background-image: url('/i/balance_unchecked.png');
+  background-size: 22px 22px;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  right: 15px;
+  top: 11px;
 }
 
 .go {
@@ -133,7 +173,40 @@
 }
 
 .tip {
-  margin: 30px 20px;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.button {
+  border-style: none;
+  width: 335px;
+  left: 50%;
+  margin-left: -167.5px;
+  position: relative;
+  color: #fff;
+  background-color: #afd03b;
+  height: 47px;
+  border-radius: 4px;
+  margin-top: 30px;
+  font-size:18px;
+}
+
+.bold {
+  font-weight: bold;
+}
+.text_red {
+  color: #ff0200;
+}
+.balance {
+	right: 47px;
+}
+.shengyu {
+  position: absolute;
+  top: 0px;
+  left: 60px;
+  width: 120px;
+  font-size: 12px;
+  color: #999
 }
 
 </style>

@@ -3,12 +3,12 @@
 <div class="root">
   <mip-form class="root" method="get" url="https://www.mipengine.org?we=123">
     <div class="warn">
-      <span>尊敬的用户：</span><br>
-      <span>为了能让菩提果的老师和月嫂更好的为您服务，需要您提供正确的手机号码：</span>
+      <span class="span">尊敬的用户：</span><br>
+	  <span>为了能让菩提果的老师和月嫂更好的为您服务，需要您提供正确的手机号码：</span>
     </div>
     <div class="get">
       <input id="ph" class="ph" type="number" placeholder="请输入您的手机号码" v-model="phoneNumber" v-on:blur="changePhoneNumber_">
-      <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:blur="changeVerifySms_" v-bind:disabled="verifyInput">
+      <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:blur="changeVerifySms_" >
 	  <input class="smsSend" type="button" @click="getVerify_" v-bind:disabled="smsDisabled" v-bind:value="text" ></input>
     </div>
 	<div id="err" class="err" v-if="err">{{errMessage}}</div>
@@ -57,16 +57,35 @@ a:hover {
   text-decoration: none !important;
 }
 
+
 .root {
   background: #fff;
   font-size: 14px;
+  width:100%;
 }
 
 .warn {
   color: rgba(102, 102, 102);
-  padding: 10px;
-  line-height: 2;
+  position: relative;
+  left: 15px;
 }
+.warn span:nth-of-type(1) {
+  color: #333333;
+  font-size: 15px;
+  position: relative;
+  display:inline-block;
+  top: 15px;
+}
+.warn span:nth-of-type(2) {
+  color: #666;
+  font-size: 14px;
+  left: 0px;
+  position: relative;
+  display:inline-block;
+  top: 20px;
+  width: 345px;
+}
+
 
 .get {
   margin-top: 10px;
@@ -88,50 +107,58 @@ border-radius:4px;
 }
 
 .ph {
-  position: absolute;
-  left: 10px;
-  top: 0;
+  position: relative;
+  left: 15px;
+  top: 20px;
   display: block;
-  border: 1px solid #ccc;
-  border-radius: 2px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
   height: 36px;
   line-height: 36px;
-  padding: 0 5px;
-  width: 94%;
+  width: 345px;
+  height: 44px;
+  padding-left: 15px;
+  font-size: 14px;
+  color: #b2b2b2;
 }
 
 .code {
-  position: absolute;
-  left: 10px;
-  top: 50px;
+  position: relative;
+  left: 15px;
+  top: 30px;
   display: block;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  height: 36px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  height: 44px;
   line-height: 36px;
-  padding: 0 5px;
-  width: 45%;
+  padding-left: 15px;
+  width: 220px;
+  color: #b2b2b2;
 }
 
 .err {
-  color: red;
+position: relative;
+left: 15px;
+  color: #ff0200;
   margin: 10px;
-  margin-top: 0px;
-  height: 30px;
+  top: 10px;
 }
 
 .smsSend {
   position: absolute;
-  right: 10px;
-  top: 50px;
-  border-radius: 4px;
+  right: 15px;
+  top: 74px;
+  border-radius: 5px;
   line-height: 36px;
   text-align: center;
-  background: #46AB49;
-  color: #fff;
+  background: #fff;
+  color: #afd03b;
+font-size: 14px;
+border: 1px solid #afd03b;
   cursor: pointer;
-  width: 45%;
-border-style:none;
+  width: 115px;
+height: 44px;
+
 }
 
 .smsSend.disabled {
@@ -141,17 +168,20 @@ border-style:none;
 }
 
 .submit .submitbtn {
-  background: #46AB49;
+  background: #afd03b;
   color: #fff;
   cursor: pointer;
   line-height: 36px;
   text-align: center;
   border-radius: 4px;
   margin: 0 auto;
-  width: 94%;
+  width: 345px;
 border-style:none;
-left:3%;
+left:15px;
 position:relative;
+top: 30px;
+height: 47px;
+font-size:18px;
 }
 </style>
 

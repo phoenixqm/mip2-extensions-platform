@@ -7,8 +7,15 @@
 	<div class="part" v-for="items in list">
 	  <div class="sub_head">{{items.title}}</div>
       <div class="item" v-for="it in items.list">
-		<p>{{it.title}}</p>
-        <input type="checkbox" name="services" value="it.title" v-bind:checked="check" @click="changeChecked_(it.id,it.id)" >
+		<p>			<label for="it.id">
+				{{it.title}}
+			</label>
+		</p>
+		<input type="checkbox" id="it.id" name="services" value="it.id" v-bind:checked="sk_c[it.id]"  @click="changeChecked_(it.id,it.id)">
+
+		
+	
+
       </div>
 	</div>
 	<!--
@@ -153,7 +160,7 @@
     </div>
 	-->
 
-    <input class="mbtn" type="submit" value="提交">
+    <input class="mbtn" type="submit" value="提交" @click="submit_">
 
   </mip-form>
 
@@ -298,27 +305,19 @@ API.wrapRet_ = function(api, opts, cb) {
     });
 }
 
-API.getSkillList = function(cb){
-	API.wrapRet_(
-	'/api/get_skill_list',{},cb);
-	
-}
-API.verifyPhoneNumber = function(phoneNumber, sms, cb) {
+API.saveIt_ = function(opts, cb) {
   API.wrapRet_(
-    '/api/verify_sms', {
-      'phone_number': phoneNumber,
-      'sms': sms
+    '/api/set_contract', {
+	  'contract_skill_req': opts.contract_skill_req,
+      'id': opts.id,
+      'order_id': opts.order_id,
     }, cb);
 }
 
 
 export default {
   beforeMount(){
-	var self =this;
-	API.getSkillList(function(isOk,res){
-	console.log('re1111111111111111111111s',res);
-	self.list=res.list;
-	});
+
   },
   mounted() {
     console.log('This is my first custom component !')
@@ -337,16 +336,25 @@ export default {
     }
   },
   data() {
-    console.log('data:', this);
-    var pdata = JSON.parse(this.dataJsonstr);
+console.log('this',this);
+var pdata = JSON.parse(this.dataJsonstr);
+	if(JSON.parse(this.dataJsonstr).contract_skill_req.indexOf(',')!= -1){
+	var skill_list = JSON.parse(this.dataJsonstr).contract_skill_req.split(',');
 
+	}else{
+	var skill_list = [];
+	skill_list.push(JSON.parse(this.dataJsonstr).contract_skill_req);
+	}
     return {
-		list:list,
-		count:0,
+		list:JSON.parse(this.dataJsonstr).list, 
 		check:false,
+		contract_skill_req:[],
+		skill_req:skill_list,
+		sk_c:pdata.sk_c,
     }
   },
   computed: {
+
 
   },
   methods: {
@@ -360,14 +368,60 @@ export default {
     changePhoneNumber_() {
 
     },
-	changeChecked_(id,state) {
-	console.log(333333333333333333);
-	console.log(id);
-	var cc = 0;
-	
-
+	check_: function(id){
+	  var self=this;
+	  console.log('23',this.skill_req);
+		var skill = this.skill_req.length;
+		for (var i =0;i < skill; i++){
+		  if(id == this.skill_req[i] ){
+		  return true;
+		}else {
+		return false;}
+	  }
 	},
+	changeChecked_(id,state) {
+	  var self =this;
+	  var skill_list =this.skill_req;
+var skill_req = [];
+if(skill_list.indexOf(id.toString()) == -1){
+  skill_req=skill_list;
+	skill_req.push(id.toString());
 
+}else{
+  var skill_list_ = skill_list;
+	var index = skill_list.indexOf(id.toString());
+	var c = skill_list.splice(index,1);
+	for(var i=0;i<skill_list_.length;i++){
+		if(skill_list_[i] == c[0]){
+		}else{
+			skill_req.push(skill_list_[i]);
+		}
+	}
+}
+var skill_l=[];
+for(var i=0;i<skill_req.length;i++){
+  if(skill_req[i]==''){}else{
+  	skill_l.push(skill_req[i]);
+  }
+}
+
+
+
+	  var  opts ={};
+	  opts.id = JSON.parse(self.dataJsonstr).id;
+	  opts.contract_skill_req = skill_l.join(',');
+	  console.log('opts:',opts.contract_skill_req);
+	API.saveIt_(opts,function(isOk,res){
+	  if(isOk){
+		console.log('success');
+	  }
+	});
+	
+	},
+	submit_(){
+		window.location.href='/edit_contract?id='+ JSON.parse(this.dataJsonstr).id;
+	},
+	
   }
 }
 </script>

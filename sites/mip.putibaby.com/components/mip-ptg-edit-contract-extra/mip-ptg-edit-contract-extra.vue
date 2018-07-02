@@ -3,7 +3,7 @@
 <div class='root'>
   <mip-form method="get" url="https://www.mipengine.org?we=123">
 
-    <textarea class="textarea" name="edit_contract_extra" validatetype="must" required placeholder="点击输入补充条款，如：上户遇节假日工资多倍结算/休息日约定；双胞胎加收金额；特殊上户要求等……" v-model="contract_extra"></textarea>
+    <textarea class="textarea" name="edit_contract_extra" validatetype="must" required placeholder="点击输入补充条款，如：上户遇节假日工资多倍结算/休息日约定；双胞胎加收金额；特殊上户要求等……" v-model="contract_extra" v-on:change='saveIt_'></textarea>
 
     <input class="mbtn" type="submit" value="提交" @click="submit_">
 
@@ -138,7 +138,7 @@ API.wrapRet_ = function(api, opts, cb) {
 }
 
 
-API.submit_ = function( opts,cb) {
+API.saveIt_ = function( opts,cb) {
   API.wrapRet_(
     '/api/set_contract', {
       'contract_extra': opts.contract_extra,
@@ -151,6 +151,9 @@ API.submit_ = function( opts,cb) {
 
 
 export default {
+  beforeMounted(){
+	API.getExtra_();
+  },
   mounted() {
     console.log('This is my first custom component !')
   },
@@ -171,7 +174,7 @@ export default {
     console.log('data:', this);
     var pdata = JSON.parse(this.dataJsonstr);
     return {
-		contract_extra:'',
+		contract_extra:pdata.contract_extra,
 
     }
   },
@@ -186,19 +189,28 @@ export default {
     load_data() {
       console.log('should set data');
     },
-    submit_() {
-	  
+	saveIt_() { 
 	  var self = this;
 	  var opts={};
 	  opts.contract_extra=self.contract_extra;
 	  opts.id = JSON.parse(self.dataJsonstr).id;
-	  API.submit_(opts,function(isOk,res){
+	  API.saveIt_(opts,function(isOk,res){
 		if(isOk){
-		  window.location.href ='/edit_contract?id=' + opts.id;
+	console.log('success');
 	  }else{
+
 	  }
 	  });
 
+	},
+    submit_() {
+	    var self = this;
+	
+		  window.location.href ='/edit_contract?id=' + JSON.parse(self.dataJsonstr).id;
+	  
+	
+
+	
     },
   }
 }

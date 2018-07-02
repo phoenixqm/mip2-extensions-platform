@@ -93,9 +93,11 @@
         <div class="left">服务时间</div>
         <div class="right">
           <div class="quantian">
+			<div :class="{'checked' : checked , 'unchecked' : !checked}" />
             <input type="radio" name="service_time" value="true" :checked="contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 全天</input>
           </div>
           <div class="baiban">
+			<div :class="{'checked' : checked , 'unchecked' : !checked}" />
             <input type="radio" name="service_time" value="false" :checked="!contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 白班</input>
 	
 
@@ -419,7 +421,7 @@ body {}
 }
 
 .btn {
-  background: #09bb07;
+  background: #afd03b;
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
@@ -638,6 +640,24 @@ body {}
 .row_photo .uploadfile {
   display: none;
 }
+
+.checked {
+  background-image: url('/i/balance_checked.png');
+  background-size: 222px 22px;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+
+}
+.unchecked {
+  background-image: url('/i/balance_unchecked.png');
+  background-size: 222px 22px;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+
+}
+
 </style>
 
 <script>

@@ -106,7 +106,11 @@ body {
   padding-right: 10px;
 }
 
-
+.starBox mip-img{
+     width: 12px;
+	 height: 12px;
+	display: inline-block;
+}
 .status {
   height: 30px;
   line-height: 30px;

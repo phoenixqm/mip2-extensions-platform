@@ -142,11 +142,11 @@
 
     <div class="other_info">
       <div class="row">
-        <a href="/edit_contract_skill_req_mip">
+        <a :href="to_contract_skill_req">
           <div class="left">服务项目</div>
           <div class="extra_text">
             <p>已选
-              <span class="extra_i"> 1
+			<span class="extra_i">{{contract_skill_req}}
             </span> 项
             </p>
           </div>
@@ -154,7 +154,7 @@
         </a>
       </div>
       <div class="row">
-        <a href="/edit_contract_extra_mip">
+		<a :href="to_contract_extra">
           <div class="left">补充条款</div>
           <div class="extra_text" v-model="contract_extra"></div>
           <mip-img layout="responsive" width="16" height="16" class="jt" src='i/jt-right2.png'></mip-img>
@@ -790,6 +790,9 @@ export default {
       master_price = Math.round(data.contract_price / data.contract_shanghu_length * 26);
     }
 
+	var to_contract_skill_req='/edit_contract_skill_req_mip?id=' + pdata.order.id;
+	var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id;
+	
     return {
 	  rea:false,
       master: pdata.order.master,
@@ -805,6 +808,8 @@ export default {
       contract_deposit: deposit,
       contract_is_pay_monthly: !!data.contract_is_pay_monthly,
       contract_is_offer_allday_service: data.contract_is_offer_allday_service,
+	  contract_skill_req:data.contract_skill_req.split(',').length,
+	  
       is_show_pay_monthly_btn: data.contract_shanghu_length >= 42 ? true : false,
       hardcode_deposit: data.hardcode_deposit,
       contract_mama_id_card_zheng: data.contract_mama_id_card_list[0],
@@ -812,7 +817,10 @@ export default {
       contract_mama_id_card_fan: data.contract_mama_id_card_list[1],
       pics: [],
 	  contract_deposit_min: data.contract_deposit_min,
+	  to_contract_skill_req: to_contract_skill_req,
 
+	  to_contract_extra: to_contract_extra,
+	  
 
     }
   },

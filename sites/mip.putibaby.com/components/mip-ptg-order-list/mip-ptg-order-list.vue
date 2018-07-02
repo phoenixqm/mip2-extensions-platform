@@ -114,8 +114,9 @@ body {
   border: 1px solid #afd03b;
   display: inline-block;
   border-radius: 3px;
-  line-height: 1;
-  font-size: 10px;
+  height: 13px;
+  line-height: 13px;
+  font-size: 13px;
   padding: 3px 3px;
   margin: 5px 0px 8px 1px;
   color: #afd03b;

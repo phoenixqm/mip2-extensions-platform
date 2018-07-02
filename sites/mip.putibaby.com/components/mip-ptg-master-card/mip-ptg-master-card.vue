@@ -2,38 +2,53 @@
 <template>
 <div class="root">
   <div class="masterShow">
-    <div>
-      <div class="mS_headerBorder">
-        <mip-img layout="responsive" width="50px" height="50px"
-         class="mS_header" :src="data.info.header.small"></mip-img>
-      </div>
-      <div class="mS_info">
-        <p class="mS_masterName">{{ data.info.name }}</p>
-         <div class="starBox">
-              <mip-img v-for="s in data.shanghu_data.star_1_list" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_star.png" ></mip-img>
+        <div style="padding: 10px 10px 0px 10px;">
+          <div class="mS_headerBorder">
+            <mip-img class="mS_header" :src="data.info.header.small"></mip-img>
+          </div>
+          <div class="mS_info">
+            <p class="mS_masterName">{{ data.info.name }}</p>
+            <p class="mC_Des">
+              <span>
+                {{ data.info.description[0] }}
+              </span>
+              <span>
+                {{ data.info.description[1] }}
+              </span>
+              <span>
+                {{ data.info.description[2] }}
+              </span>
+            </p>
+            <p class="expectCity">
+              上户城市：{{ data.info.expect_city }}
+            </p>
+          </div>
+          <div class="renZheng">
+           <span v-if="data.info.certificated">
+            <mip-img src="i/master_card_certificated.png" width="12px" height="12px" ></mip-img>
+            <span>身份认证</span>
+            </span>
+            <span v-if="data.info.market_certificated">
+            <mip-img src="i/market_certificated.png" width="12px" height="12px"></mip-img>
+            <span>推荐护理师</span>
+            </span>
+            <a href="https://h5.putibaby.com/999.999/master/intro_detail?u={data.info.username}">
+              <div class="details">基本资料详情</div>
+            </a>
+          </div>
         </div>
-        <p class="mC_Des">
-          <span>
-            {{ data.info.description[0] }}
-          </span>
-          <span>
-            {{ data.info.description[1] }}
-          </span>
-          <span>
-            {{ data.info.description[2] }}
-          </span>
-        </p>
-        
+        <div class="line"></div>
+        <div class="mS_other">
+          <table>
+            <tbody>
+              <tr>
+                  <td>客户评分：5</td>
+                <td>收藏：{{ data.info.fan_cc }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <div class="fuwu">
-      <p class="expectCity">
-          服务报价：￥<span class="red">{{ data.info.price.ptg_price/100 }}</span>元
-      </p>
-      <p class="expectCity">服务区域：{{ data.info.expect_city }}</p>
-  </div>
 
   <div class="jieshao">
       <div class="pJC_head">
@@ -246,25 +261,30 @@ a:hover{
 body{
     background-color: #F3F3F3;
 }
-
+.root{
+	padding:10px;
+	background-color:#F1F5E2;
+}
 .masterShow{
     width: 100%;
-    height: 80px;
-    background-color: #fff;
+    height: 150px;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0px 1px 1px 1px #e7ebd0;
+    background-image: url(http://h5.putibaby.com/assets/i/blur_14.jpg);
+    background-size: cover;
 }
-
 .masterShow .mS_header{
     width: 50px;
     height: 50px;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 .masterShow .mS_info{
     display: inline-block;
     padding-left: 10px;
-    margin-top: 10px;
 }
 .masterShow .mS_info p{
-    margin: 1px;
+    margin: 0px;
 }
 .masterShow .mS_info .mC_Des span{
     display: inline-block;
@@ -276,30 +296,82 @@ body{
     width: 60px;
 }
 .masterShow .mS_info .mC_Des span:nth-of-type(2){
-    width: 60px;
+    width: 70px;
 }
 .masterShow .mS_info .mC_Des span:nth-of-type(3){
     width: 30px;
 }
-.masterShow .mS_headerBorder{
+.mS_headerBorder{
+    border: 1px solid white;
     display: inline-block;
+    vertical-align: top;
     border-radius: 2px;
-    margin-left: 10px;
-    margin-top: 10px;
-
+    padding: 1px;
+	float:left;
 }
-      
 .mS_info .mS_masterName{
-    font-weight: bold;
+    
 }
-
+.renZheng span{
+    line-height: 2.5;
+}
+.renZheng img{
+    width: 12px;
+    margin-top: -3px;
+}
+.renZheng img:nth-of-type(2){
+    margin-left: 12px;
+}
+.renZheng .details{
+    position: absolute;
+    right: 20px;
+    margin-top: -30px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    height: 22px;
+    width: 102px;
+    text-align: center;
+    line-height: 22px;
+    background-color: rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 14px;
+}
 .line{
-    /*background: url(../i/show_master_card_footer_hb.png);*/
+    background: url(/i/show_master_card_footer_hb.png);
     width: 100%;
     height: 2px;
-    background-size: contain;
+    background-size: contain;  
     margin-top: 3px;
 }
+.mS_other{
+    width: 100%;
+    height: 40px;
+    background: rgba(193,230,78,0.2); 
+    border-radius: 0 0 5px 5px;  
+    padding-top: 2px;
+    
+}
+
+.mS_other table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    vertical-align: middle;
+}
+.mS_other tbody{
+    display: table-row-group;
+    vertical-align: middle;
+}
+.mS_other td{
+    text-align: center;
+    vertical-align: middle;
+    height: 30px;
+    width: 50%;
+}
+.mS_other td:first-of-type{
+    border-right: 1px solid rgba(0,0,0,0.25);
+}
+
     
 .albumCard{
     width: 100%;

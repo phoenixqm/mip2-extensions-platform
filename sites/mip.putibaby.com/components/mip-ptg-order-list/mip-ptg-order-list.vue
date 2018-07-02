@@ -54,41 +54,45 @@
 }
 
 body {
-  background-color: #f3f3f3 !important;
+  background-color: #F1F5E2 !important;
 }
 
 .root {
-  background-color: #f3f3f3;
+  background-color: #F1F5E2;
+  padding-top: 1px;
 }
 
 .row {
   background: #fff;
   margin-top: 10px;
   position: relative;
+  border: 1px solid #ddd;
+  border-radius: 3px;
 }
 
 .row_p {
   margin: 0px;
   padding: 0px;
   line-height: 30px;
-  border: 1px solid #eee;
+  border-bottom: 1px solid #eee;
 }
 
 .row_header {
   height: 30px;
   line-height: 30px;
   margin-right: 10px;
-  color: #999;
+  color: #666;
   cursor: pointer;
   float: right;
+  font-size: 13px;
 }
 
 .row_footer {
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   background-color: #fff;
-  width: 100%;
-  height: 40px;
+  height: 30px;
+  padding-right: 10px;
 }
 
 
@@ -96,8 +100,9 @@ body {
   height: 30px;
   line-height: 30px;
   padding-left: 10px;
-  color: #999;
+  color: #666;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .btn_list {
@@ -110,9 +115,9 @@ body {
   display: inline-block;
   border-radius: 3px;
   line-height: 1;
-  font-size: 14px;
-  padding: 3px 5px;
-  margin: 8px 5px 8px 5px;
+  font-size: 10px;
+  padding: 3px 3px;
+  margin: 5px 0px 8px 1px;
   color: #afd03b;
   cursor: pointer;
 }
@@ -120,27 +125,25 @@ body {
 .info {
   background: #fff;
   position: relative;
-  height: 72px;
+  height: 68px;
   overflow: hidden;
   cursor: pointer;
 }
 
 .header {
-  width: 50px;
-  height: 50px;
+  width: 68px;
+  height: 68px;
   position: absolute;
-  top: 10px;
-  left: 10px;
-  border-radius: 5px;
+  top: 0px;
+  left: 0px;
 }
 
 .name {
-  font-size: 16px;
-  font-weight: bold;
-  color: #333;
+  font-size: 15px;
+  color: #666;
   position: absolute;
   top: 15px;
-  left: 70px;
+  left: 78px;
 }
 
 .price {
@@ -149,52 +152,49 @@ body {
   color: red;
   position: absolute;
   top: 15px;
-  left: 130px
+  right: 10px
 }
 
 .message {
-  font-size: 14px;
-  color: #666;
+  font-size: 13px;
+  color: #999;
   position: absolute;
   top: 40px;
-  left: 70px;
+  left: 78px;
 }
 
 .age_img {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 10px;
   position: relative;
   top: 0;
   display: inline-block;
-  margin-right: 2px;
 }
 
 .age {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .work_year_img {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 10px;
   position: relative;
   top: 0;
   display: inline-block;
-  margin-right: 2px;
 }
 
 .work_year {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 .jiguan_img {
-  width: 14px;
-  height: 14px;
+  width: 13px;
+  height: 10px;
   position: relative;
   top: 0;
   display: inline-block;
-  margin-right: 2px;
 }
 
 .btn {

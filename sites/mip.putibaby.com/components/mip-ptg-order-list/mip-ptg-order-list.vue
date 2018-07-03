@@ -271,6 +271,16 @@ API.rejectInterview = function(orderId, cb) {
     cb);
 };
 
+API.zjqd = function(master_id, master_type,cb) {
+  API.wrapRet_(
+    '/api/zjqd', {
+      'master_id': master_id,
+	  'master_type': master_type
+    },
+    cb);
+};
+
+
 API.changeToContract = function(orderId, cb) {
   API.wrapRet_(
     '/api/change_to_contract', {
@@ -377,11 +387,11 @@ export default {
     handleBtn_shipinyuyue(order) {
       window.location.href = '/video_interview_master?master_id=' + order.master.id;
     },
-    handleBtn_qianyue(order) {
+    handleBtn_qianyue(order, skip) {
       // window.location.href = '/show_master?u=' + order.master.username;
       var self = this;
       if (skip) {
-        API.changeToContract(order.id, function(isOk, data) {
+        API.zjqd(order.master.id, 'yuesao', function(isOk, data) {
           if (isOk) {
             self.reload_();
           } else {
@@ -472,7 +482,7 @@ export default {
     handleBtn_jiaodingjin(order) {
       window.location.href = '/pay/v2_do_pay?order_id=' + order.id;
     },
-    handleBtn_shanghu(order) {
+    handleBtn_shanghu(order, skip) {
       // var self = this;
       // API.doShanghu(order.id, function(isOk, data) {
       //   if (isOk) {

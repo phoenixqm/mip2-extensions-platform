@@ -82,7 +82,10 @@ export default {
 
         // 获取用户信息
 		console.log(event);
-		self.$set(self.info.userInfo, 'nickname', event.userInfo.name);
+		//self.$set(self.info.userInfo, 'nickname', event.userInfo.name);
+		MIP.setData({
+		  userInfo: {nickname : event.userInfo.nkckname, province: ''}
+		});
 		self.$set(self.info, 'isLogin', true);
 
         // 后端交互会话标识

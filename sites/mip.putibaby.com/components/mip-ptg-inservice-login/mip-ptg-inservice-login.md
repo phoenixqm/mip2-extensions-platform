@@ -11,14 +11,7 @@ mip-ptg-inservice-login 组件说明
 ## 示例
 ### 基本用法
 
-列表数据通过data-jsonstr传递
-
-```html
-<mip-ptg-inservice-login
-    data-jsonstr="<%= JSON.stringify(data) %>"
-    >
-</mip-ptg-inservice-login>   
-```
+用法参照 mip-inservice-login.md
 
 ## 属性
 

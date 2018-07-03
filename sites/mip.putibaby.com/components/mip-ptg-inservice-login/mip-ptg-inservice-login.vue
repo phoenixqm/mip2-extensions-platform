@@ -1,7 +1,6 @@
 <template>
     <div class="wrap">
-        <h3>这是一个渲染片段示例</h3>
-        <p>默认未登录，由用户交互（如点击按钮）触发登录/登出</p>
+
         <hr />
         <div v-if="info.isLogin">hi，{{info.userInfo.nickname}}，欢迎回来！<span  style="color:#f00;" on="tap:log.logout">退出</span></div>
         <div v-else>你没有<span  style="color:#f00;" on="tap:log.login">登录</span>哦。</div>
@@ -75,20 +74,26 @@ export default {
     }
   },
   mounted() {
-    console.log('This is pty order pay component !');
-
+    console.log('This is ptg login component !');
+	var self = this;
     // 自定义login事件
     this.$element.customElement.addEventAction('login', event => {
         // 这里可以输出登录之后的数据
 
         // 获取用户信息
-        event.userInfo;
+		console.log(event);
+		self.$set(self.info.userInfo, 'nickname', event.userInfo.name);
+		self.$set(self.info, 'isLogin', true);
+
         // 后端交互会话标识
         event.sessionId;
     });
     // 自定义exit事件
     this.$element.customElement.addEventAction('exit', event => {
         console.log('登出了');
+		console.log(event);
+		self.$set(self.info.userInfo, 'nickname', '');
+		self.$set(self.info, 'isLogin', false);
     });
 
   },

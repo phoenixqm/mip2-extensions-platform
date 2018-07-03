@@ -35,6 +35,9 @@
             <a href="https://h5.putibaby.com/999.999/master/intro_detail?u={data.info.username}">
               <div class="details">基本资料详情</div>
             </a>
+            <span v-if="data.info.is_credited">
+              <mip-img src="i/yinzhang.png" width="70px" height="70px" class="yinzhang"></mip-img>
+            </span>
           </div>
         </div>
         <div class="line"></div>
@@ -42,7 +45,8 @@
           <table>
             <tbody>
               <tr>
-                  <td>客户评分：5</td>
+                <td v-if="data.shanghu_data.feedback_cc == 0">客户评分：0</td>
+                <td v-if="data.shanghu_data.feedback_cc != 0">客户评分：{{ data.shanghu_data.feedback_total_star / data.shanghu_data.feedback_cc }}</td>
                 <td>收藏：{{ data.info.fan_cc }}</td>
               </tr>
             </tbody>
@@ -196,7 +200,7 @@
       </div>
     </div>
   </div>
-
+</div>
 
   <table class="tbl" cellspacing="0">
       <tbody>
@@ -226,7 +230,7 @@
       </tbody>
   </table>
 
-</div>
+
     
 
 </template>
@@ -372,6 +376,11 @@ body{
     border-right: 1px solid rgba(0,0,0,0.25);
 }
 
+.yinzhang{
+  position: absolute;
+  top:20px;
+  right: 27px;
+}
     
 .albumCard{
     width: 100%;
@@ -383,6 +392,7 @@ body{
     color: white;
     padding: 0px 10px;
     font-size: 16px;
+    border-radius: 5px 5px 0px 0px;
 }
 .albumCard .aC_head mip-img{
     width: 12px;
@@ -443,6 +453,7 @@ body{
     background: #F16B57;
     background-color:#33CC99;
     padding: 0px 10px;
+    border-radius: 5px 5px 0px 0px;   
 }
 .serverCard .sC_head mip-img{
     width: 12px;
@@ -491,7 +502,6 @@ body{
     border-radius: 5px;
     margin-top: 10px;
     background-color: #fff;
-    padding-top: 10px;
     padding-bottom: 50px;
 }
 .pingJiaCard .pJC_head{
@@ -502,6 +512,8 @@ body{
     cursor: pointer;
     background: #6BD4FA;
     padding: 0px 10px;
+    border-radius: 5px 5px 0px 0px;
+
 }
 .pingJiaCard .pJC_head mip-img{
     width: 12px;
@@ -620,6 +632,7 @@ body{
     background: #6BD4FA;
     padding: 0px 10px;
     margin-bottom: 10px;
+    border-radius: 5px 5px 0px 0px;
 }
 
 td.firstCol {

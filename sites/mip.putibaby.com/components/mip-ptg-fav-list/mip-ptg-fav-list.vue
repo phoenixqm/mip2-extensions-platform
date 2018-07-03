@@ -7,6 +7,12 @@
                   class="header" v-bind:src="fav.master.header.small" ></mip-img>
       <!-- <img src={master.header.small} class="img"} /> -->
       <div class="name">{{ fav.master.name }}</div>
+      <p class="starBox">
+          <mip-img v-for="j in fav.master.star_1_list" layout="responsive" width="12" height="12"
+           class="iconStar" src="/i/select_master_star.png" /></mip-img>
+          <mip-img v-for="j in fav.master.star_0_list" layout="responsive" width="12" height="12"
+           class="iconStar" src="/i/select_master_unstar.png" /></mip-img>
+        </p>
       <div class="price">￥{{ fav.master.price.ptg_price/100 }}</div>
       <div class="info">
         <mip-img layout="responsive" width="12px" height="12px"
@@ -19,8 +25,6 @@
                     class="jiguan_img" src="i/jiguan.png" ></mip-img>
         <span class="jiguan">{{ fav.master.jiguan }}</span>
       </div>
-      <mip-img layout="responsive" width="10px" height="10px"
-                    class="jt" src="i/jt-right.png" ></mip-img>
     </div>
   </div>
 </div>  
@@ -37,35 +41,33 @@ body{
    background-color: #f3f3f3 !important;
 }
 .row{
-  background-color: #f3f3f3;
   height:100%;
+  padding: 10px;
+  padding-top: 0px;
 }
 .root{
     background: #fff;
     position: relative;
-    height: 72px;
+    height: 68px;
     overflow: hidden;
     cursor: pointer;
     margin-top: 10px;
-	border:solid 1px #ddd;
+	 border:solid 1px #e5e5e5;
   }
 
   .header{
-    width: 50px;
-    height: 50px;
+    width: 68px;
+    height: 68px;
     position: absolute;
-    top: 10px;
-    left: 10px;
-    border-radius: 5px;
+   
   }
 
   .name{
     font-size:  16px;
-    font-weight: bold;
-    color: #333;
+    color: #666;
     position: absolute;
     top: 15px;
-    left: 70px;
+    left: 80px;
   }
 
   .price{
@@ -74,7 +76,7 @@ body{
     color: red;
     position: absolute;
     top: 15px;
-    left: 130px;
+    right: 20px;
   }
 
   .info{
@@ -82,7 +84,7 @@ body{
     color: #666;
     position: absolute;
     top: 40px;
-    left: 70px;
+    left: 80px;
   }
 
   .icon{
@@ -102,19 +104,22 @@ body{
     display: inline-block;
     margin-right: 10px;
   }
-
-  .jt{
-    position: absolute;
-    right: 10px;
-	width:15px;
-    height: 15px;
-    top: 26px;
-  }
  .age_img,.work_year_img,.jiguan_img{
  	width:12px!important;
 	height:12px!important;
 	display:inline-block;
  } 
+
+ .starBox {
+    position: absolute;
+    left: 130px;
+    top: 15px;
+}
+.starBox mip-img{
+     width: 12px;
+   height: 12px;
+  display: inline-block;
+}
 </style>
 
 <script>

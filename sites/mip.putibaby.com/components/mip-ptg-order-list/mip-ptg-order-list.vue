@@ -69,6 +69,7 @@ body {
 
 .root {
   background-color: #F1F5E2;
+  padding:10px;
   padding-top: 1px;
 }
 
@@ -76,7 +77,7 @@ body {
   background: #fff;
   margin-top: 10px;
   position: relative;
-  border: 1px solid #ddd;
+  border: 1px solid #e5e5e5;
   border-radius: 3px;
 }
 
@@ -84,7 +85,7 @@ body {
   margin: 0px;
   padding: 0px;
   line-height: 30px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .row_header {
@@ -98,8 +99,7 @@ body {
 }
 
 .row_footer {
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid #e5e5e5;
   background-color: #fff;
   height: 30px;
   padding-right: 10px;
@@ -221,18 +221,6 @@ body {
   display: inline-block;
 }
 
-.btn {
-  border: 1px solid #ccc;
-  display: inline-block;
-  border-radius: 5px;
-  line-height: 1;
-  font-size: 14px;
-  padding: 3px 5px;
-  margin: 8px 5px 8px 5px;
-  color: #666;
-  background: #eee;
-  cursor: pointer;
-}
 </style>
 <script>
 var API = {};

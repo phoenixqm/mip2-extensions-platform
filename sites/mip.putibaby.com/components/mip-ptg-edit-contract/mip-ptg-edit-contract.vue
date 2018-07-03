@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="left">手机号</div>
+        <div class="left">手机号码</div>
         <div class="right">
           <input class="input" v-model="contract_mama_phone_number" v-on:blur="contract_mama_phone_number_change_" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码" v-bind:readOnly="rea">
           <div target="phone_number">手机号码错误</div>
@@ -94,13 +94,13 @@
         <div class="right">
 		  <!--<div class="quantian" @click="quantian_checked">-->
           <div class="quantian" >
-			<div :class="{'checked' : contract_is_offer_allday_ser , 'unchecked' : !contract_is_offer_allday_ser}" @click="quantianChecked"></div>
+			<div :class="{'checked' : contract_is_offer_allday_ser , 'unchecked' : !contract_is_offer_allday_ser }" @click="quantianChecked" ></div>
 			  <input type="radio" name="service_time" value="true" :checked="contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 全天</input>
 			  <!--	<p>全天</p>-->
           </div>
 		  <!--<div class="baiban" @click="baiban_checked">-->
           <div class="baiban" >
-			<div :class="{'checked' : !contract_is_offer_allday_ser , 'unchecked' : contract_is_offer_allday_ser}" @click="baibanChecked"></div>
+			<div :class="{'checked' : !contract_is_offer_allday_ser , 'unchecked' : contract_is_offer_allday_ser }" @click="baibanChecked" ></div>
 			  <input type="radio" name="service_time" value="false" :checked="!contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 白班</input>
 			<!--<p>白班</p>-->
 	
@@ -182,9 +182,11 @@
         <mip-img layout="responsive" width="16" height="16" class="jt_xx" src='i/jt-right2.png'></mip-img>
       </div>
     </div>
-
+	<div class="err" v-show="err">
+		请填写正确的姓名/手机号码/身份证号码/上户地点
+	</div>
     <div class="submit">
-      <input class="btn" type="submit" value="我同意以上所有条款，提交" v-on:click="handleSubmit_" />
+      <input class="btn" type="submit" value="我同意以上所有条款，提交" v-on:click="handleSubmit_({},false)" v-show="!rea"/>
     </div>
 
   </mip-form>
@@ -518,9 +520,9 @@ body {}
   color: #888888;
   font-size: 15px;
   position: absolute;
-  right: 15px;
+  right: 35px;
   top: 1px;
-  width: 40px;
+  width: 30px;
 }
 
 .extra_i {
@@ -676,6 +678,20 @@ body {}
 
 }
 
+.err {
+  color: #f00;
+  position: relative;
+  left: 50%;
+  margin-left:-167.5px;
+  top: -14px;
+  width: 335px;
+  text-align: center;
+
+}
+.none {
+  poniter-events: none;
+}
+
 </style>
 
 <script>
@@ -787,7 +803,21 @@ export default {
 
 		this.rea = true;
 	}
-	
+    this.$element.customElement.addEventAction('echo', function(event, str) {
+      console.log(event);
+    });
+    this.$element.customElement.addEventAction('dook', function(event, str) {
+      // console.log(event);
+
+      console.log(event.from);
+      event.from.bind(self)(event.data, true);
+      //var eval_str = 'this.' + event.handler + '(event_order)'
+    });
+    this.$element.customElement.addEventAction('docancel', function(event, str) {
+      console.log(event);
+      console.log(str);
+
+    });	
   },
   firstInviewCallback() {
     this.init()
@@ -833,6 +863,7 @@ export default {
 	
     return {
 	  rea:false,
+	  err:false,
 	  contract_is_offer_allday_ser:data.contract_is_offer_allday_service==1?true:false,
       master: pdata.order.master,
 	  order: pdata.order,
@@ -921,16 +952,21 @@ export default {
       });
     },
 	quantianChecked() {
+	if(JSON.parse(this.dataJsonstr).readonly != '1'){
+	  console.log(33333333);
 	  this.contract_is_offer_allday_service = 'true';
 	  this.contract_is_offer_allday_ser = true;
         this.contract_master_price = this.master.yuesao_allday_price / 100;
       this.saveIt_();
+	}
 	},
 	baibanChecked() {
+	if(JSON.parse(this.dataJsonstr).readonly != '1'){
 	  this.contract_is_offer_allday_service = 'false';
 	  this.contract_is_offer_allday_ser = false;
         this.contract_master_price = this.master.yuesao_daytime_price / 100;
       this.saveIt_();
+	}
 	},
     contract_is_offer_allday_service_change_(fn) {
 	  console.log(this.contract_is_offer_allday_service );
@@ -1032,7 +1068,7 @@ console.log(this);
 		window.location.href=url;
 	},
 
-    handleSubmit_() {
+    handleSubmit_(data, skip) {
       var pdata = JSON.parse(this.dataJsonstr);
 
       // 检查基本信息
@@ -1073,14 +1109,41 @@ console.log(this);
    //      if (!confirm("请确认填写的信息正确无误")) {
 //        return;
 //      }
-      API.wrapRet_(
-        '/api/submit_contract', {
-          'id': this.order.id,
-		  'readonly':1,
-        },
-		function(isOk,res){
-		  console.log('res1111111:',res);
-		});
+
+
+      var self = this;
+      if (skip) {
+	console.log(skip);
+        API.wrapRet_(
+ 
+          '/api/submit_contract', {
+            'id': this.order.id,
+          },
+	  	  function(isOk,res){
+			if (isOk) {
+			window.location.href = "https://mip.putibaby.com/order_list";
+			return;
+		  } else{
+		  	self.err=true;
+		  }
+		   console.log(res);
+	    	});
+
+
+
+      } else {
+
+        var ele = document.getElementById('ptgconfirm');
+        // console.log(ele);
+        MIP.viewer.eventAction.execute('doshow', ele, { 
+          el_id: 'editcontract', 
+          title:'提示消息',
+          msg: '确定合同填写无误?',
+          from: this.handleSubmit_, 
+          data: data });
+
+      }
+
 
     },
 

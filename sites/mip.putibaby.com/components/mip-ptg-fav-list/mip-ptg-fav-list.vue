@@ -113,13 +113,14 @@ body{
 
  .starBox {
     position: absolute;
-    left: 130px;
-    top: 15px;
+    left: 128px;
+    top: 17px;
 }
 .starBox mip-img{
-     width: 12px;
-   height: 12px;
-  display: inline-block;
+   width: 10px;
+   height: 10px;
+   display: inline-block;
+   margin-left:5px;
 }
 </style>
 

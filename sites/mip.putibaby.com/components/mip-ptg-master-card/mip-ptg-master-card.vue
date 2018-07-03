@@ -1,6 +1,7 @@
 
 <template>
 <div class="root">
+  <div class="master_div">
   <div class="masterShow">
         <div style="padding: 10px 10px 0px 10px;">
           <div class="mS_headerBorder">
@@ -32,7 +33,7 @@
             <mip-img src="i/market_certificated.png" width="12px" height="12px"></mip-img>
             <span>推荐护理师</span>
             </span>
-            <a href="https://h5.putibaby.com/999.999/master/intro_detail?u={data.info.username}">
+			<a href="https://h5.putibaby.com/999.999/master/intro_detail?u=data.info.username">
               <div class="details">基本资料详情</div>
             </a>
             <span v-if="data.info.is_credited">
@@ -201,7 +202,6 @@
     </div>
   </div>
 </div>
-
   <table class="tbl" cellspacing="0">
       <tbody>
           <tr>
@@ -230,7 +230,7 @@
       </tbody>
   </table>
 
-
+</div>
     
 
 </template>
@@ -266,8 +266,10 @@ body{
     background-color: #F3F3F3;
 }
 .root{
-	padding:10px;
 	background-color:#F1F5E2;
+}
+.master_div{
+	padding:10px;
 }
 .masterShow{
     width: 100%;
@@ -277,6 +279,7 @@ body{
     box-shadow: 0px 1px 1px 1px #e7ebd0;
     background-image: url(http://h5.putibaby.com/assets/i/blur_14.jpg);
     background-size: cover;
+
 }
 .masterShow .mS_header{
     width: 50px;
@@ -378,8 +381,8 @@ body{
 
 .yinzhang{
   position: absolute;
-  top:20px;
-  right: 27px;
+  top:13px;
+  right: 36px;
 }
     
 .albumCard{

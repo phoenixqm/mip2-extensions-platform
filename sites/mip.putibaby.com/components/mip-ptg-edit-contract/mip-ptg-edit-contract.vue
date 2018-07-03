@@ -92,13 +92,17 @@
       <div class="row">
         <div class="left">服务时间</div>
         <div class="right">
-          <div class="quantian">
-			<div :class="{'checked' : checked , 'unchecked' : !checked}" />
-            <input type="radio" name="service_time" value="true" :checked="contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 全天</input>
+		  <!--<div class="quantian" @click="quantian_checked">-->
+          <div class="quantian" >
+			<div :class="{'checked' : contract_is_offer_allday_ser , 'unchecked' : !contract_is_offer_allday_ser}" @click="quantianChecked"></div>
+			  <input type="radio" name="service_time" value="true" :checked="contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 全天</input>
+			  <!--	<p>全天</p>-->
           </div>
-          <div class="baiban">
-			<div :class="{'checked' : checked , 'unchecked' : !checked}" />
-            <input type="radio" name="service_time" value="false" :checked="!contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 白班</input>
+		  <!--<div class="baiban" @click="baiban_checked">-->
+          <div class="baiban" >
+			<div :class="{'checked' : !contract_is_offer_allday_ser , 'unchecked' : contract_is_offer_allday_ser}" @click="baibanChecked"></div>
+			  <input type="radio" name="service_time" value="false" :checked="!contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 白班</input>
+			<!--<p>白班</p>-->
 	
 
           </div>
@@ -172,7 +176,7 @@
 
     <div class="contract_info">
       <div class="sub_head">合同信息</div>
-      <div class="contract_row">
+      <div class="contract_row" @click="contractDetail">
         <span>《菩提果母婴护理服务合同》</span>
         <div class="extra_text_xx">详细</div>
         <mip-img layout="responsive" width="16" height="16" class="jt_xx" src='i/jt-right2.png'></mip-img>
@@ -210,13 +214,15 @@ p {
 body {}
 
 .root {
-  background: #f2f2f2;
+  background: #f4f4f4;
   padding-bottom: 30px;
+  color: #666;
+  font-size: 14px;
 }
 
 .yifang {
   width: 100%;
-  height: 90px;
+  height: 88px;
   margin: 0 auto;
   position: relative;
   background-color: #fff;
@@ -262,18 +268,18 @@ body {}
   position: absolute;
   top: 10px;
   left: 12px;
-  blrder-radius: 4px;
+  border-radius: 5px;
 }
 
 .mama_name {
   position: absolute;
-  left: 90px;
+  left: 95px;
   top: 10px;
 }
 
 .mama_phone {
   position: absolute;
-  left: 90px;
+  left: 95px;
   top: 35px;
 }
 
@@ -284,7 +290,7 @@ body {}
 
 .mama_id_card {
   position: absolute;
-  left: 90px;
+  left: 95px;
   top: 60px;
 }
 
@@ -331,7 +337,7 @@ body {}
   border-bottom: 1px solid #f2f2f2;
   overflow: hidden;
   padding-left: 10px;
-  font-size: 15px;
+  font-size:14px;
 }
 
 .row_address {
@@ -352,6 +358,7 @@ body {}
   width: 105px;
   float: left;
   clear: left;
+  color: #666;
 }
 
 .left_address {
@@ -369,17 +376,17 @@ body {}
 }
 
 .contract_info {
-  margin-bottom: 10px;
+  margin-bottom: 13px;
   position: relative;
   height: 100px;
 }
 
 .sub_head {
-  line-height: 41px;
-  padding-left: 10px;
+  line-height: 43.5px;
+  padding-left: 15px;
   color: #888888;
-  height: 41px;
-  background: #f2f2f2;
+  height: 43.5px;
+  background: #f4f4f4;
   position: relative;
   top: 0;
 }
@@ -423,15 +430,17 @@ body {}
 .btn {
   background: #afd03b;
   color: #fff;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   text-align: center;
-  font-size: 17px;
-  width: 100%;
-  height: 40px;
+  font-size: 18px;
+  width: 335px;
+  height: 47px;
   position: relative;
   border-style: none;
   margin: 0 auto;
+  left: 50%;
+  margin-left: -167.5px;
 }
 
 .btn2 {
@@ -452,9 +461,10 @@ body {}
 .input {
   border: none;
   width: 150px;
-  font-size: 15px;
+  font-size: 14px;
   height: 24px;
   display: inline-block;
+  color: #999;
 
 }
 
@@ -488,17 +498,19 @@ body {}
   border: none;
   display: inline-block;
   width: 200px;
-  height: 30px;
+  height: 14px;
   resize: none;
+  color: #999;
+  margin-left: -5px;
 }
 
 .extra_text {
   float: right;
-  right: 25px;
-  color: #888888;
-  font-size: 15px;
+  right: 40px;
+  color: #999;
+  font-size: 14px;
   position: absolute;
-  width: 80px;
+  width: 72px;
 }
 
 .extra_text_xx {
@@ -512,7 +524,7 @@ body {}
 }
 
 .extra_i {
-  color: #09bb07;
+  color: #afd03b;
   display: inline-block;
   margin: 0 3px;
   position: relative;
@@ -608,16 +620,16 @@ body {}
   line-height: 40px;
   display: inline-block;
   margin-right: 24px;
-  margin-left: 30px;
   position: absolute;
   top: 2px;
+  left: 35px;
 }
 
 .baiban {
   line-height: 40px;
   display: inline-block;
   margin-right: 24px;
-  margin-left: 5px;
+  margin-left: 20px;
   position: absolute;
   left: 90px;
   top: 2px;
@@ -643,18 +655,24 @@ body {}
 
 .checked {
   background-image: url('/i/balance_checked.png');
-  background-size: 222px 22px;
+  background-size: 22px 22px;
   width: 22px;
   height: 22px;
   position: absolute;
+  top: 10px;
+  left: -30px;
+  z-index: 22;
 
 }
 .unchecked {
   background-image: url('/i/balance_unchecked.png');
-  background-size: 222px 22px;
+  background-size: 22px 22px;
   width: 22px;
   height: 22px;
   position: absolute;
+  top: 10px;
+  left: -30px;
+  z-index: 22;
 
 }
 
@@ -815,6 +833,7 @@ export default {
 	
     return {
 	  rea:false,
+	  contract_is_offer_allday_ser:data.contract_is_offer_allday_service==1?true:false,
       master: pdata.order.master,
 	  order: pdata.order,
       contract_mama_name: data.contract_mama_name,
@@ -888,10 +907,8 @@ export default {
       this.html5Reader(file);
     },
     uploadFile_(myBase64, fn) {
-	  console.log('dsjfjkshfkjhkfhk:',this);
       var self = this;
       API.uploadFile(myBase64, function(isOk, res) {
-        console.log('2222', self);
         if (self.cur_image_fn == 'zheng') {
           self.$set(self, 'contract_mama_id_card_zheng', res.raw);
           self.cur_image_fn = '';
@@ -903,18 +920,28 @@ export default {
         }
       });
     },
-
-
-    contract_is_offer_allday_service_change_(fn) {
-	
-	  console.log('this:',this);
-	  console.log('change:',fn);
-      if (this.contract_is_offer_allday_service) {
+	quantianChecked() {
+	  this.contract_is_offer_allday_service = 'true';
+	  this.contract_is_offer_allday_ser = true;
         this.contract_master_price = this.master.yuesao_allday_price / 100;
-      } else {
+      this.saveIt_();
+	},
+	baibanChecked() {
+	  this.contract_is_offer_allday_service = 'false';
+	  this.contract_is_offer_allday_ser = false;
+        this.contract_master_price = this.master.yuesao_daytime_price / 100;
+      this.saveIt_();
+	},
+    contract_is_offer_allday_service_change_(fn) {
+	  console.log(this.contract_is_offer_allday_service );
+console.log(this);
+      if (this.contract_is_offer_allday_service == 'true') {
+		this.contract_is_offer_allday_ser = true;
+        this.contract_master_price = this.master.yuesao_allday_price / 100;
+      } else if(this.contract_is_offer_allday_service == 'false'){
+		this.contract_is_offer_allday_ser = false;
         this.contract_master_price = this.master.yuesao_daytime_price / 100;
       }
-	  console.log('999999999999999999:',this.contract_master_price);
       this.saveIt_();
     },
     contract_mama_name_change_(fn) {
@@ -959,8 +986,6 @@ export default {
     saveIt_() {
 
      this.contract_price = Math.round(this.contract_master_price /26 * this.contract_shanghu_length * 100)/100;
-console.log('this.contract_price:',this.contract_price);
-console.log("min:",this.contract_deposit_min);
 	 this.contract_deposit = this.contract_shanghu_length > 42 ? 
 			(this.contract_is_pay_monthly == 1 ? 
 			Math.round(this.contract_master_price * this.contract_deposit_min * 100)/100 : 
@@ -968,7 +993,6 @@ console.log("min:",this.contract_deposit_min);
 			Math.round(this.contract_deposit_min * this.contract_master_price /26 * this.contract_shanghu_length*100)/100;
 
 
-console.log('this.contract_price:',this.contract_deposit);
       // var data = this.props.data.order;
       var obj = {};
 
@@ -976,9 +1000,6 @@ console.log('this.contract_price:',this.contract_deposit);
         obj.contract_deposit = obj.contract_price;
       }
       obj.id = this.order.id;
-	  console.log('zheng',this.contract_mama_id_card_zheng);
-	  console.log('fan',this.contract_mama_id_card_fan);
-	  console.log('tupian:',this);
       obj.contract_mama_id_card_list = this.contract_mama_id_card_zheng + ',' + this.contract_mama_id_card_fan;
       obj.contract_mama_name = this.contract_mama_name;
       obj.contract_mama_phone_number = this.contract_mama_phone_number;
@@ -996,19 +1017,23 @@ console.log('this.contract_price:',this.contract_deposit);
       obj.pics = [];
 	  obj.mama_id = this.order.mama.id;
 
-	  console.log('obj:',obj);
       API.wrapRet_(
         '/api/set_contract', obj,
         function(isOk,res){
+		  if(isOk){
 		  console.log(res);
+		}
 	    });
 
     },
+	contractDetail() {
+		var id = this.order.id;
+		var url = '/v2_show_ptg_full_contract?id=' + id ;
+		window.location.href=url;
+	},
 
     handleSubmit_() {
       var pdata = JSON.parse(this.dataJsonstr);
-	  console.log("submitpdata:",pdata);
-	  console.log('submitthis:',this);
 
       // 检查基本信息
       // var info = oa({}, this.state);

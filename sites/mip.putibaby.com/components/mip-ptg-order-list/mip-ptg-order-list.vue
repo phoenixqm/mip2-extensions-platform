@@ -271,6 +271,14 @@ API.rejectInterview = function(orderId, cb) {
     cb);
 };
 
+API.changeToContract = function(orderId, cb) {
+  API.wrapRet_(
+    '/api/change_to_contract', {
+      'id': orderId
+    },
+    cb);
+};
+
 API.hideFinishedOrder = function(orderId, cb) {
   API.wrapRet_(
     '/api/hide_finished_order', {
@@ -370,7 +378,29 @@ export default {
       window.location.href = '/video_interview_master?master_id=' + order.master.id;
     },
     handleBtn_qianyue(order) {
-      window.location.href = '/show_master?u=' + order.master.username;
+      // window.location.href = '/show_master?u=' + order.master.username;
+      var self = this;
+      if (skip) {
+        API.changeToContract(order.id, function(isOk, data) {
+          if (isOk) {
+            self.reload_();
+          } else {
+            console.warn(data);
+          }
+        });
+
+      } else {
+
+        var ele = document.getElementById('ptgconfirm');
+        // console.log(ele);
+        MIP.viewer.eventAction.execute('doshow', ele, { 
+          el_id: 'orderlist', 
+          title:'提示消息',
+          msg: '确定签约?',
+          from: this.handleBtn_qianyue, 
+          data: order });
+
+      }
     },
     handleBtn_chakanshipin(order) {
       window.location.href = '/show_my_qs_list?id=' + order.id;

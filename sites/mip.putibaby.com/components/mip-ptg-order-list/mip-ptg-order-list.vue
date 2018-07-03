@@ -77,7 +77,7 @@ body {
   background: #fff;
   margin-top: 10px;
   position: relative;
-  border: 1px solid #e5e5e5;
+  border: 1px solid #f4f4f4;
   border-radius: 3px;
 }
 
@@ -85,7 +85,7 @@ body {
   margin: 0px;
   padding: 0px;
   line-height: 30px;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #f4f4f4;
 }
 
 .row_header {
@@ -99,7 +99,7 @@ body {
 }
 
 .row_footer {
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #f4f4f4;
   background-color: #fff;
   height: 30px;
   padding-right: 10px;
@@ -107,14 +107,15 @@ body {
 
 .starBox{
 	position:absolute;
-	left:130px;
+	left:125px;
 	top:15px;
 }
 
 .starBox mip-img{
-     width: 12px;
-	 height: 12px;
+  width: 10px;
+	height: 10px;
 	display: inline-block;
+  margin-left:5px;
 }
 .iconStar_no{
    margin-left:-4px;

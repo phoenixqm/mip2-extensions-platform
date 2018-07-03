@@ -52,7 +52,8 @@ body{
     overflow: hidden;
     cursor: pointer;
     margin-top: 10px;
-	 border:solid 1px #e5e5e5;
+	 border:solid 1px #f4f4f4;
+   border-radius: 3px;
   }
 
   .header{

@@ -52,7 +52,7 @@ body{
     overflow: hidden;
     cursor: pointer;
     margin-top: 10px;
-	 border:solid 1px #f4f4f4;
+	 border:solid 1px #e5e5e5;
    border-radius: 3px;
   }
 
@@ -120,7 +120,7 @@ body{
    width: 10px;
    height: 10px;
    display: inline-block;
-   margin-left:5px;
+   margin-left:2px;
 }
 </style>
 

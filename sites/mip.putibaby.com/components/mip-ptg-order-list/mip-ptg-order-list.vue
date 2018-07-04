@@ -77,7 +77,7 @@ body {
   background: #fff;
   margin-top: 10px;
   position: relative;
-  border: 1px solid #f4f4f4;
+  border: 1px solid #e5e5e5;
   border-radius: 3px;
 }
 
@@ -115,7 +115,7 @@ body {
   width: 10px;
 	height: 10px;
 	display: inline-block;
-  margin-left:5px;
+  margin-left:2px;
 }
 .iconStar_no{
    margin-left:-4px;

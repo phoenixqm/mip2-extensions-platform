@@ -1,7 +1,7 @@
 
 <template>
 <div class="root">
-  <mip-form class="root" method="get" url="https://www.mipengine.org?we=123">
+  <mip-form method="get" url="https://www.mipengine.org?we=123">
     <div class="warn">
       <span class="span">尊敬的用户：</span><br>
 	  <span>为了能让菩提果的老师和月嫂更好的为您服务，需要您提供正确的手机号码：</span>
@@ -62,19 +62,20 @@ a:hover {
   background: #fff;
   font-size: 14px;
   width:100%;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .warn {
   color: rgba(102, 102, 102);
   position: relative;
-  left: 15px;
+  margin-top:20px;
 }
 .warn span:nth-of-type(1) {
   color: #333333;
   font-size: 15px;
   position: relative;
   display:inline-block;
-  top: 15px;
 }
 .warn span:nth-of-type(2) {
   color: #666;
@@ -82,13 +83,12 @@ a:hover {
   left: 0px;
   position: relative;
   display:inline-block;
-  top: 20px;
-  width: 345px;
+  margin-top: 10px;
 }
 
 
 .get {
-  margin-top: 10px;
+  margin-top: 20px;
   height: 100px;
   position: relative;
 }
@@ -108,14 +108,11 @@ border-radius:4px;
 
 .ph {
   position: relative;
-  left: 15px;
-  top: 20px;
   display: block;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
   height: 36px;
   line-height: 36px;
-  width: 345px;
   height: 44px;
   padding-left: 15px;
   font-size: 14px;
@@ -124,30 +121,27 @@ border-radius:4px;
 
 .code {
   position: relative;
-  left: 15px;
-  top: 30px;
+  top: 20px;
   display: block;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
   height: 44px;
   line-height: 36px;
   padding-left: 15px;
-  width: 220px;
+  width: 57%;
   color: #b2b2b2;
 }
 
 .err {
-position: relative;
-left: 15px;
+  position: relative;
   color: #ff0200;
-  margin: 10px;
-  top: 10px;
+  margin-top: 15px;
 }
 
 .smsSend {
   position: absolute;
-  right: 15px;
-  top: 74px;
+  right: 0px;
+  top: 64px;
   border-radius: 5px;
   line-height: 36px;
   text-align: center;
@@ -156,7 +150,7 @@ left: 15px;
 font-size: 14px;
 border: 1px solid #afd03b;
   cursor: pointer;
-  width: 115px;
+  width: 40%;
 height: 44px;
 
 }
@@ -175,13 +169,11 @@ height: 44px;
   text-align: center;
   border-radius: 4px;
   margin: 0 auto;
-  width: 345px;
-border-style:none;
-left:15px;
-position:relative;
-top: 30px;
-height: 47px;
-font-size:18px;
+  border-style:none;
+  position:relative;
+  top: 30px;
+  height: 47px;
+  font-size:18px;
 }
 </style>
 

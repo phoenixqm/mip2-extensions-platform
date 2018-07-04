@@ -42,6 +42,7 @@
           <div target="username">姓名不符合规范</div>
         </div>
       </div>
+	  <div class="line"></div>
       <div class="row">
         <div class="left">手机号码</div>
         <div class="right">
@@ -49,6 +50,7 @@
           <div target="phone_number">手机号码错误</div>
         </div>
       </div>
+	  <div class="line"></div>
       <div class="row">
         <div class="left">身份证号</div>
         <div class="right">
@@ -56,11 +58,14 @@
           <div target="identity">身份证号码错误</div>
         </div>
       </div>
+	  <div class="line"></div>
 
       <div class="row_photo">
         <div>
           <input id="fz" type="file" class="uploadfile" name="f" v-on:change="changeZ" display="none" v-bind:disabled="rea"/>
-          <mip-img class="id_photo" :src="contract_mama_id_card_zheng" @click="fileSelectZ"></mip-img>
+          <mip-img class="id_photo_z" src="/i/camera_.png" @click="fileSelectZ"></mip-img>
+          <mip-img class="id_photo_zz" src="/i/id_card_z.png" ></mip-img>
+          <mip-img class="id_photo" :src="contract_mama_id_card_zheng" ></mip-img>
           <span>身份证正面</span>
 
         </div>
@@ -70,7 +75,9 @@
         <div>
           <input id="ff" type="file" class="uploadfile" name="f" v-on:change="changeF" display="none"  v-bind:disabled="rea"/>
 
-          <mip-img class="id_photo" :src="contract_mama_id_card_fan" @click="fileSelectF"></mip-img>
+          <mip-img class="id_photo_f" src="/i/camera_.png" @click="fileSelectF"></mip-img>
+          <mip-img class="id_photo_ff" src="/i/id_card_f.png" ></mip-img>
+          <mip-img class="id_photo" :src="contract_mama_id_card_fan" ></mip-img>
 
           <span>身份证反面</span>
 
@@ -88,7 +95,7 @@
 
 
     <div class="shanghu_info">
-      <div class="sub_head">上户信息</div>
+      <div class=" shanghu_i">上户信息</div>
       <div class="row">
         <div class="left">服务时间</div>
         <div class="right">
@@ -108,40 +115,50 @@
           </div>
         </div>
       </div>
+	  <div class="line"></div>
       <div class="row">
         <div class="left">上户日期</div>
         <div class="right">
           <input class="input_date" v-model="contract_shanghu_at" type='date' value='' placeholder='请选择月份/年份' v-on:change="contract_shanghu_at_change_" :readOnly="rea" />
+		  
         </div>
       </div>
+	  <div class="line"></div>
       <div class="row">
         <div class="left">上户时长</div>
         <div class="right">
           <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:blur="contract_shanghu_length_change_" :readOnly="rea"/>天
         </div>
       </div>
+	  <div class="line"></div>
       <div class="row">
         <div class="left">26天薪资</div>
         <div class="right">
-          <input class="inputReadOnly" type='number' value='' readOnly="readOnly" />{{contract_master_price}} 元
+		  <!--<input class="inputReadOnly" type='number' value='' readOnly="readOnly" />-->
+		  <p>{{contract_master_price}}</p> 元
         </div>
       </div>
+	  <div class="line"></div>
       <div class="row">
         <div class="left">总金额</div>
         <div class="right">
-          <input class="inputReadOnly" type='number' value='' readOnly="readOnly" />{{contract_price}} 元
+		  <!--<input class="inputReadOnly" type='number' value='' readOnly="readOnly" />-->
+		  <p>{{contract_price}}</p> 元
         </div>
       </div>
+	  <div class="line"></div>
       <div class="row">
         <div class="left">支付方式</div>
         <div class="right zhifufangshi">
           两次支付(定金, 尾款)
         </div>
       </div>
+	  <div class="line"></div>
       <div class="row">
         <div class="left">定金</div>
         <div class="right">
-          <input class="inputReadOnly" type='number' value='' readOnly="readOnly" v-on:change="contract_deposit_change_" />{{contract_deposit}} 元
+		  <!--<input class="inputReadOnly" type='number' value='' readOnly="readOnly" v-on:change="contract_deposit_change_" />-->
+		  <p>{{contract_deposit}}</p> 元
         </div>
       </div>
     </div>
@@ -159,6 +176,7 @@
           <mip-img layout="responsive" width="16" height="16" class="jt" src='i/jt-right2.png'></mip-img>
         </a>
       </div>
+	  <div class="line"></div>
       <div class="row">
 		<a :href="to_contract_extra">
           <div class="left">补充条款</div>
@@ -166,6 +184,7 @@
           <mip-img layout="responsive" width="16" height="16" class="jt" src='i/jt-right2.png'></mip-img>
         </a>
       </div>
+	  <div class="line"></div>
       <div class="row">
         <div class="left">上户地点</div>
         <div class="right">
@@ -186,7 +205,7 @@
 		请填写正确的姓名/手机号码/身份证号码/上户地点
 	</div>
     <div class="submit">
-      <input class="btn" type="submit" value="我同意以上所有条款，提交" v-on:click="handleSubmit_({},false)" v-show="!rea"/>
+      <input class="btn" type="submit" value="提交" v-on:click="handleSubmit_({},false)" v-show="!rea"/>
     </div>
 
   </mip-form>
@@ -204,7 +223,6 @@
 * {
   margin: 0px;
   padding: 0px;
-  width: 100%;
 }
 
 p {
@@ -251,7 +269,7 @@ body {}
   background: #fff;
   position: relative;
   height: 85px;
-  color: #333333;
+  color: #666;
   margin-bottom: 10px;
   font-size: 15px;
 }
@@ -261,6 +279,7 @@ body {}
   left: 52px;
   top: 1px;
   width: 170px;
+  color:#333;
 
 }
 
@@ -269,7 +288,7 @@ body {}
   width: 65px;
   position: absolute;
   top: 10px;
-  left: 12px;
+  left: 15px;
   border-radius: 5px;
 }
 
@@ -277,35 +296,40 @@ body {}
   position: absolute;
   left: 95px;
   top: 10px;
+  color:#333;
 }
 
 .mama_phone {
   position: absolute;
   left: 95px;
   top: 35px;
+  color:#333;
 }
 
 .mama_phone_a {
   text-decoration: none;
-  color: #333333;
+  color: #666;
 }
 
 .mama_id_card {
   position: absolute;
   left: 95px;
   top: 60px;
+  color:#333;
 }
 
 .mama_name_b {
   position: absolute;
-  left: 90px;
+  left: 95px;
   top: 20px;
+  color:#333;
 }
 
 .mama_phone_b {
   position: absolute;
-  left: 90px;
+  left: 95px;
   top: 45px;
+  color:#333;
 }
 
 .ptg_info {
@@ -318,7 +342,6 @@ body {}
 .shanghu_info {
   margin-bottom: 10px;
   background: #fff;
-  margin-top: -10px;
   /* position: relative; */
 }
 
@@ -336,7 +359,6 @@ body {}
   position: relative;
   height: 44px;
   line-height: 44px;
-  border-bottom: 1px solid #f2f2f2;
   overflow: hidden;
   padding-left: 10px;
   font-size:14px;
@@ -361,6 +383,7 @@ body {}
   float: left;
   clear: left;
   color: #666;
+  left: 15px;
 }
 
 .left_address {
@@ -374,7 +397,8 @@ body {}
   position: absolute;
   float: left;
   display: inline-block;
-  left: 100px;
+  left: 120px;
+  color:#999;
 }
 
 .contract_info {
@@ -384,10 +408,10 @@ body {}
 }
 
 .sub_head {
-  line-height: 43.5px;
+  line-height: 54px;
   padding-left: 15px;
-  color: #888888;
-  height: 43.5px;
+  color: #999;
+  height: 44px;
   background: #f4f4f4;
   position: relative;
   top: 0;
@@ -406,18 +430,19 @@ body {}
 
 .jt {
   width: 16px;
-  height: 16px;
+  height: 26px;
   position: absolute;
-  right: 15px;
-  top: 14px;
+  right: 8px;
+  top: 10px;
+  color:#999;
 }
 
 .jt_xx {
   width: 16px;
-  height: 16px;
+  height: 26px;
   position: absolute;
   right: 8px;
-  top: 14px;
+  top: 11px;
 }
 
 .btns {
@@ -425,24 +450,25 @@ body {}
 }
 
 .submit {
-  width: 80%;
   margin: 0 auto;
 }
 
 .btn {
+  -webkit-appearance:none;
   background: #afd03b;
   color: #fff;
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
   font-size: 18px;
-  width: 335px;
+  width: 89.3%;
   height: 47px;
   position: relative;
   border-style: none;
   margin: 0 auto;
   left: 50%;
-  margin-left: -167.5px;
+  margin-left: -44.65%;
+
 }
 
 .btn2 {
@@ -472,9 +498,9 @@ body {}
 
 .input_sc {
   border: none;
-  line-height: ;
-  width: 70px;
-  font-size: 15px;
+  width: 74px;
+  font-size: 14px;
+  color:#999;
 }
 
 .input_date {
@@ -485,6 +511,10 @@ body {}
   font-size: 15px;
   /*background-image: url(assets/i/card_jf.png);*/
   background-size: 0;
+  position:relative;
+  font-family:Arial;
+  color:#999;
+  -webkit-appearance:none;
 }
 
 .inputReadOnly {
@@ -496,23 +526,27 @@ body {}
 }
 
 .input_address {
-  margin-top: 7px;
+  margin-top: 0px;
   border: none;
   display: inline-block;
+  font-family: Arial,Helvetica,sans-serif;
   width: 200px;
-  height: 14px;
+  height: 44px;
+  line-height: 44px;
   resize: none;
   color: #999;
-  margin-left: -5px;
+  font-size: 14px;
+  
 }
 
 .extra_text {
   float: right;
+  position:absolute;
   right: 40px;
   color: #999;
-  font-size: 14px;
+  font-size: 14px;5
   position: absolute;
-  width: 72px;
+  width: 75px;
 }
 
 .extra_text_xx {
@@ -530,7 +564,7 @@ body {}
   display: inline-block;
   margin: 0 3px;
   position: relative;
-  width: 6px;
+  width: 13px;
   text-align: center;
 }
 
@@ -577,12 +611,56 @@ body {}
 }
 
 .id_photo {
-  width: 90%;
+  width: 88%;
   height: 110px;
   border-radius: 3px;
-  margin-left: 5%;
+  margin-left: 10%;
+  margin-right: 5%;
+  margin-bottom: 5px;
+  z-index:11;
+  background:rgba(0,0,0,0);
+}
+.id_photo_z {
+  width: 88%;
+  height: 110px;
+  border-radius: 3px;
+  margin-left: 10%;
   margin-right: 5%;
   margin-bottom: -4px;
+  position:absolute;
+  z-index:22;
+  opacity:.7;
+}
+.id_photo_zz {
+  width: 88%;
+  height: 110px;
+  border-radius: 3px;
+  margin-left: 10%;
+  margin-right: 5%;
+  margin-bottom: -4px;
+  position:absolute;
+  background:#fff;
+}
+.id_photo_f {
+  width: 88%;
+  height: 110px;
+  border-radius: 3px;
+  margin-left: 10%;
+  margin-right: 5%;
+  margin-bottom: -4px;
+  position:absolute;
+  z-index:22;
+  opacity:.7;
+}
+.id_photo_ff {
+  width: 88%;
+  height: 110px;
+  border-radius: 3px;
+  margin-left: 10%;
+  margin-right: 5%;
+  margin-bottom: -4px;
+  position:absolute;
+  background:#fff;
 }
 
 .jiafang .row_photo {
@@ -594,7 +672,7 @@ body {}
   line-height: 25px;
   padding-bottom: 5px;
   overflow: hidden;
-  width: 50%;
+  width: 48%;
   float: left;
   text-align: center;
   font-size: 15px;
@@ -610,7 +688,9 @@ body {}
   opacity: 0.2;
   border-radius: ;
 }
-
+ .mip-placeholder {
+  background:rgba(0,0,0,0) !important;
+}
 .identity {
   width: 30px;
   position: absolute;
@@ -624,7 +704,8 @@ body {}
   margin-right: 24px;
   position: absolute;
   top: 2px;
-  left: 35px;
+  width:45px;
+  left: 25px;
 }
 
 .baiban {
@@ -635,6 +716,7 @@ body {}
   position: absolute;
   left: 90px;
   top: 2px;
+  width:45px;
 }
 
 .zhifufangshi {
@@ -648,7 +730,10 @@ body {}
   position: absolute;
   top: 15px;
   margin-left: -35px;
+  opacity:0;
   text-align: center;
+  color:#999;
+  font-size:14px;
 }
 
 .row_photo .uploadfile {
@@ -662,7 +747,7 @@ body {}
   height: 22px;
   position: absolute;
   top: 10px;
-  left: -30px;
+  left: -26px;
   z-index: 22;
 
 }
@@ -673,7 +758,7 @@ body {}
   height: 22px;
   position: absolute;
   top: 10px;
-  left: -30px;
+  left: -26px;
   z-index: 22;
 
 }
@@ -690,6 +775,29 @@ body {}
 }
 .none {
   poniter-events: none;
+}
+.line {
+  width:92%;
+  background:#f4f4f4;
+  height:1px;
+  position:relative;
+  left:50%;
+  margin-left:-46%;
+}
+.right p {
+position:relative;
+display:inline-block;
+width:70px;
+}
+.shanghu_i {
+    width: 21%;
+    height: 44px;
+    background: #f4f4f4;
+    line-height: 44px;
+    position: relative;
+    padding-right: 100%;
+    left: 0px;
+    padding-left: 15px;
 }
 
 </style>
@@ -1064,8 +1172,8 @@ console.log(this);
     },
 	contractDetail() {
 		var id = this.order.id;
-		var url = '/v2_show_ptg_full_contract?id=' + id ;
-		window.location.href=url;
+		var url = '/v2_show_ptg_full_contract?id=' + id + '&type=YSPD';
+		window.location.href = url;
 	},
 
     handleSubmit_(data, skip) {

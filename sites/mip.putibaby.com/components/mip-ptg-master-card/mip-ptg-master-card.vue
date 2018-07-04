@@ -33,7 +33,7 @@
             <mip-img src="i/market_certificated.png" width="12px" height="12px"></mip-img>
             <span>推荐护理师</span>
             </span>
-			<a href="https://h5.putibaby.com/999.999/master/intro_detail?u=data.info.username">
+			<a :href="'https://h5.putibaby.com/999.999/master/intro_detail?u='+data.info.username">
               <div class="details">基本资料详情</div>
             </a>
             <span v-if="data.info.is_credited">
@@ -273,7 +273,6 @@ body{
 }
 .masterShow{
     width: 100%;
-    height: 150px;
     border-radius: 5px;
     color: white;
     box-shadow: 0px 1px 1px 1px #e7ebd0;
@@ -300,13 +299,13 @@ body{
     overflow: hidden;
 }
 .masterShow .mS_info .mC_Des span:nth-of-type(1){
-    width: 60px;
+    margin-right:5px;
 }
 .masterShow .mS_info .mC_Des span:nth-of-type(2){
-    width: 70px;
+    margin-right:5px;
 }
 .masterShow .mS_info .mC_Des span:nth-of-type(3){
-    width: 30px;
+    
 }
 .mS_headerBorder{
     border: 1px solid white;
@@ -334,14 +333,15 @@ body{
     right: 20px;
     margin-top: -30px;
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 10px;
+    border-radius: 5px;
     height: 22px;
-    width: 102px;
     text-align: center;
     line-height: 22px;
     background-color: rgba(255,255,255,0.2);
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
+	padding-left:5px;
+	padding-right:5px;
 }
 .line{
     background: url(/i/show_master_card_footer_hb.png);
@@ -382,7 +382,7 @@ body{
 .yinzhang{
   position: absolute;
   top:13px;
-  right: 36px;
+  right: 27px;
 }
     
 .albumCard{
@@ -394,12 +394,13 @@ body{
     background: #A2D016;
     color: white;
     padding: 0px 10px;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 5px 5px 0px 0px;
 }
 .albumCard .aC_head mip-img{
     width: 12px;
     height: 12px;
+	vertical-align:-1px;
 }
 .albumCard .aC_head span mip-img{
     width: 8px;
@@ -451,7 +452,7 @@ body{
     height: 30px;
     color: #fff;
     line-height: 30px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     background: #F16B57;
     background-color:#33CC99;
@@ -461,6 +462,7 @@ body{
 .serverCard .sC_head mip-img{
     width: 12px;
     height: 12px;
+	vertical-align:-1px;
 }
 .serverCard .sC_head span mip-img{
     width: 8px;
@@ -478,6 +480,7 @@ body{
     width: 100%;
     background-color: white;
     text-align: center;
+	border-radius: 0px 0px 5px 5px;
 }
 .serverCard .price{
     width: 100%;
@@ -511,7 +514,7 @@ body{
     height: 30px;
     color: #fff;
     line-height: 30px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     background: #6BD4FA;
     padding: 0px 10px;
@@ -521,6 +524,7 @@ body{
 .pingJiaCard .pJC_head mip-img{
     width: 12px;
     height: 12px;
+	vertical-align:-1px;
 }
 .pingJiaCard .pJC_head span mip-img{
     width: 8px;
@@ -624,18 +628,24 @@ body{
     /*padding: 10px;*/
     padding-bottom: 1px;
     margin-top: 10px;
+	border-radius:5px;
 }
 
 .jieshao .pJC_head{
     height: 30px;
     color: #fff;
     line-height: 30px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     background: #6BD4FA;
     padding: 0px 10px;
     margin-bottom: 10px;
     border-radius: 5px 5px 0px 0px;
+}
+.jieshao .pJC_head mip-img{
+  width:12px;
+  height:12px;
+  vertical-align:-1px;
 }
 
 td.firstCol {
@@ -730,6 +740,8 @@ td.secondCol {
     border:none;
     background-color: white !important;
     margin-top: 5px;
+	color:#afd03b;
+	height:23px;
 }
 
 .jieshao_content{

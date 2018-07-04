@@ -667,14 +667,16 @@ td.secondCol {
 .td1{
     cursor: pointer;
     background-color: #fff;
+    width: 25%;
 }
 .td-fav{
-  padding-left:6px;
-  padding-right: 6px;
+  width: 25%;
 }
 .td2{
     cursor: pointer;
     background-color: #adcd41;
+    font-size: 15px;
+    width: 50%;
 }
 .td2 a{
     color:white !important;

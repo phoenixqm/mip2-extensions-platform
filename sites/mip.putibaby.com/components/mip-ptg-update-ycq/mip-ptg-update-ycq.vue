@@ -2,20 +2,22 @@
 <template>
 <div class="root">
   <p class="title">需要您填写如下信息，让我们帮您更好的推荐。</p>
-  <mip-form method="get" url="http://mip.putibaby.com/update_ycq_ok" name="mip-form" class='mip_form'>
+  <!--<mip-form method="get" url="http://mip.putibaby.com/update_ycq_ok" name="mip-form" class='mip_form'>-->
     <h4>您希望找：</h4>
+<div class="gap"></div>
+<div class="ygap"></div>
     <table class="radio">
       <tr>
         <td>
-          <div :class="{'checked': dateChecked,'unchecked':!dateChecked}" @click="date_checked"></div>
-          <input type="radio" name="masterType" value="yuesao" checked>月嫂&nbsp;&nbsp;&nbsp;&nbsp;
-          <span class="gray">在月子期间护理新生儿和产妇</span></td>
+          <div class="yuesao" :class="{'checked': tuijian,'unchecked':!tuijian}" @click="Checked"></div>
+          <input type="radio" name="masterType" value="true" v-on:change="checked_" :checked="tuijian" v-model="tuijian">月嫂&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="grayys">在月子期间护理新生儿和产妇</span></td>
       </tr>
       <tr>
         <td>
-          <div :class="{'checked': dateChecked,'unchecked':!dateChecked}" @click="date_checked"></div>
-          <input type="radio" name="masterType" value="yuer">育儿嫂&nbsp;&nbsp;&nbsp;&nbsp;
-          <span class="gray">为0-3岁幼儿提供照料和早教服务</span></td>
+          <div class="yuer" :class="{'checked': !tuijian,'unchecked':tuijian}" @click="Checked"></div>
+          <input type="radio" name="masterType" value="false" v-on:change="checked_" :checked="!tuijian" v-model="tuijian">育儿嫂&nbsp;&nbsp;&nbsp;&nbsp;
+          <span class="grayyrs">为0-3岁幼儿提供照料和早教服务</span></td>
       </tr>
     </table>
     <p class="margin"> </p>
@@ -24,15 +26,18 @@
         <td>姓名：</td>
         <td><input type="text" name="name" class="name your_name" v-model="name" required="required" placeholder="请填写您的称呼"></td>
       </tr>
-    </table>
+	</table>
+	<div class="g"></div>
     <table class="ycq_table">
       <tr>
         <td>宝宝生日\预产期：</td>
-        <td><input type="date" name="ycq" class="name ycq" v-model="selectDate" required="required"></td>
+        <td><input type="date" name="ycq" class="name ycq" v-model="selectDate" required="required" ></td>
+		<!--<div class="date" @click="dateCheck"></div>-->
       </tr>
     </table>
+	<div class="gl"></div>
     <input type="submit" name="提交" class="submit" @click="handleSubmit_">
-  </mip-form>
+  <!--</mip-form>-->
 </div>
 </template>
 
@@ -60,16 +65,66 @@ body {
 }
 
 .root {
-  /*padding-left: 10px;*/
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+}
+h4 {
+  color: #666;
+font-weight: normal;
+position:relative;
+padding-left:15px;
+}
+.gap {
+width:100%;
+height:1px;
+background: #e5e5e5;
+position:relative;
+margin-top:10px;
+}
+.ygap {
+height:1px;
+width:89.3%;
+position:relative;
+left:50%;
+margin-left:-44.65%;
+background:#e5e5e5;
+top:49px;
+z-index:22;
 }
 
 .title {
-  margin: 10px 10px 10px 10px;
+  margin: 20px 10px 15px 15px;
   color: #333;
+font-size: 15px;
+}
+mip-form {
+
+}
+input[type='radio']{
+margin-right: 10px;
+margin-left: 5px;
+position:relative;
+top:5px;
+opacity:0;
 }
 
-.gray {
+.grayys {
+font-size:14px;;
   color: #666;
+  position: absolute;
+left: 105px;
+display:inline-block;
+width:210px;
+}
+.grayyrs {
+font-size:14px;
+  color: #666;
+  position: absolute;
+left: 105px;
+top:60px;
+display:inline-block;
+width:210px;
 }
 
 .name {
@@ -79,37 +134,40 @@ body {
 }
 
 table tr td {
-  height: 30px;
+  height: 44px;
 }
 
-.video_interview {
-  display: block;
-  width: 97%;
-  height: 140px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
 
-textarea {
-  width: 97%;
-  height: 100px;
-  border-radius: 5px;
-  color: #666;
-  border: solid 1px #ddd !important;
-  margin-top: 20px;
+.radio {
+position: relative;
+  padding-left: 15px;
+padding-right: 15px;
+}
+.name_table {
+  position: relative;
+  left: 15px;
+}
+.ycq_table {
+  position: relative;
+  left: 15px;
 }
 
 .submit {
+	position:relative;
+left: 50%;
+margin-left: -44.65%;
   outline: none;
   -webkit-appearance: none;
-  border-radius: 0;
-  width: 97%;
-  height: 44px !important;
+  border-radius: 5px;
+  width: 89.3%;
+  border-style: none;
+  height: 47px !important;
   line-height: 20px;
   text-align: center;
   background-color: #afd03b !important;
   color: #fff !important;
   margin-top: 30px;
+font-size: 18px;
 }
 
 .margin {
@@ -118,32 +176,91 @@ textarea {
   margin-left: -10px;
 }
 
+
 .mip_form {
   margin-left: 10px;
 }
 
 .name_table {
-  border-bottom: solid 1px #ddd;
   width: 95%;
-  margin-bottom: 10px;
 }
 
 .your_name {
   border: none !important;
-  padding-left: 25px;
   font-size: 14px !important;
+position: absolute;
+left:90px;
+top:16px;
+color:#999;
 
 }
 
 .ycq_table {
-  border-bottom: solid 1px #ddd;
   width: 95%;
 }
 
 .ycq {
   background-color: #fff;
   border: none;
+  position: absolute;
+  top:13px;
+  left: 120px;
+color:#666666;
+font-size:14px;
+font-family: Arial, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', '宋体', 宋体, Tahoma, Arial, Helvetica, STHeiti;
+
 }
+.checked {
+background-image: url('/i/balance_checked.png');
+background-size: 22px 22px;
+width:22px;
+height:22px;
+position:absolute;
+top:20px;
+z-index:22;
+}
+.unchecked {
+background-image: url('/i/balance_unchecked.png');
+background-size: 22px 22px;
+width:22px;
+height:22px;
+position:absolute;
+top: 20px;
+z-index:22;
+}
+.yuesao {
+left:15px;
+top: 13px;
+}
+.yuer {
+left:15px;
+top:59px;
+}
+.date {
+background-image: url('/i/date_checked.png');
+background-size:22px 22px;
+width: 22px;
+height:22px;
+z-index:22;
+position:absolute;
+left:210px;
+top:6px;
+}
+.g {
+width:89.3%;
+background:#e5e5e5;
+height:1px;
+position:relative;
+left:50%;
+margin-left:-44.65%;
+}
+.gl {
+height:1px;
+position:relative;
+background:#e5e5e5;
+}
+
+
 </style>
 
 <script>
@@ -223,9 +340,10 @@ export default {
 
     return {
       rea: false,
-      dateChecked: false;
-      name: ,
-      date: ,
+      dateChecked: true,
+      name:'',
+      date:'',
+	  tuijian:true,
 
 
     }
@@ -247,6 +365,16 @@ export default {
       contract_location = this.contract_location;
       this.saveIt_();
     },
+	Checked(){
+	this.tuijian = !this.tuijian;
+
+	},
+    checked_() {
+
+	},
+	dateCheck(){
+	
+	},
 
     saveIt_() {
 

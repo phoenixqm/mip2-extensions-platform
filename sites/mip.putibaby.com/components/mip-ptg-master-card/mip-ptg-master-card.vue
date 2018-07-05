@@ -584,6 +584,7 @@ body{
 .pingJiaCard .starBox mip-img{
     width: 12px;
     height: 12px;
+	margin-left:5px;
 }
 .pingJiaCard .left{
     float: right;

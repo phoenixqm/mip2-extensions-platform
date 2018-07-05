@@ -1,12 +1,12 @@
-# mip-ptg-shanghu-detail
+# mip-ptg-intro-detail
 
-mip-ptg-shanghu-detail 组件说明
+mip-ptg-intro-detail 组件说明
 
 标题|内容
 ----|----
 类型|通用
 支持布局|responsive,fixed-height,fill,container,fixed
-所需脚本|https://c.mipcdn.com/extensions/platform/v2/mip.putibaby.com/mip-ptg-shanghu-detail/mip-ptg-shanghu-detail.js
+所需脚本|https://c.mipcdn.com/extensions/platform/v2/mip.putibaby.com/mip-ptg-intro-detail/mip-ptg-intro-detail.js
 
 ## 示例
 ### 基本用法
@@ -14,10 +14,10 @@ mip-ptg-shanghu-detail 组件说明
 列表数据通过data-jsonstr传递
 
 ```html
-<mip-ptg-shanghu-detail
+<mip-ptg-intro-detail
     data-jsonstr="<%= JSON.stringify(data) %>"
     >
-</mip-ptg-shanghu-detail>   
+</mip-ptg-intro-detail>   
 ```
 
 ## 属性

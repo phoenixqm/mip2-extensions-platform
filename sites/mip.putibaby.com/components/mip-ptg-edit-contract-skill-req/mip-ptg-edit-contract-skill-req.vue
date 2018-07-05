@@ -1,19 +1,16 @@
 
 <template>
 <div class='root'>
-  <mip-form method="get" url="https://www.mipengine.org?we=123">
 
-    <div class="main_head">请勾选您认为重要的服务选项</div>
 	<div class="part" v-for="items in list">
-	  <div class="sub_head">{{items.title}}</div>
+	  <div class="sub_head"><p>{{items.title}}</p></div>
       <div class="item" v-for="it in items.list">
 		<p>			<label for="it.id">
 				{{it.title}}
 			</label>
 		</p>
-		<input type="checkbox" id="it.id" name="services" value="it.id" v-bind:checked="sk_c[it.id]"  @click="changeChecked_(it.id,it.id)">
-
-		
+		<input type="checkbox" id="it.id" name="services" value="it.id" v-bind:checked="sk_c[it.id]"  @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
+		<!--	<div :class="{'checked': checked_(it.id),'unchecked': !checked_(it.id)}" @click="Check_(it.id)"></div>	-->
 	
 
       </div>
@@ -162,7 +159,6 @@
 
     <input class="mbtn" type="submit" value="提交" @click="submit_">
 
-  </mip-form>
 
 </div>
 </template>
@@ -206,12 +202,10 @@ a:hover {
 }
 
 .root {
-  padding-top: 20px;
   padding-bottom: 15px;
   background: #f2f2f2;
   font-size: 14px;
   position: relative;
-  padding-left: 10px;
   width:100%;
 }
 
@@ -219,33 +213,47 @@ a:hover {
   height: 20px;
   margin-bottom: 15px;
 }
+.main_head p{
+position:relative;
+width:80%;
+left:15px;
+}
 
 .part {
   position: relative;
-  margin-bottom: 20px;
   width:100%;
 }
 
 .sub_head {
-  height: 20px;
-  background: #c0c0c0;
-  margin-bottom: 10px;
+  height: 44px;
+  line-height: 44px;
+  background: #f4f4f4;
+}
+.sub_head p {
+  position: relative;
+  width:50%;
+  left:15px;
 }
 
 .item {
   position: relative;
-  margin: 5px auto;
-  height:18px;
+  height:44px;
+  line-height:44px;
+  background: #fff;
 }
 
 .item p {
   display: inline;
+  position:relative;
+  left: 15px;
 }
 
 .item input {
   position: absolute;
-  right: 20px;
-  width:5%;
+  right: 15px;
+  width:22px;
+  height: 22px;
+  top: 10px;
 }
 
 .mbtn {
@@ -263,6 +271,31 @@ a:hover {
   margin-left: -160px;
   font-size: 20px;
   border-style: none;
+}
+.checked {
+  background-image: url('/i/balance_checked.png');
+  background-size: 22px 22px;
+  width: 22px;
+  height: 22px;
+  top: 10px;
+  right: 35px;
+  position:absolute;
+  z-index:22;
+}
+.unchecked {
+  background-image: url('/i/balance_unchecked.png');
+  background-size: 22px 22px;
+  width: 22px;
+  height: 22px;
+  top: 10px;
+  right: 35px;
+  position:absolute;
+  z-index:22;
+}
+input[type="checkbox"] {
+-webkit-appearance: none;
+background: #f4f4f4;
+border-radius: 50%;
 }
 </style>
 
@@ -368,6 +401,19 @@ var pdata = JSON.parse(this.dataJsonstr);
     changePhoneNumber_() {
 
     },
+	checked_(id) {
+	  //console.log('222222dd22:',id);
+	  return false;
+	
+	},
+	Checked_(id) {
+	  console.log('333333333');
+	 this.checked_(id);
+	},
+	Change_(id) {
+	  console.log('id:',id);
+	console.log('....:',this);
+	},
 	check_: function(id){
 	  var self=this;
 	  console.log('23',this.skill_req);

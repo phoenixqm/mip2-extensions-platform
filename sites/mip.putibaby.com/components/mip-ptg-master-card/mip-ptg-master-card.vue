@@ -288,6 +288,8 @@ body{
 .masterShow .mS_info{
     display: inline-block;
     padding-left: 10px;
+	position:relative;
+	z-index:999;
 }
 .masterShow .mS_info p{
     margin: 0px;
@@ -342,6 +344,7 @@ body{
     font-size: 12px;
 	padding-left:5px;
 	padding-right:5px;
+	z-index:999;
 }
 .line{
     background: url(/i/show_master_card_footer_hb.png);

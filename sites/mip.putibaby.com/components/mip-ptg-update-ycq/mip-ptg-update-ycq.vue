@@ -31,10 +31,11 @@
     <table class="ycq_table">
       <tr>
         <td>宝宝生日\预产期：</td>
-        <td><input type="date" name="ycq" class="name ycq" v-model="selectDate" required="required" ></td>
+        <td><input type="date" name="ycq" class="name ycq" v-model="date" required="required" ></td>
 		<!--<div class="date" @click="dateCheck"></div>-->
       </tr>
     </table>
+	<div class="err" v-show="rea">请填写姓名和宝宝预产期</div>
 	<div class="gl"></div>
     <input type="submit" name="提交" class="submit" @click="handleSubmit_">
   <!--</mip-form>-->
@@ -207,6 +208,7 @@ color:#999;
   left: 120px;
 color:#666666;
 font-size:14px;
+-webkit-appearance:none;
 font-family: Arial, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', '宋体', 宋体, Tahoma, Arial, Helvetica, STHeiti;
 
 }
@@ -258,6 +260,12 @@ margin-left:-44.65%;
 height:1px;
 position:relative;
 background:#e5e5e5;
+}
+.err {
+position:absolute;
+left:15px;
+color:#ff0000;
+padding-top: 5px;
 }
 
 
@@ -361,52 +369,28 @@ export default {
       console.log('should set data');
     },
 
-    contract_location_change_() {
-      contract_location = this.contract_location;
-      this.saveIt_();
-    },
+   
 	Checked(){
 	this.tuijian = !this.tuijian;
 
 	},
-    checked_() {
-
-	},
-	dateCheck(){
-	
-	},
-
-    saveIt_() {
-
-      // var data = this.props.data.order;
-      var obj = {};
-
-      obj.id = this.order.id;
-
-      obj.contract_mama_id_card_list = this.contract_mama_id_card_zheng + ',' + this.contract_mama_id_card_fan;
-
-
-      console.log('obj:', obj);
-      API.wrapRet_(
-        '/api/set_contract', obj,
-        function(isOk, res) {
-          console.log(res);
-        });
-
-    },
 
     handleSubmit_() {
-      var pdata = JSON.parse(this.dataJsonstr);
+	  if(this.name =='' || this.date ==''){
+	  this.rea = true;
+	  return;
+	  }
 
-      API.wrapRet_(
-        '/api/submit_contract', {
-          'id': this.order.id,
-          'readonly': 1,
-        },
-        function(isOk, res) {
-          console.log('res1111111:', res);
-        });
+if(this.tuijian == true){
+var masterType='yuesao';
+}else{
+var masterType='yuersao';
+}
+var url = '/update_ycq_ok?name='+ this.name +'&ycq='+ this.date +'&masterType='+masterType;
+console.log('pdate:',url);
 
+window.location.href = url;
+ 
     },
 
 

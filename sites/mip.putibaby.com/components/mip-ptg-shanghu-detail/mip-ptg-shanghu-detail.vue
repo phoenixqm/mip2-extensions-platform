@@ -34,8 +34,8 @@
             <td class="star_left">{{ x[0] }}</td>
             <td class="star_right">
                 <div v-for="idx in [1,2,3,4,5]">
-                  <mip-img class="starimg" layout="responisve" width="12px" height="12px"  v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_yellow_2.png"></mip-img>
-                  <mip-img class="starimg" layout="responisve" width="12px" height="12px"  v-else class="star" src="/i/unstar.png"></mip-img>
+                  <mip-img layout="responisve" width="12px" height="12px"  v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_yellow_2.png"></mip-img>
+                  <mip-img layout="responisve" width="12px" height="12px"  v-else class="star" src="/i/unstar.png"></mip-img>
                 </div>
             </td>
           </tr>
@@ -50,8 +50,8 @@
             <td class="star_left">{{ x[0] }}</td>
             <td class="star_right">
                 <div v-for="idx in [1,2,3,4,5]">
-                  <mip-img class="starimg" layout="responisve" width="12px" height="12px"  v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_green.png"></mip-img>
-                  <mip-img class="starimg" layout="responisve" width="12px" height="12px"  v-else class="star" src="/i/unstar.png"></mip-img>
+                  <mip-img layout="responisve" width="12px" height="12px"  v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_green.png"></mip-img>
+                  <mip-img layout="responisve" width="12px" height="12px"  v-else class="star" src="/i/unstar.png"></mip-img>
                 </div>
             </td>
           </tr>
@@ -91,8 +91,8 @@
 
                   <div v-if="f.feedback" class="feedback_stars">
                     <div v-for="idx in [1,2,3,4,5]">
-                      <mip-img class="starimg2" v-if="idx <= (f.feedback.total_star||0)" class="star" src="/i/star_green.png"></mip-img>
-                      <mip-img class="starimg2" v-else class="star" src="/i/unstar.png"></mip-img>
+                      <mip-img v-if="idx <= (f.feedback.total_star||0)" class="star" src="/i/star_green.png"></mip-img>
+                      <mip-img v-else class="star" src="/i/unstar.png"></mip-img>
                     </div>
                   </div>
 
@@ -142,12 +142,7 @@
   /*background-attachment: fixed;*/
   background-position: center;
 }
-.starimg{
-  display: inline-block;
-}
-.starimg2{
-  display: inline-block;
-}
+
 .khpj_row {
   height: 30px;
   line-height: 30px;

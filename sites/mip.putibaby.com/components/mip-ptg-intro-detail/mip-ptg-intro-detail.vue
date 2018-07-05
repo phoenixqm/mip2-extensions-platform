@@ -55,142 +55,143 @@
     </div>
 
 
-    <div v-if="data.myhlsz_list.length" class="row">
+    <div v-if="data.myhlsz_list.length" class="row_z">
       <div class="left">母婴护理师证</div>
       <div class="right">
         <span class="cc">{{ data.myhlsz_list.length }}张</span>
       </div>
+	 <div class="clear"></div> 
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.myhlsz_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.myhlsz_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
 
     <div class="h">其它证书</div>
 
-    <div v-if="data.jkz_list.length" class="row">
+    <div v-if="data.jkz_list.length" class="row_z">
       <div class="left">健康证</div>
       <div class="right">
         <span class="cc">{{ data.jkz_list.length }}张</span>
       </div>
+	  <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.jkz_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.jkz_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
+      
     </div>
 
-    <div v-if="data.crsz_list.length" class="row">
+    <div v-if="data.crsz_list.length" class="row_z">
       <div class="left">催乳师证</div>
       <div class="right">
         <span class="cc">{{ data.crsz_list.length }}张</span>
       </div>
+	  <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.crsz_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.crsz_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
-    <div v-if="data.ptgz_list.length" class="row">
+    <div v-if="data.ptgz_list.length" class="row_z">
       <div class="left">菩提果母婴培训证</div>
       <div class="right">
         <span class="cc">{{ data.ptgz_list.length }}张</span>
       </div>
+	  <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.ptgz_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.ptgz_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
-    <div v-if="data.ptgz_list.length" class="row">
+    <div v-if="data.ptgz_list.length" class="row_z">
       <div class="left">月嫂证</div>
       <div class="right">
         <span class="cc">{{ data.ptgz_list.length }}张</span>
       </div>
+	  <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.ptgz_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.ptgz_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
-    <div v-if="data.ptgz_list.length" class="row">
+    <div v-if="data.ptgz_list.length" class="row_z">
       <div class="left">菩提果母婴培训证</div>
       <div class="right">
         <span class="cc">{{ data.ptgz_list.length }}张</span>
       </div>
+	  <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.ptgz_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.ptgz_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
-    <div v-if="data.yysz_list.length" class="row">
+    <div v-if="data.yysz_list.length" class="row_z">
       <div class="left">育婴师证</div>
       <div class="right">
         <span class="cc">{{ data.yysz_list.length }}张</span>
       </div>
+	  <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.yysz_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.yysz_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
 
-    <div v-if="data.yingysz_list.length" class="row">
+    <div v-if="data.yingysz_list.length" class="row_z">
       <div class="left">营养师证</div>
       <div class="right">
         <span class="cc">{{ data.yingysz_list.length }}张</span>
       </div>
+	  <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.yingysz_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.yingysz_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
 
-    <div v-if="data.hssz_list.length" class="row">
+    <div v-if="data.hssz_list.length" class="row_z">
       <div class="left">护士师证</div>
       <div class="right">
         <span class="cc">{{ data.hssz_list.length }}张</span>
       </div>
+	  <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.hssz_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.hssz_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
 
-    <div v-if="data.xetnsz_list.length" class="row">
+    <div v-if="data.xetnsz_list.length" class="row_z">
       <div class="left">小儿推拿师证</div>
       <div class="right">
         <span class="cc">{{ data.xetnsz_list.length }}张</span>
       </div>
+	  <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.xetnsz_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.xetnsz_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
-    <div v-if="data.chxfzs_list.length" class="row">
+    <div v-if="data.chxfzs_list.length" class="row_z">
       <div class="left">产后修复证书</div>
       <div class="right">
         <span class="cc">{{ data.chxfzs_list.length }}张</span>
       </div>
+	  <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.chxfzs_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.chxfzs_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
-    <div v-if="data.qtzs_list.length" class="row">
+    <div v-if="data.qtzs_list.length" class="row_z">
       <div class="left">其他证书</div>
       <div class="right">
         <span class="cc">{{ data.qtzs_list.length }}张</span>
       </div>
+	 <div class="clear"></div>
       <div class="zhs_pics_list">
-          <mip-img layout="responisve" v-for="p in data.qtzs_list" :src="p.big" class="zhs_pic"></mip-img>
+          <mip-img popup layout="responisve" v-for="p in data.qtzs_list" :src="p.big" class="zhs_pic"></mip-img>
       </div>   
-      <div class="clear"></div>
     </div>
 
 
@@ -219,6 +220,7 @@
   font-size: 14px;
   overflow: hidden;
   border: 1px solid #ddd;
+  border-bottom:none;
 }
 
 .row {
@@ -228,9 +230,15 @@
   border-bottom: 1px solid #eee;
   cursor: pointer;
 }
-
+.row_z{
+	padding-top:10px;
+	padding-bottom:10px;
+    border-bottom:solid #eee 1px;
+}
 .zhs_pics_list {
   padding: 10px;
+  margin-top: -20px;
+  padding-bottom: 0px;
 }
 
 .zhs_pic {
@@ -260,7 +268,7 @@
 
 .h {
   height: 40px;
-  background: #EFEFEF;
+  background: #f4f4f4;
   padding-left: 10px;
   line-height: 40px;
 }

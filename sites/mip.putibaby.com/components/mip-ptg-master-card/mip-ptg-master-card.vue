@@ -33,7 +33,7 @@
             <mip-img src="i/market_certificated.png" width="12px" height="12px"></mip-img>
             <span>推荐护理师</span>
             </span>
-			<a :href="'https://h5.putibaby.com/999.999/master/intro_detail?u='+data.info.username">
+			<a :href="'https://mip.putibaby.com/master_intro_detail?u='+data.info.username">
               <div class="details">基本资料详情</div>
             </a>
             <span v-if="data.info.is_credited">
@@ -289,7 +289,7 @@ body{
     display: inline-block;
     padding-left: 10px;
 	position:relative;
-	z-index:999;
+	z-index:99;
 }
 .masterShow .mS_info p{
     margin: 0px;
@@ -323,6 +323,9 @@ body{
 .renZheng span{
     line-height: 2.5;
 }
+.renZheng span:nth-of-type(1){
+ margin-right:10px;
+}
 .renZheng img{
     width: 12px;
     margin-top: -3px;
@@ -344,7 +347,7 @@ body{
     font-size: 12px;
 	padding-left:5px;
 	padding-right:5px;
-	z-index:999;
+	z-index:99;
 }
 .line{
     background: url(/i/show_master_card_footer_hb.png);
@@ -355,10 +358,10 @@ body{
 }
 .mS_other{
     width: 100%;
-    height: 40px;
     background: rgba(193,230,78,0.2); 
     border-radius: 0 0 5px 5px;  
-    padding-top: 2px;
+    padding-top: 5px;
+	padding-bottom:5px;
     
 }
 
@@ -375,11 +378,11 @@ body{
 .mS_other td{
     text-align: center;
     vertical-align: middle;
-    height: 30px;
+    height: 25px;
     width: 50%;
 }
 .mS_other td:first-of-type{
-    border-right: 1px solid rgba(0,0,0,0.25);
+    border-right: 1px solid rgba(255,255,255,0.25);
 }
 
 .yinzhang{
@@ -443,6 +446,9 @@ body{
 }
 .serverCard tbody tr{
   border-bottom: 1px solid #eee;
+}
+.serverCard tbody tr td{
+  line-height:17px;
 }
 .serverCard tbody tr td:nth-of-type(1){
   height:49px;
@@ -539,11 +545,12 @@ body{
 }
 .pingJiaCard .pJC_head span:nth-of-type(2){
     position: absolute;
-    right: 15px;
+    right: 20px;
 }
 .pingJiaCard .pingJia{
     background-color: white;
     border-radius: 0 0 5px 5px;
+	margin-top:7px;
 }
 .pingjiacard .pingjia p:first-child{
   padding:10px 0px 10px 10px;
@@ -571,7 +578,7 @@ body{
     border-radius: 0 0 5px 5px;
 }
 .pingJiaCard table td{
-    padding: 0 10px;
+    padding: 3px 10px;
 }
 .pingJiaCard .starBox{
     width: 90px;
@@ -592,6 +599,7 @@ body{
 .pingJiaCard .customer{
     padding: 10px;
     border-bottom: 1px solid #eee;
+	border-top:1px solid #eee;
 }
 .pingJiaCard .customer mip-img{
     height: 50px;
@@ -625,6 +633,7 @@ body{
     display: inline-block;
     margin-right: 10px;
     border-radius: 5px;
+	margin-top:10px;
 }
 
 .jieshao{

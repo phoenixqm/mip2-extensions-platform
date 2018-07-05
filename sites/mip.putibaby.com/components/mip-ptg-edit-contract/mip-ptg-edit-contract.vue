@@ -34,7 +34,7 @@
     </div>
 
     <div class="jiafang">
-      <div class="sub_head">甲方（我的）信息</div>
+	  <div class="sub_head"><p>甲方（我的）信息</p></div>
       <div class="row">
         <div class="left">真实姓名</div>
         <div class="right">
@@ -95,7 +95,7 @@
 
 
     <div class="shanghu_info">
-      <div class=" shanghu_i">上户信息</div>
+	  <div class=" shanghu_i"><p>上户信息</p></div>
       <div class="row">
         <div class="left">服务时间</div>
         <div class="right">
@@ -173,7 +173,7 @@
             </span> 项
             </p>
           </div>
-          <mip-img layout="responsive" width="16" height="16" class="jt" src='i/jt-right2.png'></mip-img>
+          <mip-img layout="responsive" width="16" height="16" class="jt" src='i/contract_jt.png'></mip-img>
         </a>
       </div>
 	  <div class="line"></div>
@@ -181,7 +181,7 @@
 		<a :href="to_contract_extra">
           <div class="left">补充条款</div>
           <div class="extra_text" v-model="contract_extra"></div>
-          <mip-img layout="responsive" width="16" height="16" class="jt" src='i/jt-right2.png'></mip-img>
+          <mip-img layout="responsive" width="16" height="16" class="jt" src='i/contract_jt.png'></mip-img>
         </a>
       </div>
 	  <div class="line"></div>
@@ -194,11 +194,11 @@
     </div>
 
     <div class="contract_info">
-      <div class="sub_head">合同信息</div>
+	  <div class="sub_head"><p>合同信息</p></div>
       <div class="contract_row" @click="contractDetail">
         <span>《菩提果母婴护理服务合同》</span>
         <div class="extra_text_xx">详细</div>
-        <mip-img layout="responsive" width="16" height="16" class="jt_xx" src='i/jt-right2.png'></mip-img>
+        <mip-img layout="responsive" width="16" height="16" class="jt_xx" src='i/contract_jt.png'></mip-img>
       </div>
     </div>
 	<div class="err" v-show="err">
@@ -360,7 +360,6 @@ body {}
   height: 44px;
   line-height: 44px;
   overflow: hidden;
-  padding-left: 10px;
   font-size:14px;
 }
 
@@ -409,12 +408,15 @@ body {}
 
 .sub_head {
   line-height: 54px;
-  padding-left: 15px;
   color: #999;
   height: 44px;
   background: #f4f4f4;
   position: relative;
   top: 0;
+}
+.sub_head p {
+  position:absolute;
+  left:15px;
 }
 
 .contract_row {
@@ -427,22 +429,26 @@ body {}
   overflow: hidden;
   font-size: 15px;
 }
+.contract_row span {
+  position: absolute;
+  left: 10px;
+}
 
 .jt {
-  width: 16px;
-  height: 26px;
+  width: 8px;
+  height: 13px;
   position: absolute;
-  right: 8px;
-  top: 10px;
+  right: 15px;
+  top: 16px;
   color:#999;
 }
 
 .jt_xx {
-  width: 16px;
-  height: 26px;
+  width: 8px;
+  height: 13px;
   position: absolute;
-  right: 8px;
-  top: 11px;
+  right: 14px;
+  top: 16px;
 }
 
 .btns {
@@ -542,7 +548,7 @@ body {}
 .extra_text {
   float: right;
   position:absolute;
-  right: 40px;
+  right: 35px;
   color: #999;
   font-size: 14px;5
   position: absolute;
@@ -790,14 +796,16 @@ display:inline-block;
 width:70px;
 }
 .shanghu_i {
-    width: 21%;
     height: 44px;
     background: #f4f4f4;
     line-height: 44px;
     position: relative;
-    padding-right: 100%;
     left: 0px;
     padding-left: 15px;
+}
+.shanghu_i p {
+  position: absolute;
+left:15px;
 }
 
 </style>

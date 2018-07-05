@@ -30,7 +30,7 @@
 	<div class="g"></div>
     <table class="ycq_table">
       <tr>
-        <td>宝宝生日\预产期：</td>
+        <td class="ycq_td">宝宝生日\预产期：</td>
         <td><input type="date" name="ycq" class="name ycq" v-model="date" required="required" ></td>
 		<!--<div class="date" @click="dateCheck"></div>-->
       </tr>
@@ -199,18 +199,18 @@ color:#999;
 .ycq_table {
   width: 95%;
 }
-
+.ycq_td{
+  width:120px;
+}
 .ycq {
   background-color: #fff;
-  border: none;
-  position: absolute;
-  top:13px;
-  left: 120px;
+  border: solid 1px #e5e5e5;
+  width:120px;
+  height:30px;
+  line-hight:10px;
 color:#666666;
 font-size:14px;
 -webkit-appearance:none;
-font-family: Arial, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', '宋体', 宋体, Tahoma, Arial, Helvetica, STHeiti;
-
 }
 .checked {
 background-image: url('/i/balance_checked.png');

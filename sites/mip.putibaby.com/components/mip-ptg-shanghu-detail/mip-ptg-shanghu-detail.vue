@@ -29,14 +29,14 @@
       <div class="block_2_title">综合评价</div>
       <div class="stars" v-for="x in star_total">
         <div class="star_row" >
-          <table class="star_row_table">
+          <table class="star_row_table star_row_table_zh">
           <tr>
             <td class="star_left">{{ x[0] }}</td>
             <td class="star_right">
-                <div v-for="idx in [1,2,3,4,5]">
+                <span v-for="idx in [1,2,3,4,5]">
                   <mip-img layout="responisve" width="12px" height="12px"  v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_yellow_2.png"></mip-img>
                   <mip-img layout="responisve" width="12px" height="12px"  v-else class="star" src="/i/unstar.png"></mip-img>
-                </div>
+                </span>
             </td>
           </tr>
           </table>
@@ -49,10 +49,10 @@
           <tr>
             <td class="star_left">{{ x[0] }}</td>
             <td class="star_right">
-                <div v-for="idx in [1,2,3,4,5]">
-                  <mip-img layout="responisve" width="12px" height="12px"  v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_green.png"></mip-img>
+                <span v-for="idx in [1,2,3,4,5]">
+                  <mip-img layout="responisve" width="12px" height="12px"  v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_yellow_2.png"></mip-img>
                   <mip-img layout="responisve" width="12px" height="12px"  v-else class="star" src="/i/unstar.png"></mip-img>
-                </div>
+                </span>
             </td>
           </tr>
           </table>
@@ -90,10 +90,10 @@
               <div class="khpj_row_right">
 
                   <div v-if="f.feedback" class="feedback_stars">
-                    <div v-for="idx in [1,2,3,4,5]">
-                      <mip-img v-if="idx <= (f.feedback.total_star||0)" class="star" src="/i/star_green.png"></mip-img>
+                    <span v-for="idx in [1,2,3,4,5]">
+                      <mip-img v-if="idx <= (f.feedback.total_star||0)" class="star" src="/i/star_yellow_2.png"></mip-img>
                       <mip-img v-else class="star" src="/i/unstar.png"></mip-img>
-                    </div>
+                    </span>
                   </div>
 
               </div>
@@ -295,6 +295,9 @@
   width: 100%;
 }
 
+.star_row_table_zh{
+ border-bottom:solid 1px #f4f4f4;
+}
 .star_left {
   padding-left: 10px;
   text-align: left;
@@ -311,9 +314,6 @@
   margin-left: 5px;
 }
 
-.star_row_1 {
-  border-bottom: 1px solid #eee;
-}
 .ptg_fk {
   margin-left:10px;
   margin-right:10px;
@@ -321,7 +321,10 @@
   padding-top:10px;
   padding-bottom:10px;
 }
-
+.stars{
+height:40px;
+line-height:40px;
+}
 </style>
 
 <script>

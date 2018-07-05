@@ -511,7 +511,7 @@ body{
     border-radius: 5px;
     margin-top: 10px;
     background-color: #fff;
-    padding-bottom: 50px;
+    margin-bottom: 50px;
 }
 .pingJiaCard .pJC_head{
     height: 30px;
@@ -578,7 +578,8 @@ body{
     height: 16px;
     display: inline-block;
     position: absolute;
-    right:15px;
+    right:20px;
+	text-align:right;
 }
 .pingJiaCard .starBox mip-img{
     width: 12px;
@@ -608,7 +609,6 @@ body{
 }
 .pingJiaCard .customerEvaluate{
     padding: 10px;
-    border-bottom: 1px solid #eee;
     border-radius: 0 0 5px 5px;
 }
 .pingJiaCard .cE_title{

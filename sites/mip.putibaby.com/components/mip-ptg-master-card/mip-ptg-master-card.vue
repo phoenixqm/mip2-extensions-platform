@@ -151,9 +151,9 @@
                 综合评价
                 <div class="starBox">
 
-                    <mip-img v-for="j in [...Array(Math.round(data.shanghu_data.feedback_total_star/data.shanghu_data.feedback_cc)).keys()]" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_star.png" ></mip-img>
+                    <mip-img v-for="j in data.shanghu_data.star_1_list" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_star.png" ></mip-img>
 
-                    <mip-img v-for="j in [...Array(5-Math.round(data.shanghu_data.feedback_total_star/data.shanghu_data.feedback_cc)).keys()]" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_unstar.png" ></mip-img>
+                    <mip-img v-for="j in data.shanghu_data.star_0_list" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_unstar.png" ></mip-img>
 
                 </div>
               </td>

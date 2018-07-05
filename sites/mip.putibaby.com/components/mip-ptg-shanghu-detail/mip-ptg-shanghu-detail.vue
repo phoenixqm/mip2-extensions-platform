@@ -34,8 +34,8 @@
             <td class="star_left">{{ x[0] }}</td>
             <td class="star_right">
                 <div v-for="idx in [1,2,3,4,5]">
-                  <mip-img v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_yellow_2.png"></mip-img>
-                  <mip-img v-else class="star" src="/i/unstar.png"></mip-img>
+                  <mip-img layout="responisve" width="12px" height="12px"  v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_yellow_2.png"></mip-img>
+                  <mip-img layout="responisve" width="12px" height="12px"  v-else class="star" src="/i/unstar.png"></mip-img>
                 </div>
             </td>
           </tr>
@@ -50,8 +50,8 @@
             <td class="star_left">{{ x[0] }}</td>
             <td class="star_right">
                 <div v-for="idx in [1,2,3,4,5]">
-                  <mip-img v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_green.png"></mip-img>
-                  <mip-img v-else class="star" src="/i/unstar.png"></mip-img>
+                  <mip-img layout="responisve" width="12px" height="12px"  v-if="idx <= Math.round(info.feedback_cc?info[x[1]]:5)" class="star" src="/i/star_green.png"></mip-img>
+                  <mip-img layout="responisve" width="12px" height="12px"  v-else class="star" src="/i/unstar.png"></mip-img>
                 </div>
             </td>
           </tr>
@@ -69,7 +69,7 @@
             </div>
 
             <div class="khpj_card">
-              <img :src="f.mama_info.header.big" class="khpj_mama_header" />
+              <mip-img layout="responisve" :src="f.mama_info.header.big" class="khpj_mama_header"></mip-img>
               <div class="khpj_mama_name">
               {{ f.mama_info.name }}&nbsp;{{ f.mama_info.role }}
               ({{  f.type == 'history' ? '历史客户' : '菩提果签约' }}&nbsp;
@@ -107,12 +107,12 @@
 
 
             <div v-if="f.feedback && f.feedback.pics" class="khpj_pics_list">
-                <mip-img v-for="p in f.feedback.pics" :src="p.big" class="khpj_pic"></mip-img>
+                <mip-img layout="responisve" v-for="p in f.feedback.pics" :src="p.big" class="khpj_pic"></mip-img>
             </div>
 
 
             <div v-if="f.feedback && f.feedback.ptg_reply" class="ptg_fk">
-              <mip-img style="width:10px;margin-right:5px;" src="/i/fankui.png"> </mip-img>
+              <mip-img layout="responisve" style="width:10px;margin-right:5px;" src="/i/fankui.png"> </mip-img>
               <span style="color:#88bd4e;font-size:14px;">菩提果客服反馈：</span>
               <span style="color:#666666;font-size:14px;">{{ f.feedback.ptg_reply }}</span>
             </div>

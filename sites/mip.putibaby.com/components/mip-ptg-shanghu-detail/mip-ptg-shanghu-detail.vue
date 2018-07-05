@@ -107,7 +107,7 @@
 
 
             <div v-if="f.feedback && f.feedback.pics" class="khpj_pics_list">
-                <mip-img layout="responisve" v-for="p in f.feedback.pics" :src="p.big" class="khpj_pic"></mip-img>
+                <mip-img layout="responisve" popup v-for="p in f.feedback.pics" :src="p.big" class="khpj_pic"></mip-img>
             </div>
 
 

@@ -1,13 +1,11 @@
 
 <template>
 <div class='root'>
-  <mip-form method="get" url="https://www.mipengine.org?we=123">
+  <!--<mip-form method="get" url="https://www.mipengine.org?we=123">-->
+    <textarea class="textarea" name="edit_contract_extra" validatetype="must" :readonly="rea" required placeholder="点击输入补充条款，如：上户遇节假日工资多倍结算/休息日约定；双胞胎加收金额；特殊上户要求等……" v-model="contract_extra" v-on:change='saveIt_'></textarea>
+	<input class="mbtn" type="submit" value="提交" @click="submit_" v-show="!rea"></input>
 
-    <textarea class="textarea" name="edit_contract_extra" validatetype="must" required placeholder="点击输入补充条款，如：上户遇节假日工资多倍结算/休息日约定；双胞胎加收金额；特殊上户要求等……" v-model="contract_extra" v-on:change='saveIt_'></textarea>
-
-    <input class="mbtn" type="submit" value="提交" @click="submit_">
-
-  </mip-form>
+	<!--</mip-form>-->
 
 </div>
 </template>
@@ -59,30 +57,38 @@ a:hover {
 }
 
 .textarea {
+  -webkit-appearance:none;
+  position:relative;
   display: block;
-  width: 80%;
+  width: 92%;
   height: 300px;
-  margin: 10px auto;
-  border: 1px solid #ccc;
+  margin: 0px auto;
+  border: 1px solid #e5e5e5;
   background: #fff;
-  color: #333;
+  color: #666;
   line-height: 18px;
+  font-size:14px;
+  border-radius:5px;
+  padding-top:10px;
+  padding-left:10px;
+  box-sizing:border-box;
 }
 
 .mbtn {
-  background: #FF6867;
+  -webkit-appearance:none;
+  background: #afd03b;
   color: #fff;
-  width: 300px;
+  width: 89.3%;
   line-height: 3px;
   border-radius: 4px;
   cursor: pointer;
-  margin: 20px auto 10px auto;
+  margin: 30px auto 10px auto;
   text-align: center;
-  height: 45px;
+  height: 47px;
   position: absolute;
   left: 50%;
-  margin-left: -150px;
-  font-size: 20px;
+  margin-left: -44.65%;
+  font-size: 18px;
   border-style: none;
 }
 
@@ -173,7 +179,13 @@ export default {
   data() {
     console.log('data:', this);
     var pdata = JSON.parse(this.dataJsonstr);
+	if(pdata.readonly!='1'){
+	var readonly = false;
+  }else{
+  var readonly = true;
+  }
     return {
+	  rea:readonly,
 		contract_extra:pdata.contract_extra,
 
     }
@@ -205,12 +217,8 @@ export default {
 	},
     submit_() {
 	    var self = this;
-	
 		  window.location.href ='/edit_contract?id=' + JSON.parse(self.dataJsonstr).id;
-	  
-	
 
-	
     },
   }
 }

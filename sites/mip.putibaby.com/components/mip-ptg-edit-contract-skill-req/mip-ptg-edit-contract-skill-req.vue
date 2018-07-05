@@ -9,7 +9,7 @@
 				{{it.title}}
 			</label>
 		</p>
-		<input type="checkbox" id="it.id" name="services" value="it.id" v-bind:checked="sk_c[it.id]"  @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
+		<input type="checkbox" id="it.id" name="services" v-bind:disabled="rea" value="it.id" v-bind:checked="sk_c[it.id]"  @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
 		<!--	<div :class="{'checked': checked_(it.id),'unchecked': !checked_(it.id)}" @click="Check_(it.id)"></div>	-->
 	
 
@@ -157,7 +157,7 @@
     </div>
 	-->
 
-    <input class="mbtn" type="submit" value="提交" @click="submit_">
+    <input class="mbtn" type="submit" value="提交" @click="submit_" v-show:disabled="!rea">
 
 
 </div>
@@ -207,6 +207,8 @@ a:hover {
   font-size: 14px;
   position: relative;
   width:100%;
+  color:#666;
+  font-family:'黑体';
 }
 
 .main_head {
@@ -228,11 +230,13 @@ left:15px;
   height: 44px;
   line-height: 44px;
   background: #f4f4f4;
+  color:#999;
 }
 .sub_head p {
   position: relative;
   width:50%;
   left:15px;
+  font-family:'黑体';
 }
 
 .item {
@@ -246,6 +250,7 @@ left:15px;
   display: inline;
   position:relative;
   left: 15px;
+  font-family:'黑体';
 }
 
 .item input {
@@ -257,19 +262,20 @@ left:15px;
 }
 
 .mbtn {
-  background: #FF6867;
+  -webkit-appearance: none;
+  background: #afd03b;
   color: #fff;
-  width: 300px;
+  width: 89.3%;
   line-height: 3px;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
   margin: 20px auto 10px auto;
   text-align: center;
-  height: 45px;
+  height: 47px;
   position: relative;
   left: 50%;
-  margin-left: -160px;
-  font-size: 20px;
+  margin-left: -44.65%;
+  font-size: 18px;
   border-style: none;
 }
 .checked {
@@ -294,8 +300,12 @@ left:15px;
 }
 input[type="checkbox"] {
 -webkit-appearance: none;
-background: #f4f4f4;
+background: #f4f4f4 url('/i/checkbox_22px.png');
 border-radius: 50%;
+border-style: none;
+}
+input[type="checkbox"]:checked {
+background-position: -22px 0;
 }
 </style>
 
@@ -371,6 +381,11 @@ export default {
   data() {
 console.log('this',this);
 var pdata = JSON.parse(this.dataJsonstr);
+if(pdata.readonly!='1'){
+var readonly=false;
+}else{
+var readonly=true;
+}
 	if(JSON.parse(this.dataJsonstr).contract_skill_req.indexOf(',')!= -1){
 	var skill_list = JSON.parse(this.dataJsonstr).contract_skill_req.split(',');
 
@@ -384,6 +399,7 @@ var pdata = JSON.parse(this.dataJsonstr);
 		contract_skill_req:[],
 		skill_req:skill_list,
 		sk_c:pdata.sk_c,
+		rea:readonly,
     }
   },
   computed: {
@@ -465,7 +481,7 @@ for(var i=0;i<skill_req.length;i++){
 	
 	},
 	submit_(){
-		window.location.href='/edit_contract?id='+ JSON.parse(this.dataJsonstr).id;
+	  window.location.href='/edit_contract?id='+ JSON.parse(this.dataJsonstr).id;
 	},
 	
   }

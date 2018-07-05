@@ -84,13 +84,7 @@
         </div>
       </div>
 
-      <div class="row_photo">
-
-      </div>
-
-      <div class="row_photo">
-
-      </div>
+    
     </div>
 
 
@@ -509,18 +503,22 @@ body {}
   color:#999;
 }
 
-.input_date {
-  border: none;
-  line-height: ;
-  width: 170px;
-  height: 40px;
+.input_date { 
+  -webkit-appearance:none;
+  border: 1px solid #e5e5e5;
+  width: 130px;
+  height: 30px;
   font-size: 15px;
   /*background-image: url(assets/i/card_jf.png);*/
   background-size: 0;
-  position:relative;
   font-family:Arial;
   color:#999;
-  -webkit-appearance:none;
+  position:absolute;
+  top:6px;
+  background:#fff;
+  border-radius:3px;
+  padding-left:5px;
+ 
 }
 
 .inputReadOnly {
@@ -973,9 +971,14 @@ export default {
       deposit = data.contract_deposit;
       master_price = Math.round(data.contract_price / data.contract_shanghu_length * 26);
     }
-
+	if(pdata.readonly != '1'){
 	var to_contract_skill_req='/edit_contract_skill_req_mip?id=' + pdata.order.id;
 	var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id;
+  }else{
+  
+	var to_contract_skill_req='/edit_contract_skill_req_mip?id=' + pdata.order.id +'&readonly=1';
+	var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1';
+  }
 	
     return {
 	  rea:false,

@@ -132,14 +132,14 @@
   </div>
 
   <div class="pingJiaCard">
-      <!--  <a href="https://h5.putibaby.com/999.999/master/watch_shanghu_details?u=<%= m.info.username %>"> -->
+       <a :href="'https://mip.putibaby.com/master_shanghu_detail?u=' + data.info.username">
       <div class="pJC_head">
         <mip-img layout="responisve" width="12px" height="12px"
           src="i/card_circle_1.png" ></mip-img>
         <span>客户评价</span>
-       <!--  <span>共<%= m.shanghu_data.cc %>条评价&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span> -->
+        <span>共{{ data.shanghu_data.cc }}条评价&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span>
       </div>
-    <!-- </a> -->
+    </a>
     <div class="pingJia">
 
       <p v-if="data.shanghu_data.cc == 0" >没有评价</p>

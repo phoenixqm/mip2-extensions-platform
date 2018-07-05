@@ -28,7 +28,7 @@
     <div v-if="info.feedback_cc" class="block_2">
       <div class="block_2_title">综合评价</div>
       <div class="stars" v-for="x in star_total">
-        <div class="star_row"} >
+        <div class="star_row" >
           <table class="star_row_table">
           <tr>
             <td class="star_left">{{ x[0] }}</td>
@@ -44,7 +44,7 @@
       </div>
 
       <div class="stars" v-for="x in star_categories">
-        <div class="star_row_1"} >
+        <div class="star_row_1" >
           <table class="star_row_table">
           <tr>
             <td class="star_left">{{ x[0] }}</td>
@@ -61,7 +61,7 @@
 
       <div class="ptg_sy">
 
-          <div v-for"f in list">
+          <div v-for="f in list">
             <div class="khpj_row">
               <div class="khpj_row_left">{{ f.shanghu_at }} 至 {{ f.end_at ? f.end_at : '今' }}</div>
               <div class="khpj_row_right">共{{ f.days }}天</div>
@@ -106,8 +106,8 @@
             </div>
 
 
-            <div if="f.feedback && f.feedback.pics" class="khpj_pics_list">
-                <mip-img v-for="p in f.feedback.pics" :src=p.big" class="khpj_pic"></mip-img>
+            <div v-if="f.feedback && f.feedback.pics" class="khpj_pics_list">
+                <mip-img v-for="p in f.feedback.pics" :src="p.big" class="khpj_pic"></mip-img>
             </div>
 
 
@@ -392,8 +392,10 @@ export default {
   data () {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
+	console.log(pdata);
     return {
-      data: pdata.data,
+      info: pdata.info,
+	  list: pdata.list,
       star_total:[
           ['综合评价', 'total_star']
       ],

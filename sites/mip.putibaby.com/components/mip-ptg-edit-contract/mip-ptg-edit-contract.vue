@@ -990,7 +990,8 @@ export default {
     } else {
       var showz = true;
     }
-    if (data.contract_mama_id_card_list[1] == "undefined" || data.contract_mama_id_card_list[1] == null) {
+    if (data.contract_mama_id_card_list[1] == "undefined" 
+      || data.contract_mama_id_card_list[1] == null) {
       var showf = false;
     } else {
       var showf = true;
@@ -1000,9 +1001,9 @@ export default {
     } else {
       var skill_length = data.contract_skill_req.split(',').length;
     }
-			if (localStorage.State){
-			  			return JSON.parse(localStorage.State);
-								}
+    if (localStorage.State){
+      return JSON.parse(localStorage.State);
+    }
     return {
       rea: false,
       err: false,
@@ -1034,7 +1035,7 @@ export default {
       to_contract_skill_req: to_contract_skill_req,
 
       to_contract_extra: to_contract_extra,
-err_message:'',
+      err_message:'',
     }
   },
   computed: {
@@ -1044,11 +1045,6 @@ err_message:'',
     init() {
       console.log('should loading');
       console.log(this.dataJson);
-	  window.onload= function(){
-
-		console.log('load');
-	}
-
     },
     load_data() {
       console.log('should set data');
@@ -1063,7 +1059,7 @@ err_message:'',
     },
     changeZ() {
       var pic = document.getElementById("preview"),
-        file = document.getElementById("fz");
+          file = document.getElementById("fz");
       console.log('this', this);
       var ext = file.value.substring(file.value.lastIndexOf(".") + 1).toLowerCase();
       // gif在IE浏览器暂时无法显示
@@ -1126,21 +1122,21 @@ err_message:'',
       this.saveIt_();
     },
     contract_mama_name_change_() {
-this.inspect_();
+      this.inspect_();
       this.saveIt_();
     },
     contract_mama_phone_number_change_() {
       contract_mama_phone_number = this.contract_mama_phone_number;
-this.inspect_();
+      this.inspect_();
       this.saveIt_();
     },
     contract_mama_id_card_change_() {
-this.inspect_();
+      this.inspect_();
       this.saveIt_();
     },
     contract_shanghu_at_change_() {
       contract_shanghu_at = this.contract_shanghu_at;
-this.inspect_();
+      this.inspect_();
       this.saveIt_();
     },
     contract_shanghu_length_change_() {
@@ -1159,8 +1155,7 @@ this.inspect_();
     },
     contract_location_change_(event) {
       var a_contract_location = this.contract_location;
-	  console.log(event);
-this.inspect_();
+      this.inspect_();
       this.saveIt_();
     },
 
@@ -1173,18 +1168,12 @@ this.inspect_();
         Math.round(this.contract_deposit_min * this.contract_master_price / 26 * this.contract_shanghu_length * 100) / 100;
 
       var obj = {};
-console.log(this);
-console.log('allday:',typeof(this.contract_is_offer_allday_service));
-if(this.contract_is_offer_allday_service){
 
-console.log('1allday:',this.contract_is_offer_allday_service);
-console.log('1allday:',this.contract_is_offer_allday_ser);
-var service = 'true';
-}else{
-console.log('2allday:',this.contract_is_offer_allday_service);
-console.log('2allday:',this.contract_is_offer_allday_ser);
-var service = 'false';
-}
+      if(this.contract_is_offer_allday_service){
+        var service = 'true';
+      } else {
+        var service = 'false';
+      }
       if (contract_deposit_min == 1) {
         obj.contract_deposit = obj.contract_price;
       }
@@ -1205,7 +1194,9 @@ var service = 'false';
       obj.hardcode_deposit = this.hardcode_deposit;
       obj.pics = [];
       obj.mama_id = this.order.mama.id;
-     localStorage.State = JSON.stringify(this._data);
+
+      localStorage.State = JSON.stringify(this._data);
+
       API.wrapRet_(
         '/api/set_contract', obj,
         function(isOk, res) {
@@ -1215,39 +1206,39 @@ var service = 'false';
         });
 
     },
-	inspect_() {
-	if(!/\S+/.test(this.contract_mama_name)) {
-			this.err_message='请填写正确的姓名';
-			this.err=true;
-			return;
-		}
-if(!/\S+/.test(this.contract_mama_phone_number)) {
-			this.err_message='请填写正确的电话号码';
-			this.err=true;
-			return;
-		}
-if(!/\S+/.test(this.contract_mama_id_card)) {
-			this.err_message='请填写正确的身份证号';
-			this.err=true;
-			return;
-		}
-if(!/^[1-9]\d*/.test(this.contract_shanghu_length)) {
-			this.err_message='请填写正确的上户时长';
-			this.err=true;
-			return;
-		}
-		if(!/^\d\d\d\d\-\d\d\-\d\d$/.test(this.contract_shanghu_at)) {
-			this.err_message='请填写正确的上户时间，类似2017-01-01';
-			this.err=true;
-			return;
-		}
-if(!/\S+/.test(this.contract_location)) {
-			this.err_message='请填写正确的上户地点';
-			this.err=true;
-			return;
-		}
-this.err = false;
-	},
+	  inspect_() {
+	    if(!/\S+/.test(this.contract_mama_name)) {
+	  		this.err_message='请填写正确的姓名';
+	  		this.err=true;
+	  		return;
+	  	}
+      if(!/\S+/.test(this.contract_mama_phone_number)) {
+	  		this.err_message='请填写正确的电话号码';
+	  		this.err=true;
+	  		return;
+	  	}
+      if(!/\S+/.test(this.contract_mama_id_card)) {
+	  		this.err_message='请填写正确的身份证号';
+	  		this.err=true;
+	  		return;
+	  	}
+      if(!/^[1-9]\d*/.test(this.contract_shanghu_length)) {
+	  		this.err_message='请填写正确的上户时长';
+	  		this.err=true;
+	  		return;
+	  	}
+	  	if(!/^\d\d\d\d\-\d\d\-\d\d$/.test(this.contract_shanghu_at)) {
+	  		this.err_message='请填写正确的上户时间，类似2017-01-01';
+	  		this.err=true;
+	  		return;
+	  	}
+      if(!/\S+/.test(this.contract_location)) {
+	  		this.err_message='请填写正确的上户地点';
+	  		this.err=true;
+	  		return;
+	  	}
+      this.err = false;
+	  },
     contractDetail() {
       var id = this.order.id;
       var url = '/v2_show_ptg_full_contract?id=' + id + '&type=YSPD';

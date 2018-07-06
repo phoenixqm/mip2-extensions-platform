@@ -40,7 +40,7 @@
       <div class="row">
         <div class="left">真实姓名</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_name" v-on:blur="contract_mama_name_change_" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名" v-bind:readOnly="rea">
+          <input class="input" v-model="contract_mama_name" v-on:input="contract_mama_name_change_" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名" v-bind:readOnly="rea">
           <div target="username">姓名不符合规范</div>
         </div>
       </div>
@@ -48,7 +48,7 @@
       <div class="row">
         <div class="left">手机号码</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_phone_number" v-on:blur="contract_mama_phone_number_change_" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码" v-bind:readOnly="rea">
+          <input class="input" v-model="contract_mama_phone_number" v-on:input="contract_mama_phone_number_change_" type="number" name="phone_number" validatetarget="phone_number" validatetype="must" placeholder="手机号码" v-bind:readOnly="rea">
           <div target="phone_number">手机号码错误</div>
         </div>
       </div>
@@ -56,7 +56,7 @@
       <div class="row">
         <div class="left">身份证号</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_id_card" v-on:blur="contract_mama_id_card_change_" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码" v-bind:readOnly="rea">
+          <input class="input" v-model="contract_mama_id_card" v-on:input="contract_mama_id_card_change_" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码" v-bind:readOnly="rea">
           <div target="identity">身份证号码错误</div>
         </div>
       </div>
@@ -112,7 +112,7 @@
       <div class="row">
         <div class="left">上户时长</div>
         <div class="right">
-          <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:blur="contract_shanghu_length_change_" :readOnly="rea" />天
+          <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:input="contract_shanghu_length_change_" :readOnly="rea" />天
         </div>
       </div>
       <div class="line"></div>
@@ -146,8 +146,8 @@
     </div>
 
     <div class="other_info">
-      <div class="row">
         <a :href="to_contract_skill_req">
+      <div class="row">
           <div class="left">服务项目</div>
           <div class="extra_text">
             <p>已选
@@ -156,21 +156,21 @@
             </p>
           </div>
           <mip-img layout="responsive" width="16" height="16" class="jt" src='i/contract_jt.png'></mip-img>
-        </a>
       </div>
+        </a>
       <div class="line"></div>
-      <div class="row">
         <a :href="to_contract_extra">
+      <div class="row">
           <div class="left">补充条款</div>
           <div class="extra_text" v-model="contract_extra"></div>
           <mip-img layout="responsive" width="16" height="16" class="jt" src='i/contract_jt.png'></mip-img>
-        </a>
       </div>
+        </a>
       <div class="line"></div>
       <div class="row">
         <div class="left">上户地点</div>
         <div class="right">
-          <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:change="contract_location_change_" v-bind:readOnly="rea"></textarea>
+          <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:input="contract_location_change_" v-bind:readOnly="rea"></textarea>
         </div>
       </div>
     </div>
@@ -186,7 +186,7 @@
       </div>
     </div>
     <div class="err" v-show="err">
-      请填写正确的姓名/手机号码/身份证号码/上户地点
+	  {{err_message}}
     </div>
     <div class="submit">
       <input class="btn" type="submit" value="提交" v-on:click="handleSubmit_({},false)" v-show="!rea" />
@@ -1000,7 +1000,9 @@ export default {
     } else {
       var skill_length = data.contract_skill_req.split(',').length;
     }
-
+			if (localStorage.State){
+			  			return JSON.parse(localStorage.State);
+								}
     return {
       rea: false,
       err: false,
@@ -1032,6 +1034,7 @@ export default {
       to_contract_skill_req: to_contract_skill_req,
 
       to_contract_extra: to_contract_extra,
+err_message:'',
     }
   },
   computed: {
@@ -1041,6 +1044,10 @@ export default {
     init() {
       console.log('should loading');
       console.log(this.dataJson);
+	  window.onload= function(){
+
+		console.log('load');
+	}
 
     },
     load_data() {
@@ -1094,7 +1101,7 @@ export default {
     },
     quantianChecked() {
       if (JSON.parse(this.dataJsonstr).readonly != '1') {
-        this.contract_is_offer_allday_service = 'true';
+        this.contract_is_offer_allday_service = 1;
         this.contract_is_offer_allday_ser = true;
         this.contract_master_price = this.master.yuesao_allday_price / 100;
         this.saveIt_();
@@ -1102,34 +1109,38 @@ export default {
     },
     baibanChecked() {
       if (JSON.parse(this.dataJsonstr).readonly != '1') {
-        this.contract_is_offer_allday_service = 'false';
+        this.contract_is_offer_allday_service = 0;
         this.contract_is_offer_allday_ser = false;
         this.contract_master_price = this.master.yuesao_daytime_price / 100;
         this.saveIt_();
       }
     },
     contract_is_offer_allday_service_change_() {
-      if (this.contract_is_offer_allday_service == 'true') {
+      if (this.contract_is_offer_allday_service) {
         this.contract_is_offer_allday_ser = true;
         this.contract_master_price = this.master.yuesao_allday_price / 100;
-      } else if (this.contract_is_offer_allday_service == 'false') {
+      } else {
         this.contract_is_offer_allday_ser = false;
         this.contract_master_price = this.master.yuesao_daytime_price / 100;
       }
       this.saveIt_();
     },
     contract_mama_name_change_() {
+this.inspect_();
       this.saveIt_();
     },
     contract_mama_phone_number_change_() {
       contract_mama_phone_number = this.contract_mama_phone_number;
+this.inspect_();
       this.saveIt_();
     },
     contract_mama_id_card_change_() {
+this.inspect_();
       this.saveIt_();
     },
     contract_shanghu_at_change_() {
       contract_shanghu_at = this.contract_shanghu_at;
+this.inspect_();
       this.saveIt_();
     },
     contract_shanghu_length_change_() {
@@ -1146,8 +1157,10 @@ export default {
 
       this.saveIt_();
     },
-    contract_location_change_() {
-      contract_location = this.contract_location;
+    contract_location_change_(event) {
+      var a_contract_location = this.contract_location;
+	  console.log(event);
+this.inspect_();
       this.saveIt_();
     },
 
@@ -1160,7 +1173,18 @@ export default {
         Math.round(this.contract_deposit_min * this.contract_master_price / 26 * this.contract_shanghu_length * 100) / 100;
 
       var obj = {};
+console.log(this);
+console.log('allday:',typeof(this.contract_is_offer_allday_service));
+if(this.contract_is_offer_allday_service){
 
+console.log('1allday:',this.contract_is_offer_allday_service);
+console.log('1allday:',this.contract_is_offer_allday_ser);
+var service = 'true';
+}else{
+console.log('2allday:',this.contract_is_offer_allday_service);
+console.log('2allday:',this.contract_is_offer_allday_ser);
+var service = 'false';
+}
       if (contract_deposit_min == 1) {
         obj.contract_deposit = obj.contract_price;
       }
@@ -1176,12 +1200,12 @@ export default {
       obj.contract_master_price = this.contract_master_price;
       obj.contract_deposit = this.contract_deposit;
       obj.contract_is_pay_monthly = !!this.contract_is_pay_monthly;
-      obj.contract_is_offer_allday_service = this.contract_is_offer_allday_service;
+      obj.contract_is_offer_allday_service = service;
       obj.is_show_pay_monthly_btn = this.contract_shanghu_length >= 42 ? true : false;
       obj.hardcode_deposit = this.hardcode_deposit;
       obj.pics = [];
       obj.mama_id = this.order.mama.id;
-
+     localStorage.State = JSON.stringify(this._data);
       API.wrapRet_(
         '/api/set_contract', obj,
         function(isOk, res) {
@@ -1191,6 +1215,39 @@ export default {
         });
 
     },
+	inspect_() {
+	if(!/\S+/.test(this.contract_mama_name)) {
+			this.err_message='请填写正确的姓名';
+			this.err=true;
+			return;
+		}
+if(!/\S+/.test(this.contract_mama_phone_number)) {
+			this.err_message='请填写正确的电话号码';
+			this.err=true;
+			return;
+		}
+if(!/\S+/.test(this.contract_mama_id_card)) {
+			this.err_message='请填写正确的身份证号';
+			this.err=true;
+			return;
+		}
+if(!/^[1-9]\d*/.test(this.contract_shanghu_length)) {
+			this.err_message='请填写正确的上户时长';
+			this.err=true;
+			return;
+		}
+		if(!/^\d\d\d\d\-\d\d\-\d\d$/.test(this.contract_shanghu_at)) {
+			this.err_message='请填写正确的上户时间，类似2017-01-01';
+			this.err=true;
+			return;
+		}
+if(!/\S+/.test(this.contract_location)) {
+			this.err_message='请填写正确的上户地点';
+			this.err=true;
+			return;
+		}
+this.err = false;
+	},
     contractDetail() {
       var id = this.order.id;
       var url = '/v2_show_ptg_full_contract?id=' + id + '&type=YSPD';
@@ -1247,6 +1304,7 @@ export default {
               window.location.href = "https://mip.putibaby.com/order_list";
               return;
             } else {
+              self.err_message = '提交失败请重试';
               self.err = true;
             }
             console.log(res);

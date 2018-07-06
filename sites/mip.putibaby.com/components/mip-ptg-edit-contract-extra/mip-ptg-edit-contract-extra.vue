@@ -184,9 +184,12 @@ export default {
   }else{
   var readonly = true;
   }
+  if(pdata.readonly == '1' && pdata.contract_extra == ''){
+  pdata.contract_extra ='无补充条款';
+  }
     return {
 	  rea:readonly,
-		contract_extra:pdata.contract_extra,
+		contract_extra:pdata.contract_extra ,
 
     }
   },

@@ -90,7 +90,7 @@ position:relative;
 left:50%;
 margin-left:-44.65%;
 background:#e5e5e5;
-top:49px;
+top:47px;
 z-index:22;
 }
 
@@ -117,15 +117,22 @@ font-size:14px;;
 left: 105px;
 display:inline-block;
 width:210px;
+height:44px;
+line-height:44px;
+top:2px;
+
 }
 .grayyrs {
 font-size:14px;
   color: #666;
   position: absolute;
 left: 105px;
-top:60px;
+top:48px;
 display:inline-block;
 width:210px;
+height:44px;
+line-height:44px;
+
 }
 
 .name {

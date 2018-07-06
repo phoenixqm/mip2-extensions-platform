@@ -7,8 +7,8 @@
 	  <span>为了能让菩提果的老师和月嫂更好的为您服务，需要您提供正确的手机号码：</span>
     </div>
     <div class="get">
-      <input id="ph" class="ph" type="number" placeholder="请输入您的手机号码" v-model="phoneNumber" v-on:blur="changePhoneNumber_">
-      <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:blur="changeVerifySms_" >
+      <input id="ph" class="ph" type="number" placeholder="请输入您的手机号码" v-model="phoneNumber" v-on:input="changePhoneNumber_">
+      <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:input="changeVerifySms_" >
 	  <input class="smsSend" type="button" @click="getVerify_" v-bind:disabled="smsDisabled" v-bind:value="text" ></input>
     </div>
 	<div id="err" class="err" v-if="err">{{errMessage}}</div>
@@ -107,6 +107,7 @@ border-radius:4px;
 }
 
 .ph {
+  -webkit-appearance:none;
   position: relative;
   display: block;
   border: 1px solid #e5e5e5;
@@ -120,6 +121,7 @@ border-radius:4px;
 }
 
 .code {
+  -webkit-appearance:none;
   position: relative;
   top: 20px;
   display: block;
@@ -381,7 +383,7 @@ export default {
 	daojishi_() {
 	  if(this.djs == 1){
 		var self = this;
-		var t = 3;
+		var t = 60;
 		var daojishi = setInterval(function(){
 		  self.errMessage='';
 		  self.err=false;

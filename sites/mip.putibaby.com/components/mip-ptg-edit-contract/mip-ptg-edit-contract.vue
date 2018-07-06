@@ -65,7 +65,7 @@
           <input id="fz" type="file" class="uploadfile" name="f" v-on:change="changeZ" display="none" v-bind:disabled="rea"/>
           <mip-img class="id_photo_z" src="/i/camera_.png" @click="fileSelectZ"></mip-img>
           <mip-img class="id_photo_zz" src="/i/id_card_z.png" ></mip-img>
-          <mip-img class="id_photo" :src="contract_mama_id_card_zheng" ></mip-img>
+          <mip-img class="id_photo" :src="contract_mama_id_card_zheng" :class="{'show_zheng':show_z}"></mip-img>
           <span>身份证正面</span>
 
         </div>
@@ -77,7 +77,7 @@
 
           <mip-img class="id_photo_f" src="/i/camera_.png" @click="fileSelectF"></mip-img>
           <mip-img class="id_photo_ff" src="/i/id_card_f.png" ></mip-img>
-          <mip-img class="id_photo" :src="contract_mama_id_card_fan" ></mip-img>
+		  <mip-img class="id_photo" :src="contract_mama_id_card_fan" :class="{'show_fan':show_f}"></mip-img>
 
           <span>身份证反面</span>
 
@@ -623,6 +623,7 @@ body {}
   margin-bottom: 5px;
   z-index:11;
   background:rgba(0,0,0,0);
+  opacity:0;
 }
 .id_photo_z {
   width: 88%;
@@ -666,7 +667,12 @@ body {}
   position:absolute;
   background:#fff;
 }
-
+.show_zheng {
+ opacity:1;
+}
+.show_fan {
+ opacity:1;
+}
 .jiafang .row_photo {
   overflow: hidden;
   cursor: pointer;
@@ -742,6 +748,7 @@ body {}
 
 .row_photo .uploadfile {
   display: none;
+  opacity:0;
 }
 
 .checked {
@@ -979,10 +986,34 @@ export default {
 	var to_contract_skill_req='/edit_contract_skill_req_mip?id=' + pdata.order.id +'&readonly=1';
 	var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1';
   }
+  if(data.contract_mama_id_card_list[0]){
+	console.log('zzzzz');
+	console.log('zzzzz',data.contract_mama_id_card_list[0]);
+	console.log('zzzzz',typeof(data.contract_mama_id_card_list[0]));
+    var showz = true;
+  }else{
+	console.log('llll');
+	console.log('lllll',data.contract_mama_id_card_list[0]);
+	console.log('zzzzz',typeof(data.contract_mama_id_card_list[0]));
+    var showz = false;
+  }
+  if(data.contract_mama_id_card_list[1]){
 	
+	console.log('fffff',data.contract_mama_id_card_list[1]);
+	console.log('fffff',typeof(data.contract_mama_id_card_list[1]));
+	console.log('fffff');
+    var showf = true;
+  }else{
+	console.log('ooooo',data.contract_mama_id_card_list[1]);
+	console.log('fffff',typeof(data.contract_mama_id_card_list[1]));
+	console.log('ooooo');
+    var showf = false;
+  }
     return {
 	  rea:false,
 	  err:false,
+	  show_z:showz,
+	  show_f:showf,
 	  contract_is_offer_allday_ser:data.contract_is_offer_allday_service==1?true:false,
       master: pdata.order.master,
 	  order: pdata.order,
@@ -1034,9 +1065,10 @@ export default {
       document.getElementById("ff").click();
     },
     changeZ() {
+	  this.show_z = true;
       var pic = document.getElementById("preview"),
         file = document.getElementById("fz");
-
+		console.log('this',this);
       var ext = file.value.substring(file.value.lastIndexOf(".") + 1).toLowerCase();
       // gif在IE浏览器暂时无法显示
       if (ext != 'png' && ext != 'jpg' && ext != 'jpeg') {
@@ -1046,9 +1078,9 @@ export default {
       this.html5Reader(file);
     },
     changeF() {
+	  this.show_f = true;
       var pic = document.getElementById("fan"),
         file = document.getElementById("ff");
-
       var ext = file.value.substring(file.value.lastIndexOf(".") + 1).toLowerCase();
       if (ext != 'png' && ext != 'jpg' && ext != 'jpeg') {
         console.log("图片的格式必须为png或者jpg或者jpeg格式! ");

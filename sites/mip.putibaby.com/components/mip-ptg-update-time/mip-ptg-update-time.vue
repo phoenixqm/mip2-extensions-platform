@@ -8,7 +8,7 @@
   </div>
   <textarea class="textarea hide" name="mcode" placeholder=""><%= data.mcode %></textarea>
   <textarea class="textarea" name="info" placeholder="您方便的时间段，可不填"></textarea>
-  <input type="submit" name="提交" class="submit">
+  <input type="submit" name="提交" class="submit" @click="handleSubmit_">
 
 </div>
 </template>
@@ -24,39 +24,23 @@
   margin: 0px;
   padding: 0px;
 }
-
-p {
-  margin: 0px;
-  padding: 0px;
-  font-family: '黑体';
-}
-
-body {
-  background-color: #fff;
-  font-family: Arial, 'Hiragino Sans GB', 'Microsoft Yahei', '微软雅黑', '宋体', 宋体, Tahoma, Arial, Helvetica, STHeiti;
-}
-
-* {
-  margin: 0px;
-  padding: 0px;
-}
-
-p {
-  margin: 0px;
-  padding: 0px;
-  font-family: '黑体';
-}
-
 body {
   background-color: #F1F5E2;
 }
 
+
+p {
+  margin: 0px;
+  padding: 0px;
+  font-family: '黑体';
+}
+
 .root {
-  padding: 10px;
+  padding: 15px;
 }
 
 .title {
-  margin: 10px 10px 10px 0px;
+  margin-top: 15px;
   color: #666;
 }
 
@@ -76,46 +60,58 @@ table tr td {
 
 .video_interview {
   display: block;
-  width: 97%;
-  height: 140px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  position:relative;
+  width: 100%;
+  height: 152px;
+  margin-top: 15px;
 }
 
 textarea {
-  width: 100%;
-  height: 100px;
+  -webkit-appearance:none;
+  width: 92%;
+  height: 94px;
   border-radius: 5px;
   color: #666;
   /*border: solid 1px #ddd !important;*/
-  margin-top: 20px;
+  margin-top: 15px;
   font-size: 14px !important;
   padding: 10px;
+  position:relative;
+  display:inline-block;
+  border-color:#fff;
 }
 
 textarea.hide {
   display: none;
+  -webkit-appearance:none;
 }
 
 .submit {
   outline: none;
   -webkit-appearance: none;
+  position:relative;
   border-radius: 0;
-  width: 94.36%;
+  width: 89.2%;
   height: 47px !important;
   line-height: 20px;
   text-align: center;
   background-color: #afd03b !important;
   color: #fff !important;
   margin: 0 auto;
-  margin-top: 30px;
   font-size: 18px;
+  border-style:none;
+  top:30px;
+  left:50%;
+  margin-left:-44.6%;
+  border-radius:5px;
+  margin-bottom:50px;
 }
 
 .text {
   background-color: #fff;
-  padding: 10px;
+  padding: 15px;
   padding-top: 1px;
+  font-family:'黑体';
 }
 </style>
 
@@ -193,11 +189,8 @@ export default {
     var data = pdata.order;
 
     return {
-      rea: false,
-      dateChecked: true,
-      name: '',
-      date: '',
-      tuijian: true,
+      content: '',
+    
     }
   },
   computed: {
@@ -212,23 +205,12 @@ export default {
       console.log('should set data');
     },
 
-    Checked() {
-      this.tuijian = !this.tuijian;
-
-    },
     handleSubmit_() {
-      if (this.name == '' || this.date == '') {
-        this.rea = true;
-        return;
-      }
-      if (this.tuijian == true) {
-        var masterType = 'yuesao';
-      } else {
-        var masterType = 'yuersao';
-      }
-      var url = '/update_ycq_ok?name=' + this.name + '&ycq=' + this.date + '&masterType=' + masterType;
+     
+	  var mcode = JSON.parse(this.dataJsonstr).mcode;
+      var url = '/update_time_ok?cmode=' + mcode + '&intro=';
 
-      window.location.href = url;
+      window.location.replace(url);
 
     },
   }

@@ -4,7 +4,7 @@
   <mip-form class="root" method="get" url="https://www.mipengine.org?we=123">
 
     <div class="yifang">
-      <mip-img layout="responsive" width="65" height="65" class="mama_header" src="../i/checked.png"></mip-img>
+      <mip-img layout="responsive" width="65" height="65" class="mama_header" :src="master.header.small"></mip-img>
       <div class="">
         <div class="mama_name">乙方
           <span class="mama_info_span">{{ master.name }}</span>
@@ -64,7 +64,7 @@
         <div>
           <input id="fz" type="file" class="uploadfile" name="f" v-on:change="changeZ" display="none" v-bind:disabled="rea"/>
           <mip-img class="id_photo_z" src="/i/camera_.png" @click="fileSelectZ"></mip-img>
-          <mip-img class="id_photo_zz" src="/i/id_card_z.png" ></mip-img>
+          <mip-img class="id_photo_zz" src="/i/id_card_z.png" :class="{'show_opacity':show_z}" ></mip-img>
           <mip-img class="id_photo" :src="contract_mama_id_card_zheng" :class="{'show_zheng':show_z}"></mip-img>
           <span>身份证正面</span>
 
@@ -76,7 +76,7 @@
           <input id="ff" type="file" class="uploadfile" name="f" v-on:change="changeF" display="none"  v-bind:disabled="rea"/>
 
           <mip-img class="id_photo_f" src="/i/camera_.png" @click="fileSelectF"></mip-img>
-          <mip-img class="id_photo_ff" src="/i/id_card_f.png" ></mip-img>
+          <mip-img class="id_photo_ff" src="/i/id_card_f.png" :class="{'show_opacity':show_f}" ></mip-img>
 		  <mip-img class="id_photo" :src="contract_mama_id_card_fan" :class="{'show_fan':show_f}"></mip-img>
 
           <span>身份证反面</span>
@@ -667,6 +667,9 @@ body {}
   position:absolute;
   background:#fff;
 }
+.show_opacity {
+  opacity: 0;
+}
 .show_zheng {
  opacity:1;
 }
@@ -986,29 +989,22 @@ export default {
 	var to_contract_skill_req='/edit_contract_skill_req_mip?id=' + pdata.order.id +'&readonly=1';
 	var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1';
   }
-  if(data.contract_mama_id_card_list[0]){
-	console.log('zzzzz');
-	console.log('zzzzz',data.contract_mama_id_card_list[0]);
-	console.log('zzzzz',typeof(data.contract_mama_id_card_list[0]));
+  if(data.contract_mama_id_card_list[0] == ""){
+	    var showz = false;
+  }else{
     var showz = true;
-  }else{
-	console.log('llll');
-	console.log('lllll',data.contract_mama_id_card_list[0]);
-	console.log('zzzzz',typeof(data.contract_mama_id_card_list[0]));
-    var showz = false;
   }
-  if(data.contract_mama_id_card_list[1]){
-	
-	console.log('fffff',data.contract_mama_id_card_list[1]);
-	console.log('fffff',typeof(data.contract_mama_id_card_list[1]));
-	console.log('fffff');
-    var showf = true;
-  }else{
-	console.log('ooooo',data.contract_mama_id_card_list[1]);
-	console.log('fffff',typeof(data.contract_mama_id_card_list[1]));
-	console.log('ooooo');
+  if(data.contract_mama_id_card_list[1] == "undefined" || data.contract_mama_id_card_list[1] == null){
     var showf = false;
+  }else{
+    var showf = true;
   }
+  if(data.contract_skill_req == ''){
+    var skill_length = 0;
+  }else{
+    var skill_length = data.contract_skill_req.split(',').length;
+  }
+  
     return {
 	  rea:false,
 	  err:false,
@@ -1028,7 +1024,7 @@ export default {
       contract_deposit: deposit,
       contract_is_pay_monthly: !!data.contract_is_pay_monthly,
       contract_is_offer_allday_service: data.contract_is_offer_allday_service,
-	  contract_skill_req:data.contract_skill_req.split(',').length,
+	  contract_skill_req:skill_length,
 	  
       is_show_pay_monthly_btn: data.contract_shanghu_length >= 42 ? true : false,
       hardcode_deposit: data.hardcode_deposit,
@@ -1065,7 +1061,6 @@ export default {
       document.getElementById("ff").click();
     },
     changeZ() {
-	  this.show_z = true;
       var pic = document.getElementById("preview"),
         file = document.getElementById("fz");
 		console.log('this',this);
@@ -1076,9 +1071,9 @@ export default {
         return;
       }
       this.html5Reader(file);
+	  this.show_z = true;
     },
     changeF() {
-	  this.show_f = true;
       var pic = document.getElementById("fan"),
         file = document.getElementById("ff");
       var ext = file.value.substring(file.value.lastIndexOf(".") + 1).toLowerCase();
@@ -1087,6 +1082,7 @@ export default {
         return;
       }
       this.html5Reader(file);
+	  this.show_f = true;
     },
     uploadFile_(myBase64, fn) {
       var self = this;
@@ -1121,7 +1117,7 @@ export default {
 	},
     contract_is_offer_allday_service_change_(fn) {
 	  console.log(this.contract_is_offer_allday_service );
-console.log(this);
+
       if (this.contract_is_offer_allday_service == 'true') {
 		this.contract_is_offer_allday_ser = true;
         this.contract_master_price = this.master.yuesao_allday_price / 100;

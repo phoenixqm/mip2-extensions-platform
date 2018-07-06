@@ -400,7 +400,7 @@ export default {
       }
       var url = '/update_ycq_ok?name=' + this.name + '&ycq=' + this.date + '&masterType=' + masterType;
 
-      window.location.href = url;
+      window.location.replace(url);
 
     },
   }

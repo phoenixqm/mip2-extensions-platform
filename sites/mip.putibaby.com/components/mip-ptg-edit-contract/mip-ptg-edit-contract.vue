@@ -34,15 +34,17 @@
     </div>
 
     <div class="jiafang">
-	  <div class="sub_head"><p>甲方（我的）信息</p></div>
+      <div class="sub_head">
+        <p>甲方（我的）信息</p>
+      </div>
       <div class="row">
         <div class="left">真实姓名</div>
         <div class="right">
-		  <input class="input" v-model="contract_mama_name" v-on:blur="contract_mama_name_change_" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名" v-bind:readOnly="rea">
+          <input class="input" v-model="contract_mama_name" v-on:blur="contract_mama_name_change_" type="text" name="username" validatetarget="username" validatetype="must" placeholder="中文姓名" v-bind:readOnly="rea">
           <div target="username">姓名不符合规范</div>
         </div>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
       <div class="row">
         <div class="left">手机号码</div>
         <div class="right">
@@ -50,21 +52,21 @@
           <div target="phone_number">手机号码错误</div>
         </div>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
       <div class="row">
         <div class="left">身份证号</div>
         <div class="right">
-          <input class="input" v-model="contract_mama_id_card" v-on:blur="contract_mama_id_card_change_" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码" v-bind:readOnly="rea" >
+          <input class="input" v-model="contract_mama_id_card" v-on:blur="contract_mama_id_card_change_" type="number" name="identity" validatetarget="identity" validatetype="must" placeholder="身份证号码" v-bind:readOnly="rea">
           <div target="identity">身份证号码错误</div>
         </div>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
 
       <div class="row_photo">
         <div>
-          <input id="fz" type="file" class="uploadfile" name="f" v-on:change="changeZ" display="none" v-bind:disabled="rea"/>
+          <input id="fz" type="file" class="uploadfile" name="f" v-on:change="changeZ" display="none" v-bind:disabled="rea" />
           <mip-img class="id_photo_z" src="/i/camera_.png" @click="fileSelectZ"></mip-img>
-          <mip-img class="id_photo_zz" src="/i/id_card_z.png" :class="{'show_opacity':show_z}" ></mip-img>
+          <mip-img class="id_photo_zz" src="/i/id_card_z.png" :class="{'show_opacity':show_z}"></mip-img>
           <mip-img class="id_photo" :src="contract_mama_id_card_zheng" :class="{'show_zheng':show_z}"></mip-img>
           <span>身份证正面</span>
 
@@ -73,86 +75,72 @@
 
       <div class="row_photo">
         <div>
-          <input id="ff" type="file" class="uploadfile" name="f" v-on:change="changeF" display="none"  v-bind:disabled="rea"/>
+          <input id="ff" type="file" class="uploadfile" name="f" v-on:change="changeF" display="none" v-bind:disabled="rea" />
 
           <mip-img class="id_photo_f" src="/i/camera_.png" @click="fileSelectF"></mip-img>
-          <mip-img class="id_photo_ff" src="/i/id_card_f.png" :class="{'show_opacity':show_f}" ></mip-img>
-		  <mip-img class="id_photo" :src="contract_mama_id_card_fan" :class="{'show_fan':show_f}"></mip-img>
-
+          <mip-img class="id_photo_ff" src="/i/id_card_f.png" :class="{'show_opacity':show_f}"></mip-img>
+          <mip-img class="id_photo" :src="contract_mama_id_card_fan" :class="{'show_fan':show_f}"></mip-img>
           <span>身份证反面</span>
-
         </div>
       </div>
-
-    
     </div>
-
-
     <div class="shanghu_info">
-	  <div class=" shanghu_i"><p>上户信息</p></div>
+      <div class=" shanghu_i">
+        <p>上户信息</p>
+      </div>
       <div class="row">
         <div class="left">服务时间</div>
         <div class="right">
-		  <!--<div class="quantian" @click="quantian_checked">-->
-          <div class="quantian" >
-			<div :class="{'checked' : contract_is_offer_allday_ser , 'unchecked' : !contract_is_offer_allday_ser }" @click="quantianChecked" ></div>
-			  <input type="radio" name="service_time" value="true" :checked="contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 全天</input>
-			  <!--	<p>全天</p>-->
+          <div class="quantian">
+            <div :class="{'checked' : contract_is_offer_allday_ser , 'unchecked' : !contract_is_offer_allday_ser }" @click="quantianChecked"></div>
+            <input type="radio" name="service_time" value="true" :checked="contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 全天</input>
           </div>
-		  <!--<div class="baiban" @click="baiban_checked">-->
-          <div class="baiban" >
-			<div :class="{'checked' : !contract_is_offer_allday_ser , 'unchecked' : contract_is_offer_allday_ser }" @click="baibanChecked" ></div>
-			  <input type="radio" name="service_time" value="false" :checked="!contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 白班</input>
-			<!--<p>白班</p>-->
-	
-
+          <div class="baiban">
+            <div :class="{'checked' : !contract_is_offer_allday_ser , 'unchecked' : contract_is_offer_allday_ser }" @click="baibanChecked"></div>
+            <input type="radio" name="service_time" value="false" :checked="!contract_is_offer_allday_service" v-model="contract_is_offer_allday_service" v-on:change="contract_is_offer_allday_service_change_" v-bind:disabled="rea"> 白班</input>
           </div>
         </div>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
       <div class="row">
         <div class="left">上户日期</div>
         <div class="right">
           <input class="input_date" v-model="contract_shanghu_at" type='date' value='' placeholder='请选择月份/年份' v-on:change="contract_shanghu_at_change_" :readOnly="rea" />
-		  
         </div>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
       <div class="row">
         <div class="left">上户时长</div>
         <div class="right">
-          <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:blur="contract_shanghu_length_change_" :readOnly="rea"/>天
+          <input class="input_sc" v-model="contract_shanghu_length" type='number' value='' v-on:blur="contract_shanghu_length_change_" :readOnly="rea" />天
         </div>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
       <div class="row">
         <div class="left">26天薪资</div>
         <div class="right">
-		  <!--<input class="inputReadOnly" type='number' value='' readOnly="readOnly" />-->
-		  <p>{{contract_master_price}}</p> 元
+          <p>{{contract_master_price}}</p> 元
         </div>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
       <div class="row">
         <div class="left">总金额</div>
         <div class="right">
-		  <!--<input class="inputReadOnly" type='number' value='' readOnly="readOnly" />-->
-		  <p>{{contract_price}}</p> 元
+          <p>{{contract_price}}</p> 元
         </div>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
       <div class="row">
         <div class="left">支付方式</div>
         <div class="right zhifufangshi">
           两次支付(定金, 尾款)
         </div>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
       <div class="row">
         <div class="left">定金</div>
         <div class="right">
-		  <!--<input class="inputReadOnly" type='number' value='' readOnly="readOnly" v-on:change="contract_deposit_change_" />-->
-		  <p>{{contract_deposit}}</p> 元
+          <p>{{contract_deposit}}</p> 元
         </div>
       </div>
     </div>
@@ -163,51 +151,49 @@
           <div class="left">服务项目</div>
           <div class="extra_text">
             <p>已选
-			<span class="extra_i">{{contract_skill_req}}
+              <span class="extra_i">{{contract_skill_req}}
             </span> 项
             </p>
           </div>
           <mip-img layout="responsive" width="16" height="16" class="jt" src='i/contract_jt.png'></mip-img>
         </a>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
       <div class="row">
-		<a :href="to_contract_extra">
+        <a :href="to_contract_extra">
           <div class="left">补充条款</div>
           <div class="extra_text" v-model="contract_extra"></div>
           <mip-img layout="responsive" width="16" height="16" class="jt" src='i/contract_jt.png'></mip-img>
         </a>
       </div>
-	  <div class="line"></div>
+      <div class="line"></div>
       <div class="row">
         <div class="left">上户地点</div>
         <div class="right">
-          <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:change="contract_location_change_" v-bind:readOnly="rea" ></textarea>
+          <textarea class="input_address" v-model="contract_location" type='text' value='' placeholder='请输入上户的详细地址' v-on:change="contract_location_change_" v-bind:readOnly="rea"></textarea>
         </div>
       </div>
     </div>
 
     <div class="contract_info">
-	  <div class="sub_head"><p>合同信息</p></div>
+      <div class="sub_head">
+        <p>合同信息</p>
+      </div>
       <div class="contract_row" @click="contractDetail">
         <span>《菩提果母婴护理服务合同》</span>
         <div class="extra_text_xx">详细</div>
         <mip-img layout="responsive" width="16" height="16" class="jt_xx" src='i/contract_jt.png'></mip-img>
       </div>
     </div>
-	<div class="err" v-show="err">
-		请填写正确的姓名/手机号码/身份证号码/上户地点
-	</div>
-    <div class="submit">
-      <input class="btn" type="submit" value="提交" v-on:click="handleSubmit_({},false)" v-show="!rea"/>
+    <div class="err" v-show="err">
+      请填写正确的姓名/手机号码/身份证号码/上户地点
     </div>
-
+    <div class="submit">
+      <input class="btn" type="submit" value="提交" v-on:click="handleSubmit_({},false)" v-show="!rea" />
+    </div>
   </mip-form>
-
 </div>
 </template>
-
-
 <style scoped>
 .wrapper {
   margin: 0 auto;
@@ -273,7 +259,7 @@ body {}
   left: 52px;
   top: 1px;
   width: 170px;
-  color:#333;
+  color: #333;
 
 }
 
@@ -290,14 +276,14 @@ body {}
   position: absolute;
   left: 95px;
   top: 10px;
-  color:#333;
+  color: #333;
 }
 
 .mama_phone {
   position: absolute;
   left: 95px;
   top: 35px;
-  color:#333;
+  color: #333;
 }
 
 .mama_phone_a {
@@ -309,21 +295,21 @@ body {}
   position: absolute;
   left: 95px;
   top: 60px;
-  color:#333;
+  color: #333;
 }
 
 .mama_name_b {
   position: absolute;
   left: 95px;
   top: 20px;
-  color:#333;
+  color: #333;
 }
 
 .mama_phone_b {
   position: absolute;
   left: 95px;
   top: 45px;
-  color:#333;
+  color: #333;
 }
 
 .ptg_info {
@@ -354,7 +340,7 @@ body {}
   height: 44px;
   line-height: 44px;
   overflow: hidden;
-  font-size:14px;
+  font-size: 14px;
 }
 
 .row_address {
@@ -391,7 +377,7 @@ body {}
   float: left;
   display: inline-block;
   left: 120px;
-  color:#999;
+  color: #999;
 }
 
 .contract_info {
@@ -408,9 +394,10 @@ body {}
   position: relative;
   top: 0;
 }
+
 .sub_head p {
-  position:absolute;
-  left:15px;
+  position: absolute;
+  left: 15px;
 }
 
 .contract_row {
@@ -423,6 +410,7 @@ body {}
   overflow: hidden;
   font-size: 15px;
 }
+
 .contract_row span {
   position: absolute;
   left: 10px;
@@ -434,7 +422,7 @@ body {}
   position: absolute;
   right: 15px;
   top: 16px;
-  color:#999;
+  color: #999;
 }
 
 .jt_xx {
@@ -454,7 +442,7 @@ body {}
 }
 
 .btn {
-  -webkit-appearance:none;
+  -webkit-appearance: none;
   background: #afd03b;
   color: #fff;
   border-radius: 5px;
@@ -500,25 +488,24 @@ body {}
   border: none;
   width: 74px;
   font-size: 14px;
-  color:#999;
+  color: #999;
 }
 
-.input_date { 
-  -webkit-appearance:none;
+.input_date {
+  -webkit-appearance: none;
   border: 1px solid #e5e5e5;
   width: 130px;
   height: 30px;
   font-size: 15px;
-  /*background-image: url(assets/i/card_jf.png);*/
   background-size: 0;
-  font-family:Arial;
-  color:#999;
-  position:absolute;
-  top:6px;
-  background:#fff;
-  border-radius:3px;
-  padding-left:5px;
- 
+  font-family: Arial;
+  color: #999;
+  position: absolute;
+  top: 6px;
+  background: #fff;
+  border-radius: 3px;
+  padding-left: 5px;
+
 }
 
 .inputReadOnly {
@@ -533,23 +520,23 @@ body {}
   margin-top: 0px;
   border: none;
   display: inline-block;
-  font-family: Arial,Helvetica,sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   width: 200px;
   height: 44px;
   line-height: 44px;
   resize: none;
   color: #999;
   font-size: 14px;
-  
+
 }
 
 .extra_text {
   float: right;
-  position:absolute;
+  position: absolute;
   right: 35px;
   color: #999;
-  font-size: 14px;5
-  position: absolute;
+  font-size: 14px;
+  5 position: absolute;
   width: 75px;
 }
 
@@ -621,10 +608,11 @@ body {}
   margin-left: 10%;
   margin-right: 5%;
   margin-bottom: 5px;
-  z-index:11;
-  background:rgba(0,0,0,0);
-  opacity:0;
+  z-index: 11;
+  background: rgba(0, 0, 0, 0);
+  opacity: 0;
 }
+
 .id_photo_z {
   width: 88%;
   height: 110px;
@@ -632,10 +620,11 @@ body {}
   margin-left: 10%;
   margin-right: 5%;
   margin-bottom: -4px;
-  position:absolute;
-  z-index:22;
-  opacity:.7;
+  position: absolute;
+  z-index: 22;
+  opacity: .7;
 }
+
 .id_photo_zz {
   width: 88%;
   height: 110px;
@@ -643,9 +632,10 @@ body {}
   margin-left: 10%;
   margin-right: 5%;
   margin-bottom: -4px;
-  position:absolute;
-  background:#fff;
+  position: absolute;
+  background: #fff;
 }
+
 .id_photo_f {
   width: 88%;
   height: 110px;
@@ -653,10 +643,11 @@ body {}
   margin-left: 10%;
   margin-right: 5%;
   margin-bottom: -4px;
-  position:absolute;
-  z-index:22;
-  opacity:.7;
+  position: absolute;
+  z-index: 22;
+  opacity: .7;
 }
+
 .id_photo_ff {
   width: 88%;
   height: 110px;
@@ -664,18 +655,22 @@ body {}
   margin-left: 10%;
   margin-right: 5%;
   margin-bottom: -4px;
-  position:absolute;
-  background:#fff;
+  position: absolute;
+  background: #fff;
 }
+
 .show_opacity {
   opacity: 0;
 }
+
 .show_zheng {
- opacity:1;
+  opacity: 1;
 }
+
 .show_fan {
- opacity:1;
+  opacity: 1;
 }
+
 .jiafang .row_photo {
   overflow: hidden;
   cursor: pointer;
@@ -701,9 +696,11 @@ body {}
   opacity: 0.2;
   border-radius: ;
 }
- .mip-placeholder {
-  background:rgba(0,0,0,0) !important;
+
+.mip-placeholder {
+  background: rgba(0, 0, 0, 0) !important;
 }
+
 .identity {
   width: 30px;
   position: absolute;
@@ -717,7 +714,7 @@ body {}
   margin-right: 24px;
   position: absolute;
   top: 2px;
-  width:45px;
+  width: 45px;
   left: 25px;
 }
 
@@ -729,7 +726,7 @@ body {}
   position: absolute;
   left: 90px;
   top: 2px;
-  width:45px;
+  width: 45px;
 }
 
 .zhifufangshi {
@@ -743,15 +740,15 @@ body {}
   position: absolute;
   top: 15px;
   margin-left: -35px;
-  opacity:0;
+  opacity: 0;
   text-align: center;
-  color:#999;
-  font-size:14px;
+  color: #999;
+  font-size: 14px;
 }
 
 .row_photo .uploadfile {
   display: none;
-  opacity:0;
+  opacity: 0;
 }
 
 .checked {
@@ -765,6 +762,7 @@ body {}
   z-index: 22;
 
 }
+
 .unchecked {
   background-image: url('/i/balance_unchecked.png');
   background-size: 22px 22px;
@@ -781,41 +779,45 @@ body {}
   color: #f00;
   position: relative;
   left: 50%;
-  margin-left:-167.5px;
+  margin-left: -167.5px;
   top: -14px;
   width: 335px;
   text-align: center;
 
 }
+
 .none {
   poniter-events: none;
 }
+
 .line {
-  width:92%;
-  background:#f4f4f4;
-  height:1px;
-  position:relative;
-  left:50%;
-  margin-left:-46%;
-}
-.right p {
-position:relative;
-display:inline-block;
-width:70px;
-}
-.shanghu_i {
-    height: 44px;
-    background: #f4f4f4;
-    line-height: 44px;
-    position: relative;
-    left: 0px;
-    padding-left: 15px;
-}
-.shanghu_i p {
-  position: absolute;
-left:15px;
+  width: 92%;
+  background: #f4f4f4;
+  height: 1px;
+  position: relative;
+  left: 50%;
+  margin-left: -46%;
 }
 
+.right p {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+}
+
+.shanghu_i {
+  height: 44px;
+  background: #f4f4f4;
+  line-height: 44px;
+  position: relative;
+  left: 0px;
+  padding-left: 15px;
+}
+
+.shanghu_i p {
+  position: absolute;
+  left: 15px;
+}
 </style>
 
 <script>
@@ -857,7 +859,6 @@ API.wrapRet_ = function(api, opts, cb) {
     });
 }
 
-
 API.uploadFile = function(data, cb) {
   API.wrapRet_(
     '/api/upload_image', {
@@ -868,71 +869,67 @@ API.uploadFile = function(data, cb) {
 };
 
 function normalImageSize(w, h) {
-    var nw = 800,
-        nh = 1000;
-    if (w <= nw && h <= nh) {
-      return [w, h];
-    }
-    if (w >= h) {
-      nh = h / (w / nw);
-    } else {
-      nw = w / (h / nh);
-    }
-    return [nw, nh];
+  var nw = 800,
+    nh = 1000;
+  if (w <= nw && h <= nh) {
+    return [w, h];
+  }
+  if (w >= h) {
+    nh = h / (w / nw);
+  } else {
+    nw = w / (h / nh);
+  }
+  return [nw, nh];
 }
-    
+
 function toDataUrl_v2(file, callback) {
-   // ref https://sebastianblade.com/browser-side-image-compress-and-upload/
+  // ref https://sebastianblade.com/browser-side-image-compress-and-upload/
 
-   var reader = new FileReader();
-   var image = new Image();
-   var canvas = document.createElement('canvas');
-   var context = canvas.getContext('2d');
+  var reader = new FileReader();
+  var image = new Image();
+  var canvas = document.createElement('canvas');
+  var context = canvas.getContext('2d');
 
-   image.addEventListener('load', function() {
-     // console.warn("5");
-     // 规范图片尺寸
-     var S = normalImageSize(image.naturalWidth, image.naturalHeight);
-     canvas.width = S[0];
-     canvas.height = S[1];
-     // 将图片绘制到 canvas 画布上
-     context.drawImage(image, 0, 0, S[0], S[1]);
-     var quality = 30;
-     var filetype = 'image/jpeg';
-     compressedImageDataURL = canvas.toDataURL(filetype, quality / 100);
-     callback(compressedImageDataURL);
-   });
+  image.addEventListener('load', function() {
+    // console.warn("5");
+    // 规范图片尺寸
+    var S = normalImageSize(image.naturalWidth, image.naturalHeight);
+    canvas.width = S[0];
+    canvas.height = S[1];
+    // 将图片绘制到 canvas 画布上
+    context.drawImage(image, 0, 0, S[0], S[1]);
+    var quality = 30;
+    var filetype = 'image/jpeg';
+    compressedImageDataURL = canvas.toDataURL(filetype, quality / 100);
+    callback(compressedImageDataURL);
+  });
 
-   image.addEventListener('error', function() {
-       console.warn('Image load error');
-   });
-   reader.onloadend = function(e) {
-     var dataURL = e.target.result;
-     // fileReader.result (data:image/png;base64,iVBORw0KG...)
-     image.src = dataURL;
-   };
-   reader.readAsDataURL(file);
+  image.addEventListener('error', function() {
+    console.warn('Image load error');
+  });
+  reader.onloadend = function(e) {
+    var dataURL = e.target.result;
+    // fileReader.result (data:image/png;base64,iVBORw0KG...)
+    image.src = dataURL;
+  };
+  reader.readAsDataURL(file);
 }
 
 export default {
   mounted() {
     console.log('This is my first custom component !');
-    console.log('mounted:',this);
-	var readonly = JSON.parse(this.dataJsonstr).readonly;
-	console.log('readonly:',readonly);
-	if(readonly == 1){
-		var ele = document.querySelectorAll("input");
-		console.log('ele:',ele);
-
-
-		this.rea = true;
-	}
+    console.log('mounted:', this);
+    var readonly = JSON.parse(this.dataJsonstr).readonly;
+    console.log('readonly:', readonly);
+    if (readonly == 1) {
+      var ele = document.querySelectorAll("input");
+      this.rea = true;
+    }
     this.$element.customElement.addEventAction('echo', function(event, str) {
       console.log(event);
     });
     this.$element.customElement.addEventAction('dook', function(event, str) {
       // console.log(event);
-
       console.log(event.from);
       event.from.bind(self)(event.data, true);
       //var eval_str = 'this.' + event.handler + '(event_order)'
@@ -941,7 +938,7 @@ export default {
       console.log(event);
       console.log(str);
 
-    });	
+    });
   },
   firstInviewCallback() {
     this.init()
@@ -961,7 +958,6 @@ export default {
   data() {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
-    console.log('1111:', pdata);
     var data = pdata.order;
     var master_price = data.master.price_26day; //月嫂价格
 
@@ -981,38 +977,38 @@ export default {
       deposit = data.contract_deposit;
       master_price = Math.round(data.contract_price / data.contract_shanghu_length * 26);
     }
-	if(pdata.readonly != '1'){
-	var to_contract_skill_req='/edit_contract_skill_req_mip?id=' + pdata.order.id;
-	var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id;
-  }else{
-  
-	var to_contract_skill_req='/edit_contract_skill_req_mip?id=' + pdata.order.id +'&readonly=1';
-	var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1';
-  }
-  if(data.contract_mama_id_card_list[0] == ""){
-	    var showz = false;
-  }else{
-    var showz = true;
-  }
-  if(data.contract_mama_id_card_list[1] == "undefined" || data.contract_mama_id_card_list[1] == null){
-    var showf = false;
-  }else{
-    var showf = true;
-  }
-  if(data.contract_skill_req == ''){
-    var skill_length = 0;
-  }else{
-    var skill_length = data.contract_skill_req.split(',').length;
-  }
-  
+    if (pdata.readonly != '1') {
+      var to_contract_skill_req = '/edit_contract_skill_req_mip?id=' + pdata.order.id;
+      var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id;
+    } else {
+
+      var to_contract_skill_req = '/edit_contract_skill_req_mip?id=' + pdata.order.id + '&readonly=1';
+      var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1';
+    }
+    if (data.contract_mama_id_card_list[0] == "") {
+      var showz = false;
+    } else {
+      var showz = true;
+    }
+    if (data.contract_mama_id_card_list[1] == "undefined" || data.contract_mama_id_card_list[1] == null) {
+      var showf = false;
+    } else {
+      var showf = true;
+    }
+    if (data.contract_skill_req == '') {
+      var skill_length = 0;
+    } else {
+      var skill_length = data.contract_skill_req.split(',').length;
+    }
+
     return {
-	  rea:false,
-	  err:false,
-	  show_z:showz,
-	  show_f:showf,
-	  contract_is_offer_allday_ser:data.contract_is_offer_allday_service==1?true:false,
+      rea: false,
+      err: false,
+      show_z: showz,
+      show_f: showf,
+      contract_is_offer_allday_ser: data.contract_is_offer_allday_service == 1 ? true : false,
       master: pdata.order.master,
-	  order: pdata.order,
+      order: pdata.order,
       contract_mama_name: data.contract_mama_name,
       contract_mama_phone_number: data.contract_mama_phone_number,
       contract_mama_id_card: data.contract_mama_id_card,
@@ -1024,20 +1020,18 @@ export default {
       contract_deposit: deposit,
       contract_is_pay_monthly: !!data.contract_is_pay_monthly,
       contract_is_offer_allday_service: data.contract_is_offer_allday_service,
-	  contract_skill_req:skill_length,
-	  
+      contract_skill_req: skill_length,
+
       is_show_pay_monthly_btn: data.contract_shanghu_length >= 42 ? true : false,
       hardcode_deposit: data.hardcode_deposit,
       contract_mama_id_card_zheng: data.contract_mama_id_card_list[0],
 
       contract_mama_id_card_fan: data.contract_mama_id_card_list[1],
       pics: [],
-	  contract_deposit_min: data.contract_deposit_min,
-	  to_contract_skill_req: to_contract_skill_req,
+      contract_deposit_min: data.contract_deposit_min,
+      to_contract_skill_req: to_contract_skill_req,
 
-	  to_contract_extra: to_contract_extra,
-	  
-
+      to_contract_extra: to_contract_extra,
     }
   },
   computed: {
@@ -1063,7 +1057,7 @@ export default {
     changeZ() {
       var pic = document.getElementById("preview"),
         file = document.getElementById("fz");
-		console.log('this',this);
+      console.log('this', this);
       var ext = file.value.substring(file.value.lastIndexOf(".") + 1).toLowerCase();
       // gif在IE浏览器暂时无法显示
       if (ext != 'png' && ext != 'jpg' && ext != 'jpeg') {
@@ -1071,7 +1065,7 @@ export default {
         return;
       }
       this.html5Reader(file);
-	  this.show_z = true;
+      this.show_z = true;
     },
     changeF() {
       var pic = document.getElementById("fan"),
@@ -1082,7 +1076,7 @@ export default {
         return;
       }
       this.html5Reader(file);
-	  this.show_f = true;
+      this.show_f = true;
     },
     uploadFile_(myBase64, fn) {
       var self = this;
@@ -1090,93 +1084,81 @@ export default {
         if (self.cur_image_fn == 'zheng') {
           self.$set(self, 'contract_mama_id_card_zheng', res.raw);
           self.cur_image_fn = '';
-		  self.saveIt_();
+          self.saveIt_();
         } else if (self.cur_image_fn == 'fan') {
           self.$set(self, 'contract_mama_id_card_fan', res.raw);
           self.cur_image_fn = '';
-		  self.saveIt_();
+          self.saveIt_();
         }
       });
     },
-	quantianChecked() {
-	if(JSON.parse(this.dataJsonstr).readonly != '1'){
-	  console.log(33333333);
-	  this.contract_is_offer_allday_service = 'true';
-	  this.contract_is_offer_allday_ser = true;
+    quantianChecked() {
+      if (JSON.parse(this.dataJsonstr).readonly != '1') {
+        this.contract_is_offer_allday_service = 'true';
+        this.contract_is_offer_allday_ser = true;
         this.contract_master_price = this.master.yuesao_allday_price / 100;
-      this.saveIt_();
-	}
-	},
-	baibanChecked() {
-	if(JSON.parse(this.dataJsonstr).readonly != '1'){
-	  this.contract_is_offer_allday_service = 'false';
-	  this.contract_is_offer_allday_ser = false;
+        this.saveIt_();
+      }
+    },
+    baibanChecked() {
+      if (JSON.parse(this.dataJsonstr).readonly != '1') {
+        this.contract_is_offer_allday_service = 'false';
+        this.contract_is_offer_allday_ser = false;
         this.contract_master_price = this.master.yuesao_daytime_price / 100;
-      this.saveIt_();
-	}
-	},
-    contract_is_offer_allday_service_change_(fn) {
-	  console.log(this.contract_is_offer_allday_service );
-
+        this.saveIt_();
+      }
+    },
+    contract_is_offer_allday_service_change_() {
       if (this.contract_is_offer_allday_service == 'true') {
-		this.contract_is_offer_allday_ser = true;
+        this.contract_is_offer_allday_ser = true;
         this.contract_master_price = this.master.yuesao_allday_price / 100;
-      } else if(this.contract_is_offer_allday_service == 'false'){
-		this.contract_is_offer_allday_ser = false;
+      } else if (this.contract_is_offer_allday_service == 'false') {
+        this.contract_is_offer_allday_ser = false;
         this.contract_master_price = this.master.yuesao_daytime_price / 100;
       }
       this.saveIt_();
     },
-    contract_mama_name_change_(fn) {
-	  //contract_mama_name = this.contract_mama_name;
+    contract_mama_name_change_() {
       this.saveIt_();
     },
-    contract_mama_phone_number_change_(fn) {
-		contract_mama_phone_number = this.contract_mama_phone_number;
-		this.saveIt_();
+    contract_mama_phone_number_change_() {
+      contract_mama_phone_number = this.contract_mama_phone_number;
+      this.saveIt_();
     },
-    contract_mama_id_card_change_(fn, e) {
-        //contract_mama_id_card = this.contract_mama_id_card;
-        this.saveIt_();
+    contract_mama_id_card_change_() {
+      this.saveIt_();
     },
-	contract_shanghu_at_change_(){
-	contract_shanghu_at = this.contract_shanghu_at;
-	this.saveIt_();
-	
-	},
-    contract_shanghu_length_change_(fn) {
-      
-        var djb = 0.12; //定金比默认值
-        // 定金比分段函数
-        if (this.contract_shanghu_length <= 25 && this.contract_shanghu_length >= 16) {
-          djb = 0.2;
-        } else if (this.contract_shanghu_length <= 15 && this.contract_shanghu_length >= 10) {
-          djb = 0.3;
-        } else if (this.contract_shanghu_length <= 9 && this.contract_shanghu_length >= 0) {
-          djb = 1.0;
-        }
-        this.contract_deposit_min = djb; 
-
+    contract_shanghu_at_change_() {
+      contract_shanghu_at = this.contract_shanghu_at;
+      this.saveIt_();
+    },
+    contract_shanghu_length_change_() {
+      var djb = 0.12; //定金比默认值
+      // 定金比分段函数
+      if (this.contract_shanghu_length <= 25 && this.contract_shanghu_length >= 16) {
+        djb = 0.2;
+      } else if (this.contract_shanghu_length <= 15 && this.contract_shanghu_length >= 10) {
+        djb = 0.3;
+      } else if (this.contract_shanghu_length <= 9 && this.contract_shanghu_length >= 0) {
+        djb = 1.0;
+      }
+      this.contract_deposit_min = djb;
 
       this.saveIt_();
     },
-	contract_location_change_(){
-	contract_location = this.contract_location;
-	this.saveIt_();
-	},
-
+    contract_location_change_() {
+      contract_location = this.contract_location;
+      this.saveIt_();
+    },
 
     saveIt_() {
+      this.contract_price = Math.round(this.contract_master_price / 26 * this.contract_shanghu_length * 100) / 100;
+      this.contract_deposit = this.contract_shanghu_length > 42 ?
+        (this.contract_is_pay_monthly == 1 ?
+          Math.round(this.contract_master_price * this.contract_deposit_min * 100) / 100 :
+          Math.round(this.contract_deposit_min * this.contract_master_price / 26 * this.contract_shanghu_length * 100) / 100) :
+        Math.round(this.contract_deposit_min * this.contract_master_price / 26 * this.contract_shanghu_length * 100) / 100;
 
-     this.contract_price = Math.round(this.contract_master_price /26 * this.contract_shanghu_length * 100)/100;
-	 this.contract_deposit = this.contract_shanghu_length > 42 ? 
-			(this.contract_is_pay_monthly == 1 ? 
-			Math.round(this.contract_master_price * this.contract_deposit_min * 100)/100 : 
-			Math.round(this.contract_deposit_min * this.contract_master_price /26 * this.contract_shanghu_length*100)/100) :
-			Math.round(this.contract_deposit_min * this.contract_master_price /26 * this.contract_shanghu_length*100)/100;
-
-
-      // var data = this.props.data.order;
       var obj = {};
 
       if (contract_deposit_min == 1) {
@@ -1198,22 +1180,22 @@ export default {
       obj.is_show_pay_monthly_btn = this.contract_shanghu_length >= 42 ? true : false;
       obj.hardcode_deposit = this.hardcode_deposit;
       obj.pics = [];
-	  obj.mama_id = this.order.mama.id;
+      obj.mama_id = this.order.mama.id;
 
       API.wrapRet_(
         '/api/set_contract', obj,
-        function(isOk,res){
-		  if(isOk){
-		  console.log(res);
-		}
-	    });
+        function(isOk, res) {
+          if (isOk) {
+            console.log(res);
+          }
+        });
 
     },
-	contractDetail() {
-		var id = this.order.id;
-		var url = '/v2_show_ptg_full_contract?id=' + id + '&type=YSPD';
-		window.location.href = url;
-	},
+    contractDetail() {
+      var id = this.order.id;
+      var url = '/v2_show_ptg_full_contract?id=' + id + '&type=YSPD';
+      window.location.href = url;
+    },
 
     handleSubmit_(data, skip) {
       var pdata = JSON.parse(this.dataJsonstr);
@@ -1246,65 +1228,52 @@ export default {
           var idCardMod = idCardWiSum % 11; //计算出校验码所在数组的位置
           var idCardLast = idCard.substring(17); //得到最后一位身份证号码
           //如果等于2，则说明校验码是10，身份证号码最后一位应该是X
-               }
+        }
       }
-   
-      //var idCard_z = contract_mama_id_card_list[0];
-      //var idCard_f = contract_mama_id_card_list[1];
-	  var idCard_z = this.contract_mama_id_card_zheng;
-	  var idCard_f = this.contract_mama_id_card_fan;
-   //      if (!confirm("请确认填写的信息正确无误")) {
-//        return;
-//      }
 
+      var idCard_z = this.contract_mama_id_card_zheng;
+      var idCard_f = this.contract_mama_id_card_fan;
 
       var self = this;
       if (skip) {
-	console.log(skip);
+        console.log(skip);
         API.wrapRet_(
- 
+
           '/api/submit_contract', {
             'id': this.order.id,
           },
-	  	  function(isOk,res){
-			if (isOk) {
-			window.location.href = "https://mip.putibaby.com/order_list";
-			return;
-		  } else{
-		  	self.err=true;
-		  }
-		   console.log(res);
-	    	});
-
-
+          function(isOk, res) {
+            if (isOk) {
+              window.location.href = "https://mip.putibaby.com/order_list";
+              return;
+            } else {
+              self.err = true;
+            }
+            console.log(res);
+          });
 
       } else {
 
         var ele = document.getElementById('ptgconfirm');
-        // console.log(ele);
-        MIP.viewer.eventAction.execute('doshow', ele, { 
-          el_id: 'editcontract', 
-          title:'提示消息',
+
+        MIP.viewer.eventAction.execute('doshow', ele, {
+          el_id: 'editcontract',
+          title: '提示消息',
           msg: '确定合同填写无误?',
-          from: this.handleSubmit_, 
-          data: data });
-
+          from: this.handleSubmit_,
+          data: data
+        });
       }
-
-
     },
 
-     html5Reader(file) {
-       var that = this;
-       var file = file.files[0];
+    html5Reader(file) {
+      var that = this;
+      var file = file.files[0];
 
-    
-
-       toDataUrl_v2(file, function(myBase64) {
-         that.uploadFile_(myBase64, 'id_card_zheng');
-       });
-     }
+      toDataUrl_v2(file, function(myBase64) {
+        that.uploadFile_(myBase64, 'id_card_zheng');
+      });
+    }
   }
-
 }
 </script>

@@ -24,21 +24,27 @@
               上户城市：{{ data.info.expect_city }}
             </p>
           </div>
-          <div class="renZheng">
-           <span v-if="data.info.certificated">
-            <mip-img src="i/master_card_certificated.png" width="12px" height="12px" ></mip-img>
-            <span>身份认证</span>
-            </span>
-            <span v-if="data.info.market_certificated">
-            <mip-img src="i/market_certificated.png" width="12px" height="12px"></mip-img>
-            <span>推荐护理师</span>
-            </span>
+          <div class="renZheng">	
+			<a href="https://mip.putibaby.com/service_intro">
+          	 <span v-if="data.info.certificated">
+             <mip-img src="i/master_card_certificated.png" width="12px" height="12px" ></mip-img>
+             <span>身份认证</span>
+             </span>
+		   </a>
+			<a href="https://mip.putibaby.com/service_intro">
+             <span v-if="data.info.market_certificated">
+             <mip-img src="i/market_certificated.png" width="12px" height="12px"></mip-img>
+             <span>推荐护理师</span>
+             </span>
+		   </a> 
 			<a :href="'https://mip.putibaby.com/master_intro_detail?u='+data.info.username">
               <div class="details">基本资料详情</div>
             </a>
-            <span v-if="data.info.is_credited">
-              <mip-img src="i/yinzhang.png" width="70px" height="70px" class="yinzhang"></mip-img>
-            </span>
+			<a href="https://mip.putibaby.com/service_intro">
+             <span v-if="data.info.is_credited">
+               <mip-img src="i/yinzhang.png" width="60px" height="60px" class="yinzhang"></mip-img>
+             </span>
+		   </a> 
           </div>
         </div>
         <div class="line"></div>
@@ -125,7 +131,7 @@
       <p v-if="data.xc_list.length == 0">没有照片</p>
       <div v-if="data.xc_list.length > 0">
           <mip-img v-for="pic in data.xc_list" layout="responsive" popup width="70px" height="70px"
-           :src="pic.small" ></mip-img>            
+           :src="pic.big" ></mip-img>            
       </div>
 
     </div>
@@ -142,7 +148,7 @@
     </a>
     <div class="pingJia">
 
-      <p v-if="data.shanghu_data.cc == 0" >没有评价</p>
+	  <p v-if="data.shanghu_data.cc == 0" class="no_pj" ><mip-img src="i/no_pj.png" width="131px" height="12.5px"></mip-img></p>
       <div v-else>
         <table>
           <tbody>
@@ -192,7 +198,7 @@
                 <p class="cE_article">
                   {{ data.last_feedback.feedback.comment }}
                 </p>
-                  <mip-img v-for="p in data.last_feedback.feedback.pics" layout="responisve" width="50px" height="50px" :src="p.small" ></mip-img>
+                  <mip-img v-for="p in data.last_feedback.feedback.pics" layout="responisve" width="50px" height="50px" :src="p.big" ></mip-img>
               </td>
             </tr>
           </tbody>
@@ -237,6 +243,11 @@
 
 
 <style scoped>
+.no_pj{
+	text-align:center;
+	padding-top:10px;
+	padding-bottom:15px;
+}
 .wrapper {
   margin: 0 auto;
   text-align: center;
@@ -325,6 +336,7 @@ body{
 }
 .renZheng span:nth-of-type(1){
  margin-right:10px;
+ color:#fff;
 }
 .renZheng img{
     width: 12px;
@@ -387,8 +399,8 @@ body{
 
 .yinzhang{
   position: absolute;
-  top:13px;
-  right: 27px;
+  top:15px;
+  right: 30px;
 }
     
 .albumCard{
@@ -735,6 +747,10 @@ td.secondCol {
 
 .expectCity{
     margin-top: 10px;
+	width:210px;
+	text-overflow: ellipsis;
+    overflow: hidden;
+	white-space: nowrap;
 }
 
 .red{

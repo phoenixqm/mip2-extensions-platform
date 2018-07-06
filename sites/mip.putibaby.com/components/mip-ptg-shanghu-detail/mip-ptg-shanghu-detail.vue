@@ -11,15 +11,10 @@
       <table class="stat_table">
         <tbody>
         <tr>
-        <td class="stat_td_1">上户次数</td>
-        <td class="stat_td_1">上户天数</td>
+        <td class="stat_td_1">上户次数</br><span>{{ info.time }}</span>次 </td>
+        <td class="stat_td_2">上户天数</br><span>{{ info.days }}</span>天</td>
         </tr>
-
-        <tr>
-        <td class="stat_td_2">{{ info.time }}次</td>
-        <td class="stat_td_3">{{ info.days }}天</td>
-        </tr>
-        </tbody>
+         </tbody>
       </table>
       </div>
     </div>
@@ -228,41 +223,53 @@
 }
 
 .block_1 {
-  margin: 10px;
+  margin-top: 10px;
   border-radius: 4px;
   overflow: hidden;
 }
 
 .interval {
-  background: #EFEFEF;
-  font-size: 12px;
-  color: #666;
-  height: 40px;
-  line-height: 40px;
-  text-align: center
+  background: #afd03b;
+  font-size: 13px;
+  color: #FFF;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
 }
 
 .stat {
-  height: 70px;
-  box-shadow: #ccc 0px 2px 5px;
   background: #fff;
+  border-radius:5px;
 }
 
 .stat_table {
   width: 100%;
   height: 100%;
+  padding-top:20px;
+  padding-bottom:15px;
+  margin-bottom:10px;
 }
-
+.stat_table span{
+	color:#afd03b;
+	font-size:18px;
+}
 .stat_td_1 {
-  font-size: 12px;
-  line-height: 2px;
-  text-align: center;
-  width: 50%;
+	font-size: 13px;
+    line-height: 24px;
+    text-align: center;
+    width: 50%;
+    height: 44px;
+    border-right: solid 1px #e5e5e5;
+    color: #666;
 }
 
 .stat_td_2 {
-  color: #72DDFF;
-  text-align: center;
+	font-size: 13px;
+    line-height: 24px;
+    text-align: center;
+    width: 50%;
+    height: 44px;
+    color: #666;
 }
 
 .stat_td_3 {
@@ -278,12 +285,14 @@
 }
 
 .block_2_title {
-  background: #EFEFEF;
-  font-size: 14px;
-  color: #666;
-  height: 40px;
-  line-height: 40px;
-  padding-left: 10px;
+	height: 30px;
+    color: #fff;
+    line-height: 30px;
+    font-size: 14px;
+    cursor: pointer;
+    background: #6BD4FA;
+    padding: 0px 10px;
+    border-radius: 5px 5px 0px 0px;
 }
 
 .star_row {
@@ -322,8 +331,8 @@
   padding-bottom:10px;
 }
 .stars{
-height:40px;
-line-height:40px;
+height:44px;
+line-height:44px;
 }
 </style>
 

@@ -4,14 +4,14 @@
   <mip-form method="get" url="https://www.mipengine.org?we=123">
     <div class="warn">
       <span class="span">尊敬的用户：</span><br>
-	  <span>为了能让菩提果的老师和月嫂更好的为您服务，需要您提供正确的手机号码：</span>
+      <span>为了能让菩提果的老师和月嫂更好的为您服务，需要您提供正确的手机号码：</span>
     </div>
     <div class="get">
       <input id="ph" class="ph" type="number" placeholder="请输入您的手机号码" v-model="phoneNumber" v-on:input="changePhoneNumber_">
-      <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:input="changeVerifySms_" >
-	  <input class="smsSend" type="button" @click="getVerify_" v-bind:disabled="smsDisabled" v-bind:value="text" ></input>
+      <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:input="changeVerifySms_">
+      <input class="smsSend" type="button" @click="getVerify_" v-bind:disabled="smsDisabled" v-bind:value="text"></input>
     </div>
-	<div id="err" class="err" v-if="err">{{errMessage}}</div>
+    <div id="err" class="err" v-if="err">{{errMessage}}</div>
     <div class="submit">
       <input class="submitbtn" type="submit" value="确认提交" v-on:click="handleSubmit_" v-bind:disabled="subDisabled" />
     </div>
@@ -61,7 +61,7 @@ a:hover {
 .root {
   background: #fff;
   font-size: 14px;
-  width:100%;
+  width: 100%;
   padding-left: 15px;
   padding-right: 15px;
 }
@@ -69,20 +69,22 @@ a:hover {
 .warn {
   color: rgba(102, 102, 102);
   position: relative;
-  margin-top:20px;
+  margin-top: 20px;
 }
+
 .warn span:nth-of-type(1) {
   color: #333333;
   font-size: 15px;
   position: relative;
-  display:inline-block;
+  display: inline-block;
 }
+
 .warn span:nth-of-type(2) {
   color: #666;
   font-size: 14px;
   left: 0px;
   position: relative;
-  display:inline-block;
+  display: inline-block;
   margin-top: 10px;
 }
 
@@ -92,22 +94,23 @@ a:hover {
   height: 100px;
   position: relative;
 }
-.get .btn1{
-	position: relative;
-    width: 42%;
-    right: -228px;
-    top: 49px;
-    height: 38px;
-border-radius:4px;
-    border-style: none;
-    background-color: #46ab49;
-    color: #fff;
-    text-align: center;
+
+.get .btn1 {
+  position: relative;
+  width: 42%;
+  right: -228px;
+  top: 49px;
+  height: 38px;
+  border-radius: 4px;
+  border-style: none;
+  background-color: #46ab49;
+  color: #fff;
+  text-align: center;
 
 }
 
 .ph {
-  -webkit-appearance:none;
+  -webkit-appearance: none;
   position: relative;
   display: block;
   border: 1px solid #e5e5e5;
@@ -121,7 +124,7 @@ border-radius:4px;
 }
 
 .code {
-  -webkit-appearance:none;
+  -webkit-appearance: none;
   position: relative;
   top: 20px;
   display: block;
@@ -149,11 +152,11 @@ border-radius:4px;
   text-align: center;
   background: #fff;
   color: #afd03b;
-font-size: 14px;
-border: 1px solid #afd03b;
+  font-size: 14px;
+  border: 1px solid #afd03b;
   cursor: pointer;
   width: 40%;
-height: 44px;
+  height: 44px;
 
 }
 
@@ -171,11 +174,11 @@ height: 44px;
   text-align: center;
   border-radius: 4px;
   margin: 0 auto;
-  border-style:none;
-  position:relative;
+  border-style: none;
+  position: relative;
   top: 30px;
   height: 47px;
-  font-size:18px;
+  font-size: 18px;
 }
 </style>
 
@@ -220,11 +223,6 @@ API.wrapRet_ = function(api, opts, cb) {
 
 
 API.sendPhoneNumberVerifySms = function(phoneNumber, cb) {
-  // if (!/^1\d{10}$/.test(phoneNumber)) {
-  //   cb(false, '错误的手机号');
-  //   return;
-  // }
-
   API.wrapRet_(
     '/api/send_sms', {
       'phone_number': phoneNumber
@@ -232,19 +230,11 @@ API.sendPhoneNumberVerifySms = function(phoneNumber, cb) {
     cb);
 }
 
-
 API.sendPhoneNumberVerifySmsWithGt = function(phoneNumber, cb) {
   if (!/^1\d{10}$/.test(phoneNumber)) {
     cb(false, '错误的手机号');
     return;
   }
-
-  // if (window.gt_loading) {
-  //  setTimeout(function(){
-  //      window.gt_loading = false;
-  //  }, 100);
-  //  return;
-  // }
 
   var handler = function(captchaObj) {
     // captchaObj.appendTo('#captcha');
@@ -297,15 +287,6 @@ API.sendPhoneNumberVerifySmsWithGt = function(phoneNumber, cb) {
 }
 
 API.verifyPhoneNumber = function(phoneNumber, sms, cb) {
-  // if (!/^1\d{10}$/.test(phoneNumber)) {
-  //   cb(false, '错误的手机号');
-  //   return;
-  // }
-  //
-  // if (!/^\d{4,6}$/.test(sms)) {
-  //   cb(false, '错误的验证码');
-  //   return;
-  // }
 
   API.wrapRet_(
     '/api/verify_sms', {
@@ -333,20 +314,20 @@ export default {
     }
   },
   data() {
-    console.log('data:',this);
+    console.log('data:', this);
     var pdata = JSON.parse(this.dataJsonstr);
     return {
       errPhoneNumber: false,
       errSms: false,
       phoneNumber: '',
       sms: '',
-	  text:'获取验证码',
-	  djs:0,
-	  verifyInput:true,
-	  smsDisabled:true,
-	  subDisabled:true,
-	 err:false,
-	 errMessage:'',
+      text: '获取验证码',
+      djs: 0,
+      verifyInput: true,
+      smsDisabled: true,
+      subDisabled: true,
+      err: false,
+      errMessage: '',
     }
   },
   computed: {
@@ -362,84 +343,78 @@ export default {
     },
     changePhoneNumber_() {
       if (!/^1\d{10}$/.test(this.phoneNumber)) {
-		this.errMessage='请输入正确的手机号码';
-		this.err = true;
+        this.errMessage = '请输入正确的手机号码';
+        this.err = true;
       } else {
-		this.smsDisabled=false;
-		this.errMessage='';
-		this.err=false;
+        this.smsDisabled = false;
+        this.errMessage = '';
+        this.err = false;
       }
     },
     changeVerifySms_() {
       if (!/^\d{4,6}$/.test(this.sms)) {
-		this.errMessage = '请输入正确的验证码';
-		this.err=true;
+        this.errMessage = '请输入正确的验证码';
+        this.err = true;
       } else {
-		this.subDisabled=false;
-		this.errMessage='';
+        this.subDisabled = false;
+        this.errMessage = '';
         this.err = false;
       }
     },
-	daojishi_() {
-	  if(this.djs == 1){
-		var self = this;
-		var t = 60;
-		var daojishi = setInterval(function(){
-		  self.errMessage='';
-		  self.err=false;
-		  t--;
-			self.text = t + 'S后可重新获取';
-			if( t ==0 ){
-			  self.text='获取验证码';
-			clearInterval(daojishi);
-		  }
-		},1000);
-	  }
-	},
+    daojishi_() {
+      if (this.djs == 1) {
+        var self = this;
+        var t = 60;
+        var daojishi = setInterval(function() {
+          self.errMessage = '';
+          self.err = false;
+          t--;
+          self.text = t + 'S后可重新获取';
+          if (t == 0) {
+            self.text = '获取验证码';
+            clearInterval(daojishi);
+          }
+        }, 1000);
+      }
+    },
     getVerify_() {
-	this.verifyInput=false;
-	  this.djs=1;
-	  var self = this;
-	   API.sendPhoneNumberVerifySms(this.phoneNumber, function(isOk, res) {
-		 console.log('isok',isOk);
-		 console.log('isok',res);
-		 if (isOk) {
-			self.daojishi_();
-		 } else {
-			self.errMessage='该号码已注册';
-			self.err=true;
-		 }
+      this.verifyInput = false;
+      this.djs = 1;
+      var self = this;
+      API.sendPhoneNumberVerifySms(this.phoneNumber, function(isOk, res) {
+        if (isOk) {
+          self.daojishi_();
+        } else {
+          self.errMessage = '该号码已注册';
+          self.err = true;
+        }
       });
     },
     handleSubmit_() {
 
-   		var self = this;
+      var self = this;
 
-	if (!/^1\d{10}$/.test(this.phoneNumber)) {
-		console.log('phonenumber:',this.phoneNumber);
+      if (!/^1\d{10}$/.test(this.phoneNumber)) {
         self.errMessage = '请输入正确的手机号码';
         self.err = true;
       } else {
+        if (!/^\d{4,6}$/.test(this.sms)) {
+          self.errMessage = '请输入正确的验证码';
+          self.err = true;
+        } else {
+          self.errMessage = '';
+          self.err = false;
+          API.verifyPhoneNumber(this.phoneNumber, this.sms, function(isOk, res) {
+            if (isOk) {
 
-
-   if (!/^\d{4,6}$/.test(this.sms)) {
-        self.errMessage = '请输入正确的验证码';
-        self.err = true;
-      } else {
-		self.errMessage = '';
-		self.err=false;
-  	API.verifyPhoneNumber(this.phoneNumber, this.sms, function(isOk, res) {
-	  if(isOk){
-      
-       window.location.href = JSON.parse(self.dataJsonstr).redirect;
-	 }else {
-	   self.errMessage='请输入正确的验证码';
-	   self.err=true;
-	 }
-});
-
-      }     
-      }		
+              window.location.href = JSON.parse(self.dataJsonstr).redirect;
+            } else {
+              self.errMessage = '请输入正确的验证码';
+              self.err = true;
+            }
+          });
+        }
+      }
 
     },
   }

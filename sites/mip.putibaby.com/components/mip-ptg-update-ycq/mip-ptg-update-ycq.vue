@@ -2,43 +2,41 @@
 <template>
 <div class="root">
   <p class="title">需要您填写如下信息，让我们帮您更好的推荐。</p>
-  <!--<mip-form method="get" url="http://mip.putibaby.com/update_ycq_ok" name="mip-form" class='mip_form'>-->
-    <h4>您希望找：</h4>
-<div class="gap"></div>
-<div class="ygap"></div>
-    <table class="radio">
-      <tr>
-        <td>
-          <div class="yuesao" :class="{'checked': tuijian,'unchecked':!tuijian}" @click="Checked"></div>
-          <input type="radio" name="masterType" value="true" v-on:change="checked_" :checked="tuijian" v-model="tuijian">月嫂&nbsp;&nbsp;&nbsp;&nbsp;
-          <span class="grayys">在月子期间护理新生儿和产妇</span></td>
-      </tr>
-      <tr>
-        <td>
-          <div class="yuer" :class="{'checked': !tuijian,'unchecked':tuijian}" @click="Checked"></div>
-          <input type="radio" name="masterType" value="false" v-on:change="checked_" :checked="!tuijian" v-model="tuijian">育儿嫂&nbsp;&nbsp;&nbsp;&nbsp;
-          <span class="grayyrs">为0-3岁幼儿提供照料和早教服务</span></td>
-      </tr>
-    </table>
-    <p class="margin"> </p>
-    <table class="name_table">
-      <tr>
-        <td>姓名：</td>
-        <td><input type="text" name="name" class="name your_name" v-model="name" required="required" placeholder="请填写您的称呼"></td>
-      </tr>
-	</table>
-	<div class="g"></div>
-    <table class="ycq_table">
-      <tr>
-        <td class="ycq_td">宝宝生日\预产期：</td>
-        <td><input type="date" name="ycq" class="name ycq" v-model="date" required="required" ></td>
-		<!--<div class="date" @click="dateCheck"></div>-->
-      </tr>
-    </table>
-	<div class="err" v-show="rea">请填写姓名和宝宝预产期</div>
-	<div class="gl"></div>
-    <input type="submit" name="提交" class="submit" @click="handleSubmit_">
-  <!--</mip-form>-->
+  <h4>您希望找：</h4>
+  <div class="gap"></div>
+  <div class="ygap"></div>
+  <table class="radio">
+    <tr>
+      <td>
+        <div class="yuesao" :class="{'checked': tuijian,'unchecked':!tuijian}" @click="Checked"></div>
+        <input type="radio" name="masterType" value="true" v-on:change="checked_" :checked="tuijian" v-model="tuijian">月嫂&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="grayys">在月子期间护理新生儿和产妇</span></td>
+    </tr>
+    <tr>
+      <td>
+        <div class="yuer" :class="{'checked': !tuijian,'unchecked':tuijian}" @click="Checked"></div>
+        <input type="radio" name="masterType" value="false" v-on:change="checked_" :checked="!tuijian" v-model="tuijian">育儿嫂&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="grayyrs">为0-3岁幼儿提供照料和早教服务</span></td>
+    </tr>
+  </table>
+  <p class="margin"> </p>
+  <table class="name_table">
+    <tr>
+      <td>姓名：</td>
+      <td><input type="text" name="name" class="name your_name" v-model="name" required="required" placeholder="请填写您的称呼"></td>
+    </tr>
+  </table>
+  <div class="g"></div>
+  <table class="ycq_table">
+    <tr>
+      <td class="ycq_td">宝宝生日\预产期：</td>
+      <td><input type="date" name="ycq" class="name ycq" v-model="date" required="required"></td>
+    </tr>
+  </table>
+  <div class="err" v-show="rea">请填写姓名和宝宝预产期</div>
+  <div class="gl"></div>
+  <input type="submit" name="提交" class="submit" @click="handleSubmit_">
+
 </div>
 </template>
 
@@ -70,68 +68,73 @@ body {
   font-size: 14px;
   color: #333;
 }
+
 h4 {
   color: #666;
-font-weight: normal;
-position:relative;
-padding-left:15px;
+  font-weight: normal;
+  position: relative;
+  padding-left: 15px;
 }
+
 .gap {
-width:100%;
-height:1px;
-background: #e5e5e5;
-position:relative;
-margin-top:10px;
+  width: 100%;
+  height: 1px;
+  background: #e5e5e5;
+  position: relative;
+  margin-top: 10px;
 }
+
 .ygap {
-height:1px;
-width:89.3%;
-position:relative;
-left:50%;
-margin-left:-44.65%;
-background:#e5e5e5;
-top:47px;
-z-index:22;
+  height: 1px;
+  width: 89.3%;
+  position: relative;
+  left: 50%;
+  margin-left: -44.65%;
+  background: #e5e5e5;
+  top: 47px;
+  z-index: 22;
 }
 
 .title {
   margin: 20px 10px 15px 15px;
   color: #333;
-font-size: 15px;
+  font-size: 15px;
 }
-mip-form {
 
-}
-input[type='radio']{
-margin-right: 10px;
-margin-left: 5px;
-position:relative;
-top:5px;
-opacity:0;
+mip-form {}
+
+input[type='radio'] {
+  margin-right: 10px;
+  margin-left: 5px;
+  position: relative;
+  top: 5px;
+  opacity: 0;
 }
 
 .grayys {
-font-size:14px;;
+  font-size: 14px;
+  ;
   color: #666;
   position: absolute;
-left: 105px;
-display:inline-block;
-width:210px;
-height:44px;
-line-height:44px;
-top:2px;
+  left: 105px;
+  display: inline-block;
+  width: 210px;
+  height: 44px;
+  line-height: 44px;
+  top: 2px;
 
 }
+
 .grayyrs {
-font-size:14px;
+  font-size: 14px;
   color: #666;
   position: absolute;
-left: 105px;
-top:48px;
-display:inline-block;
-width:210px;
-height:44px;
-line-height:44px;
+  left: 105px;
+  top: 48px;
+  display: inline-block;
+  width: 210px;
+  height: 44px;
+  line-height: 44px;
 
 }
 
@@ -147,23 +150,25 @@ table tr td {
 
 
 .radio {
-position: relative;
+  position: relative;
   padding-left: 15px;
-padding-right: 15px;
+  padding-right: 15px;
 }
+
 .name_table {
   position: relative;
   left: 15px;
 }
+
 .ycq_table {
   position: relative;
   left: 15px;
 }
 
 .submit {
-	position:relative;
-left: 50%;
-margin-left: -44.65%;
+  position: relative;
+  left: 50%;
+  margin-left: -44.65%;
   outline: none;
   -webkit-appearance: none;
   border-radius: 5px;
@@ -175,7 +180,7 @@ margin-left: -44.65%;
   background-color: #afd03b !important;
   color: #fff !important;
   margin-top: 30px;
-font-size: 18px;
+  font-size: 18px;
 }
 
 .margin {
@@ -196,86 +201,94 @@ font-size: 18px;
 .your_name {
   border: none !important;
   font-size: 14px !important;
-position: absolute;
-left:90px;
-top:16px;
-color:#999;
+  position: absolute;
+  left: 90px;
+  top: 16px;
+  color: #999;
 
 }
 
 .ycq_table {
   width: 95%;
 }
-.ycq_td{
-  width:120px;
+
+.ycq_td {
+  width: 120px;
 }
+
 .ycq {
   background-color: #fff;
   border: solid 1px #e5e5e5;
-  width:120px;
-  height:30px;
-  line-hight:10px;
-color:#666666;
-font-size:14px;
--webkit-appearance:none;
+  width: 120px;
+  height: 30px;
+  line-hight: 10px;
+  color: #666666;
+  font-size: 14px;
+  -webkit-appearance: none;
 }
+
 .checked {
-background-image: url('/i/balance_checked.png');
-background-size: 22px 22px;
-width:22px;
-height:22px;
-position:absolute;
-top:20px;
-z-index:22;
+  background-image: url('/i/balance_checked.png');
+  background-size: 22px 22px;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  top: 20px;
+  z-index: 22;
 }
+
 .unchecked {
-background-image: url('/i/balance_unchecked.png');
-background-size: 22px 22px;
-width:22px;
-height:22px;
-position:absolute;
-top: 20px;
-z-index:22;
+  background-image: url('/i/balance_unchecked.png');
+  background-size: 22px 22px;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  top: 20px;
+  z-index: 22;
 }
+
 .yuesao {
-left:15px;
-top: 13px;
+  left: 15px;
+  top: 13px;
 }
+
 .yuer {
-left:15px;
-top:59px;
+  left: 15px;
+  top: 59px;
 }
+
 .date {
-background-image: url('/i/date_checked.png');
-background-size:22px 22px;
-width: 22px;
-height:22px;
-z-index:22;
-position:absolute;
-left:210px;
-top:6px;
+  background-image: url('/i/date_checked.png');
+  background-size: 22px 22px;
+  width: 22px;
+  height: 22px;
+  z-index: 22;
+  position: absolute;
+  left: 210px;
+  top: 6px;
 }
+
 .g {
-width:89.3%;
-background:#e5e5e5;
-height:1px;
-position:relative;
-left:50%;
-margin-left:-44.65%;
+  width: 89.3%;
+  background: #e5e5e5;
+  height: 1px;
+  position: relative;
+  left: 50%;
+  margin-left: -44.65%;
 }
+
 .gl {
-height:1px;
-position:relative;
-background:#e5e5e5;
+  height: 1px;
+  position: relative;
+  background: #e5e5e5;
 }
+
 .err {
-position:absolute;
-left:15px;
-color:#ff0000;
-padding-top: 5px;
+  position: absolute;
+  left: 15px;
+  color: #ff0000;
+  padding-top: 5px;
 }
-
-
 </style>
 
 <script>
@@ -317,7 +330,6 @@ API.wrapRet_ = function(api, opts, cb) {
     });
 }
 
-
 API.uploadFile = function(data, cb) {
   API.wrapRet_(
     '/api/upload_image', {
@@ -326,7 +338,6 @@ API.uploadFile = function(data, cb) {
     },
     cb);
 };
-
 
 export default {
   mounted() {
@@ -350,17 +361,15 @@ export default {
   data() {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
-    console.log('1111:', pdata);
+
     var data = pdata.order;
 
     return {
       rea: false,
       dateChecked: true,
-      name:'',
-      date:'',
-	  tuijian:true,
-
-
+      name: '',
+      date: '',
+      tuijian: true,
     }
   },
   computed: {
@@ -370,38 +379,30 @@ export default {
     init() {
       console.log('should loading');
       console.log(this.dataJson);
-
     },
     load_data() {
       console.log('should set data');
     },
 
-   
-	Checked(){
-	this.tuijian = !this.tuijian;
+    Checked() {
+      this.tuijian = !this.tuijian;
 
-	},
-
-    handleSubmit_() {
-	  if(this.name =='' || this.date ==''){
-	  this.rea = true;
-	  return;
-	  }
-
-if(this.tuijian == true){
-var masterType='yuesao';
-}else{
-var masterType='yuersao';
-}
-var url = '/update_ycq_ok?name='+ this.name +'&ycq='+ this.date +'&masterType='+masterType;
-console.log('pdate:',url);
-
-window.location.href = url;
- 
     },
+    handleSubmit_() {
+      if (this.name == '' || this.date == '') {
+        this.rea = true;
+        return;
+      }
+      if (this.tuijian == true) {
+        var masterType = 'yuesao';
+      } else {
+        var masterType = 'yuersao';
+      }
+      var url = '/update_ycq_ok?name=' + this.name + '&ycq=' + this.date + '&masterType=' + masterType;
 
+      window.location.href = url;
 
+    },
   }
-
 }
 </script>

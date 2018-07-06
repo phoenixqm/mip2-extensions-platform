@@ -1,12 +1,8 @@
 
 <template>
 <div class='root'>
-  <!--<mip-form method="get" url="https://www.mipengine.org?we=123">-->
-    <textarea class="textarea" name="edit_contract_extra" validatetype="must" :readonly="rea" required placeholder="点击输入补充条款，如：上户遇节假日工资多倍结算/休息日约定；双胞胎加收金额；特殊上户要求等……" v-model="contract_extra" v-on:change='saveIt_'></textarea>
-	<input class="mbtn" type="submit" value="提交" @click="submit_" v-show="!rea"></input>
-
-	<!--</mip-form>-->
-
+  <textarea class="textarea" name="edit_contract_extra" validatetype="must" :readonly="rea" required placeholder="点击输入补充条款，如：上户遇节假日工资多倍结算/休息日约定；双胞胎加收金额；特殊上户要求等……" v-model="contract_extra" v-on:change='saveIt_'></textarea>
+  <input class="mbtn" type="submit" value="提交" @click="submit_" v-show="!rea"></input>
 </div>
 </template>
 
@@ -57,8 +53,8 @@ a:hover {
 }
 
 .textarea {
-  -webkit-appearance:none;
-  position:relative;
+  -webkit-appearance: none;
+  position: relative;
   display: block;
   width: 92%;
   height: 300px;
@@ -67,15 +63,15 @@ a:hover {
   background: #fff;
   color: #666;
   line-height: 18px;
-  font-size:14px;
-  border-radius:5px;
-  padding-top:10px;
-  padding-left:10px;
-  box-sizing:border-box;
+  font-size: 14px;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-left: 10px;
+  box-sizing: border-box;
 }
 
 .mbtn {
-  -webkit-appearance:none;
+  -webkit-appearance: none;
   background: #afd03b;
   color: #fff;
   width: 89.3%;
@@ -144,21 +140,18 @@ API.wrapRet_ = function(api, opts, cb) {
 }
 
 
-API.saveIt_ = function( opts,cb) {
+API.saveIt_ = function(opts, cb) {
   API.wrapRet_(
     '/api/set_contract', {
       'contract_extra': opts.contract_extra,
-	  'id':opts.id,
-	  'order_id':opts.id,
+      'id': opts.id,
+      'order_id': opts.id,
     },
     cb);
 }
-
-
-
 export default {
-  beforeMounted(){
-	API.getExtra_();
+  beforeMounted() {
+    API.getExtra_();
   },
   mounted() {
     console.log('This is my first custom component !')
@@ -179,18 +172,17 @@ export default {
   data() {
     console.log('data:', this);
     var pdata = JSON.parse(this.dataJsonstr);
-	if(pdata.readonly!='1'){
-	var readonly = false;
-  }else{
-  var readonly = true;
-  }
-  if(pdata.readonly == '1' && pdata.contract_extra == ''){
-  pdata.contract_extra ='无补充条款';
-  }
+    if (pdata.readonly != '1') {
+      var readonly = false;
+    } else {
+      var readonly = true;
+    }
+    if (pdata.readonly == '1' && pdata.contract_extra == '') {
+      pdata.contract_extra = '无补充条款';
+    }
     return {
-	  rea:readonly,
-		contract_extra:pdata.contract_extra ,
-
+      rea: readonly,
+      contract_extra: pdata.contract_extra,
     }
   },
   computed: {
@@ -204,23 +196,23 @@ export default {
     load_data() {
       console.log('should set data');
     },
-	saveIt_() { 
-	  var self = this;
-	  var opts={};
-	  opts.contract_extra=self.contract_extra;
-	  opts.id = JSON.parse(self.dataJsonstr).id;
-	  API.saveIt_(opts,function(isOk,res){
-		if(isOk){
-	console.log('success');
-	  }else{
+    saveIt_() {
+      var self = this;
+      var opts = {};
+      opts.contract_extra = self.contract_extra;
+      opts.id = JSON.parse(self.dataJsonstr).id;
+      API.saveIt_(opts, function(isOk, res) {
+        if (isOk) {
+          console.log('success');
+        } else {
 
-	  }
-	  });
+        }
+      });
 
-	},
+    },
     submit_() {
-	    var self = this;
-		  window.location.href ='/edit_contract?id=' + JSON.parse(self.dataJsonstr).id;
+      var self = this;
+      window.location.href = '/edit_contract?id=' + JSON.parse(self.dataJsonstr).id;
 
     },
   }

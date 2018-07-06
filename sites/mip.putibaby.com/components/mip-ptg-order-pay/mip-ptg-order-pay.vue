@@ -23,8 +23,8 @@
     <div class="row" @click="useBalancePay">
       <div class="left">余额支付
 	  	<div class="shengyu">(剩余:
-		  <span class="text_red">{{(data.reward_balance/100).toFixed(2)}}
-		  </span>元)
+      <span class="text_red">{{(data.reward_balance/100).toFixed(2)}}
+      </span>元)
 	  </div>
 	  </div>
 
@@ -46,7 +46,7 @@
                     "subject":"支付商品",
                     "sessionId": "{{ data.sessionId }}",
                     "fee": {{ (inservicePayAmount/100).toFixed(2) }},
-                    "redirectUrl": "https://mip.putibaby.com/api/pay/verifypay",
+                    "redirectUrl": "https://mip.putibaby.com/pay/verifypay",
                     "endpoint":{
                         "baifubao":  "https://mip.putibaby.com/api/pay/baifubao",
                         "alipay":  "https://mip.putibaby.com/api/pay/alipay",
@@ -54,21 +54,19 @@
                     },
                     "postData":{
                         "orderId": {{ data.order_number }},
-						"pay_id": {{ data.pay_id }},
+                        "pay_id": {{ data.pay_id }},
                         "token": "{{ data.token }}",
                         "useBalance": false,
-						"amount" : {{ inservicePayAmount }},
-						"balance_amount" : 0,
-						"fee": {{ (inservicePayAmount/100).toFixed(2) }}
-						
-
+                        "amount" : {{ inservicePayAmount }},
+                        "balance_amount" : 0,
+                        "fee": {{ (inservicePayAmount/100).toFixed(2) }}
                     }
                 }
             }
         </script>
     </mip-data>
     <mip-inservice-pay m-bind:pay-config="payConfig" id="payDialog"></mip-inservice-pay>
-	<button class="button" v-if="inservicePayAmount>0" on="tap:payDialog.toggle">确定支付</button>
+    <button class="button" v-if="inservicePayAmount>0" on="tap:payDialog.toggle">确定支付</button>
     <button class="button" v-else  @click="submitBalancePay" >余额支付</button>
 
     <p class="tip">温馨提示：如果您使用百度极速支付过程中遇到问题。请拨打菩提果客户服务电话： 400-618-8835。</p>
@@ -288,55 +286,57 @@ export default {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
     console.log('padta:',pdata);
-	
-	var pay_config = {
-                    "subject":"支付商品",
-                    "fee": (pdata.payamount/100).toFixed(2),
-                    "sessionId": pdata.sessionId,
-                    "redirectUrl": "https://mip.putibaby.com/api/pay/verifypay",
-                    "endpoint":{
-                        "baifubao":  "https://mip.putibaby.com/api/pay/baifubao",
-                        "alipay":  "https://mip.putibaby.com/api/pay/alipay",
-                        "weixin":  "https://mip.putibaby.com/api/pay/weixin"
-                    },
-                    "postData":{
-						"orderId": pdata.order_number,
-						"order_type": pdata.type,
-						"pay_id": pdata.pay_id,
-						"useBalance" : false,
-						"token": pdata.token,
-                    	"fee": (pdata.payamount/100).toFixed(2),
-						"amount" : pdata.payamount,
-						"balance_amount": 0,
-						"anyData" :{}
-                    }
-                };
+  
+    var pay_config = {
+        "subject":"支付商品",
+        "fee": (pdata.payamount/100).toFixed(2),
+        "sessionId": pdata.sessionId,
+        "redirectUrl": "https://mip.putibaby.com/pay/verifypay",
+        "endpoint":{
+            "baifubao":  "https://mip.putibaby.com/api/pay/baifubao",
+            "alipay":  "https://mip.putibaby.com/api/pay/alipay",
+            "weixin":  "https://mip.putibaby.com/api/pay/weixin"
+        },
+        "postData":{
+            "orderId": pdata.order_number,
+            "order_type": pdata.type,
+            "pay_id": pdata.pay_id,
+            "useBalance" : false,
+            "token": pdata.token,
+            "fee": (pdata.payamount/100).toFixed(2),
+            "amount" : pdata.payamount,
+            "balance_amount": 0,
+            "anyData" :{}
+        }
+    };
 
-	MIP.setData({payConfig: pay_config});
+	  MIP.setData({payConfig: pay_config});
+
     return {
       data:pdata,
       balanceChecked:false,
       inservicePayChecked:false,
-	  "payConfig": pay_config   }
+	    "payConfig": pay_config   
+    }
   },
   computed: {
     inservicePayAmount : function(){
       if (this.balanceChecked) {
-		if(this.data.payamount<=this.data.reward_balance){
-			return 0;
-		}
+        if(this.data.payamount <= this.data.reward_balance){
+          return 0;
+        }
         return this.data.payamount - this.data.reward_balance;
       } else {
         return this.data.payamount;
       }
     },
-	balancePayAmount: function(){
-		if(this.data.payamount>=this.data.reward_balance){
-			return this.data.reward_balance;
-		  }else{
-		  	return this.data.payamount;
-		  }
-	},
+	  balancePayAmount: function(){
+      if(this.data.payamount>=this.data.reward_balance){
+    	  return this.data.reward_balance;
+      } else {
+      	return this.data.payamount;
+      }
+	  },
   },
   methods: {
     init() {
@@ -357,40 +357,42 @@ export default {
     useBalancePay() {
       console.log('using balance');
       this.$set(this, 'balanceChecked', !this.balanceChecked);
-	  if (this.balanceChecked) {
-		this.payConfig.postData.useBalance = true;
-		this.payConfig.postData.amount = this.data.payamount - this.data.reward_balance;
-		this.payConfig.postData.balance_amount = this.data.reward_balance;
-		this.payConfig.fee = ((this.data.payamount - this.data.reward_balance)/100).toFixed(2);
+      if (this.balanceChecked) {
+        this.payConfig.postData.useBalance = true;
+        this.payConfig.postData.amount = this.data.payamount - this.data.reward_balance;
+        this.payConfig.postData.balance_amount = this.data.reward_balance;
+        this.payConfig.fee = ((this.data.payamount - this.data.reward_balance)/100).toFixed(2);
       } else {
-
-		this.payConfig.postData.useBalance = false;
-		this.payConfig.postData.amount = this.data.payamount;
-		this.payConfig.postData.balance_amount = 0;
-		this.payConfig.fee = (this.data.payamount/100).toFixed(2);
+        this.payConfig.postData.useBalance = false;
+        this.payConfig.postData.amount = this.data.payamount;
+        this.payConfig.postData.balance_amount = 0;
+        this.payConfig.fee = (this.data.payamount/100).toFixed(2);
       }
-		this.payConfig.postData.fee = this.payConfig.fee;
-		MIP.setData({payConfig: this.payConfig});
-	  console.log(this);
+      this.payConfig.postData.fee = this.payConfig.fee;
+      MIP.setData({payConfig: this.payConfig});
+	    console.log(this);
     },
     useInservicePay() {
       console.log('using inservice pay');
       inservicePayChecked = !inservicePayChecked;
     },
-	submitBalancePay() {
-	  API.payOrderWithBalance(this.data.order_id,this.data.type,this.balancePayAmount,function(isOk,res){
-		if(isOk){
-		
-		var done_page = 'https://mip.putibaby.com/order_list';
-		var xz_url = 'https://xiongzhang.baidu.com/opensc/payment.html' 
-						+ '?id=1544608709261251&redirect_url=' + encodeURIComponent(done_page);	
-		window.location.href=xz_url;
-		}
-    	});
-
+	  submitBalancePay() {
+	    API.payOrderWithBalance(
+        this.data.order_id,
+        this.data.type,
+        this.balancePayAmount,
+        function(isOk,res){
+          if(isOk){
+    
+            var done_page = 'https://mip.putibaby.com/order_list';
+            var xz_url = 'https://xiongzhang.baidu.com/opensc/payment.html' 
+                  + '?id=1544608709261251&redirect_url=' + encodeURIComponent(done_page);	
+            window.location.href = done_page;
+          }
+        }
+      );
 	  }
   },
-
 
 }
 

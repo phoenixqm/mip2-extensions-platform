@@ -6,9 +6,9 @@
     <p class="title">需要先提交预约，由菩提果帮您协调视频时间。</p>
     <mip-img layout="responsive" width="85px" height="22px" class="video_interview" src="i/v2/video_interview.png"></mip-img>
   </div>
-  <textarea class="textarea hide" name="mcode" placeholder=""><%= data.mcode %></textarea>
-  <textarea class="textarea" name="info" placeholder="您方便的时间段，可不填"></textarea>
-  <input type="submit" name="提交" class="submit" @click="handleSubmit_">
+  <textarea class="textarea hide" name="mcode" placeholder=""></textarea>
+  <textarea class="textarea" name="info" placeholder="您方便的时间段，可不填" v-model="content"></textarea>
+  <input  name="提交" class="submit" @click="handleSubmit_" type="submit">
 
 </div>
 </template>
@@ -68,11 +68,12 @@ table tr td {
 
 textarea {
   -webkit-appearance:none;
-  width: 92%;
+  box-sizing:border-box;
   height: 94px;
   border-radius: 5px;
   color: #666;
   /*border: solid 1px #ddd !important;*/
+  margin: 0px;
   margin-top: 15px;
   font-size: 14px !important;
   padding: 10px;
@@ -154,11 +155,11 @@ API.wrapRet_ = function(api, opts, cb) {
     });
 }
 
-API.uploadFile = function(data, cb) {
+API.submit_ = function(content,mcode, cb) {
   API.wrapRet_(
-    '/api/upload_image', {
-      'data': data,
-      'target': 'media/image-[md5].jpg'
+    '/api/video_interview_master', {
+      'info': content,
+	  'mcode':mcode,
     },
     cb);
 };
@@ -206,11 +207,15 @@ export default {
     },
 
     handleSubmit_() {
-     
 	  var mcode = JSON.parse(this.dataJsonstr).mcode;
-      var url = '/update_time_ok?cmode=' + mcode + '&intro=';
 
-      window.location.replace(url);
+	  API.submit_(this.content,mcode,function(isOk,res){
+	    if(isOk){
+	      var url = '/update_time_ok?mcode=' + mcode ;
+          window.location.replace(url);	
+		}
+	  });
+     
 
     },
   }

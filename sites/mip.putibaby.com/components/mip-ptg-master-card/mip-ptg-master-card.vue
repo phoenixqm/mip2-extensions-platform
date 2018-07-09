@@ -198,7 +198,7 @@
                 <p class="cE_article">
                   {{ data.last_feedback.feedback.comment }}
                 </p>
-                <div v-if="data.last_feedback.feedback.pics.length > 0" >
+                <div v-if="data.last_feedback.feedback && data.last_feedback.feedback.pics && data.last_feedback.feedback.pics.length > 0" >
                   <mip-img v-for="p in data.last_feedback.feedback.pics" layout="responisve" width="50px" height="50px" :src="p.big" ></mip-img>
                 </div>
               </td>

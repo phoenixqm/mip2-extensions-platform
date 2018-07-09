@@ -215,7 +215,7 @@
           <tr>
               <td class="td1">
                   <a class="a" href='tel:400-618-8835'>
-                      <mip-img layout="responisve" width="38px" height="32px" src="i/card_ph.png" ></mip-img>
+                      <mip-img layout="responisve" width="38px" height="36px" src="i/card_ph.png" ></mip-img>
                   </a>
               </td>
               <td class="td-fav" @click="this.handleFav">

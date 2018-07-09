@@ -374,7 +374,7 @@ export default {
     },
     useInservicePay() {
       console.log('using inservice pay');
-      inservicePayChecked = !inservicePayChecked;
+      this.inservicePayChecked = !this.inservicePayChecked;
     },
 	  submitBalancePay() {
 	    API.payOrderWithBalance(

@@ -900,7 +900,7 @@ function toDataUrl_v2(file, callback) {
     context.drawImage(image, 0, 0, S[0], S[1]);
     var quality = 30;
     var filetype = 'image/jpeg';
-    compressedImageDataURL = canvas.toDataURL(filetype, quality / 100);
+    var compressedImageDataURL = canvas.toDataURL(filetype, quality / 100);
     callback(compressedImageDataURL);
   });
 
@@ -925,6 +925,7 @@ export default {
       var ele = document.querySelectorAll("input");
       this.rea = true;
     }
+    var self = this;
     this.$element.customElement.addEventAction('echo', function(event, str) {
       console.log(event);
     });
@@ -962,8 +963,8 @@ export default {
     var master_price = data.master.price_26day; //月嫂价格
 
     var master_price = !!data.contract_is_offer_allday_service ?
-      data.master.yuesao_allday_price :
-      data.master.yuesao_daytime_price;
+                       data.master.yuesao_allday_price :
+                       data.master.yuesao_daytime_price;
     master_price = master_price / 100;
 
     var price = Math.round(master_price / 26 * data.contract_shanghu_length); //通过月嫂价格和上户时长计算的总金额
@@ -1129,7 +1130,7 @@ export default {
       this.saveIt_();
     },
     contract_mama_phone_number_change_() {
-      contract_mama_phone_number = this.contract_mama_phone_number;
+
       this.inspect_();
       this.saveIt_();
     },
@@ -1138,7 +1139,7 @@ export default {
       this.saveIt_();
     },
     contract_shanghu_at_change_() {
-      contract_shanghu_at = this.contract_shanghu_at;
+
       this.inspect_();
       this.saveIt_();
     },
@@ -1157,7 +1158,7 @@ export default {
       this.saveIt_();
     },
     contract_location_change_(event) {
-      var a_contract_location = this.contract_location;
+
       this.inspect_();
       this.saveIt_();
     },
@@ -1177,7 +1178,7 @@ export default {
       } else {
         var service = 'false';
       }
-      if (contract_deposit_min == 1) {
+      if (this.contract_deposit_min == 1) {
         obj.contract_deposit = obj.contract_price;
       }
       obj.id = this.order.id;

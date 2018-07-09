@@ -5,7 +5,7 @@
 
 ## 示例
 ```html
-<mip-shell-is mip-shell>
+<mip-ptg-shell-inservice mip-shell>
     <script type="application/json">
         {
         "routes": [
@@ -44,7 +44,7 @@
         "isId":"156786663788884"
     }
     </script>
-</mip-shell-is>
+</mip-ptg-shell-inservice>
 ```
 
 ## 属性

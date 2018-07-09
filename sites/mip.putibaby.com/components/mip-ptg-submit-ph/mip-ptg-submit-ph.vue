@@ -230,61 +230,53 @@ API.sendPhoneNumberVerifySms = function(phoneNumber, cb) {
     cb);
 }
 
-API.sendPhoneNumberVerifySmsWithGt = function(phoneNumber, cb) {
-  if (!/^1\d{10}$/.test(phoneNumber)) {
-    cb(false, '错误的手机号');
-    return;
-  }
-
-  var handler = function(captchaObj) {
-    // captchaObj.appendTo('#captcha');
-    captchaObj.onReady(function() {
-      $("#wait").hide();
-      captchaObj.verify();
-    }).onSuccess(function() {
-      var result = captchaObj.getValidate();
-      if (!result) {
-        return alert('请完成验证');
-      }
-      // window.gt_loading = false;
-      API.wrapRet_(
-        '/api/send_sms_validate', {
-          'phone_number': phoneNumber,
-          'geetest_challenge': result.geetest_challenge,
-          'geetest_validate': result.geetest_validate,
-          'geetest_seccode': result.geetest_seccode
-        },
-        cb);
-
-    });
-
-    window.captchaObj = captchaObj;
-
-  };
+// API.sendPhoneNumberVerifySmsWithGt = function(phoneNumber, cb) {
+//   if (!/^1\d{10}$/.test(phoneNumber)) {
+//     cb(false, '错误的手机号');
+//     return;
+//   }
+//   var handler = function(captchaObj) {
+//     // captchaObj.appendTo('#captcha');
+//     captchaObj.onReady(function() {
+//       $("#wait").hide();
+//       captchaObj.verify();
+//     }).onSuccess(function() {
+//       var result = captchaObj.getValidate();
+//       if (!result) {
+//         return alert('请完成验证');
+//       }
+//       // window.gt_loading = false;
+//       API.wrapRet_(
+//         '/api/send_sms_validate', {
+//           'phone_number': phoneNumber,
+//           'geetest_challenge': result.geetest_challenge,
+//           'geetest_validate': result.geetest_validate,
+//           'geetest_seccode': result.geetest_seccode
+//         },
+//         cb);
+//     });
+//     window.captchaObj = captchaObj;
+//   };
 
 
-  $.ajax({
-    url: "/api/gt_register?t=" + (new Date()).getTime(),
-    type: "get",
-    dataType: "json",
-    success: function(ret) {
-      console.log(ret);
-      var data = ret.data;
-
-      initGeetest({
-        gt: data.gt,
-        challenge: data.challenge,
-        offline: !data.success,
-        new_captcha: data.new_captcha,
-
-        product: "bind",
-        width: "300px"
-      }, handler);
-
-    }
-  });
-
-}
+//   $.ajax({
+//     url: "/api/gt_register?t=" + (new Date()).getTime(),
+//     type: "get",
+//     dataType: "json",
+//     success: function(ret) {
+//       console.log(ret);
+//       var data = ret.data;
+//       initGeetest({
+//         gt: data.gt,
+//         challenge: data.challenge,
+//         offline: !data.success,
+//         new_captcha: data.new_captcha,
+//         product: "bind",
+//         width: "300px"
+//       }, handler);
+//     }
+//   });
+// }
 
 API.verifyPhoneNumber = function(phoneNumber, sms, cb) {
 

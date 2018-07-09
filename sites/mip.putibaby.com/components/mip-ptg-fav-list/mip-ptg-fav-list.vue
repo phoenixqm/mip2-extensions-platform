@@ -46,81 +46,81 @@ body{
   padding-top: 0px;
 }
 .root{
-    background: #fff;
-    position: relative;
-    height: 68px;
-    overflow: hidden;
-    cursor: pointer;
-    margin-top: 10px;
-	 border:solid 1px #e5e5e5;
-   border-radius: 3px;
-  }
+  background: #fff;
+  position: relative;
+  height: 68px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-top: 10px;
+  border:solid 1px #e5e5e5;
+  border-radius: 3px;
+}
 
-  .header{
-    width: 68px;
-    height: 68px;
-    position: absolute;
-   
-  }
+.header{
+  width: 68px;
+  height: 68px;
+  position: absolute;
+ 
+}
 
-  .name{
-    font-size:  16px;
-    color: #666;
-    position: absolute;
-    top: 15px;
-    left: 80px;
-  }
+.name{
+  font-size:  16px;
+  color: #666;
+  position: absolute;
+  top: 15px;
+  left: 80px;
+}
 
-  .price{
-    font-size:  16px;
-    font-weight: bold;
-    color: red;
-    position: absolute;
-    top: 15px;
-    right: 20px;
-  }
+.price{
+  font-size:  16px;
+  font-weight: bold;
+  color: red;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
 
-  .info{
-    font-size:  14px;
-    color: #666;
-    position: absolute;
-    top: 40px;
-    left: 80px;
-  }
+.info{
+  font-size:  14px;
+  color: #666;
+  position: absolute;
+  top: 40px;
+  left: 80px;
+}
 
-  .icon{
-    width: 14px;
-    position: relative;
-    top: 0px;
-    display: inline-block;
-    margin-right: 5px;
-  }
+.icon{
+  width: 14px;
+  position: relative;
+  top: 0px;
+  display: inline-block;
+  margin-right: 5px;
+}
 
-  .age{
-    display: inline-block;
-    margin-right: 10px;
-  }
+.age{
+  display: inline-block;
+  margin-right: 10px;
+}
 
-  .work_year{
-    display: inline-block;
-    margin-right: 10px;
-  }
+.work_year{
+  display: inline-block;
+  margin-right: 10px;
+}
  .age_img,.work_year_img,.jiguan_img{
  	width:12px!important;
 	height:12px!important;
 	display:inline-block;
  } 
 
- .starBox {
-    position: absolute;
-    left: 136px;
-    top: 17px;
+.starBox {
+  position: absolute;
+  left: 136px;
+  top: 17px;
 }
 .starBox mip-img{
-   width: 10px;
-   height: 10px;
-   display: inline-block;
-   margin-left:2px;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left:2px;
 }
 </style>
 
@@ -177,21 +177,17 @@ export default {
       type: String,
       default: null
     },
-	dataJsonstr :{
-	  type: String,
-	  default: null
-	  
-	}        
+	  dataJsonstr :{
+	    type: String,
+	    default: null  
+	  }        
   },
   data () {
-	console.log(this);
-	var pdata = JSON.parse(this.dataJsonstr);
+	  console.log(this);
+	  var pdata = JSON.parse(this.dataJsonstr);
     console.log(pdata.favlist);
     return {
-		favlist: pdata.favlist,
-		state: {
-			showTuijianBtn:true
-		}
+		  favlist: pdata.favlist
     }
   },
   computed: {

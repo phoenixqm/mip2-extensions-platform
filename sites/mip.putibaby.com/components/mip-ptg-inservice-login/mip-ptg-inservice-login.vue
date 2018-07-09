@@ -75,28 +75,28 @@ export default {
   },
   mounted() {
     console.log('This is ptg login component !');
-	var self = this;
+    var self = this;
     // 自定义login事件
     this.$element.customElement.addEventAction('login', event => {
-        // 这里可以输出登录之后的数据
+      // 这里可以输出登录之后的数据
 
-        // 获取用户信息
-		console.log(event);
-		//self.$set(self.info.userInfo, 'nickname', event.userInfo.name);
-		MIP.setData({
-		  userInfo: {nickname : event.userInfo.nkckname, province: ''}
-		});
-		self.$set(self.info, 'isLogin', true);
+      // 获取用户信息
+		  console.log(event);
 
-        // 后端交互会话标识
-        event.sessionId;
+		  MIP.setData({
+		    userInfo: {nickname : event.userInfo.nkckname, province: ''}
+		  });
+		  self.$set(self.info, 'isLogin', true);
+
+      // 后端交互会话标识
+      event.sessionId;
     });
     // 自定义exit事件
     this.$element.customElement.addEventAction('exit', event => {
-        console.log('登出了');
-		console.log(event);
-		self.$set(self.info.userInfo, 'nickname', '');
-		self.$set(self.info, 'isLogin', false);
+      console.log('登出了');
+		  console.log(event);
+		  self.$set(self.info.userInfo, 'nickname', '');
+		  self.$set(self.info, 'isLogin', false);
     });
 
   },

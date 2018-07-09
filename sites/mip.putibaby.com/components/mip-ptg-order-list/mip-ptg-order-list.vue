@@ -369,12 +369,12 @@ export default {
     },
 
     reload_() {
-      location.reload();
-      var href = self.location.href;
+      window.location.reload();
+      var href = window.location.href;
       if (href.indexOf('?') >= 0) {
-        self.location.href = href + '&_=' + Math.random();
+        window.location.href = href + '&_=' + Math.random();
       } else {
-        self.location.href = href + '?_=' + Math.random();
+        window.location.href = href + '?_=' + Math.random();
       }
     },
     handleBtn(order){

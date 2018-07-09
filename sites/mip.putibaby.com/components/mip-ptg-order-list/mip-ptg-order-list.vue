@@ -108,7 +108,7 @@ body {
 .starBox{
 	position:absolute;
 	left:125px;
-	top:15px;
+	top:18px;
 }
 
 .starBox mip-img{
@@ -116,9 +116,7 @@ body {
 	height: 10px;
 	display: inline-block;
   margin-left:2px;
-}
-.iconStar_no{
-   margin-left:-4px;
+  float:left;
 }
 .status {
   height: 30px;
@@ -170,7 +168,7 @@ body {
   top: 15px;
   left: 78px;
 }
-
+=
 .price {
   font-size: 16px;
   font-weight: bold;

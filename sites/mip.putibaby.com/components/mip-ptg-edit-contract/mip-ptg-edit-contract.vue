@@ -1002,7 +1002,10 @@ export default {
       var skill_length = data.contract_skill_req.split(',').length;
     }
     if (localStorage.State){
-      return JSON.parse(localStorage.State);
+      var saved = JSON.parse(localStorage.State);
+	  if (saved.ts && saved.ts > pdata.ts) {
+		return saved;
+	  }
     }
     return {
       rea: false,
@@ -1195,6 +1198,7 @@ export default {
       obj.pics = [];
       obj.mama_id = this.order.mama.id;
 
+	  this._data.ts = new Date();
       localStorage.State = JSON.stringify(this._data);
 
       API.wrapRet_(

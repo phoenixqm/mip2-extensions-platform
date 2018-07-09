@@ -225,7 +225,7 @@
               </td>                    
 
               <td v-if="data.info.can_online_interview" class="td2">
-                  <a :href="'/update_time?mcode=' + data.codeid">预约视频面试</a>
+                  <a :href="'/update_time_mip?mcode=' + data.codeid">预约视频面试</a>
               </td>
 
               <td v-else class="td2">

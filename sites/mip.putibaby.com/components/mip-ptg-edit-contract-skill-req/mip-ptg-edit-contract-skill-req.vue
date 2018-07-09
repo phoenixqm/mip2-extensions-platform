@@ -7,9 +7,8 @@
       <p>{{items.title}}</p>
     </div>
     <div class="item" v-for="it in items.list">
-      <p> <label for="it.id">
+      <p for="it.id">
 				{{it.title}}
-			</label>
       </p>
       <input type="checkbox" id="it.id" name="services" v-bind:disabled="rea" value="it.id" v-bind:checked="sk_c[it.id]" @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
 
@@ -333,7 +332,8 @@ export default {
       });
     },
     submit_() {
-      window.location.href = '/edit_contract?id=' + JSON.parse(this.dataJsonstr).id;
+	  var url =  '/edit_contract?id=' + JSON.parse(this.dataJsonstr).id;
+      window.location.replace(url);
     },
   }
 }

@@ -852,13 +852,10 @@
             <div class="mC_info">
               <p class="mC_masterName">{{ m.name }}</p>
               <p class="starBox">
-
-                <mip-img v-for="p in m.star_1_list" layout="responsive" width="12" height="12"
-                 class="iconStar" src="/i/select_master_star.png" /></mip-img>
-
-                <mip-img v-for="p in m.star_0_list"  layout="responsive" width="12" height="12"
-                 class="iconStar" src="/i/select_master_unstar.png" /></mip-img>
-
+                <span v-for="idx in [1,2,3,4,5]">
+                  <mip-img layout="responisve" width="12px" height="12px"  v-if="idx <= m.n_star" class="star" src="/i/select_master_star.png"></mip-img>
+                  <mip-img layout="responisve" width="12px" height="12px"  v-else class="star" src="/i/select_master_unstar.png"></mip-img>
+                </span>
 
               </p>
               <div class="mC_Des">

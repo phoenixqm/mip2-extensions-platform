@@ -1507,15 +1507,18 @@ export default {
     }
 
     sortZH.addEventListener('click', function(){        
-      jump(''); 
+      self.filter.sort_by = '';
+      self.load_data();
     });
 
     sortPrice.addEventListener('click', function(){
-      if (sort_by == 'price_desc') {
-        jump('price_asc');
-      }else{
-        jump('price_desc');
-      }  
+      if (self.filter.sort_by == 'price_asc'){
+        self.filter.sort_by = 'price_desc';
+      } else {
+        self.filter.sort_by = 'price_asc';
+      }
+      self.load_data();
+
     }); 
 
     sortJY.addEventListener('click', function(){
@@ -1576,6 +1579,9 @@ export default {
       state: {
 
       },
+      filter: {
+
+      },
     }
   },
   computed: {
@@ -1583,13 +1589,13 @@ export default {
   },
   methods: {
     init() {
-	  var self = this;
+      var self = this;
       console.log('should loading');
       console.log(this.dataJson);
       API.getSelectMaster({}, function(isOk, res){
         if (isOk) {
           console.log(res);
-		  self.list = res.list;
+          self.list = res.list;
         }
 
       });
@@ -1598,7 +1604,14 @@ export default {
 
     load_data() {
       console.log('should set data');
+      var self = this;
+      API.getSelectMaster(this.filter, function(isOk, res){
+        if (isOk) {
+          console.log(res);
+          self.list = res.list;
+        }
 
+      }); 
     },
 
     reload_() {

@@ -121,7 +121,7 @@
     </div>
   
     <mip-form method="get" url="https://mip.putibaby.com/select_master" name="mip-form" class="  mip_form mip-element mip-layout-container">  
-
+  <mip-sidebar id="right-sidebar" layout="nodisplay" side="right" class="mip-hidden">
       <table class="yssxtj_table">
         <tbody><tr><td class="yssxtj">月嫂筛选条件</td></tr>
       </tbody></table>

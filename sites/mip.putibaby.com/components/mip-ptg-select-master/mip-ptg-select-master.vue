@@ -899,7 +899,22 @@
   margin: 0 auto;
   text-align: center;
 }
+    .no{
+      display: none;
+    }
+    .has{
+      display: inline-block;
+    }
 
+    mip-img.head_image {
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      left: 10px;
+      top: 20px;
+      border-radius: 5px;
+      border: 0;
+    }
     .root{
         padding: 0% 2.5%;
     }

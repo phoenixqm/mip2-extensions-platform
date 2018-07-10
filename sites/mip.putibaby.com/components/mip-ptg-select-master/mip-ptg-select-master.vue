@@ -853,7 +853,7 @@
               <p class="mC_masterName">{{ m.name }}</p>
               <p class="starBox">
                 <span v-for="idx in [1,2,3,4,5]">
-                  <mip-img layout="responisve" width="12px" height="12px"  v-if="idx <= m.n_star" class="star" src="/i/select_master_star.png"></mip-img>
+                  <mip-img layout="responisve" width="12px" height="12px"  v-if="idx <= m.star" class="star" src="/i/select_master_star.png"></mip-img>
                   <mip-img layout="responisve" width="12px" height="12px"  v-else class="star" src="/i/select_master_unstar.png"></mip-img>
                 </span>
 

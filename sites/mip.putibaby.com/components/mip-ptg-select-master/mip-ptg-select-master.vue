@@ -883,7 +883,7 @@
     </div>
     <div class="mip-infinitescroll-results"></div>
     <div class="bg">
-        <div v-show="state.isLoadingMore" class="mip-infinitescroll-loading"></div>
+	  <div  class="mip-infinitescroll-loading" @click="loadmore"><p>{{state.loadMessage}}</p></div>
     </div>
   
   
@@ -1343,8 +1343,8 @@
   .mip-infinitescroll-loading{
    width:100%;
    background-color:#fff;
-   height:30px;
-   line-height:30px;
+   height:50px;
+   line-height:50px;
    text-align:center;
    color:#666;
    font-size:14px;
@@ -1418,13 +1418,10 @@ export default {
 	  console.log(document.documentElement.scrollTop);
 var scrollTop = document.documentElement.scrollTop;
 	  console.log(document.body);
-	  self.state.isLoadingMore = true;
   if(scrollTop + window.innerHeight >= document.body.clientHeight - '100') {
     // 触发加载数据        
     loadMore();
-	self.filter.pn += 1;
     self.load_more();
-	self.state.isLoadingMore = false;
   };
 	  console.log('2222',window.innerHeight);
 	  console.log('333',document.body.clientHeight);
@@ -1599,7 +1596,9 @@ var scrollTop = document.documentElement.scrollTop;
     return {
       list: [],
       state: {
-		isLoadingMore : false
+		isLoadingMore : false,
+		loadMessage:'点击加载数据',
+		hasMoreData: false
       },
       filter: {
 		pn : 0
@@ -1628,6 +1627,7 @@ var scrollTop = document.documentElement.scrollTop;
     load_data() {
       console.log('should set data');
       var self = this;
+	  this.filter.pn = 0;
       API.getSelectMaster(this.filter, function(isOk, res){
         if (isOk) {
           console.log(res);
@@ -1639,14 +1639,25 @@ var scrollTop = document.documentElement.scrollTop;
     load_more() {
       console.log('should set data');
       var self = this;
+	  this.filter.pn += 1;
       API.getSelectMaster(this.filter, function(isOk, res){
         if (isOk) {
           console.log(res);
+		  if(res.list.length <= 10){
           self.list = self.list.concat(res.list);
+		  self.state.loadMessage = "点击加载数据";
+		}else{
+		  self.state.loadMessage = "没有更多数据了!";
+		}
         }
 
       }); 
     },
+	loadmore() {
+	  var self = this;
+	  self.state.loadMessage = "数据正在加载中...";
+	this.load_more();
+	},
 
 
     reload_() {

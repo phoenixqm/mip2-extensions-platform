@@ -84,22 +84,22 @@
 <table id="sortbar" class="sort_by" data-sort_by="">
     <tbody><tr>
       <td id="sortZH" class="sort_td checked">综合        
-        <mip-img v-if="data.sort_by == '' || !data.sort_by" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-if="filter.sort_by == '' || !filter.sort_by" src="/i/select_master_jt_down_white.png"></mip-img>
         <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
       <td id="sortPrice" class="sort_td">按价格    
-        <mip-img v-if="data.sort_by == 'price_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
-        <mip-img v-if="data.sort_by == 'price_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-if="filter.sort_by == 'price_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
+        <mip-img v-if="filter.sort_by == 'price_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
         <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
       <td id="sortJY" class="sort_td">按经验        
-        <mip-img v-if="data.sort_by == 'jy_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
-        <mip-img v-if="data.sort_by == 'jy_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-if="filter.sort_by == 'jy_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
+        <mip-img v-if="filter.sort_by == 'jy_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
         <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
       <td id="sortAge" class="sort_td">按年龄
-        <mip-img v-if="data.sort_by == 'age_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
-        <mip-img v-if="data.sort_by == 'age_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
+        <mip-img v-if="filter.sort_by == 'age_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-if="filter.sort_by == 'age_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
         <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
       <td class="shaixuan_btn" on="tap:right-sidebar.open">筛选

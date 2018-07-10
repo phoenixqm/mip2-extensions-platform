@@ -1126,11 +1126,13 @@ export default {
   },
   methods: {
     init() {
+	  var self = this;
       console.log('should loading');
       console.log(this.dataJson);
       API.getSelectMaster({}, function(isOk, res){
         if (isOk) {
-          cosole.log(res);
+          console.log(res);
+		  self.list = res.list;
         }
 
       });

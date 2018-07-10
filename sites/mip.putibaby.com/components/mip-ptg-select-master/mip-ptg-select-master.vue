@@ -1606,14 +1606,14 @@ var scrollTop = document.documentElement.scrollTop;
       filter2: {
         shlxRow:'全天',
         ycq:'',
-        city:'不限',
-        jiguan:'不限',
+        city:'',
+        jiguan:'',
         priceFromSel:0,
         priceToSel:50000,
-        ageFromSel:0,
+        ageFromSel:20,
         ageToSel:55,
-        workYearFromSel:0,
-        workYearToSel:'不限'
+        workYearFromSel:1,
+        workYearToSel:''
       },
 
     }

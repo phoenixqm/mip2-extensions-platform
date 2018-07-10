@@ -1112,8 +1112,8 @@ export default {
   },
   data() {
     console.log(this);
-    var pdata = JSON.parse(this.dataJsonstr);
-    console.log(pdata.list);
+    // var pdata = JSON.parse(this.dataJsonstr);
+    // console.log(pdata.list);
     return {
       list: [],
       state: {
@@ -1128,6 +1128,12 @@ export default {
     init() {
       console.log('should loading');
       console.log(this.dataJson);
+      API.getSelectMaster({}, function(isOk, res){
+        if (isOk) {
+          cosole.log(res);
+        }
+
+      });
 
     },
 

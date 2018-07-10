@@ -1063,8 +1063,9 @@
       background-size: 8px 14px;
       background-repeat: no-repeat;
       background-position: 60px;
-    background-color:#fff;
-    line-height:17px;
+      background-color:#fff;
+      line-height:17px;
+      border:solid 1px #ddd;
     }
     .hidden-table_top{
       /*margin-top: 50px;*/
@@ -1124,6 +1125,8 @@
       font-size: 14px;
       position: fixed;
       bottom: 20px;
+      border-radius: 3px;
+      border:none;
     }
 
     .root .rec_a {
@@ -1181,8 +1184,8 @@
     .lightbox{
       display: block;
       background-color: #fff;
-      width: 105%;
-      margin-left:1%;
+      width: 90%;
+      margin-left:5%;
       padding:0;
       /*height: 300px;*/
       margin-top: 100px;
@@ -1299,8 +1302,9 @@
       background-size: 17px 18px;
       background-repeat: no-repeat;
       background-position: 135px;
-    background-color:#fff;
-    border-radius:3px;
+      background-color:#fff;
+      border-radius:3px;
+      border:solid 1px #ddd;
     }
     .sousuo_form{
       width: 100%;
@@ -1563,14 +1567,12 @@ var scrollTop = document.documentElement.scrollTop;
       citytd[i].addEventListener('click',function () {
         removeClass(citytd,'checked');
         addClass(this,'checked');
-        city_val = this.innerHTML;
+        self.filter.city = this.innerHTML;
       })
     }
     
     lightbox_close.addEventListener('click',function () {
-      var url = window.location.href;  
-      url = changeURLArg(url,'city',city_val);
-      window.location.replace(url);
+      self.load_data();
     });
 
 

@@ -899,7 +899,464 @@
   margin: 0 auto;
   text-align: center;
 }
+    .no{
+      display: none;
+    }
+    .has{
+      display: inline-block;
+    }
 
+    mip-img.head_image {
+      height: 50px;
+      width: 50px;
+      position: absolute;
+      left: 10px;
+      top: 20px;
+      border-radius: 5px;
+      border: 0;
+    }
+    .root{
+        padding: 0% 2.5%;
+    }
+    
+    .cardList .masterCard{
+        width: 100%;
+        height: 70px;
+        margin: 10px 0;
+        border-radius: 3px;
+        background-color: white;
+        position: relative;
+        border:solid 1px #e5e5e5;
+    }
+    .cardList .masterCard .mC_header{
+        width: 68px;
+        height: 68px;
+    }
+    .cardList .masterCard .mC_info{
+        display: inline-block;
+        vertical-align: top;
+        padding-left: 8px;
+        width:80%;
+        margin-top: -55px;
+    }
+    .cardList .masterCard .mC_info .mC_masterName{
+        font-size: 16px;
+        color:#333;
+        display: inline-block;
+        margin: -5px 69px;
+    }
+    .cardList .masterCard .mC_info .starBox{
+        width: 90px;
+        height: 16px;
+        position: absolute;
+        left:135px;
+        margin-top: -22px;
+    }
+    .cardList .masterCard .mC_info .starBox mip-img{
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        margin-left: -2px;
+    }
+    .cardList .masterCard .mC_info .mC_Des{
+        width: 100%;
+        margin-top: 5px;
+        margin-left: 70px;
+    }
+    .cardList .masterCard .mC_info .mC_Des mip-img{
+      display: inline-block;
+    }
+    .cardList .masterCard .mC_info .mC_Des span{
+        color: #999;
+        display: inline-block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        font-size: 13px;
+
+    }
+    .cardList .masterCard .mC_info .mC_Des span:nth-of-type(1){
+        /*width: 30px;*/
+    }
+    .cardList .masterCard .mC_info .mC_Des span:nth-of-type(2){
+        /*width: 60px;*/
+        /*margin-left:10%;*/
+    }
+    .cardList .masterCard .mC_info .mC_Des span:nth-of-type(3){
+        width: 70px;
+        /*float: right;*/
+        /*margin-right: 10px;*/
+    }
+    .cardList .masterCard .mC_info .mC_Des .icon{
+        width: 11px;
+        height: 11px;
+        margin-top: -4px;
+    }
+ 
+    .ptgPrice{
+        font-size: 16px;
+        color: red;
+        position: absolute;
+        right: 8px;
+        top:10px;
+    }
+    .cardList .masterCard .mC_price .priceRight{
+        float: right;
+        margin-right: 10px;
+        line-height: 32px;
+    }
+  
+    .line{
+        background: url('/i/show_master_card_footer_hb.png');
+        width: 100%;
+        height: 2px;
+        background-size: contain;
+        margin-top: 3px;
+    }
+
+    .shlxRow{
+        min-height: 90px;
+    }
+
+    .kw{
+      width: 70%;
+      /*margin-left:1%;*/
+      height: 28px;
+      border: 0px solid white;
+      font-size: 14px !important;
+      background-color: #F1F1F2;
+      padding-right: 0px !important;
+      padding-left: 30px;
+      float: left;
+      color: #b2b2b2;
+      border-radius: 5px;
+    }
+    .sousuo{
+      height: 28px;
+      background-color: #fff !important;
+      font-size: 13px !important;
+      border:none !important;
+      display: inline-block !important;
+      text-align: center;
+      color: #afd03b !important;
+    }
+    .sousuo_td{
+      position: relative;
+    }
+    .ss_city_td{
+      width: 75px;
+      text-align: center;
+    }
+    .sousuo_icon{
+      width: 14px;
+      height: 14px;
+      position: absolute;
+      left: 10px;
+      top: 7px;
+    }
+
+    .hidden-table select{
+      -webkit-appearance:none;
+      color: #666;
+      width: 75px;
+      border-radius: 3px;
+      font-size: 14px;
+      height: 30px;
+      background-image: url('/i/sel_back.png');
+      background-size: 8px 14px;
+      background-repeat: no-repeat;
+      background-position: 60px;
+    background-color:#fff;
+    line-height:17px;
+    }
+    .hidden-table_top{
+      /*margin-top: 50px;*/
+    }
+    .hidden-table tr td {
+      height: 50px;
+      font-size:14px;
+    }
+
+    .shaixuan{
+      width: 40px;
+      height: 30px;
+      display: inline-block;
+      line-height: 32px;
+      text-align: center;
+      border: solid 1px #ddd;
+      border-radius: 5px;
+      margin-left: 5px;
+      font-size: 14px;
+    }
+  
+    .priceFromSel{
+      width: 70px;
+    }
+
+    .priceToSel{
+      width: 83px;
+    }
+
+    #right-sidebar{
+      width: 300px;
+      padding-left: 10px;
+      background-color: #fff;
+      color: #999;
+    }
+    
+    .quxiao{
+      background-color: #fff !important;
+      color: #afd03b !important;
+      margin-left:5%;
+      width: 108px;
+      display: inline-block;
+      text-align: center;
+      line-height: 36px;
+      height: 36px;
+      border-radius: 3px;
+      border:1px solid #afd03b;
+      position: fixed;
+      bottom: 20px;
+    }
+    .queding{
+      background-color: #afd03b !important;
+      color: #fff !important;
+      margin-left:50%;
+      width: 108px;
+      height: 36px;
+      font-size: 14px;
+      position: fixed;
+      bottom: 20px;
+    }
+
+    .root .rec_a {
+      display: block;
+      position: fixed;
+      right: 0px;
+      bottom: 60px;
+      width: 80px;
+      height: 50px;
+      z-index: 999;
+    }
+    .root .rec_a .mip-layout-fixed {
+      display: inline-block;
+      position: fixed;
+      bottom: 60px;
+      right: 0px;
+    }
+
+    .root .rec_a .rec_icon {
+      position: fixed;
+      display: inline-block;
+      width: 80px;
+      height: 50px;
+    }
+    .sort_by{
+      width: 100%;
+      text-align: center;
+      border:solid 1px #f4f4f4;
+      margin-top: 7px;
+      background-color: #fff;
+
+    }
+    
+    .sort_by td{
+      border-right: solid 1px #f4f4f4;
+      height: 35px;
+      line-height: 35px;
+      padding-left: 0px;
+      padding-right: 5px;
+      font-size: 13px;
+      width: 20%;
+    }
+    .sort_by .checked {
+      background-color: #C2E64E;
+      color: #fff ;
+
+    }
+    .sort_by td mip-img{
+      width: 12.5px !important;
+      height: 7px;
+      float: right;
+      margin-top: 13px;
+    }
+
+    .lightbox{
+      display: block;
+      background-color: #fff;
+      width: 105%;
+      margin-left:1%;
+      padding:0;
+      /*height: 300px;*/
+      margin-top: 100px;
+      border-radius: 5px;
+      padding-top: 30px;
+      padding-bottom: 50px;
+      text-align: center;
+    }
+    .city_btn{
+      color: #C2E64E;
+      display: inline-block;
+    }
+    .lightbox table {
+      /*width: 270px;*/
+      /*padding:0;*/
+      margin: 0 auto;
+    }
+    .lightbox table tr{
+      padding-left: 10px;
+    }
+    .city_title{
+      color: #666;
+    }
+  .citybar{
+   display:inline-block;
+   padding-left:14px;
+  }
+    .citybar td{
+      width: 55px;
+      font-size: 12px;
+      text-align: center;
+      height: 30px;
+      line-height: 30px;
+      border:solid 1px #ddd;
+      display: inline-block;
+      margin-top: 10px;
+      margin-right:11px;
+      color: #999;
+      border-radius: 3px;
+    }
+    
+    .citybar td.checked{
+      width: 55px;
+      font-size: 12px;
+      text-align: center;
+      height: 30px;
+      line-height: 30px;
+      border:solid 1px #afd03b;
+      display: inline-block;
+      margin-top: 10px;
+      margin-right:11px;
+      color: #afd03b ;
+      border-radius: 3px;
+    }
+
+    .lightbox-close{
+      width: 80%;
+      font-size: 14px;
+      text-align: center;
+      height: 40px;
+      line-height: 40px;
+      display: inline-block;
+      margin-top: 30px;
+      border-radius: 3px;
+      background-color: #C2E64E;
+      color: #fff ;
+    }
+
+    .person{
+      width: 30px;
+      padding-top: 3px;
+      display: inline-block;
+      position: absolute;
+      right: 10px;
+    }
+
+    .mip-infinitescroll-results{
+      max-width: 100% !important;
+    }
+    .header{
+      background-color: #fff;
+      padding-top: 7px;
+    }
+
+    .span_qt{
+      display: inline-block;
+      width: 75px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 3px;
+      border:solid 1px #ddd;
+      margin-right:10px;
+    }
+
+    .span_qt_check{
+      display: inline-block;
+      width: 75px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      border-radius: 3px;
+      border:solid 1px #afd03b;
+      color: #afd03b;
+    }
+    
+    .ycq{
+      width: 160px;
+      height: 30px;
+      line-height: 15px;
+      font-size: 14px;
+      color: #666;
+      background-image: url('/i/date_back.png');
+      background-size: 17px 18px;
+      background-repeat: no-repeat;
+      background-position: 135px;
+    background-color:#fff;
+    border-radius:3px;
+    }
+    .sousuo_form{
+      width: 100%;
+    }
+    .sousuo_table{
+      width: 100%;
+    }
+    .yssxtj{
+      color: #333;
+      font-size: 15px;
+      width: 100%;
+      text-align: center;
+    }
+    .yssxtj_table{
+      margin-top: 65px;
+      text-align: center;
+      width: 100%;
+    }
+    .qt_td{
+      margin-right: 20px;
+      display: inline-block;
+      line-height: 50px;
+    }
+
+
+  #sortZH mip-img{
+      margin-left: -14px;
+    }
+  #sortZH{
+   padding-right:15px;
+  }
+  .shaixuan_btn{
+   padding-right:15px !important;
+  }  
+  .shaixuan_btn mip-img{
+    margin-left: -14px;
+  }
+  .mip-infinitescroll-loading{
+   width:100%;
+   background-color:#fff;
+   height:30px;
+   line-height:30px;
+   text-align:center;
+   color:#666;
+   font-size:14px;
+   border-radius:5px;
+   margin-top:10px;
+  }
+  .from_to{
+   display:inline-block;
+   margin-left:5px;
+   margin-right:5px;
+  }
 </style>
 <script>
 var API = {};

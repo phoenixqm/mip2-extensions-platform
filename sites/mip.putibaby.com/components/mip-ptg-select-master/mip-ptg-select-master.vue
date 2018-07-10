@@ -11,10 +11,10 @@
     </td>
     <td class="sousuo_td">
       <input type="text" name="kw" class="kw" validatetarget="kw" placeholder="输入月嫂的姓名搜索">
-      <mip-img class="sousuo_icon mip-element mip-layout-container mip-img-loaded" src="/i/sousuo.png"><img class="mip-fill-content mip-replaced-content" src="/i/sousuo.png"></mip-img>
+      <mip-img class="sousuo_icon mip-element mip-layout-container mip-img-loaded" src="/i/sousuo.png"></mip-img>
     
     <input class="sousuo" type="submit" value="搜索">
-    <a class="person" href="/order_list"><mip-img width="28px" height="23px" src="/i/select_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"><img class="mip-fill-content mip-replaced-content" src="/i/select_per.png"></mip-img></a></td>
+    <a class="person" href="/order_list"><mip-img width="28px" height="23px" src="/i/select_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
   </tr>
 </tbody></table>
 <mip-lightbox id="my-lightbox2" layout="nodisplay" class="mip-layout-nodisplay mip-element" content-scroll="" style="display: none; position: fixed; z-index: 10001; top: 0px; right: 0px; left: 0px; transition: opacity 0.1s ease-in;">
@@ -85,26 +85,26 @@
     <tbody><tr>
       <td id="sortZH" class="checked">综合
         
-        <mip-img src="/i/select_master_jt_down_white.png" class="mip-element mip-layout-container mip-img-loaded"><img class="mip-fill-content mip-replaced-content" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img src="/i/select_master_jt_down_white.png" class="mip-element mip-layout-container mip-img-loaded"></mip-img>
         
       </td>
       <td id="sortPrice">按价格
         
-        <mip-img src="/i/select_master_jt_down.png" class="mip-element mip-layout-container mip-img-loaded"><img class="mip-fill-content mip-replaced-content" src="/i/select_master_jt_down.png"></mip-img>
+        <mip-img src="/i/select_master_jt_down.png" class="mip-element mip-layout-container mip-img-loaded"></mip-img>
         
       </td>
       <td id="sortJY">按经验
         
-        <mip-img src="/i/select_master_jt_down.png" class="mip-element mip-layout-container mip-img-loaded"><img class="mip-fill-content mip-replaced-content" src="/i/select_master_jt_down.png"></mip-img>
+        <mip-img src="/i/select_master_jt_down.png" class="mip-element mip-layout-container mip-img-loaded"></mip-img>
         
       </td>
       <td id="sortAge">按年龄
         
-        <mip-img src="/i/select_master_jt_up.png" class="mip-element mip-layout-container mip-img-loaded"><img class="mip-fill-content mip-replaced-content" src="/i/select_master_jt_up.png"></mip-img>
+        <mip-img src="/i/select_master_jt_up.png" class="mip-element mip-layout-container mip-img-loaded"></mip-img>
         
       </td>
       <td class="shaixuan_btn" on="tap:right-sidebar.open">筛选
-        <mip-img src="/i/select_master_jt_down.png" class="mip-element mip-layout-container mip-img-loaded"><img class="mip-fill-content mip-replaced-content" src="/i/select_master_jt_down.png"></mip-img>
+        <mip-img src="/i/select_master_jt_down.png" class="mip-element mip-layout-container mip-img-loaded"></mip-img>
       </td>
     </tr>
   </tbody>

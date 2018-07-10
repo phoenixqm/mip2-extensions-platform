@@ -129,8 +129,8 @@
         <tbody><tr>
           <td>上户类型：</td>
           
-            <td class="qt_td"><input type="radio" name="shlxRow" checked="" class="radio_qt" value="全天">全天</td>
-            <td class="bb_td"><input type="radio" name="shlxRow" class="radio_bb" value="白班">白班</td>
+            <td class="qt_td"><input type="radio" name="shlxRow" checked="" class="radio_qt" value="全天" v-model="shlxRow" >全天</td>
+            <td class="bb_td"><input type="radio" name="shlxRow" class="radio_bb" value="白班" v-model="shlxRow">白班</td>
           
 
         </tr>
@@ -138,7 +138,7 @@
       <table class="hidden-table">
         <tbody><tr>
           <td>预产期：</td>
-          <td><input type="date" class="ycq" name="ycq"></td>
+          <td><input type="date" class="ycq" name="ycq" v-model="ycq"></td>
         </tr>
         <tr>
           <td>上户城市：</td>
@@ -191,7 +191,7 @@
         <tr>
           <td>月嫂籍贯：</td>
           <td>
-            <select name="jiguan" class="jiguan">
+            <select name="jiguan" class="jiguan" v-model="jiguan">
               
                  <option value="">不限</option>
               
@@ -235,7 +235,7 @@
         <tbody><tr>
           <td>期望价格：</td>
           <td>
-            <select name="priceFromSel" class="priceFromSel">
+            <select name="priceFromSel" class="priceFromSel" v-model="priceFromSel">
                <option selected="" value="0">0元</option>
               
                   <option selected="true" value="0">
@@ -447,7 +447,7 @@
           </td>
           <td><span class="from_to">到</span></td>
           <td>
-           <select name="priceToSel" class="priceToSel">
+           <select name="priceToSel" class="priceToSel" v-model="priceToSel">
             <option selected="" value="50000">50000元</option>
             
               <option value="0">
@@ -661,7 +661,7 @@
         <tr>
           <td>年龄要求:</td>
           <td>
-            <select name="ageFromSel" class="ageFromSel">
+            <select name="ageFromSel" class="ageFromSel" v-model="filter2.ageFromSel">
               <option selected="" value="20">20岁</option>
               
                 <option selected="true" value="20">
@@ -700,7 +700,7 @@
           </td>
       <td><span class="from_to">到</span></td>
           <td>  
-            <select name="ageToSel" class="ageToSel">     
+            <select name="ageToSel" class="ageToSel" v-model="ageToSel">     
               <option selected="" value="55">55岁</option>
               
                 <option value="20">
@@ -742,7 +742,7 @@
       <tr>
         <td>从业年限:</td>
         <td>
-          <select name="workYearFromSel" class="workYearFromSel">
+          <select name="workYearFromSel" class="workYearFromSel" v-model="workYearFromSel">
             <option selected="" value="1">1年</option>
             
               <option selected="true" value="1">
@@ -789,7 +789,7 @@
         </td>
         <td><span class="from_to">到</span></td>
         <td>
-          <select name="workYearToSel" class="workYearToSel">
+          <select name="workYearToSel" class="workYearToSel" v-model="workYearToSel">
             
               <option selected="" value="">不限</option>
             
@@ -839,7 +839,7 @@
       </tr>
       </tbody></table>
       <span class="quxiao" on="tap:right-sidebar.close">取消</span>
-      <input class="queding" type="submit" value="确定">
+      <input class="queding" type="submit" value="确定" @click="sure">
       </mip-sidebar>
   
     </mip-form>
@@ -1605,6 +1605,10 @@ var scrollTop = document.documentElement.scrollTop;
       filter: {
 		pn : 0
       },
+      filter2: {
+        ageFromSel:0
+      },
+
     }
   },
   computed: {
@@ -1661,12 +1665,26 @@ var scrollTop = document.documentElement.scrollTop;
 	this.load_more();
 	},
 
+  sure(){
+    var self = this;
+    this.filter.sort_by = '';
+    console.log(this)
+    this.filter.ageFromSel = this.filter2.ageFromSel;
+
+    API.getSelectMaster(this.filter, function(isOk, res){
+      if (isOk) {
+        console.log(res);
+        self.list = res.list;
+      }
+
+    });
+  },
 
     reload_() {
       window.location.reload();
 
     },
-  
+    
   }
 
 

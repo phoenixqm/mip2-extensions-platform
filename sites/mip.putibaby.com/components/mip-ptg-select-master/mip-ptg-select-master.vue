@@ -1,7 +1,7 @@
 <template>
-<div class="root">
+<div>
 
-
+  <div class="header">
 <table class="sousuo_table">
   <tbody><tr>
     <td class="ss_city_td">
@@ -89,17 +89,17 @@
       </td>
       <td id="sortPrice" class="sort_td">按价格    
         <mip-img v-if="filter.sort_by == 'price_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
-        <mip-img v-if="filter.sort_by == 'price_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-else-if="filter.sort_by == 'price_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
         <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
       <td id="sortJY" class="sort_td">按经验        
         <mip-img v-if="filter.sort_by == 'jy_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
-        <mip-img v-if="filter.sort_by == 'jy_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-else-if="filter.sort_by == 'jy_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
         <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
       <td id="sortAge" class="sort_td">按年龄
         <mip-img v-if="filter.sort_by == 'age_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
-        <mip-img v-if="filter.sort_by == 'age_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
+        <mip-img v-else-if="filter.sort_by == 'age_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
         <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
       <td class="shaixuan_btn" on="tap:right-sidebar.open">筛选
@@ -108,10 +108,10 @@
     </tr>
   </tbody>
 </table>
+</div>
 
 
-
-<div class="innerroot">
+<div class="root">
 
     <div class="rec_a">
       <a href="/update_ycq_mip" >
@@ -1540,20 +1540,22 @@ var scrollTop = document.documentElement.scrollTop;
       removeClass(sorttd,'checked');
       addClass(sortJY,'checked');
       if (self.filter.sort_by == 'jy_desc') {
-        self.filter.sort_by == 'jy_asc';
+        self.filter.sort_by = 'jy_asc';
       }else{
-        self.filter.sort_by == 'jy_desc';
-      }  
+        self.filter.sort_by = 'jy_desc';
+      } 
+	  self.load_data();
     }); 
     
     sortAge.addEventListener('click', function(){
       removeClass(sorttd,'checked');
       addClass(sortAge,'checked');
       if (self.filter.sort_by == 'age_asc') {
-        self.filter.sort_by == 'age_desc';
+        self.filter.sort_by = 'age_desc';
       }else{
-        self.filter.sort_by == 'age_asc';
+        self.filter.sort_by = 'age_asc';
       }
+	  self.load_data();
     }); 
 
     var citytd = document.querySelectorAll(".citytd");
@@ -1643,7 +1645,7 @@ var scrollTop = document.documentElement.scrollTop;
       API.getSelectMaster(this.filter, function(isOk, res){
         if (isOk) {
           console.log(res);
-		  if(res.list.length <= 10){
+		  if(res.list.length > 0){
           self.list = self.list.concat(res.list);
 		  self.state.loadMessage = "点击加载数据";
 		}else{

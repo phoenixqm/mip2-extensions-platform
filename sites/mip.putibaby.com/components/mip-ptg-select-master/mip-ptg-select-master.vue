@@ -128,8 +128,8 @@
         <tbody><tr>
           <td>上户类型：</td>
           
-            <td class="qt_td"><input type="radio" name="shlxRow" checked="" class="radio_qt" value="全天" v-model="shlxRow" >全天</td>
-            <td class="bb_td"><input type="radio" name="shlxRow" class="radio_bb" value="白班" v-model="shlxRow">白班</td>
+            <td class="qt_td"><input type="radio" name="shlxRow" checked="" class="radio_qt" value="全天" v-model="filter2.shlxRow" >全天</td>
+            <td class="bb_td"><input type="radio" name="shlxRow" class="radio_bb" value="白班" v-model="filter2.shlxRow">白班</td>
           
 
         </tr>
@@ -137,12 +137,12 @@
       <table class="hidden-table">
         <tbody><tr>
           <td>预产期：</td>
-          <td><input type="date" class="ycq" name="ycq" v-model="ycq"></td>
+          <td><input type="date" class="ycq" name="ycq" v-model="filter2.ycq"></td>
         </tr>
         <tr>
           <td>上户城市：</td>
           <td>
-            <select name="city" class="city">
+            <select name="city" class="city" v-model="filter2.city">
               <option value="">不限</option>
               <option value="北京">北京</option>
               <option value="天津">天津</option>
@@ -190,7 +190,7 @@
         <tr>
           <td>月嫂籍贯：</td>
           <td>
-            <select name="jiguan" class="jiguan" v-model="jiguan">
+            <select name="jiguan" class="jiguan" v-model="filter2.jiguan">
               
                  <option value="">不限</option>
               
@@ -234,7 +234,7 @@
         <tbody><tr>
           <td>期望价格：</td>
           <td>
-            <select name="priceFromSel" class="priceFromSel" v-model="priceFromSel">
+            <select name="priceFromSel" class="priceFromSel" v-model="filter2.priceFromSel">
                <option selected="" value="0">0元</option>
               
                   <option selected="true" value="0">
@@ -446,7 +446,7 @@
           </td>
           <td><span class="from_to">到</span></td>
           <td>
-           <select name="priceToSel" class="priceToSel" v-model="priceToSel">
+           <select name="priceToSel" class="priceToSel" v-model="filter2.priceToSel">
             <option selected="" value="50000">50000元</option>
             
               <option value="0">
@@ -699,7 +699,7 @@
           </td>
       <td><span class="from_to">到</span></td>
           <td>  
-            <select name="ageToSel" class="ageToSel" v-model="ageToSel">     
+            <select name="ageToSel" class="ageToSel" v-model="filter2.ageToSel">     
               <option selected="" value="55">55岁</option>
               
                 <option value="20">
@@ -741,7 +741,7 @@
       <tr>
         <td>从业年限:</td>
         <td>
-          <select name="workYearFromSel" class="workYearFromSel" v-model="workYearFromSel">
+          <select name="workYearFromSel" class="workYearFromSel" v-model="filter2.workYearFromSel">
             <option selected="" value="1">1年</option>
             
               <option selected="true" value="1">
@@ -788,7 +788,7 @@
         </td>
         <td><span class="from_to">到</span></td>
         <td>
-          <select name="workYearToSel" class="workYearToSel" v-model="workYearToSel">
+          <select name="workYearToSel" class="workYearToSel" v-model="filter2.workYearToSel">
             
               <option selected="" value="">不限</option>
             
@@ -1436,7 +1436,7 @@ var scrollTop = document.documentElement.scrollTop;
       console.log(event);
 
       console.log(event.from);
-
+      self.sure();
 
     });
     this.$element.customElement.addEventAction('docancel', function(event, str) {
@@ -1604,7 +1604,16 @@ var scrollTop = document.documentElement.scrollTop;
 		pn : 0
       },
       filter2: {
-        ageFromSel:0
+        shlxRow:'全天',
+        ycq:'',
+        city:'不限',
+        jiguan:'不限',
+        priceFromSel:0,
+        priceToSel:50000,
+        ageFromSel:0,
+        ageToSel:55,
+        workYearFromSel:0,
+        workYearToSel:'不限'
       },
 
     }
@@ -1666,9 +1675,17 @@ var scrollTop = document.documentElement.scrollTop;
   sure(){
     var self = this;
     this.filter.sort_by = '';
-    console.log(this)
+    console.log(this);
+    this.filter.shlxRow = this.filter2.shlxRow;
+    this.filter.ycq = this.filter2.ycq;
+    this.filter.city = this.filter2.city;
+    this.filter.jiguan = this.filter2.jiguan;
     this.filter.ageFromSel = this.filter2.ageFromSel;
-
+    this.filter.ageToSel = this.filter2.ageToSel;
+    this.filter.priceFromSel = this.filter2.priceFromSel;
+    this.filter.priceToSel = this.filter2.priceToSel;
+    this.filter.workYearFromSel = this.filter2.workYearFromSel;
+    this.filter.workYearToSel = this.filter2.workYearToSel;
     API.getSelectMaster(this.filter, function(isOk, res){
       if (isOk) {
         console.log(res);

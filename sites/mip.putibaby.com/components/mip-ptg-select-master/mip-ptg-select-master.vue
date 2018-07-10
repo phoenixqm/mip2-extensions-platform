@@ -118,8 +118,7 @@
         <mip-img class="rec_icon" layout="fixed" width="78px" height="50px" src='i/bwtj.png' ></mip-img>
       </a>
     </div>
-  
-    <mip-form method="get" url="https://mip.putibaby.com/select_master" name="mip-form" class="  mip_form mip-element mip-layout-container">  
+
   <mip-sidebar id="right-sidebar" layout="nodisplay" side="right" class="mip-hidden">
       <table class="yssxtj_table">
         <tbody><tr><td class="yssxtj">月嫂筛选条件</td></tr>
@@ -838,11 +837,10 @@
         </td>
       </tr>
       </tbody></table>
-      <span class="quxiao" on="tap:right-sidebar.close">取消</span>
-      <input class="queding" type="submit" value="确定" @click="sure">
+      <span class="quxiao" on="tap:right-sidebar.close  tap:selectmaster.docancel">取消</span>
+      <input class="queding" on="tap:right-sidebar.close tap:selectmaster.dook" type="submit" value="确定" @click="sure">
       </mip-sidebar>
-  
-    </mip-form>
+
   
     <div class="cardList" id="cardList">
     <div v-for="m in list">
@@ -1435,11 +1433,11 @@ var scrollTop = document.documentElement.scrollTop;
       console.log(event);
     });
     this.$element.customElement.addEventAction('dook', function(event, str) {
-      // console.log(event);
+      console.log(event);
 
       console.log(event.from);
-      event.from.bind(self)(event.data, true);
-      //var eval_str = 'this.' + event.handler + '(event_order)'
+
+
     });
     this.$element.customElement.addEventAction('docancel', function(event, str) {
       console.log(event);

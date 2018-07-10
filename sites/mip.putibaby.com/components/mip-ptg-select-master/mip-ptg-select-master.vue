@@ -83,28 +83,27 @@
 
 <table id="sortbar" class="sort_by" data-sort_by="">
     <tbody><tr>
-      <td id="sortZH" class="checked">综合
-        
-        <mip-img src="/i/select_master_jt_down_white.png" class="mip-element mip-layout-container mip-img-loaded"></mip-img>
-        
+      <td id="sortZH" class="sort_td checked">综合        
+        <mip-img v-if="data.sort_by == '' || !data.sort_by" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
-      <td id="sortPrice">按价格
-        
-        <mip-img src="/i/select_master_jt_down.png" class="mip-element mip-layout-container mip-img-loaded"></mip-img>
-        
+      <td id="sortPrice" class="sort_td">按价格    
+        <mip-img v-if="data.sort_by == 'price_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
+        <mip-img v-if="data.sort_by == 'price_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
-      <td id="sortJY">按经验
-        
-        <mip-img src="/i/select_master_jt_down.png" class="mip-element mip-layout-container mip-img-loaded"></mip-img>
-        
+      <td id="sortJY" class="sort_td">按经验        
+        <mip-img v-if="data.sort_by == 'jy_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
+        <mip-img v-if="data.sort_by == 'jy_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
-      <td id="sortAge">按年龄
-        
-        <mip-img src="/i/select_master_jt_up.png" class="mip-element mip-layout-container mip-img-loaded"></mip-img>
-        
+      <td id="sortAge" class="sort_td">按年龄
+        <mip-img v-if="data.sort_by == 'age_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-if="data.sort_by == 'age_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
+        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
       </td>
       <td class="shaixuan_btn" on="tap:right-sidebar.open">筛选
-        <mip-img src="/i/select_master_jt_down.png" class="mip-element mip-layout-container mip-img-loaded"></mip-img>
+        <mip-img src="/i/select_master_jt_down.png"></mip-img>
       </td>
     </tr>
   </tbody>
@@ -956,7 +955,7 @@
         width: 10px;
         height: 10px;
         display: inline-block;
-        margin-left: -2px;
+        margin-left: 2px;
     }
     .cardList .masterCard .mC_info .mC_Des{
         width: 100%;
@@ -1495,45 +1494,44 @@ export default {
     var sortAge = document.querySelector("#sortAge");
     var city = sortbar.dataset.city;
     var lightbox_close= document.querySelector("#lightbox-close");
+    var sorttd = document.querySelectorAll(".sort_td");
 
-    if (sort_by == 'price_asc' || sort_by == 'price_desc') {
-      addClass(sortPrice,'checked');
-    }else if (sort_by == 'jy_asc' || sort_by == 'jy_desc') {
-      addClass(sortJY,'checked');
-    }else if (sort_by == 'age_asc' || sort_by == 'age_desc') {
-      addClass(sortAge,'checked');
-    }else{
-      addClass(sortZH,'checked');
-    }
-
-    sortZH.addEventListener('click', function(){        
+    sortZH.addEventListener('click', function(){ 
+      removeClass(sorttd,'checked');
+      addClass(sortZH,'checked');       
       self.filter.sort_by = '';
       self.load_data();
     });
 
     sortPrice.addEventListener('click', function(){
-      if (self.filter.sort_by == 'price_asc'){
-        self.filter.sort_by = 'price_desc';
-      } else {
+      removeClass(sorttd,'checked');
+      addClass(sortPrice,'checked');
+      if (self.filter.sort_by == 'price_desc'){
         self.filter.sort_by = 'price_asc';
+      } else {
+        self.filter.sort_by = 'price_desc';
       }
       self.load_data();
 
     }); 
 
     sortJY.addEventListener('click', function(){
-      if (sort_by == 'jy_desc') {
-        jump('jy_asc');
+      removeClass(sorttd,'checked');
+      addClass(sortJY,'checked');
+      if (self.filter.sort_by == 'jy_desc') {
+        self.filter.sort_by == 'jy_asc';
       }else{
-        jump('jy_desc');
+        self.filter.sort_by == 'jy_desc';
       }  
     }); 
     
     sortAge.addEventListener('click', function(){
-      if (sort_by == 'age_asc') {
-        jump('age_desc');
+      removeClass(sorttd,'checked');
+      addClass(sortAge,'checked');
+      if (self.filter.sort_by == 'age_asc') {
+        self.filter.sort_by == 'age_desc';
       }else{
-        jump('age_asc');
+        self.filter.sort_by == 'age_asc';
       }
     }); 
 

@@ -844,7 +844,7 @@
   
     </mip-form>
   
-    <div class="cardList">
+    <div class="cardList" id="cardList">
     <div v-for="m in list">
         <div class="masterCard">
           <a :href="'/master_card?id='+m.id">
@@ -883,7 +883,7 @@
     </div>
     <div class="mip-infinitescroll-results"></div>
     <div class="bg">
-        <div class="mip-infinitescroll-loading"></div>
+        <div v-show="state.isLoadingMore" class="mip-infinitescroll-loading"></div>
     </div>
   
   
@@ -1407,6 +1407,30 @@ API.getSelectMaster = function(filter, cb) {
 
 
 export default {
+  beforeMount() {
+	function loadMore() {
+	    console.log('加载数据')
+	  }
+	var self = this;
+  	window.addEventListener('scroll',function(e){
+	  console.log(e);
+	  console.log('55',self);
+	  console.log(document.documentElement.scrollTop);
+var scrollTop = document.documentElement.scrollTop;
+	  console.log(document.body);
+	  self.state.isLoadingMore = true;
+  if(scrollTop + window.innerHeight >= document.body.clientHeight - '100') {
+    // 触发加载数据        
+    loadMore();
+	self.filter.pn += 1;
+    self.load_more();
+	self.state.isLoadingMore = false;
+  };
+	  console.log('2222',window.innerHeight);
+	  console.log('333',document.body.clientHeight);
+
+	});
+  },
   mounted() {
     console.log('This is pty order list component !');
     var self = this;
@@ -1575,10 +1599,10 @@ export default {
     return {
       list: [],
       state: {
-
+		isLoadingMore : false
       },
       filter: {
-
+		pn : 0
       },
     }
   },
@@ -1586,6 +1610,7 @@ export default {
 
   },
   methods: {
+
     init() {
       var self = this;
       console.log('should loading');
@@ -1611,6 +1636,18 @@ export default {
 
       }); 
     },
+    load_more() {
+      console.log('should set data');
+      var self = this;
+      API.getSelectMaster(this.filter, function(isOk, res){
+        if (isOk) {
+          console.log(res);
+          self.list = self.list.concat(res.list);
+        }
+
+      }); 
+    },
+
 
     reload_() {
       window.location.reload();

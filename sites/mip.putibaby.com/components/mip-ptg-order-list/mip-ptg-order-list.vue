@@ -168,14 +168,13 @@ body {
   top: 15px;
   left: 78px;
 }
-=
 .price {
   font-size: 16px;
   font-weight: bold;
   color: red;
   position: absolute;
   top: 15px;
-  right: 10px
+  right: 10px;
 }
 
 .message {

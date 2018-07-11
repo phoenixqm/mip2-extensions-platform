@@ -1,9 +1,9 @@
 <template>
   <div v-if="show" class="root">
-	<mip-fixed type="top" class="fixed_back">
+	<mip-fixed type="top" class="fix_back">
     <div id='fullScreen'></div>
 	</mip-fixed>
-	<mip-fixed type="top" class="fixed_con">
+	<mip-fixed type="top" class="fix_con">
     <div id='floatLayer'>
       <p class="title">{{ title }}</p>
       <p class="msg">{{ msg }}</p>
@@ -23,12 +23,12 @@
 
 
 /* https://www.cnblogs.com/martianShu/p/5893355.html */
-.fixed_back{
+.fix_back{
   z-index:9999;
   width:100%;
   height:100%;
 }
-.fixed_con{
+.fix_con{
   z-index:10000;
 }
 #fullScreen {

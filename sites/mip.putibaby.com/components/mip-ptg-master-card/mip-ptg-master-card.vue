@@ -40,11 +40,8 @@
 			<a :href="'https://mip.putibaby.com/master_intro_detail?u='+data.info.username">
               <div class="details">基本资料详情</div>
             </a>
-			<a href="https://mip.putibaby.com/service_intro">
-             <span v-if="data.info.is_credited">
-               <mip-img src="i/yinzhang.png" width="60px" height="60px" class="yinzhang"></mip-img>
-             </span>
-		   </a> 
+			<a class="yinzhang_a"  v-if="data.info.is_credited" href="https://mip.putibaby.com/service_intro"></a>
+             <mip-img v-if="data.info.is_credited" src="i/yinzhang.png" width="60px" height="60px" class="yinzhang"></mip-img> 
           </div>
         </div>
         <div class="line"></div>
@@ -359,7 +356,12 @@ body{
     line-height: 22px;
     background-color: rgba(255,255,255,0.2);
     color: #fff;
-    font-size: 12px;
+    font-size: 12px;.yinzhang{
+  position: absolute;
+  top:15px;
+  right: 30px;
+}
+
 	padding-left:5px;
 	padding-right:5px;
 	z-index:99;
@@ -404,8 +406,17 @@ body{
   position: absolute;
   top:15px;
   right: 30px;
+  z-index:1;
 }
-    
+.yinzhang_a{
+  position: absolute;
+  top:15px;
+  right: 30px;
+  width:60px;
+  height:60px;
+  z-index:100;
+}
+   
 .albumCard{
     width: 100%;
     border-radius: 5px;

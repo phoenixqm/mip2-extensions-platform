@@ -1661,7 +1661,9 @@ export default {
       });
     },
   
-    search(){
+    search(e){
+	  console.log(e);
+	  e.target.blur();
       this.load_data();
     },
     reload_() {

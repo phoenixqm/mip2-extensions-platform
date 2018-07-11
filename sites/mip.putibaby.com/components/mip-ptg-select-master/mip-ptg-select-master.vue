@@ -1442,36 +1442,7 @@ export default {
     this.$element.customElement.addEventAction('docancel', function(event, str) {
       console.log(event);
       console.log(str);
-
     });
-
-    //修改url中某个指定的参数的值 
-    function changeURLArg(url,arg,arg_val){
-      var pattern=arg+'=([^&]*)'; 
-      var replaceText=arg+'='+arg_val; 
-      if(url.match(pattern)){ 
-          var tmp='/('+ arg+'=)([^&]*)/gi'; 
-          tmp=url.replace(eval(tmp),replaceText); 
-          return tmp; 
-      }else{ 
-          if(url.match('[\?]')){ 
-              return url+'&'+replaceText; 
-          }else{ 
-              return url+'?'+replaceText; 
-          } 
-      } 
-
-      return url+'\n'+arg+'\n'+arg_val; 
-      
-    }
-
-    //无历史记录sort_by分类跳转
-    function jump(new_sort_by){
-      var url = window.location.href;  
-      url = changeURLArg(url,'sort_by',new_sort_by);    
-      window.location.replace(url); 
-
-    }
 
     function addClass(element, new_name) {  
       if (!element || !new_name) return false;  

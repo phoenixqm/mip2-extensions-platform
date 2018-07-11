@@ -878,7 +878,7 @@
     </div>
     <div class="mip-infinitescroll-results"></div>
     <div class="bg">
-	  <div  class="mip-infinitescroll-loading" @click="loadmore"><p>{{state.loadMessage}}</p></div>
+      <div  class="mip-infinitescroll-loading" @click="loadMoreClick"><p>{{state.loadMessage}}</p></div>
     </div>
   
   
@@ -1407,25 +1407,24 @@ API.getSelectMaster = function(filter, cb) {
 
 export default {
   beforeMount() {
-	function loadMore() {
-	    console.log('加载数据')
-	  }
-	var self = this;
-  	window.addEventListener('scroll',function(e){
-	  console.log(e);
-	  console.log('55',self);
-	  console.log(document.documentElement.scrollTop);
-var scrollTop = document.documentElement.scrollTop;
-	  console.log(document.body);
-  if(scrollTop + window.innerHeight >= document.body.clientHeight - '100') {
-    // 触发加载数据        
-    loadMore();
-    self.load_more();
-  };
-	  console.log('2222',window.innerHeight);
-	  console.log('333',document.body.clientHeight);
 
-	});
+    var self = this;
+    window.addEventListener('scroll',function(e){
+
+      console.log(document.documentElement.scrollTop);
+      console.log(document.body.scrollTop);
+      var scrollTop = document.documentElement.scrollTop;
+      if (scrollTop == 0) {
+        scrollTop = document.body.scrollTop;
+      }
+
+      if(scrollTop + window.innerHeight >= document.body.clientHeight - '100') {
+        // 触发加载数据        
+        console.log('加载数据')
+        self.loadMoreAuto();
+      };
+
+    });
   },
   mounted() {
     console.log('This is pty order list component !');
@@ -1543,7 +1542,7 @@ var scrollTop = document.documentElement.scrollTop;
       }else{
         self.filter.sort_by = 'jy_desc';
       } 
-	  self.load_data();
+      self.load_data();
     }); 
     
     sortAge.addEventListener('click', function(){
@@ -1554,7 +1553,7 @@ var scrollTop = document.documentElement.scrollTop;
       }else{
         self.filter.sort_by = 'age_asc';
       }
-	  self.load_data();
+      self.load_data();
     }); 
 
     var citytd = document.querySelectorAll(".citytd");
@@ -1590,17 +1589,16 @@ var scrollTop = document.documentElement.scrollTop;
   },
   data() {
     console.log(this);
-    // var pdata = JSON.parse(this.dataJsonstr);
-    // console.log(pdata.list);
+
     return {
       list: [],
       state: {
-		isLoadingMore : false,
-		loadMessage:'点击加载数据',
-		hasMoreData: false
+        isLoadingMore : false,
+        loadMessage:'点击加载数据',
+        hasMoreData: false
       },
       filter: {
-		pn : 0
+        pn : 0
       },
       filter2: {
         shlxRow:'全天',
@@ -1639,7 +1637,7 @@ var scrollTop = document.documentElement.scrollTop;
     load_data() {
       console.log('should set data');
       var self = this;
-	  this.filter.pn = 0;
+      this.filter.pn = 0;
       API.getSelectMaster(this.filter, function(isOk, res){
         if (isOk) {
           console.log(res);
@@ -1651,48 +1649,59 @@ var scrollTop = document.documentElement.scrollTop;
     load_more() {
       console.log('should set data');
       var self = this;
-	  this.filter.pn += 1;
+      this.filter.pn += 1;
       API.getSelectMaster(this.filter, function(isOk, res){
         if (isOk) {
+          // console.log(res);
+          if (res.list.length > 0){
+            self.list = self.list.concat(res.list);
+            self.state.loadMessage = "点击加载数据";
+          } else {
+            self.state.loadMessage = "没有更多数据了!";
+          }
+        } else {
           console.log(res);
-		  if(res.list.length > 0){
-          self.list = self.list.concat(res.list);
-		  self.state.loadMessage = "点击加载数据";
-		}else{
-		  self.state.loadMessage = "没有更多数据了!";
-		}
+          self.state.loadMessage = "加载数据出错";
         }
 
       }); 
     },
-	loadmore() {
-	  var self = this;
-	  self.state.loadMessage = "数据正在加载中...";
-	this.load_more();
-	},
+    loadMoreAuto() {
 
-  sure(){
-    var self = this;
-    this.filter.sort_by = '';
-    console.log(this);
-    this.filter.shlxRow = this.filter2.shlxRow;
-    this.filter.ycq = this.filter2.ycq;
-    this.filter.city = this.filter2.city;
-    this.filter.jiguan = this.filter2.jiguan;
-    this.filter.ageFromSel = this.filter2.ageFromSel;
-    this.filter.ageToSel = this.filter2.ageToSel;
-    this.filter.priceFromSel = this.filter2.priceFromSel;
-    this.filter.priceToSel = this.filter2.priceToSel;
-    this.filter.workYearFromSel = this.filter2.workYearFromSel;
-    this.filter.workYearToSel = this.filter2.workYearToSel;
-    API.getSelectMaster(this.filter, function(isOk, res){
-      if (isOk) {
-        console.log(res);
-        self.list = res.list;
+      this.state.loadMessage = "数据正在加载中...";
+      this.load_more();
+    },
+    loadMoreClick() {
+      if (this.state.loadMessage == "点击加载数据") {
+        this.state.loadMessage = "数据正在加载中...";
+        this.load_more();        
       }
+    },    
 
-    });
-  },
+    sure(){
+      var self = this;
+      this.filter.sort_by = '';
+      // console.log(this);
+
+      this.filter.shlxRow = this.filter2.shlxRow;
+      this.filter.ycq = this.filter2.ycq;
+      this.filter.city = this.filter2.city;
+      this.filter.jiguan = this.filter2.jiguan;
+      this.filter.ageFromSel = this.filter2.ageFromSel;
+      this.filter.ageToSel = this.filter2.ageToSel;
+      this.filter.priceFromSel = this.filter2.priceFromSel;
+      this.filter.priceToSel = this.filter2.priceToSel;
+      this.filter.workYearFromSel = this.filter2.workYearFromSel;
+      this.filter.workYearToSel = this.filter2.workYearToSel;
+
+      API.getSelectMaster(this.filter, function(isOk, res){
+        if (isOk) {
+          console.log(res);
+          self.list = res.list;
+        }
+
+      });
+    },
 
     reload_() {
       window.location.reload();

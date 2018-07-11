@@ -1,6 +1,9 @@
 <template>
   <div v-if="show" class="root">
+	<mip-fixed type="top" class="fixed_back">
     <div id='fullScreen'></div>
+	</mip-fixed>
+	<mip-fixed type="top" class="fixed_con">
     <div id='floatLayer'>
       <p class="title">{{ title }}</p>
       <p class="msg">{{ msg }}</p>
@@ -9,6 +12,7 @@
         <span class="btn_ok" @click="okConfirm">确定</span>
       </div>  
     </div>
+	</mip-fixed>
   </div>
 </template>
 <style scoped>
@@ -18,31 +22,32 @@
 }
 
 
-
 /* https://www.cnblogs.com/martianShu/p/5893355.html */
-
+.fixed_back{
+  z-index:9999;
+  width:100%;
+  height:100%;
+}
+.fixed_con{
+  z-index:10000;
+}
 #fullScreen {
-  position: fixed;
   width: 100%;
   height: 100%;
-  left: 0;
-  top: 0;
+  pointer-event:none;
   opacity: 0.7;
   background-color: black;
-  z-index: 9999;
 }
 
 #floatLayer {
-  position: fixed;
   width: 80%;
   height: 120px;
-  left: 10%;
-  top: 25%;
   background-color: white;
-  z-index: 10000;
   border-radius: 5px;
   padding-top: 30px;
   text-align: center;
+  margin-left:10%;
+  margin-top:50%;
 }
 .msg{
   margin-bottom: 15px;

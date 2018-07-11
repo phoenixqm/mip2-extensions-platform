@@ -210,6 +210,7 @@
     </div>
   </div>
 </div>
+<mip-fixed type="bottom">
   <table class="tbl" cellspacing="0">
       <tbody>
           <tr>
@@ -237,7 +238,7 @@
           </tr>
       </tbody>
   </table>
-
+  </mip-fixed>
 </div>
     
 
@@ -694,8 +695,6 @@ td.secondCol {
     text-align: center;
     height: 50px;
     border-top: 1px solid #ddd;
-    position: fixed;
-    bottom: 0;
     background-color: #fff;
 }
 .tbl td{

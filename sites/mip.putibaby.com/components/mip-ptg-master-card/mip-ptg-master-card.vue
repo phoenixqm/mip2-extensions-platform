@@ -356,12 +356,7 @@ body{
     line-height: 22px;
     background-color: rgba(255,255,255,0.2);
     color: #fff;
-    font-size: 12px;.yinzhang{
-  position: absolute;
-  top:15px;
-  right: 30px;
-}
-
+    font-size: 12px;
 	padding-left:5px;
 	padding-right:5px;
 	z-index:99;

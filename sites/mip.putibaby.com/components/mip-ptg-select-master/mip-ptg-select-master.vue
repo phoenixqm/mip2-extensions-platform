@@ -18,7 +18,7 @@
     <a class="person" href="/order_list"><mip-img width="28px" height="23px" src="/i/select_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
   </tr>
 </tbody></table>
-<mip-lightbox id="my-lightbox2" layout="nodisplay">
+<mip-lightbox id="my-lightbox2" layout="nodisplay" content-scroll>
     
   <div class="mip-fill-content"><div class="lightbox">
       <table class="city_title"><tbody><tr><td>已开通服务的城市：</td></tr></tbody></table>
@@ -1060,6 +1060,7 @@
       background-color:#fff;
       line-height:17px;
       border:solid 1px #ddd;
+	  padding-left:5px;
     }
     .hidden-table_top{
       /*margin-top: 50px;*/
@@ -1277,6 +1278,7 @@
       background-color:#fff;
       border-radius:3px;
       border:solid 1px #ddd;
+	  padding-left:5px;
     }
     .sousuo_form{
       width: 100%;
@@ -1534,7 +1536,7 @@ export default {
     console.log(this);
 
     return {
-      list: [],
+      list: null,
       state: {
         isLoadingMore : false,
         loadMessage:'点击加载数据',

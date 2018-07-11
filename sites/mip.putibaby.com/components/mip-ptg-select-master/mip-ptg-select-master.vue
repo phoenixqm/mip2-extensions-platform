@@ -11,11 +11,11 @@
       
     </td>
     <td class="sousuo_td">
-      <input type="text" name="kw" class="kw" v-model="filter.kw"  validatetarget="kw" placeholder="输入月嫂的姓名搜索">
+      <input type="search" name="kw" class="kw" v-model="filter.kw"  validatetarget="kw" @keyup.enter="search" placeholder="输入月嫂的姓名搜索">
       <mip-img class="sousuo_icon mip-element mip-layout-container mip-img-loaded" src="/i/sousuo.png"></mip-img>
     
-    <span class="sousuo" @click="search"> 搜索</span>
-    <a class="person" href="/order_list"><mip-img width="28px" height="23px" src="/i/select_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
+
+    <a class="person" href="/order_list"><mip-img width="18px" height="22px" src="/i/card_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
   </tr>
 </tbody></table>
 <mip-lightbox id="my-lightbox2" layout="nodisplay" content-scroll>
@@ -1008,7 +1008,7 @@
     }
 
     .kw{
-      width: 70%;
+      width:85%;
       /*margin-left:1%;*/
       height: 28px;
       border: 0px solid white;
@@ -1228,11 +1228,10 @@
     }
 
     .person{
-      width: 30px;
-      padding-top: 3px;
       display: inline-block;
       position: absolute;
       right: 10px;
+	  padding-top:3px;
     }
 
     .mip-infinitescroll-results{
@@ -1300,7 +1299,11 @@
     .qt_td{
       margin-right: 20px;
       display: inline-block;
-      line-height: 50px;
+      line-height: 52px;
+    }
+    .bb_td{
+      display: inline-block;
+      line-height: 52px;
     }
 
 

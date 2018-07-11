@@ -78,7 +78,7 @@
           <td class="citytd">南宁</td>
         </tr>       
       </tbody></table>
-        <span class="lightbox-close" id="lightbox-close">确认</span>
+        <span class="lightbox-close" id="lightbox-close" on="tap:my-lightbox.toggle tap:selectmaster.do_cityok">确认</span>
     </div></div></mip-lightbox>
 
 <table id="sortbar" class="sort_by" data-sort_by="">
@@ -838,7 +838,7 @@
       </tr>
       </tbody></table>
       <span class="quxiao" on="tap:right-sidebar.close  tap:selectmaster.docancel">取消</span>
-      <input class="queding" on="tap:right-sidebar.close tap:selectmaster.dook" type="submit" value="确定" @click="sure">
+      <input class="queding" on="tap:right-sidebar.close tap:selectmaster.dook" type="submit" value="确定">
       </mip-sidebar>
 
   
@@ -1437,11 +1437,10 @@ var scrollTop = document.documentElement.scrollTop;
       console.log(event);
     });
     this.$element.customElement.addEventAction('dook', function(event, str) {
-      console.log(event);
-
-      console.log(event.from);
       self.sure();
-
+    });
+    this.$element.customElement.addEventAction('do_cityok', function(event, str) {
+      self.load_data();
     });
     this.$element.customElement.addEventAction('docancel', function(event, str) {
       console.log(event);
@@ -1677,7 +1676,6 @@ var scrollTop = document.documentElement.scrollTop;
   sure(){
     var self = this;
     this.filter.sort_by = '';
-    console.log(this);
     this.filter.shlxRow = this.filter2.shlxRow;
     this.filter.ycq = this.filter2.ycq;
     this.filter.city = this.filter2.city;
@@ -1690,7 +1688,9 @@ var scrollTop = document.documentElement.scrollTop;
     this.filter.workYearToSel = this.filter2.workYearToSel;
     API.getSelectMaster(this.filter, function(isOk, res){
       if (isOk) {
-        console.log(res);
+        // console.log(res);
+        removeClass(sorttd,'checked');
+        addClass(sortZH,'checked');
         self.list = res.list;
       }
 

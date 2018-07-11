@@ -7,14 +7,14 @@
     <td class="ss_city_td">
         
       <span v-if="filter.city=='' || !filter.city"  on="tap:my-lightbox2.toggle" id="btn-open" class="city_btn" role="button" tabindex="0">北京</span>
-	  <span v-else on="tap:my-lightbox2.toggle" id="btn-open" class="city_btn" role="button" tabindex="0">{{ filter.city}}</span>
+      <span v-else on="tap:my-lightbox2.toggle" id="btn-open" class="city_btn" role="button" tabindex="0">{{ filter.city}}</span>
       
     </td>
     <td class="sousuo_td">
       <input type="text" name="kw" class="kw" v-model="filter.kw"  validatetarget="kw" placeholder="输入月嫂的姓名搜索">
       <mip-img class="sousuo_icon mip-element mip-layout-container mip-img-loaded" src="/i/sousuo.png"></mip-img>
     
-	  <span class="sousuo" @click="search"> 搜索</span>
+    <span class="sousuo" @click="search"> 搜索</span>
     <a class="person" href="/order_list"><mip-img width="28px" height="23px" src="/i/select_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
   </tr>
 </tbody></table>
@@ -1028,8 +1028,8 @@
       display: inline-block !important;
       text-align: center;
       color: #afd03b !important;
-	  line-height:28px;
-	  margin-left:5px;
+    line-height:28px;
+    margin-left:5px;
     }
     .sousuo_td{
       position: relative;
@@ -1391,7 +1391,7 @@ API.getSelectMaster = function(filter, cb) {
       return true;  
     } 
 
-	function removeClass(element, class_name) {  
+  function removeClass(element, class_name) {  
       if(!element || !class_name) return false;  
       // if (!element.className) return false;
       for (var n = 0; n < element.length; n++) {
@@ -1542,7 +1542,7 @@ export default {
       },
       filter: {
         pn : 0,
-		kw:''
+        kw:''
       },
       filter2: {
         shlxRow:'全天',
@@ -1586,6 +1586,9 @@ export default {
         if (isOk) {
           console.log(res);
           self.list = res.list;
+          if (res.list.length < 10) {
+            self.state.loadMessage = "没有更多数据了!";
+          }
         }
 
       }); 
@@ -1597,8 +1600,8 @@ export default {
       API.getSelectMaster(this.filter, function(isOk, res){
         if (isOk) {
           // console.log(res);
-          if (res.list.length > 0){
-            self.list = self.list.concat(res.list);
+          self.list = self.list.concat(res.list);
+          if (res.list.length >= 10){
             self.state.loadMessage = "点击加载数据";
           } else {
             self.state.loadMessage = "没有更多数据了!";
@@ -1638,8 +1641,10 @@ export default {
       this.filter.priceToSel = this.filter2.priceToSel;
       this.filter.workYearFromSel = this.filter2.workYearFromSel;
       this.filter.workYearToSel = this.filter2.workYearToSel;
-	  var sortZH = document.querySelector("#sortZH");
-	  var sorttd = document.querySelectorAll(".sort_td");
+
+      var sortZH = document.querySelector("#sortZH");
+      var sorttd = document.querySelectorAll(".sort_td");
+
       API.getSelectMaster(this.filter, function(isOk, res){
         if (isOk) {
           console.log(res);
@@ -1650,10 +1655,10 @@ export default {
 
       });
     },
-	
-	search(){
-		this.load_data();
-	},
+  
+    search(){
+      this.load_data();
+    },
     reload_() {
       window.location.reload();
 

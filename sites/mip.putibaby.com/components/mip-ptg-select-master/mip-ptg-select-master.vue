@@ -17,7 +17,7 @@
     <a class="person" href="/order_list"><mip-img width="28px" height="23px" src="/i/select_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
   </tr>
 </tbody></table>
-<mip-lightbox id="my-lightbox2" layout="nodisplay" class="mip-layout-nodisplay mip-element" content-scroll="" style="display: none; position: fixed; z-index: 10001; top: 0px; right: 0px; left: 0px; transition: opacity 0.1s ease-in;">
+<mip-lightbox id="my-lightbox2" layout="nodisplay">
     
   <div class="mip-fill-content"><div class="lightbox">
       <table class="city_title"><tbody><tr><td>已开通服务的城市：</td></tr></tbody></table>
@@ -112,12 +112,6 @@
 
 
 <div class="root">
-
-    <div class="rec_a">
-      <a href="/update_ycq_mip" >
-        <mip-img class="rec_icon" layout="fixed" width="78px" height="50px" src='i/bwtj.png' ></mip-img>
-      </a>
-    </div>
 
   <mip-sidebar id="right-sidebar" layout="nodisplay" side="right" class="mip-hidden">
       <table class="yssxtj_table">
@@ -1112,7 +1106,7 @@
       height: 36px;
       border-radius: 3px;
       border:1px solid #afd03b;
-      position: fixed;
+      position: absolute;
       bottom: 20px;
     }
     .queding{
@@ -1122,34 +1116,12 @@
       width: 108px;
       height: 36px;
       font-size: 14px;
-      position: fixed;
+      position: absolute;
       bottom: 20px;
       border-radius: 3px;
       border:none;
     }
 
-    .root .rec_a {
-      display: block;
-      position: fixed;
-      right: 0px;
-      bottom: 60px;
-      width: 80px;
-      height: 50px;
-      z-index: 999;
-    }
-    .root .rec_a .mip-layout-fixed {
-      display: inline-block;
-      position: fixed;
-      bottom: 60px;
-      right: 0px;
-    }
-
-    .root .rec_a .rec_icon {
-      position: fixed;
-      display: inline-block;
-      width: 80px;
-      height: 50px;
-    }
     .sort_by{
       width: 100%;
       text-align: center;

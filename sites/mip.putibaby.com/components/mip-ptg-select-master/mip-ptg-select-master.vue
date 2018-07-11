@@ -6,7 +6,8 @@
   <tbody><tr>
     <td class="ss_city_td">
         
-      <span on="tap:my-lightbox2.toggle" id="btn-open" class="city_btn" role="button" tabindex="0">北京</span>
+      <span v-if="filter.city=='' || !filter.city"  on="tap:my-lightbox2.toggle" id="btn-open" class="city_btn" role="button" tabindex="0">北京</span>
+	  <span v-else on="tap:my-lightbox2.toggle" id="btn-open" class="city_btn" role="button" tabindex="0">{{ filter.city}}</span>
       
     </td>
     <td class="sousuo_td">
@@ -845,7 +846,7 @@
     <div class="cardList" id="cardList">
     <div v-for="m in list">
         <div class="masterCard">
-          <a :href="'/master_card?id='+m.id">
+          <a :href="'/master_card?mcode='+m.id">
           <div class="div-padding">
             <mip-img layout="responsive" width="70" height="70"
              class="mC_header" :src="m.header.small" ></mip-img>
@@ -1638,8 +1639,10 @@ export default {
       }); 
     },
     loadMoreAuto() {
-      this.state.loadMessage = "数据正在加载中...";
-      this.load_more();
+      if (this.state.loadMessage == "点击加载数据") {
+        this.state.loadMessage = "数据正在加载中...";
+        this.load_more();        
+      }
     },
     loadMoreClick() {
       if (this.state.loadMessage == "点击加载数据") {

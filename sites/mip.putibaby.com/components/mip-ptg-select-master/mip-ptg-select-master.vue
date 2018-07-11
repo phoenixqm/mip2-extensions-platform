@@ -10,10 +10,10 @@
       
     </td>
     <td class="sousuo_td">
-      <input type="text" name="kw" class="kw" validatetarget="kw" placeholder="输入月嫂的姓名搜索">
+      <input type="text" name="kw" class="kw" v-model="filter.kw"  validatetarget="kw" placeholder="输入月嫂的姓名搜索">
       <mip-img class="sousuo_icon mip-element mip-layout-container mip-img-loaded" src="/i/sousuo.png"></mip-img>
     
-    <input class="sousuo" type="submit" value="搜索">
+	  <span class="sousuo" @click="search"> 搜索</span>
     <a class="person" href="/order_list"><mip-img width="28px" height="23px" src="/i/select_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
   </tr>
 </tbody></table>
@@ -78,7 +78,7 @@
           <td class="citytd">南宁</td>
         </tr>       
       </tbody></table>
-        <span class="lightbox-close" id="lightbox-close" on="tap:my-lightbox.toggle tap:selectmaster.do_cityok">确认</span>
+        <span class="lightbox-close" id="lightbox-close" on="tap:my-lightbox2.toggle tap:selectmaster.do_cityok">确认</span>
     </div></div></mip-lightbox>
 
 <table id="sortbar" class="sort_by" data-sort_by="">
@@ -100,7 +100,7 @@
       <td id="sortAge" class="sort_td">按年龄
         <mip-img v-if="filter.sort_by == 'age_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
         <mip-img v-else-if="filter.sort_by == 'age_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
-        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
+        <mip-img v-else src="/i/select_master_jt_up.png" ></mip-img>
       </td>
       <td class="shaixuan_btn" on="tap:right-sidebar.open">筛选
         <mip-img src="/i/select_master_jt_down.png"></mip-img>
@@ -1033,6 +1033,8 @@
       display: inline-block !important;
       text-align: center;
       color: #afd03b !important;
+	  line-height:28px;
+	  margin-left:5px;
     }
     .sousuo_td{
       position: relative;
@@ -1405,6 +1407,39 @@ API.getSelectMaster = function(filter, cb) {
 };
 
 
+    function addClass(element, new_name) {  
+      if (!element || !new_name) return false;  
+      if (element.className) {  
+          var old_class_name = element.className;  
+          element.className = old_class_name + " " + new_name;  
+      } else{  
+          element.className = new_name;  
+      }  
+      return true;  
+    } 
+
+	function removeClass(element, class_name) {  
+      if(!element || !class_name) return false;  
+      // if (!element.className) return false;
+      for (var n = 0; n < element.length; n++) {
+         
+        var all_names = element[n].className.split(" ");  
+        for (var i = 0; i < all_names.length; i++) {  
+            if (all_names[i] === class_name) {  
+                all_names.splice(i, 1);  
+                element[n].className = "";  
+                for (var j = 0; j < all_names.length; j++) {  
+                    element[n].className += " ";  
+                    element[n].className += all_names[j];  
+                }  
+                return true;  
+            }  
+        } 
+      }    
+    }  
+
+
+
 export default {
   beforeMount() {
 
@@ -1442,37 +1477,6 @@ export default {
       console.log(event);
       console.log(str);
     });
-
-    function addClass(element, new_name) {  
-      if (!element || !new_name) return false;  
-      if (element.className) {  
-          var old_class_name = element.className;  
-          element.className = old_class_name + " " + new_name;  
-      } else{  
-          element.className = new_name;  
-      }  
-      return true;  
-    } 
-
-    function removeClass(element, class_name) {  
-      if(!element || !class_name) return false;  
-      // if (!element.className) return false;
-      for (var n = 0; n < element.length; n++) {
-         
-        var all_names = element[n].className.split(" ");  
-        for (var i = 0; i < all_names.length; i++) {  
-            if (all_names[i] === class_name) {  
-                all_names.splice(i, 1);  
-                element[n].className = "";  
-                for (var j = 0; j < all_names.length; j++) {  
-                    element[n].className += " ";  
-                    element[n].className += all_names[j];  
-                }  
-                return true;  
-            }  
-        } 
-      }    
-    }  
 
 
     var sortbar = document.querySelector("#sortbar");
@@ -1536,10 +1540,6 @@ export default {
         self.filter.city = this.innerHTML;
       })
     }
-    
-    lightbox_close.addEventListener('click',function () {
-      self.load_data();
-    });
 
 
   },
@@ -1568,7 +1568,8 @@ export default {
         hasMoreData: false
       },
       filter: {
-        pn : 0
+        pn : 0,
+		kw:''
       },
       filter2: {
         shlxRow:'全天',
@@ -1662,7 +1663,8 @@ export default {
       this.filter.priceToSel = this.filter2.priceToSel;
       this.filter.workYearFromSel = this.filter2.workYearFromSel;
       this.filter.workYearToSel = this.filter2.workYearToSel;
-
+	  var sortZH = document.querySelector("#sortZH");
+	  var sorttd = document.querySelectorAll(".sort_td");
       API.getSelectMaster(this.filter, function(isOk, res){
         if (isOk) {
           console.log(res);
@@ -1673,7 +1675,10 @@ export default {
 
       });
     },
-
+	
+	search(){
+		this.load_data();
+	},
     reload_() {
       window.location.reload();
 

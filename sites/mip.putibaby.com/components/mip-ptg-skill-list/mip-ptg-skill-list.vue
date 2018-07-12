@@ -15,8 +15,6 @@
     </div>
   </div>
 
-  <input class="mbtn" type="submit" value="提交" @click="submit_" v-show:disabled="!rea">
-
 
 </div>
 </template>
@@ -233,27 +231,58 @@ export default {
     }
   },
   data() {
-    console.log('this', this);
     var pdata = JSON.parse(this.dataJsonstr);
-    if (pdata.readonly != '1') {
-      var readonly = false;
-    } else {
-      var readonly = true;
-    }
-    if (JSON.parse(this.dataJsonstr).contract_skill_req.indexOf(',') != -1) {
-      var skill_list = JSON.parse(this.dataJsonstr).contract_skill_req.split(',');
+    console.log(pdata);
+    var data = pdata;
+    var wholeList = data.whole_list;
+    var myList = data.my_list;
+    var readOnly = data.read_only;
 
-    } else {
-      var skill_list = [];
-      skill_list.push(JSON.parse(this.dataJsonstr).contract_skill_req);
-    }
+    // id => data mapping
+    var wholeDict = {};
+    wholeList.forEach(function(x) {
+      x.children = [];
+      wholeDict[x.id] = x;
+    });
+    wholeList.forEach(function(x) {
+      var parent = wholeDict[x.parent];
+      if(!parent) return;
+      parent.children.push(x);
+    });
+
+    // 分类
+    var categories = [];
+    wholeList.forEach(function(x) {
+      if(x.parent == 0) categories.push(x);
+    });
+
+    // 是否已经选择
+    var choiceDict = {};
+    myList.forEach(function(x) {
+      choiceDict[x.skill_id] = true;
+    });
+    wholeList.forEach(function(x) {
+      var v = this.state[x.id];
+      if(v === true) choiceDict[x.id] = true;
+      else if(v === false) choiceDict[x.id] = false;
+    }.bind(this));
+
+    categories.sort(function(a, b) {
+      return a.order - b.order;
+    });
+    categories.map(function(c) {
+      c.children.sort(function(a,b) {
+        return a.order - b.order;
+      });
+    });
+
+    console.log(categories);
+    
     return {
-      list: JSON.parse(this.dataJsonstr).list,
-      check: false,
-      contract_skill_req: [],
-      skill_req: skill_list,
-      sk_c: pdata.sk_c,
-      rea: readonly,
+      whole_list: pdata.whole_list,
+      my_list: pdata.my_list,
+      read_only: pdata.readonly,
+      categories:categories,
     }
   },
   computed: {
@@ -267,65 +296,8 @@ export default {
     load_data() {
       console.log('should set data');
     },
-    changePhoneNumber_() {
 
-    },
-    checked_(id) {
-      return false;
-    },
-    Checked_(id) {
-      this.checked_(id);
-    },
-    Change_(id) {},
-    check_: function(id) {
-      var self = this;
-      var skill = this.skill_req.length;
-      for (var i = 0; i < skill; i++) {
-        if (id == this.skill_req[i]) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-    },
-    changeChecked_(id, state) {
-      var self = this;
-      var skill_list = this.skill_req;
-      var skill_req = [];
-      if (skill_list.indexOf(id.toString()) == -1) {
-        skill_req = skill_list;
-        skill_req.push(id.toString());
 
-      } else {
-        var skill_list_ = skill_list;
-        var index = skill_list.indexOf(id.toString());
-        var c = skill_list.splice(index, 1);
-        for (var i = 0; i < skill_list_.length; i++) {
-          if (skill_list_[i] == c[0]) {} else {
-            skill_req.push(skill_list_[i]);
-          }
-        }
-      }
-      var skill_l = [];
-      for (var i = 0; i < skill_req.length; i++) {
-        if (skill_req[i] == '') {} else {
-          skill_l.push(skill_req[i]);
-        }
-      }
-      var opts = {};
-      opts.id = JSON.parse(self.dataJsonstr).id;
-      opts.contract_skill_req = skill_l.join(',');
-      API.saveIt_(opts, function(isOk, res) {
-        if (isOk) {
-          console.log('success');
-        }
-      });
-    },
-    submit_() {
-	  var url =  '/edit_contract?id=' + JSON.parse(this.dataJsonstr).id;
-      // window.location.replace(url);
-      window.MIP.viewer.open(url,{replace:true});
-    },
   }
 }
 </script>

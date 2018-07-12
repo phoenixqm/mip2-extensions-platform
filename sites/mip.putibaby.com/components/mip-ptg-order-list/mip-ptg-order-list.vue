@@ -471,10 +471,12 @@ export default {
       window.location.href = 'tel:' + order.master.phone_number;
     },
     handleBtn_nidinghetong(order) {
-      window.location.href = '/edit_contract?id=' + order.id;
+      // window.location.href = '/edit_contract?id=' + order.id;
+      window.MIP.viewer.open('/edit_contract?id=' + order.id,{})
     },
     handleBtn_chakanhetong(order) {
-      window.location.href = '/edit_contract?id=' + order.id + '&readonly=1';
+      // window.location.href = '/edit_contract?id=' + order.id + '&readonly=1';
+      window.MIP.viewer.open('/edit_contract?id=' + order.id + '&readonly=1',{})
     },
     handleBtn_jiaodingjin(order) {
       window.location.href = '/pay/v2_do_pay?order_id=' + order.id;

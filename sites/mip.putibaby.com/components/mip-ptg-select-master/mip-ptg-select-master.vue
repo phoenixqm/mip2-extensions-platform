@@ -1,7 +1,7 @@
 <template>
 <div>
-
-  <div class="header">
+<mip-fixed type="top" class="header_tab">
+<div class="header">
 <table class="sousuo_table">
   <tbody><tr>
     <td class="ss_city_td">
@@ -17,7 +17,37 @@
 
     <a class="person" href="/order_list"><mip-img width="18px" height="22px" src="/i/card_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
   </tr>
-</tbody></table>
+</tbody></table>    
+
+<table id="sortbar" class="sort_by" data-sort_by="">
+    <tbody><tr>
+      <td id="sortZH" class="sort_td checked">综合        
+        <mip-img v-if="filter.sort_by == '' || !filter.sort_by" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
+      </td>
+      <td id="sortPrice" class="sort_td">按价格    
+        <mip-img v-if="filter.sort_by == 'price_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
+        <mip-img v-else-if="filter.sort_by == 'price_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
+      </td>
+      <td id="sortJY" class="sort_td">按经验        
+        <mip-img v-if="filter.sort_by == 'jy_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
+        <mip-img v-else-if="filter.sort_by == 'jy_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
+      </td>
+      <td id="sortAge" class="sort_td">按年龄
+        <mip-img v-if="filter.sort_by == 'age_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
+        <mip-img v-else-if="filter.sort_by == 'age_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
+        <mip-img v-else src="/i/select_master_jt_up.png" ></mip-img>
+      </td>
+      <td class="shaixuan_btn" on="tap:right-sidebar.open">筛选
+        <mip-img src="/i/select_master_jt_down.png"></mip-img>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</mip-fixed>
 <mip-lightbox id="my-lightbox2" layout="nodisplay" content-scroll>
     
   <div class="mip-fill-content"><div class="lightbox">
@@ -81,37 +111,6 @@
       </tbody></table>
         <span class="lightbox-close" id="lightbox-close" on="tap:my-lightbox2.toggle tap:selectmaster.do_cityok">确认</span>
     </div></div></mip-lightbox>
-
-<table id="sortbar" class="sort_by" data-sort_by="">
-    <tbody><tr>
-      <td id="sortZH" class="sort_td checked">综合        
-        <mip-img v-if="filter.sort_by == '' || !filter.sort_by" src="/i/select_master_jt_down_white.png"></mip-img>
-        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
-      </td>
-      <td id="sortPrice" class="sort_td">按价格    
-        <mip-img v-if="filter.sort_by == 'price_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
-        <mip-img v-else-if="filter.sort_by == 'price_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
-        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
-      </td>
-      <td id="sortJY" class="sort_td">按经验        
-        <mip-img v-if="filter.sort_by == 'jy_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
-        <mip-img v-else-if="filter.sort_by == 'jy_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
-        <mip-img v-else src="/i/select_master_jt_down.png" ></mip-img>
-      </td>
-      <td id="sortAge" class="sort_td">按年龄
-        <mip-img v-if="filter.sort_by == 'age_desc'" src="/i/select_master_jt_down_white.png"></mip-img>
-        <mip-img v-else-if="filter.sort_by == 'age_asc'" src="/i/select_master_jt_up_white.png"></mip-img>
-        <mip-img v-else src="/i/select_master_jt_up.png" ></mip-img>
-      </td>
-      <td class="shaixuan_btn" on="tap:right-sidebar.open">筛选
-        <mip-img src="/i/select_master_jt_down.png"></mip-img>
-      </td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 <div class="root">
 
   <mip-sidebar id="right-sidebar" layout="nodisplay" side="right" class="mip-hidden">
@@ -906,6 +905,7 @@
     }
     .root{
         padding: 0% 2.5%;
+		margin-top:90px;
     }
     
     .cardList .masterCard{
@@ -1240,6 +1240,7 @@
     .header{
       background-color: #fff;
       padding-top: 7px;
+	  margin-top:44px;
     }
 
     .span_qt{
@@ -1334,6 +1335,9 @@
    display:inline-block;
    margin-left:5px;
    margin-right:5px;
+  }
+  .header_tab{
+  	z-index:9 !important;
   }
 </style>
 <script>

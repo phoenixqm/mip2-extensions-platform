@@ -2,19 +2,6 @@
 <template>
 <div class='root'>
 
-  <div class="part" v-for="items in list">
-    <div class="sub_head">
-      <p>{{items.title}}</p>
-    </div>
-    <div class="item" v-for="it in items.list">
-      <p for="it.id">
-				{{it.title}}
-      </p>
-      <input type="checkbox" id="it.id" name="services" v-bind:disabled="rea" value="it.id" v-bind:checked="sk_c[it.id]" @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
-
-    </div>
-  </div>
-
   <div v-for="cat in categories" class="part">
     <div class="sub_head">
       <p>{{ cat.title }}</p>
@@ -23,7 +10,7 @@
       <p for="it.id">
         {{ it.title }}
       </p>
-      <input type="checkbox" id="it.id" name="services" v-bind:disabled="rea" value="it.id" v-bind:checked="choiceDict[it.id]" @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
+      <input type="checkbox" id="it.id" name="services" v-bind:disabled="read_only" value="it.id" v-bind:checked="choiceDict[it.id]" @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
     </div>
   </div>
 

@@ -218,6 +218,7 @@ export default {
   },
   mounted() {
     console.log('This is my first custom component !')
+    console.log(this);
   },
 
   props: {
@@ -233,6 +234,7 @@ export default {
   data() {
     var pdata = JSON.parse(this.dataJsonstr);
     console.log(pdata);
+    var state = {};
     var data = pdata;
     var wholeList = data.whole_list;
     var myList = data.my_list;
@@ -262,9 +264,9 @@ export default {
       choiceDict[x.skill_id] = true;
     });
     wholeList.forEach(function(x) {
-      var v = this.state[x.id];
-      if(v === true) choiceDict[x.id] = true;
-      else if(v === false) choiceDict[x.id] = false;
+      var v = state[x.id];
+      if (v === true) choiceDict[x.id] = true;
+      else if (v === false) choiceDict[x.id] = false;
     }.bind(this));
 
     categories.sort(function(a, b) {
@@ -277,12 +279,14 @@ export default {
     });
 
     console.log(categories);
-    
+
     return {
       whole_list: pdata.whole_list,
       my_list: pdata.my_list,
       read_only: pdata.readonly,
-      categories:categories,
+      categories: categories,
+      choiceDict: choiceDict,
+      state: state
     }
   },
   computed: {

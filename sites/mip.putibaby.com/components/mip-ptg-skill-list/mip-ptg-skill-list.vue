@@ -15,6 +15,18 @@
     </div>
   </div>
 
+  <div v-for="cat in categories" class="part">
+    <div class="sub_head">
+      <p>{{ cat.title }}</p>
+    </div>
+    <div class="item" v-for="it in cat.children">
+      <p for="it.id">
+        {{ it.title }}
+      </p>
+      <input type="checkbox" id="it.id" name="services" v-bind:disabled="rea" value="it.id" v-bind:checked="choiceDict[it.id]" @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
+    </div>
+  </div>
+
 
 </div>
 </template>

@@ -333,7 +333,8 @@ export default {
     },
     submit_() {
 	  var url =  '/edit_contract?id=' + JSON.parse(this.dataJsonstr).id;
-      window.location.replace(url);
+      // window.location.replace(url);
+      window.MIP.viewer.open(url,{replace:true});
     },
   }
 }

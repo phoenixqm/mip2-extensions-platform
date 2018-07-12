@@ -400,7 +400,8 @@ export default {
       }
       var url = '/update_ycq_ok?name=' + this.name + '&ycq=' + this.date + '&masterType=' + masterType;
 
-      window.location.replace(url);
+      // window.location.replace(url);
+      window.MIP.viewer.open(url,{replace:true});
 
     },
   }

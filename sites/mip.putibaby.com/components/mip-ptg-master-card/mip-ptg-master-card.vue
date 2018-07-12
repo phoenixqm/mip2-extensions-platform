@@ -25,22 +25,22 @@
             </p>
           </div>
           <div class="renZheng">	
-			<a href="https://mip.putibaby.com/service_intro">
+			<a href="https://mip.putibaby.com/service_intro" mip-link>
           	 <span v-if="data.info.certificated">
              <mip-img src="i/master_card_certificated.png" width="12px" height="12px" ></mip-img>
              <span>身份认证</span>
              </span>
 		   </a>
-			<a href="https://mip.putibaby.com/service_intro">
+			<a href="https://mip.putibaby.com/service_intro" mip-link>
              <span v-if="data.info.market_certificated">
              <mip-img src="i/market_certificated.png" width="12px" height="12px"></mip-img>
              <span>推荐护理师</span>
              </span>
 		   </a> 
-			<a :href="'https://mip.putibaby.com/master_intro_detail?u='+data.info.username">
+			<a :href="'https://mip.putibaby.com/master_intro_detail?u='+data.info.username" mip-link>
               <div class="details">基本资料详情</div>
             </a>
-			<a class="yinzhang_a"  v-if="data.info.is_credited" href="https://mip.putibaby.com/service_intro"></a>
+			<a class="yinzhang_a"  v-if="data.info.is_credited" href="https://mip.putibaby.com/service_intro" mip-link></a>
              <mip-img v-if="data.info.is_credited" src="i/yinzhang.png" width="60px" height="60px" class="yinzhang"></mip-img> 
           </div>
         </div>
@@ -225,11 +225,11 @@
               </td>                    
 
               <td v-if="data.info.can_online_interview" class="td2">
-                  <a :href="'/update_time_mip?mcode=' + data.codeid">预约视频面试</a>
+                  <a :href="'/update_time_mip?mcode=' + data.codeid" mip-link>预约视频面试</a>
               </td>
 
               <td v-else class="td2">
-                  <a :href="'/order_list?mcode=' + data.codeid">{{ data.info.order_desc_str }}-查看预约</a>
+                  <a :href="'/order_list?mcode=' + data.codeid" mip-link>{{ data.info.order_desc_str }}-查看预约</a>
               </td> 
               
           </tr>
@@ -897,12 +897,13 @@ export default {
 
   checkLogin_() {
     if (!this.isUnion){
-        window.location.href = '/submit_ph?to=' + encodeURIComponent(window.location.href);
-           return;
+        // window.location.href = '/submit_ph?to=' + encodeURIComponent(window.location.href);
+        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
+        return;
     }
     // if (!this.isLogin){
     //     window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
-    //        return;
+    //     return;
     // }    
     return true;
   },

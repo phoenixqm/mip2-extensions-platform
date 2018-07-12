@@ -212,7 +212,9 @@ export default {
     },
     submit_() {
       var self = this;
-      window.location.href = '/edit_contract?id=' + JSON.parse(self.dataJsonstr).id;
+      var url = '/edit_contract?id=' + JSON.parse(self.dataJsonstr).id;
+      // window.location.href = url;
+      window.MIP.viewer.open(url,{replace:true});
 
     },
   }

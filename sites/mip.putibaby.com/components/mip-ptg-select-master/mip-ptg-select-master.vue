@@ -15,7 +15,7 @@
       <mip-img class="sousuo_icon mip-element mip-layout-container mip-img-loaded" src="/i/sousuo.png"></mip-img>
     
 
-    <a class="person" href="/order_list"><mip-img width="18px" height="22px" src="/i/card_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
+    <a class="person" href="/order_list" mip-link><mip-img width="18px" height="22px" src="/i/card_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
   </tr>
 </tbody></table>    
 
@@ -839,7 +839,7 @@
     <div class="cardList" id="cardList">
     <div v-for="m in list">
         <div class="masterCard">
-          <a :href="'/master_card?mcode='+m.id">
+          <a :href="'/master_card?mcode='+m.id"  mip-link>
           <div class="div-padding">
             <mip-img layout="responsive" width="70" height="70"
              class="mC_header" :src="m.header.small" ></mip-img>

@@ -375,14 +375,17 @@ export default {
       }
     },
     handleBtn(order){
-      window.location.href = '/master_card?mcode=' + order.master.mcode;
+      // window.location.href = '/master_card?mcode=' + order.master.mcode;
+      window.MIP.viewer.open('/master_card?mcode=' + order.master.mcode, {});
     },
     handleBtn_tuijian(order) {
-      window.location.href = '/master_card?mcode=' + order.master.mcode;
+      // window.location.href = '/master_card?mcode=' + order.master.mcode;
+      window.MIP.viewer.open('/master_card?mcode=' + order.master.mcode, {});
     },
 
     handleBtn_shipinyuyue(order) {
-      window.location.href = '/video_interview_master?master_id=' + order.master.id;
+      // window.location.href = '/video_interview_master?master_id=' + order.master.id;
+      window.MIP.viewer.open('/video_interview_master?master_id=' + order.master.id, {});
     },
     handleBtn_qianyue(order, skip) {
       // window.location.href = '/show_master?u=' + order.master.username;
@@ -410,10 +413,12 @@ export default {
       }
     },
     handleBtn_chakanshipin(order) {
-      window.location.href = '/show_my_qs_list?id=' + order.id;
+      // window.location.href = '/show_my_qs_list?id=' + order.id;
+      window.MIP.viewer.open('/show_my_qs_list?id=' + order.id, {});
     },
     handleBtn_wodeyuyue(order) {
-      window.location.href = '/show_my_realtime_video_interview?id=' + order.id;
+      // window.location.href = '/show_my_realtime_video_interview?id=' + order.id;
+      window.MIP.viewer.open('/show_my_realtime_video_interview?id=' + order.id, {});
     },
     handleBtn_buheshi(order, skip) {
 
@@ -479,7 +484,8 @@ export default {
       window.MIP.viewer.open('/edit_contract?id=' + order.id + '&readonly=1',{})
     },
     handleBtn_jiaodingjin(order) {
-      window.location.href = '/pay/v2_do_pay?order_id=' + order.id;
+      // window.location.href = '/pay/v2_do_pay?order_id=' + order.id;
+      window.MIP.viewer.open('/pay/v2_do_pay?order_id=' + order.id,{});
     },
     handleBtn_shanghu(order, skip) {
       // var self = this;
@@ -518,10 +524,12 @@ export default {
       window.location.href = 'tel:400-618-8835';
     },
     handleBtn_fukuan(order) {
-      window.location.href = '/pay/v2_do_pay?order_id=' + order.id;
+      // window.location.href = '/pay/v2_do_pay?order_id=' + order.id;
+      window.MIP.viewer.open('/pay/v2_do_pay?order_id=' + order.id,{});
     },
     handleBtn_xuqian(order) {
-      window.location.href = '/v2_edit_xudan_yuesao_contract?order_id=' + order.id;
+      // window.location.href = '/v2_edit_xudan_yuesao_contract?order_id=' + order.id;
+      window.MIP.viewer.open('/v2_edit_xudan_yuesao_contract?order_id=' + order.id,{});
     },
   }
 

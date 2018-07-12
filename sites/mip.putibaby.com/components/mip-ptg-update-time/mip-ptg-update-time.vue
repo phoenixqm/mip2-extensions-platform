@@ -159,7 +159,7 @@ API.submit_ = function(content,mcode, cb) {
   API.wrapRet_(
     '/api/video_interview_master', {
       'info': content,
-	  'mcode':mcode,
+      'mcode':mcode,
     },
     cb);
 };
@@ -207,15 +207,15 @@ export default {
     },
 
     handleSubmit_() {
-	  var mcode = JSON.parse(this.dataJsonstr).mcode;
+      var mcode = JSON.parse(this.dataJsonstr).mcode;
 
-	  API.submit_(this.content,mcode,function(isOk,res){
-	    if(isOk){
-	      var url = '/update_time_ok?mcode=' + mcode ;
-          window.location.replace(url);	
-		}
-	  });
-     
+      API.submit_(this.content,mcode,function(isOk,res){
+        if(isOk){
+          var url = '/update_time_ok?mcode=' + mcode ;
+          // window.location.replace(url);    
+          window.MIP.viewer.open(url,{replace:true});
+        }
+      });
 
     },
   }

@@ -25,22 +25,22 @@
             </p>
           </div>
           <div class="renZheng">	
-			<a href="https://mip.putibaby.com/service_intro" mip-link>
+			<a href="/service_intro" mip-link>
           	 <span v-if="data.info.certificated">
              <mip-img src="i/master_card_certificated.png" width="12px" height="12px" ></mip-img>
              <span>身份认证</span>
              </span>
 		   </a>
-			<a href="https://mip.putibaby.com/service_intro" mip-link>
+			<a href="/service_intro" mip-link>
              <span v-if="data.info.market_certificated">
              <mip-img src="i/market_certificated.png" width="12px" height="12px"></mip-img>
              <span>推荐护理师</span>
              </span>
 		   </a> 
-			<a :href="'https://mip.putibaby.com/master_intro_detail?u='+data.info.username" mip-link>
+			<a :href="'/master_intro_detail?u='+data.info.username" mip-link>
               <div class="details">基本资料详情</div>
             </a>
-			<a class="yinzhang_a"  v-if="data.info.is_credited" href="https://mip.putibaby.com/service_intro" mip-link></a>
+			<a class="yinzhang_a"  v-if="data.info.is_credited" href="/service_intro" mip-link></a>
              <mip-img v-if="data.info.is_credited" src="i/yinzhang.png" width="60px" height="60px" class="yinzhang"></mip-img> 
           </div>
         </div>
@@ -72,14 +72,14 @@
 
 
   <div v-if="data.info.offer_service" class="serverCard">
-    <!--  <a href="https://h5.putibaby.com/999.999/master/watch_service_details?u=<%= m.info.username %>"> -->
+     <a :href="'/skill_details?u=' + data.info.username" mip-link>
       <div class="sC_head">
         <mip-img layout="responisve" width="12px" height="12px"
           src="i/card_circle_1.png" ></mip-img>
         <span>月嫂服务项目</span>
-        <!--  <span>查看更多&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span> -->
+         <span>查看更多&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span>
       </div>
-    <!-- </a> -->
+    </a>
     <table>
       <tbody>
         <tr>
@@ -94,14 +94,14 @@
 
 
   <div v-if="data.info.price_yuer.market_price > 0 || data.info.price_yuer.market_halfday_price > 0" class="serverCard">
-    <!-- <a href="https://h5.putibaby.com/999.999/master/watch_yuer_service_details?u={{ data.info.username }}"> -->
+    <a :href="'/skill_details?is_yuer=1&u=' + data.info.username" mip-link>
       <div class="sC_head">
         <mip-img layout="responisve" width="12px" height="12px"
           src="i/card_circle_1.png" ></mip-img>
         <span>育儿嫂服务项目</span>
-        <!-- <span>查看更多&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span> -->
+        <span>查看更多&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span>
       </div>
-    <!-- </a> -->
+    </a>
     <table>
       <tbody>
         <tr>

@@ -166,6 +166,15 @@ API.wrapRet_ = function(api, opts, cb) {
 
 
 
+API.ajaxFavList = function(sessionId, cb) {
+  API.wrapRet_(
+    '/api/ajax_fav_list', {
+      'sessionId': sessionId
+    },
+    cb);
+};
+
+
 export default {
   mounted () {
     console.log('This is my first custom component !')
@@ -184,11 +193,8 @@ export default {
 	  }        
   },
   data () {
-	  console.log(this);
-	  var pdata = JSON.parse(this.dataJsonstr);
-    console.log(pdata.favlist);
     return {
-		  favlist: pdata.favlist
+		  favlist: []
     }
   },
   computed: {
@@ -197,8 +203,10 @@ export default {
   methods: {
     init () {
       console.log('should loading');
-      console.log(this.dataJson);
-	  
+	  self = this;
+      API.ajaxFavList('TODO', function(isOk, res){
+        self.favlist = res.favlist;
+      });
     },
 
     load_data () {

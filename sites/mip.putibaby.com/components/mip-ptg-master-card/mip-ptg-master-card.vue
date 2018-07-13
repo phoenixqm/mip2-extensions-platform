@@ -907,14 +907,18 @@ export default {
       this.reload_();
   },
 
-  checkLogin_() {
+  checkLogin_(cmd) {
 
     if (!this.isLogin){
         // window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
         // return;
         var ele = document.getElementById('log');
         // console.log(ele);
-        MIP.viewer.eventAction.execute('login', ele, {});
+        MIP.viewer.eventAction.execute('login', ele, {
+          el_id: 'mastercard', 
+          cmd:cmd,
+          data:{command:cmd}
+        });
         return false;
     }
     if (!this.isUnion){
@@ -943,16 +947,19 @@ export default {
   },
   handleFav(){
     console.log('handleFav');
-    if(!this.checkLogin_()) return;
+    
     
     if(this.data.info.isfav) {
+      if (!this.checkLogin_('unfav')) return;
       this.$set(this.data.info,'isfav',false);
-    console.log(this.data.info);
+      console.log(this.data.info);
       console.log('unFav');
       API.unfavMaster(this.data.info.id, this.reload_);
     } else {
+      if (!this.checkLogin_('fav')) return;
+
       this.$set(this.data.info,'isfav',true);
-    console.log(this.data.info);
+      console.log(this.data.info);
       console.log('Fav');
       API.favMaster(this.data.info.id, this.reload_);
     }

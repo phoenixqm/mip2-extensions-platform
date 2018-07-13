@@ -857,7 +857,19 @@ API.unfavMaster = function(masterId, cb) {
 
 export default {
   mounted () {
-    console.log('This is master card component !')
+    console.log('This is master card component !');
+    var self = this;
+    this.$element.customElement.addEventAction('login', event => {
+      // 这里可以输出登录之后的数据
+
+      // 获取用户信息
+      console.log(event);
+
+      self.$set(self, 'isLogin', true);
+
+      // 后端交互会话标识
+      event.sessionId;
+    });
   },
    firstInviewCallback () {
     this.init()

@@ -122,15 +122,15 @@
         <tbody><tr>
           <td>上户类型：</td>
           
-            <td class="qt_td"><input type="radio" name="shlxRow" checked="" class="radio_qt" value="全天" v-model="filter2.shlxRow" >全天</td>
-            <td class="bb_td"><input type="radio" name="shlxRow" class="radio_bb" value="白班" v-model="filter2.shlxRow">白班</td>
+		  <td class="qt_td"><span class="radio_btn radio_check" v-model="filter2.shlxRow" >全天</span></td>
+		  <td class="bb_td"><span class="radio_btn" v-model="filter2.shlxRow">白班</span></td>
           
 
         </tr>
       </tbody></table>
       <table class="hidden-table">
         <tbody><tr>
-          <td>预产期：</td>
+          <td class="ycq_td">预产期：</td>
           <td><input type="date" class="ycq" name="ycq" v-model="filter2.ycq"></td>
         </tr>
         <tr>
@@ -832,7 +832,7 @@
       </tr>
       </tbody></table>
       <span class="quxiao" on="tap:right-sidebar.close  tap:selectmaster.docancel">取消</span>
-      <input class="queding" on="tap:right-sidebar.close tap:selectmaster.dook" type="submit" value="确定">
+	  <span class="queding" on="tap:right-sidebar.close tap:selectmaster.dook">确定</span>
       </mip-sidebar>
 
   
@@ -1108,20 +1108,21 @@
       height: 36px;
       border-radius: 3px;
       border:1px solid #afd03b;
-      position: absolute;
-      bottom: 20px;
+	  margin-top:40px;
     }
     .queding{
       background-color: #afd03b !important;
       color: #fff !important;
-      margin-left:50%;
+	  display:inline-block;
+      margin-left:5%;
       width: 108px;
       height: 36px;
       font-size: 14px;
-      position: absolute;
-      bottom: 20px;
+      margin-top:39px;
       border-radius: 3px;
       border:none;
+	  text-align: center;
+      line-height: 36px;
     }
 
     .sort_by{
@@ -1266,7 +1267,7 @@
     }
     
     .ycq{
-      width: 160px;
+      width: 170px;
       height: 30px;
       line-height: 15px;
       font-size: 14px;
@@ -1280,6 +1281,9 @@
       border:solid 1px #ddd;
 	  padding-left:5px;
     }
+	.ycq_td{
+	 text-align:right;
+	}
     .sousuo_form{
       width: 100%;
     }
@@ -1339,6 +1343,27 @@
   .header_tab{
   	z-index:9 !important;
   }
+  .radio_btn{
+  	display:inline-block;
+	width:75px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	border-radius:3px;
+	border:solid 1px #ddd;
+
+  }
+  .radio_check{
+  	display:inline-block;
+	width:75px;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	border-radius:3px;
+	border:solid 1px #afd03b;
+	color:#afd03b;
+  }
+
 </style>
 <script>
 var API = {};
@@ -1470,6 +1495,7 @@ export default {
     var city = sortbar.dataset.city;
     var lightbox_close= document.querySelector("#lightbox-close");
     var sorttd = document.querySelectorAll(".sort_td");
+	var radiobtn = document.querySelectorAll(".radio_btn");
 
     sortZH.addEventListener('click', function(){ 
       removeClass(sorttd,'checked');
@@ -1520,6 +1546,14 @@ export default {
         removeClass(citytd,'checked');
         addClass(this,'checked');
         self.filter.city = this.innerHTML;
+      })
+    }
+
+    for (var i = 0; i < radiobtn.length; i++) {
+      radiobtn[i].addEventListener('click',function () {
+        removeClass(radiobtn,'radio_check');
+        addClass(this,'radio_check');
+        self.filter.shlxRow = this.innerHTML;
       })
     }
 
@@ -1638,9 +1672,8 @@ export default {
     sure(){
       var self = this;
       this.filter.sort_by = '';
-      // console.log(this);
+      console.log(this.filter.shlxRow);
 
-      this.filter.shlxRow = this.filter2.shlxRow;
       this.filter.ycq = this.filter2.ycq;
       this.filter.city = this.filter2.city;
       this.filter.jiguan = this.filter2.jiguan;

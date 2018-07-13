@@ -135,7 +135,7 @@
   </div>
 
   <div class="pingJiaCard">
-       <a :href="'https://mip.putibaby.com/master_shanghu_detail?u=' + data.info.username">
+       <a :href="'https://mip.putibaby.com/master_shanghu_detail?u=' + data.info.username" mip-link>
       <div class="pJC_head">
         <mip-img layout="responisve" width="12px" height="12px"
           src="i/card_circle_1.png" ></mip-img>

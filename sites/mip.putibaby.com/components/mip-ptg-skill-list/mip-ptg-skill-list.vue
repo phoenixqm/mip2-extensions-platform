@@ -10,8 +10,8 @@
       <p for="it.id">
         {{ it.title }}
       </p>
-      <input type="checkbox" id="it.id" name="services" v-bind:disabled="read_only" value="it.id" v-bind:checked="choiceDict[it.id]" @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
-    </div>
+	  <input type="checkbox" v-bind:disabled="read_only" name="services" readonly="true" unselectable="on" :checked="choiceDict[it.id]" ></input>
+	</div>
   </div>
 
 
@@ -282,7 +282,7 @@ export default {
     return {
       whole_list: pdata.whole_list,
       my_list: pdata.my_list,
-      read_only: pdata.readonly,
+      read_only: pdata.read_only,
       categories: categories,
       choiceDict: choiceDict,
       state: state

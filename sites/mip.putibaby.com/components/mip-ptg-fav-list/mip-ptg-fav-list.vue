@@ -177,7 +177,14 @@ API.ajaxFavList = function(sessionId, cb) {
 
 export default {
   mounted () {
-    console.log('This is my first custom component !')
+    console.log('This is my first custom component !');
+    var self = this;
+    this.$element.customElement.addEventAction('logindone', function(event, str) {
+      console.log(event);
+      API.ajaxFavList('TODO', function(isOk, res){
+        self.favlist = res.favlist;
+      });
+    });
   },
    firstInviewCallback () {
     this.init()
@@ -203,10 +210,8 @@ export default {
   methods: {
     init () {
       console.log('should loading');
-	  self = this;
-      API.ajaxFavList('TODO', function(isOk, res){
-        self.favlist = res.favlist;
-      });
+      self = this;
+
     },
 
     load_data () {

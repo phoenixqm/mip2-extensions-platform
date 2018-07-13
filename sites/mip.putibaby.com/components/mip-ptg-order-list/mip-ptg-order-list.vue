@@ -329,7 +329,10 @@ export default {
       console.log(str);
 
     });
+    this.$element.customElement.addEventAction('logindone', function(event, str) {
+      console.log(event);
 
+    });
 
   },
   firstInviewCallback() {
@@ -366,9 +369,9 @@ export default {
     init() {
       console.log('should loading');
       // console.log(this.dataJson);
-	  var self = this;
+      var self = this;
       API.ajaxOrderList('TODO', function(isOk, res){
-		console.log(res);
+
         self.list = res.list;
       });
 

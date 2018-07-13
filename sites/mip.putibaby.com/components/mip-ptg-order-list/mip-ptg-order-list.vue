@@ -260,6 +260,15 @@ API.wrapRet_ = function(api, opts, cb) {
     });
 }
 
+API.ajaxOrderList = function(sessionId, cb) {
+  API.wrapRet_(
+    '/api/ajax_order_list', {
+      'sessionId': sessionId
+    },
+    cb);
+};
+
+
 API.rejectInterview = function(orderId, cb) {
   API.wrapRet_(
     '/api/reject_interview', {
@@ -356,7 +365,10 @@ export default {
   methods: {
     init() {
       console.log('should loading');
-      console.log(this.dataJson);
+      // console.log(this.dataJson);
+      API.ajaxOrderList('TODO', function(isOk, res){
+        this.list = res.list;
+      });
 
     },
 

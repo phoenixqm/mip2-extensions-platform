@@ -149,7 +149,7 @@
       <div v-else>
         <table>
           <tbody>
-           <!---->  <tr>
+            <tr>
               <td>
                 综合评价
                 <div class="starBox">
@@ -896,15 +896,20 @@ export default {
   },
 
   checkLogin_() {
+
+    if (!this.isLogin){
+        // window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
+        // return;
+        var ele = document.getElementById('log');
+        // console.log(ele);
+        MIP.viewer.eventAction.execute('login', ele, {});
+        return false;
+    }
     if (!this.isUnion){
         // window.location.href = '/submit_ph?to=' + encodeURIComponent(window.location.href);
         window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
-        return;
-    }
-    // if (!this.isLogin){
-    //     window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
-    //     return;
-    // }    
+        return false;
+    }    
     return true;
   },
 

@@ -925,7 +925,7 @@ export default {
         });
         return false;
     }
-    if (!this.isUnion){
+    if (false && !this.isUnion){
         // window.location.href = '/submit_ph?to=' + encodeURIComponent(window.location.href);
         window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
         return false;

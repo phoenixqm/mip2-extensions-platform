@@ -864,6 +864,10 @@ export default {
 
       // 获取用户信息
       console.log(event);
+      if (event.cmd == 'fav') {
+        console.log('Fav');
+        API.favMaster(self.data.info.id, self.reload_);
+      }
 
       self.$set(self, 'isLogin', true);
 
@@ -917,7 +921,7 @@ export default {
         MIP.viewer.eventAction.execute('login', ele, {
           el_id: 'mastercard', 
           cmd:cmd,
-          data:{command:cmd}
+          data:{cmd:cmd}
         });
         return false;
     }

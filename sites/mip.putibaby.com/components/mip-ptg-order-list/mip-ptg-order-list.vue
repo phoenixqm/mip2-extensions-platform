@@ -348,10 +348,10 @@ export default {
   },
   data() {
     console.log(this);
-    var pdata = JSON.parse(this.dataJsonstr);
-    console.log(pdata.list);
+
+
     return {
-      list: pdata.list,
+      list: [],
       state: {
         showTuijianBtn: true,
         show_confirm: false
@@ -366,8 +366,10 @@ export default {
     init() {
       console.log('should loading');
       // console.log(this.dataJson);
+	  var self = this;
       API.ajaxOrderList('TODO', function(isOk, res){
-        this.list = res.list;
+		console.log(res);
+        self.list = res.list;
       });
 
     },

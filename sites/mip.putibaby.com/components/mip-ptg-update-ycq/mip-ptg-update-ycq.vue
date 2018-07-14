@@ -331,11 +331,12 @@ API.wrapRet_ = function(api, opts, cb) {
     });
 }
 
-API.uploadFile = function(data, cb) {
+API.update_ycq = function(name, ycq, masterType, cb) {
   API.wrapRet_(
-    '/api/upload_image', {
-      'data': data,
-      'target': 'media/image-[md5].jpg'
+    '/api/update_ycq', {
+      'name': name,
+      'ycq': ycq,
+      'masterType': masterType
     },
     cb);
 };
@@ -412,10 +413,12 @@ export default {
       } else {
         var masterType = 'yuersao';
       }
-      var url = '/update_ycq_ok?name=' + this.name + '&ycq=' + this.date + '&masterType=' + masterType;
-
-      // window.location.replace(url);
-      window.MIP.viewer.open(url,{replace:true});
+      API.update_ycq(this.name, this.date, masterType, function(isOk, res){
+        if (isOk) {
+          // window.location.replace(url);
+          window.MIP.viewer.open('/update_ycq_ok',{replace:true});          
+        }
+      });
 
     },
   }

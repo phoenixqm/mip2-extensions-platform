@@ -806,6 +806,7 @@ function parseJSON(response) {
 
 API.wrapRet_ = function(api, opts, cb) {
   console.log('posting to ' + api);
+  opts.mip_sid = API.sessionId || '';
   fetch(api,{  
     method: 'POST',
     credentials: "same-origin",
@@ -864,6 +865,7 @@ export default {
 
       // 获取用户信息
       console.log(event);
+      API.sessionId = event.sessionId;
       if (event.cmd == 'fav') {
         console.log('Fav');
         API.favMaster(self.data.info.id, self.reload_);

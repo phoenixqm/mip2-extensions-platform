@@ -228,7 +228,7 @@ function parseJSON(response) {
 
 API.wrapRet_ = function(api, opts, cb) {
   console.log('posting to ' + api);
-  opts.mip_sid = API.sessionId || 'mip_sid_unknown';
+  opts.mip_sid = API.sessionId || '';
   fetch(api, {
       method: 'POST',
       credentials: "same-origin",

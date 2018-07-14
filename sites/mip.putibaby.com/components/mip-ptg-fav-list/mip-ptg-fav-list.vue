@@ -144,6 +144,7 @@ function parseJSON(response) {
 
 API.wrapRet_ = function(api, opts, cb) {
   console.log('posting to ' + api);
+  opts.mip_sid = API.sessionId || 'mip_sid_unknown';
   fetch(api,{  
     method: 'POST',
     credentials: "same-origin",
@@ -166,12 +167,9 @@ API.wrapRet_ = function(api, opts, cb) {
 
 
 
-API.ajaxFavList = function(sessionId, cb) {
+API.ajaxFavList = function(opt, cb) {
   API.wrapRet_(
-    '/api/ajax_fav_list', {
-      'sessionId': sessionId
-    },
-    cb);
+    '/api/ajax_fav_list', opt, cb);
 };
 
 
@@ -181,8 +179,9 @@ export default {
     var self = this;
     this.$element.customElement.addEventAction('logindone', function(event, str) {
       console.log(event);
-      API.ajaxFavList('TODO', function(isOk, res){
-        self.favlist = res.favlist;
+      API.sessionId = event.sessionId;
+      API.ajaxFavList({}, function(isOk, res){
+        self.favlist = res.list;
       });
     });
   },

@@ -1495,7 +1495,7 @@ export default {
     var city = sortbar.dataset.city;
     var lightbox_close= document.querySelector("#lightbox-close");
     var sorttd = document.querySelectorAll(".sort_td");
-	var radiobtn = document.querySelectorAll(".radio_btn");
+    var radiobtn = document.querySelectorAll(".radio_btn");
 
     sortZH.addEventListener('click', function(){ 
       removeClass(sorttd,'checked');

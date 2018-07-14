@@ -239,6 +239,7 @@ function parseJSON(response) {
 
 API.wrapRet_ = function(api, opts, cb) {
   console.log('posting to ' + api);
+  opts.mip_sid = API.sessionId || 'mip_sid_unknown';
   fetch(api, {
       method: 'POST',
       credentials: "same-origin",
@@ -260,11 +261,9 @@ API.wrapRet_ = function(api, opts, cb) {
     });
 }
 
-API.ajaxOrderList = function(sessionId, cb) {
+API.ajaxOrderList = function(obj, cb) {
   API.wrapRet_(
-    '/api/ajax_order_list', {
-      'sessionId': sessionId
-    },
+    '/api/ajax_order_list', obj,
     cb);
 };
 
@@ -281,7 +280,7 @@ API.zjqd = function(master_id, master_type,cb) {
   API.wrapRet_(
     '/api/zjqd', {
       'master_id': master_id,
-	  'master_type': master_type
+      'master_type': master_type
     },
     cb);
 };
@@ -331,7 +330,10 @@ export default {
     });
     this.$element.customElement.addEventAction('logindone', function(event, str) {
       console.log(event);
-
+      API.sessionId = event.sessionId;
+      API.ajaxOrderList({}, function(isOk, res){
+        self.list = res.list;
+      });
     });
 
   },
@@ -369,11 +371,7 @@ export default {
     init() {
       console.log('should loading');
       // console.log(this.dataJson);
-      var self = this;
-      API.ajaxOrderList('TODO', function(isOk, res){
 
-        self.list = res.list;
-      });
 
     },
 

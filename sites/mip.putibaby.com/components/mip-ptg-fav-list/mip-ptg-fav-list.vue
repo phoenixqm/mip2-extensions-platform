@@ -181,9 +181,9 @@ export default {
       console.log(event);
       API.sessionId = event.sessionId;
       API.ajaxFavList({}, function(isOk, res){
-		if (isOk) {
+        if (isOk) {
           self.favlist = res.favlist;
-		} else {
+        } else {
           console.error(res);
         }
       });

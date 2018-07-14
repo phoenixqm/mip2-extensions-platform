@@ -228,11 +228,15 @@ export default {
       self.$set(self, 'isUnion', event.userInfo.isUnion);
      
       if (event.userInfo.isUnion && API.next_cmd == 'order_list') {
-        console.log('order_list');
+        console.log('logindone to order_list');
         window.MIP.viewer.open('order_list', {});
         API.next_cmd = '';
+      } else if (event.userInfo.isUnion && API.next_cmd == 'coupon') {
+        console.log('logindone to coupon');
+        window.MIP.viewer.open('coupon', {});
+        API.next_cmd = '';        
       } else if (!event.userInfo.isUnion) {
-        console.log('go to submit_ph');
+        console.log('logindone to submit_ph');
         window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
       }
 
@@ -260,36 +264,39 @@ export default {
   methods: {
     init () {
       console.log('should loading');
-      console.log(this.dataJson);
-      this.reload_();
+
     },
-  created() {
+    created() {
 
-      this.reload_();
-  },
+    },
 
-  checkLogin_(cmd) {
+    checkLogin_(cmd) {
 
-    if (!this.isLogin){
-        API.next_cmd = 'cmd';
+      if (!this.isLogin){
+        API.next_cmd = cmd;
         this.$emit('login');
         return false;
-    }
+      }
   
-    return true;
-  },
+      return true;
+    },
 
   reload_() {
     console.log('reloading');
   },
+  handleCoupon(){
+    console.log('handleCoupon');
+    if (!this.checkLogin_('coupon')) 
+      return;
+    window.MIP.viewer.open('/coupon ', {});
+  },
   handleOrderList(){
     console.log('handleOrderList');
-
     if (!this.checkLogin_('order_list')) 
       return;
     window.MIP.viewer.open('/order_list ', {});
   },
-  load_data () {
+    load_data () {
       console.log('should set data');
     }
   }

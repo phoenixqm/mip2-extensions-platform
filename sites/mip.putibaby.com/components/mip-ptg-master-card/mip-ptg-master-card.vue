@@ -919,7 +919,7 @@ export default {
     if (!this.isLogin){
         // window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
         // return;
-        API.next_cmd = 'cmd';
+        API.next_cmd = cmd;
         this.$emit('login');
         return false;
     }

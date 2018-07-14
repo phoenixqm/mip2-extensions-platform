@@ -884,14 +884,8 @@ export default {
 
     });
   },
-   firstInviewCallback () {
-    this.init()
-  },
+
   props: {
-    src: {
-      type: String,
-      default: null
-    },
     dataJsonstr :{
       type: String,
       default: null

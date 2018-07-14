@@ -174,6 +174,45 @@
 </style>
 
 <script>
+var API = {};
+
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    var error = new Error(response.statusText);
+    error.response = response;
+    throw error;
+  }
+}
+
+function parseJSON(response) {
+  return response.json()
+}
+
+API.wrapRet_ = function(api, opts, cb) {
+  console.log('posting to ' + api);
+  opts.mip_sid = API.sessionId || '';
+  fetch(api, {
+      method: 'POST',
+      credentials: "same-origin",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(opts)
+    })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(ret => {
+      if (ret.success) cb(true, ret.data);
+      else cb(false, ret.error);
+    })
+    .catch(e => {
+      console.error(e.message);
+      cb(false, e.message);
+    });
+}
+
 export default {
   mounted () {
     console.log('This is index component !');
@@ -208,9 +247,9 @@ export default {
   },
   data () {
     console.log(this);
-    var pdata = JSON.parse(this.dataJsonstr);
+    // var pdata = JSON.parse(this.dataJsonstr);
     return {
-      data: pdata.data,
+      // data: pdata.data,
       isLogin:false,
       isUnion:false
     }

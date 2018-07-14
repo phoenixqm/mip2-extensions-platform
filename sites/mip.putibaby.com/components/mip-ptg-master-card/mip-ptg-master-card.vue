@@ -859,7 +859,7 @@ export default {
   mounted () {
     console.log('This is master card component !');
     var self = this;
-    this.$element.customElement.addEventAction('login', event => {
+    this.$element.customElement.addEventAction('logindone', event => {
       // 这里可以输出登录之后的数据
 
       // 获取用户信息
@@ -916,13 +916,7 @@ export default {
     if (!this.isLogin){
         // window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
         // return;
-        var ele = document.getElementById('log');
-        // console.log(ele);
-        MIP.viewer.eventAction.execute('login', ele, {
-          el_id: 'mastercard', 
-          cmd:cmd,
-          data:{cmd:cmd}
-        });
+        this.$emit('login');
         return false;
     }
     if (false && !this.isUnion){

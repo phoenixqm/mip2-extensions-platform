@@ -23,7 +23,7 @@
         </div>
   </div>
   <div>
-    <a href="/coupon" mip-link>
+    <a @click="handleCoupon">
       <mip-img src="/i/yhq_jt.png"></mip-img>
     </a>  
   </div>
@@ -34,7 +34,7 @@
       </a>
     </div>
     <div class="help">  
-      <a href="/update_ycq_mip" mip-link>
+      <a @click="handleUpdateYcq">
         <mip-img src="/i/help_me.png"></mip-img> 
       </a>
     </div>  
@@ -234,9 +234,15 @@ export default {
         sessionStorage.next_cmd = '';
       } else if (event.userInfo.isUnion && (API.next_cmd == 'coupon' || sessionStorage.next_cmd == 'coupon')) {
         console.log('logindone to coupon');
-        window.MIP.viewer.open('coupon', {});
+        window.MIP.viewer.open('/coupon', {});
         API.next_cmd = '';
         sessionStorage.next_cmd = '';
+      } else if (event.userInfo.isUnion 
+      		&& (API.next_cmd == 'update_ycq' || sessionStorage.next_cmd == 'update_ycq')) {
+        console.log('logindone to update_ycq');
+        window.MIP.viewer.open('/update_ycq', {});
+        API.next_cmd = '';
+        sessionStorage.next_cmd = '';        
       } else if (!event.userInfo.isUnion) {
         console.log('logindone to submit_ph');
         window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
@@ -293,6 +299,12 @@ export default {
       return;
     window.MIP.viewer.open('/coupon ', {});
   },
+  handleUpdateYcq(){
+    console.log('handleUpdateYcq');
+    if (!this.checkLogin_('update_ycq')) 
+      return;
+    window.MIP.viewer.open('/update_ycq ', {});
+  },  
   handleOrderList(){
     console.log('handleOrderList');
     if (!this.checkLogin_('order_list')) 

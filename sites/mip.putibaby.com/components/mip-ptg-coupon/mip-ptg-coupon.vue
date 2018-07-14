@@ -35,6 +35,7 @@
 	.content{
 		padding: 20px;
     font-size: 14px;
+    text-align: left;
     background-color: #fff;
     color: #666;
     margin: 15px;
@@ -69,7 +70,7 @@
   }
   .code{
     position: absolute;
-    top: 49px;
+    top: 53px;
     right: 15%;
     font-size: 16px;
     color: #fff;

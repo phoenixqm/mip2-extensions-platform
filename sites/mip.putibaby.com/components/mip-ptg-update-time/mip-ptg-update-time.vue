@@ -167,7 +167,18 @@ API.submit_ = function(content,mcode, cb) {
 
 export default {
   mounted() {
+    var self = this;
+    this.$element.customElement.addEventAction('logindone', event => {
+      // 这里可以输出登录之后的数据
 
+      // 获取用户信息
+      console.log(event);
+      API.sessionId = event.sessionId;
+
+      self.$set(self, 'isLogin', true);
+      self.$set(self, 'isUnion', event.userInfo.isUnion);
+     
+    });
   },
   firstInviewCallback() {
     this.init()
@@ -192,7 +203,8 @@ export default {
 
     return {
       content: '',
-    
+      isLogin: false,
+      isUnion: false,    
     }
   },
   computed: {

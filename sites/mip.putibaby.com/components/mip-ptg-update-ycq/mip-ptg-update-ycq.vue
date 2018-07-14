@@ -342,7 +342,18 @@ API.uploadFile = function(data, cb) {
 
 export default {
   mounted() {
+    var self = this;
+    this.$element.customElement.addEventAction('logindone', event => {
+      // 这里可以输出登录之后的数据
 
+      // 获取用户信息
+      console.log(event);
+      API.sessionId = event.sessionId;
+
+      self.$set(self, 'isLogin', true);
+      self.$set(self, 'isUnion', event.userInfo.isUnion);
+     
+    });
   },
   firstInviewCallback() {
     this.init()
@@ -366,6 +377,8 @@ export default {
     var data = pdata.order;
 
     return {
+      isLogin: false,
+      isUnion: false,
       rea: false,
       dateChecked: true,
       name: '',

@@ -291,11 +291,21 @@ API.verifyPhoneNumber = function(phoneNumber, sms, cb) {
 
 export default {
   mounted() {
-    console.log('This is pty submit phone number component !')
+    console.log('This is pty submit phone number component !');
+    var self = this;
+    this.$element.customElement.addEventAction('logindone', event => {
+      // 这里可以输出登录之后的数据
+
+      // 获取用户信息
+      console.log(event);
+      API.sessionId = event.sessionId;
+
+      self.$set(self, 'isLogin', true);
+      self.$set(self, 'isUnion', event.userInfo.isUnion);
+     
+    });
   },
-  firstInviewCallback() {
-    this.init()
-  },
+
   props: {
     src: {
       type: String,
@@ -310,6 +320,8 @@ export default {
     console.log('data:', this);
     var pdata = JSON.parse(this.dataJsonstr);
     return {
+      isLogin: false,
+      isUnion: false,
       errPhoneNumber: false,
       errSms: false,
       phoneNumber: '',

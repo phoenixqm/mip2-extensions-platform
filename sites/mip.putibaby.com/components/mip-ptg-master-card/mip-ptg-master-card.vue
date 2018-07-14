@@ -866,15 +866,22 @@ export default {
       // 获取用户信息
       console.log(event);
       API.sessionId = event.sessionId;
-      if (event.cmd == 'fav') {
-        console.log('Fav');
-        API.favMaster(self.data.info.id, self.reload_);
-      }
 
       self.$set(self, 'isLogin', true);
+      self.$set(self, 'isUnion', event.userInfo.isUnion);
+     
+      if (event.userInfo.isUnion && API.next_cmd == 'fav') {
+        console.log('Fav');
+        API.favMaster(self.data.info.id, function(isOk, res){
+          if (isOk) 
+            self.$set(self.data.info, 'isfav', data.fav);
+        });
+        API.next_cmd = '';
+      } else if (!event.userInfo.isUnion) {
+        console.log('go to submit_ph');
+        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
+      }
 
-      // 后端交互会话标识
-      event.sessionId;
     });
   },
    firstInviewCallback () {
@@ -895,8 +902,8 @@ export default {
     var pdata = JSON.parse(this.dataJsonstr);
     return {
       data: pdata.data,
-      isLogin:pdata.isLogin,
-      isUnion:pdata.isUnion
+      isLogin:false,
+      isUnion:false
     }
   },
   computed: {
@@ -918,14 +925,15 @@ export default {
     if (!this.isLogin){
         // window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
         // return;
+        API.next_cmd = 'cmd';
         this.$emit('login');
         return false;
     }
-    if (false && !this.isUnion){
-        // window.location.href = '/submit_ph?to=' + encodeURIComponent(window.location.href);
-        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
-        return false;
-    }    
+    // if (false && !this.isUnion){
+    //     // window.location.href = '/submit_ph?to=' + encodeURIComponent(window.location.href);
+    //     window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
+    //     return false;
+    // }    
     return true;
   },
 

@@ -3,7 +3,7 @@
 <div class="main">
   <div class="coupon">
 	 <mip-img src="i/coupon.png" height="90px"></mip-img>
-   <span class="code"><%=data.coupon_code %></span>
+   <span class="code">{{ coupon_code }}</span>
   </div> 
 	<div class="content">
 		<span>优惠券使用规则：</span>
@@ -26,7 +26,12 @@
   margin: 0 auto;
   text-align: center;
 }
-
+.no {
+	display: none;
+}
+.has {
+	display: inline-block;
+}
 	.content{
 		padding: 20px;
     font-size: 14px;
@@ -73,7 +78,7 @@
   .content span{
     color: #333;
     font-size: 15px;
-  }
+ }
 </style>
 
 <script>
@@ -128,6 +133,10 @@ export default {
     this.$element.customElement.addEventAction('logindone', event => {
       console.log(event);
       API.sessionId = event.sessionId;
+
+      self.$set(self, 'isLogin', true);
+      self.$set(self, 'isUnion', event.userInfo.isUnion);
+
       API.ajaxCoupon({}, function(isOk, res){
         if (isOk) {
           self.coupon_code = res.coupon_code;
@@ -180,18 +189,7 @@ export default {
   reload_() {
     console.log('reloading');
   },
-  handleCoupon(){
-    console.log('handleCoupon');
-    if (!this.checkLogin_('coupon')) 
-      return;
-    window.MIP.viewer.open('/coupon ', {});
-  },
-  handleOrderList(){
-    console.log('handleOrderList');
-    if (!this.checkLogin_('order_list')) 
-      return;
-    window.MIP.viewer.open('/order_list ', {});
-  },
+
   load_data () {
       console.log('should set data');
     }

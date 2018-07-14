@@ -157,12 +157,12 @@
       }
       
       .bottom_left{
-        width: 85%;
+        width: 80%;
         height: 45px;
         text-align: center;
         display: inline-block;
         color: black;
-        padding-left:20%;
+        padding-left:0;
       }
       
       .bottom_left_img{
@@ -227,14 +227,16 @@ export default {
       self.$set(self, 'isLogin', true);
       self.$set(self, 'isUnion', event.userInfo.isUnion);
      
-      if (event.userInfo.isUnion && API.next_cmd == 'order_list') {
+      if (event.userInfo.isUnion && (API.next_cmd == 'order_list' || sessionStorage.next_cmd == 'order_list')) {
         console.log('logindone to order_list');
         window.MIP.viewer.open('order_list', {});
         API.next_cmd = '';
-      } else if (event.userInfo.isUnion && API.next_cmd == 'coupon') {
+        sessionStorage.next_cmd = '';
+      } else if (event.userInfo.isUnion && (API.next_cmd == 'coupon' || sessionStorage.next_cmd == 'coupon')) {
         console.log('logindone to coupon');
         window.MIP.viewer.open('coupon', {});
-        API.next_cmd = '';        
+        API.next_cmd = '';
+        sessionStorage.next_cmd = '';
       } else if (!event.userInfo.isUnion) {
         console.log('logindone to submit_ph');
         window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
@@ -274,6 +276,7 @@ export default {
 
       if (!this.isLogin){
         API.next_cmd = cmd;
+        sessionStorage.next_cmd = cmd;
         this.$emit('login');
         return false;
       }

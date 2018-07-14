@@ -181,7 +181,11 @@ export default {
       console.log(event);
       API.sessionId = event.sessionId;
       API.ajaxFavList({}, function(isOk, res){
-        self.favlist = res.list;
+		if (isOk) {
+          self.favlist = res.favlist;
+		} else {
+          console.error(res);
+        }
       });
     });
   },
@@ -218,7 +222,7 @@ export default {
 
     },
 
-	  handleBtn(fav){
+    handleBtn(fav){
       window.location.href = '/master_card?mcode=' + fav.master.mcode;
     },
 

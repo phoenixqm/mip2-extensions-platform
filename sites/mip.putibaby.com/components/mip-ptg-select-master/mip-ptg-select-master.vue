@@ -1470,7 +1470,7 @@ API.getSelectMaster = function(filter, cb) {
 
 export default {
   beforeMount() {
-
+	this.init();
     var self = this;
     window.addEventListener('scroll',function(e){
 

@@ -229,7 +229,8 @@ export default {
      
       if (event.userInfo.isUnion && (API.next_cmd == 'order_list' || sessionStorage.next_cmd == 'order_list')) {
         console.log('logindone to order_list');
-        window.MIP.viewer.open('order_list', {});
+        console.log(window.MIP);
+        window.MIP.viewer.open('/order_list', {});
         API.next_cmd = '';
         sessionStorage.next_cmd = '';
       } else if (event.userInfo.isUnion && (API.next_cmd == 'coupon' || sessionStorage.next_cmd == 'coupon')) {

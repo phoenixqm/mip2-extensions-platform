@@ -863,7 +863,7 @@ API.ajaxContract = function(order_id, readonly, cb) {
   API.wrapRet_(
     '/api/ajax_contract', {
       'id': order_id,
-      'readonly': readonly ? 1 : 0;
+      'readonly': readonly ? 1 : 0
     }, cb);
 }
 
@@ -1002,7 +1002,8 @@ export default {
         }
       }
 
-      self.rea = false;
+      self.readonly = pdata.readonly;
+      self.rea = pdata.readonly? true: false;
       self.err = false;
       self.show_z = showz;
       self.show_f = showf;

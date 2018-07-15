@@ -223,16 +223,68 @@ API.saveIt_ = function(opts, cb) {
 }
 
 
+API.ajaxContractSkillReq = function(order_id, cb) {
+  API.wrapRet_(
+    '/api/ajax_contract_skill_req', {
+      'id': order_id,
+    }, cb);
+}
+
 export default {
   beforeMount() {
 
   },
   mounted() {
-    console.log('This is my first custom component !')
+    console.log('This is edit contract_skill_req component !');
+    var self = this;
+    this.$element.customElement.addEventAction('echo', function(event, str) {
+      console.log(event);
+    });
+    this.$element.customElement.addEventAction('dook', function(event, str) {
+      // console.log(event);
+
+      console.log(event.from);
+      event.from.bind(self)(event.data, true);
+      //var eval_str = 'this.' + event.handler + '(event_order)'
+    });
+    this.$element.customElement.addEventAction('docancel', function(event, str) {
+      console.log(event);
+      console.log(str);
+
+    });
+    this.$element.customElement.addEventAction('logindone', function(event, str) {
+      console.log(event);
+      API.sessionId = event.sessionId;
+      self.$set(self, 'isLogin', true);
+      self.$set(self, 'isUnion', event.userInfo.isUnion);
+      API.ajaxContractSkillReq(self.order_id, function(isOk, res){
+        var pdata = res;
+        if (pdata.readonly != '1') {
+          var readonly = false;
+        } else {
+          var readonly = true;
+        }
+        if (pdata.contract_skill_req.indexOf(',') != -1) {
+          var skill_list = pdata.contract_skill_req.split(',');
+
+        } else {
+          var skill_list = [];
+          skill_list.push(pdata.contract_skill_req);
+        }
+
+        self.list = pdata.list;
+        self.check = false;
+        self.contract_skill_req = [];
+        self.skill_req = skill_list;
+        self.sk_c = pdata.sk_c;
+        self.rea = readonly;
+
+        self.ajaxLoaded = true;
+
+      });
+    });
   },
-  firstInviewCallback() {
-    this.init()
-  },
+
   props: {
     src: {
       type: String,
@@ -251,19 +303,23 @@ export default {
     } else {
       var readonly = true;
     }
-    if (JSON.parse(this.dataJsonstr).contract_skill_req.indexOf(',') != -1) {
-      var skill_list = JSON.parse(this.dataJsonstr).contract_skill_req.split(',');
+    // if (JSON.parse(this.dataJsonstr).contract_skill_req.indexOf(',') != -1) {
+    //   var skill_list = JSON.parse(this.dataJsonstr).contract_skill_req.split(',');
 
-    } else {
-      var skill_list = [];
-      skill_list.push(JSON.parse(this.dataJsonstr).contract_skill_req);
-    }
+    // } else {
+    //   var skill_list = [];
+    //   skill_list.push(JSON.parse(this.dataJsonstr).contract_skill_req);
+    // }
     return {
-      list: JSON.parse(this.dataJsonstr).list,
+      isLogin: false,
+      isUnion: false,
+      ajaxLoaded: false,
+      order_id: pdata.id,
+      list: [],
       check: false,
       contract_skill_req: [],
-      skill_req: skill_list,
-      sk_c: pdata.sk_c,
+      skill_req: [],
+      sk_c: {},
       rea: readonly,
     }
   },
@@ -300,6 +356,10 @@ export default {
       }
     },
     changeChecked_(id, state) {
+      if (!this.ajaxLoaded) {
+        console.error('can not save while data not loaded');
+        return false;
+      }
       var self = this;
       var skill_list = this.skill_req;
       var skill_req = [];
@@ -326,6 +386,7 @@ export default {
       var opts = {};
       opts.id = JSON.parse(self.dataJsonstr).id;
       opts.contract_skill_req = skill_l.join(',');
+
       API.saveIt_(opts, function(isOk, res) {
         if (isOk) {
           console.log('success');
@@ -333,7 +394,7 @@ export default {
       });
     },
     submit_() {
-	  var url =  '/edit_contract?id=' + JSON.parse(this.dataJsonstr).id;
+	    var url =  '/edit_contract?id=' + JSON.parse(this.dataJsonstr).id;
       // window.location.replace(url);
       window.MIP.viewer.open(url,{replace:true});
     },

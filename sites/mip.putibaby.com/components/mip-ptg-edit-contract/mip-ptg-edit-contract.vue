@@ -941,9 +941,101 @@ export default {
       console.log(str);
 
     });
-  },
-  firstInviewCallback() {
-    this.init()
+
+    function setData(ajaxData) {
+      console.log(ajaxData);
+      var pdata = ajaxData;
+      var data = pdata.order;
+      var master_price = data.master.price_26day; //月嫂价格
+
+      var master_price = !!data.contract_is_offer_allday_service ?
+                         data.master.yuesao_allday_price :
+                         data.master.yuesao_daytime_price;
+      master_price = master_price / 100;
+
+      var price = Math.round(master_price / 26 * data.contract_shanghu_length); //通过月嫂价格和上户时长计算的总金额
+      var deposit = Math.round(master_price / 26 * data.contract_deposit_min * data.contract_shanghu_length); //通过月嫂价格和上户时长计算的订金
+      if (data.contract_shanghu_length == 0) {
+        price = 0;
+        deposit = 0;
+        //master_price = 0;
+      } else if (price != data.contract_price) {
+        price = data.contract_price;
+        deposit = data.contract_deposit;
+        master_price = Math.round(data.contract_price / data.contract_shanghu_length * 26);
+      }
+      if (pdata.readonly != '1') {
+        var to_contract_skill_req = '/edit_contract_skill_req_mip?id=' + pdata.order.id;
+        var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id;
+      } else {
+
+        var to_contract_skill_req = '/edit_contract_skill_req_mip?id=' + pdata.order.id + '&readonly=1';
+        var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1';
+      }
+      if (data.contract_mama_id_card_list[0] == "") {
+        var showz = false;
+      } else {
+        var showz = true;
+      }
+      if (data.contract_mama_id_card_list[1] == "undefined" 
+        || data.contract_mama_id_card_list[1] == null) {
+        var showf = false;
+      } else {
+        var showf = true;
+      }
+      if (data.contract_skill_req == '') {
+        var skill_length = 0;
+      } else {
+        var skill_length = data.contract_skill_req.split(',').length;
+      }
+      if (localStorage.State){
+        var saved = JSON.parse(localStorage.State);
+        if (saved.ts && saved.ts > pdata.ts) {
+          return saved;
+        }
+      }
+
+      self.rea = false;
+      self.err = false;
+      self.show_z = showz;
+      self.show_f = showf;
+      self.contract_is_offer_allday_ser = data.contract_is_offer_allday_service == 1 ? true : false;
+      self.master = pdata.order.master;
+      self.order = pdata.order;
+      self.contract_mama_name = data.contract_mama_name;
+      self.contract_mama_phone_number = data.contract_mama_phone_number;
+      self.contract_mama_id_card = data.contract_mama_id_card;
+      self.contract_shanghu_at = data.contract_shanghu_at;
+      self.contract_shanghu_length = data.contract_shanghu_length;
+      self.contract_location = data.contract_location;
+      self.contract_price = price;
+      self.contract_master_price = master_price;
+      self.contract_deposit = deposit;
+      self.contract_is_pay_monthly = !!data.contract_is_pay_monthly;
+      self.contract_is_offer_allday_service = data.contract_is_offer_allday_service;
+      self.contract_skill_req = skill_length;
+      self.is_show_pay_monthly_btn = data.contract_shanghu_length >= 42 ? true : false;
+      self.hardcode_deposit = data.hardcode_deposit;
+      self.contract_mama_id_card_zheng = data.contract_mama_id_card_list[0];
+      self.contract_mama_id_card_fan = data.contract_mama_id_card_list[1];
+      self.pics = [];
+      self.contract_deposit_min = data.contract_deposit_min;
+      self.to_contract_skill_req = to_contract_skill_req;
+      self.to_contract_extra = to_contract_extra;
+      self.err_message = '';
+
+      self.ajaxLoaded = true;
+    }
+
+    this.$element.customElement.addEventAction('logindone', function(event, str) {
+      console.log(event);
+      API.sessionId = event.sessionId;
+      self.$set(self, 'isLogin', true);
+      self.$set(self, 'isUnion', event.userInfo.isUnion);
+      API.ajaxContract({}, function(isOk, res){
+        setData(res);
+      });
+    });
   },
   props: {
 
@@ -960,83 +1052,86 @@ export default {
   data() {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
-    var data = pdata.order;
-    var master_price = data.master.price_26day; //月嫂价格
+    // var data = pdata.order;
+    // var master_price = data.master.price_26day; //月嫂价格
 
-    var master_price = !!data.contract_is_offer_allday_service ?
-                       data.master.yuesao_allday_price :
-                       data.master.yuesao_daytime_price;
-    master_price = master_price / 100;
+    // var master_price = !!data.contract_is_offer_allday_service ?
+    //                    data.master.yuesao_allday_price :
+    //                    data.master.yuesao_daytime_price;
+    // master_price = master_price / 100;
 
-    var price = Math.round(master_price / 26 * data.contract_shanghu_length); //通过月嫂价格和上户时长计算的总金额
-    var deposit = Math.round(master_price / 26 * data.contract_deposit_min * data.contract_shanghu_length); //通过月嫂价格和上户时长计算的订金
-    if (data.contract_shanghu_length == 0) {
-      price = 0;
-      deposit = 0;
-      //master_price = 0;
-    } else if (price != data.contract_price) {
-      price = data.contract_price;
-      deposit = data.contract_deposit;
-      master_price = Math.round(data.contract_price / data.contract_shanghu_length * 26);
-    }
+    // var price = Math.round(master_price / 26 * data.contract_shanghu_length); //通过月嫂价格和上户时长计算的总金额
+    // var deposit = Math.round(master_price / 26 * data.contract_deposit_min * data.contract_shanghu_length); //通过月嫂价格和上户时长计算的订金
+    // if (data.contract_shanghu_length == 0) {
+    //   price = 0;
+    //   deposit = 0;
+    //   //master_price = 0;
+    // } else if (price != data.contract_price) {
+    //   price = data.contract_price;
+    //   deposit = data.contract_deposit;
+    //   master_price = Math.round(data.contract_price / data.contract_shanghu_length * 26);
+    // }
     if (pdata.readonly != '1') {
-      var to_contract_skill_req = '/edit_contract_skill_req_mip?id=' + pdata.order.id;
-      var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id;
+      var to_contract_skill_req = '/edit_contract_skill_req_mip?id=' + pdata.id;
+      var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.id;
     } else {
-
-      var to_contract_skill_req = '/edit_contract_skill_req_mip?id=' + pdata.order.id + '&readonly=1';
-      var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1';
+      var to_contract_skill_req = '/edit_contract_skill_req_mip?id=' + pdata.id + '&readonly=1';
+      var to_contract_extra = '/edit_contract_extra_mip?id=' + pdata.id + '&readonly=1';
     }
-    if (data.contract_mama_id_card_list[0] == "") {
-      var showz = false;
-    } else {
-      var showz = true;
-    }
-    if (data.contract_mama_id_card_list[1] == "undefined" 
-      || data.contract_mama_id_card_list[1] == null) {
-      var showf = false;
-    } else {
-      var showf = true;
-    }
-    if (data.contract_skill_req == '') {
-      var skill_length = 0;
-    } else {
-      var skill_length = data.contract_skill_req.split(',').length;
-    }
-    if (localStorage.State){
-      var saved = JSON.parse(localStorage.State);
-	  if (saved.ts && saved.ts > pdata.ts) {
-		return saved;
-	  }
-    }
+    // if (data.contract_mama_id_card_list[0] == "") {
+    //   var showz = false;
+    // } else {
+    //   var showz = true;
+    // }
+    // if (data.contract_mama_id_card_list[1] == "undefined" 
+    //   || data.contract_mama_id_card_list[1] == null) {
+    //   var showf = false;
+    // } else {
+    //   var showf = true;
+    // }
+    // if (data.contract_skill_req == '') {
+    //   var skill_length = 0;
+    // } else {
+    //   var skill_length = data.contract_skill_req.split(',').length;
+    // }
+    // if (localStorage.State){
+    //   var saved = JSON.parse(localStorage.State);
+	   //  if (saved.ts && saved.ts > pdata.ts) {
+		  //   return saved;
+	   //  }
+    // }
     return {
+      isLogin:false,
+      isUnion:false,
+      ajaxLoaded:false,
+      order_id = pdata.id,
       rea: false,
       err: false,
-      show_z: showz,
-      show_f: showf,
-      contract_is_offer_allday_ser: data.contract_is_offer_allday_service == 1 ? true : false,
-      master: pdata.order.master,
-      order: pdata.order,
-      contract_mama_name: data.contract_mama_name,
-      contract_mama_phone_number: data.contract_mama_phone_number,
-      contract_mama_id_card: data.contract_mama_id_card,
-      contract_shanghu_at: data.contract_shanghu_at,
-      contract_shanghu_length: data.contract_shanghu_length,
-      contract_location: data.contract_location,
-      contract_price: price,
-      contract_master_price: master_price,
-      contract_deposit: deposit,
-      contract_is_pay_monthly: !!data.contract_is_pay_monthly,
-      contract_is_offer_allday_service: data.contract_is_offer_allday_service,
-      contract_skill_req: skill_length,
+      show_z: false,
+      show_f: false,
+      contract_is_offer_allday_ser: false,
+      master: 0,
+      order: {},
+      contract_mama_name: '',
+      contract_mama_phone_number: '',
+      contract_mama_id_card: '',
+      contract_shanghu_at: '',
+      contract_shanghu_length: 0,
+      contract_location: '',
+      contract_price: 0,
+      contract_master_price: 0,
+      contract_deposit: 0,
+      contract_is_pay_monthly: false,
+      contract_is_offer_allday_service: false,
+      contract_skill_req: 0,
 
-      is_show_pay_monthly_btn: data.contract_shanghu_length >= 42 ? true : false,
-      hardcode_deposit: data.hardcode_deposit,
-      contract_mama_id_card_zheng: data.contract_mama_id_card_list[0],
+      is_show_pay_monthly_btn: false,
+      hardcode_deposit: 0,
+      contract_mama_id_card_zheng: ''
 
-      contract_mama_id_card_fan: data.contract_mama_id_card_list[1],
+      contract_mama_id_card_fan: '',
       pics: [],
-      contract_deposit_min: data.contract_deposit_min,
+      contract_deposit_min: 0,
       to_contract_skill_req: to_contract_skill_req,
 
       to_contract_extra: to_contract_extra,
@@ -1165,6 +1260,10 @@ export default {
     },
 
     saveIt_() {
+      if (!this.ajaxLoaded) {
+        console.error('can not save while data not loaded');
+        return false;
+      }
       this.contract_price = Math.round(this.contract_master_price / 26 * this.contract_shanghu_length * 100) / 100;
       this.contract_deposit = this.contract_shanghu_length > 42 ?
         (this.contract_is_pay_monthly == 1 ?
@@ -1200,7 +1299,7 @@ export default {
       obj.pics = [];
       obj.mama_id = this.order.mama.id;
 
-	  this._data.ts = new Date();
+	    this._data.ts = new Date();
       localStorage.State = JSON.stringify(this._data);
 
       API.wrapRet_(

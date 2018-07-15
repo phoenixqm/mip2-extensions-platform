@@ -150,16 +150,61 @@ API.saveIt_ = function(opts, cb) {
     },
     cb);
 }
+API.ajaxContractExtra = function(order_id, cb) {
+  API.wrapRet_(
+    '/api/ajax_contract_extra', {
+      'id': order_id,
+    }, cb);
+}
+
 export default {
   beforeMounted() {
-    API.getExtra_();
+    // API.getExtra_();
   },
   mounted() {
-    console.log('This is my first custom component !')
+    console.log('This is edit contract_extra component !');
+    this.$element.customElement.addEventAction('echo', function(event, str) {
+      console.log(event);
+    });
+    this.$element.customElement.addEventAction('dook', function(event, str) {
+      // console.log(event);
+      console.log(event.from);
+      event.from.bind(self)(event.data, true);
+      //var eval_str = 'this.' + event.handler + '(event_order)'
+    });
+    this.$element.customElement.addEventAction('docancel', function(event, str) {
+      console.log(event);
+      console.log(str);
+
+    });
+
+    function setData(ajaxData) {
+      console.log(ajaxData);
+      var pdata = ajaxData;
+      if (pdata.readonly != '1') {
+        var readonly = false;
+      } else {
+        var readonly = true;
+      }
+      if (pdata.readonly == '1' && pdata.contract_extra == '') {
+        pdata.contract_extra = '无补充条款';
+      }
+      self.rea = readonly;
+      self.contract_extra = pdata.contract_extra;
+      self.ajaxLoaded = true;
+    }
+
+    this.$element.customElement.addEventAction('logindone', function(event, str) {
+      console.log(event);
+      API.sessionId = event.sessionId;
+      self.$set(self, 'isLogin', true);
+      self.$set(self, 'isUnion', event.userInfo.isUnion);
+      API.ajaxContractExtra(self.order_id, function(isOk, res){
+        setData(res);
+      });
+    });
   },
-  firstInviewCallback() {
-    this.init()
-  },
+
   props: {
     src: {
       type: String,
@@ -178,12 +223,12 @@ export default {
     } else {
       var readonly = true;
     }
-    if (pdata.readonly == '1' && pdata.contract_extra == '') {
-      pdata.contract_extra = '无补充条款';
-    }
+
     return {
+      ajaxLoaded: false,
+      order_id : pdata.id,
       rea: readonly,
-      contract_extra: pdata.contract_extra,
+      contract_extra: '',
     }
   },
   computed: {
@@ -198,6 +243,10 @@ export default {
       console.log('should set data');
     },
     saveIt_() {
+      if (!this.ajaxLoaded) {
+        console.error('can not save while data not loaded');
+        return false;
+      }
       var self = this;
       var opts = {};
       opts.contract_extra = self.contract_extra;

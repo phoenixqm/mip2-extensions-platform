@@ -337,9 +337,7 @@ export default {
     });
 
   },
-  firstInviewCallback() {
-    this.init()
-  },
+
   props: {
     src: {
       type: String,

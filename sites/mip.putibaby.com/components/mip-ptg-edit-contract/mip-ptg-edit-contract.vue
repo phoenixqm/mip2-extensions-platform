@@ -1201,7 +1201,7 @@ export default {
       });
     },
     quantianChecked() {
-      if (JSON.parse(this.dataJsonstr).readonly != '1') {
+      if (this.readonly != '1') {
         this.contract_is_offer_allday_service = 1;
         this.contract_is_offer_allday_ser = true;
         this.contract_master_price = this.master.yuesao_allday_price / 100;
@@ -1209,7 +1209,7 @@ export default {
       }
     },
     baibanChecked() {
-      if (JSON.parse(this.dataJsonstr).readonly != '1') {
+      if (this.readonly != '1') {
         this.contract_is_offer_allday_service = 0;
         this.contract_is_offer_allday_ser = false;
         this.contract_master_price = this.master.yuesao_daytime_price / 100;
@@ -1356,7 +1356,6 @@ export default {
     },
 
     handleSubmit_(data, skip) {
-      var pdata = JSON.parse(this.dataJsonstr);
 
       // 检查基本信息
       // var info = oa({}, this.state);

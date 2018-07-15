@@ -859,10 +859,11 @@ API.wrapRet_ = function(api, opts, cb) {
       cb(false, e.message);
     });
 }
-API.ajaxContract = function(order_id, cb) {
+API.ajaxContract = function(order_id, readonly, cb) {
   API.wrapRet_(
     '/api/ajax_contract', {
       'id': order_id,
+      'readonly': readonly ? 1 : 0;
     }, cb);
 }
 
@@ -1038,7 +1039,7 @@ export default {
       API.sessionId = event.sessionId;
       self.$set(self, 'isLogin', true);
       self.$set(self, 'isUnion', event.userInfo.isUnion);
-      API.ajaxContract(self.order_id, function(isOk, res){
+      API.ajaxContract(self.order_id, self.rea, function(isOk, res){
         setData(res);
       });
     });

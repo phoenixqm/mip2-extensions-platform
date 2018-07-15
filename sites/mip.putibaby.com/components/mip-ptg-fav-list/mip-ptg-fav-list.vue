@@ -213,8 +213,6 @@ export default {
   methods: {
     init () {
       console.log('should loading');
-      self = this;
-
     },
 
     load_data () {

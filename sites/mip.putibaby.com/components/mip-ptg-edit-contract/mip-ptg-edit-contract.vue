@@ -859,6 +859,12 @@ API.wrapRet_ = function(api, opts, cb) {
       cb(false, e.message);
     });
 }
+API.ajaxContract = function(order_id, cb) {
+  API.wrapRet_(
+    '/api/ajax_contract', {
+      'id': order_id,
+    }, cb);
+}
 
 API.uploadFile = function(data, cb) {
   API.wrapRet_(
@@ -1032,7 +1038,7 @@ export default {
       API.sessionId = event.sessionId;
       self.$set(self, 'isLogin', true);
       self.$set(self, 'isUnion', event.userInfo.isUnion);
-      API.ajaxContract({}, function(isOk, res){
+      API.ajaxContract(order_id, function(isOk, res){
         setData(res);
       });
     });
@@ -1104,7 +1110,7 @@ export default {
       isLogin:false,
       isUnion:false,
       ajaxLoaded:false,
-      order_id = pdata.id,
+      order_id: pdata.id,
       rea: false,
       err: false,
       show_z: false,
@@ -1127,8 +1133,7 @@ export default {
 
       is_show_pay_monthly_btn: false,
       hardcode_deposit: 0,
-      contract_mama_id_card_zheng: ''
-
+      contract_mama_id_card_zheng: '',
       contract_mama_id_card_fan: '',
       pics: [],
       contract_deposit_min: 0,

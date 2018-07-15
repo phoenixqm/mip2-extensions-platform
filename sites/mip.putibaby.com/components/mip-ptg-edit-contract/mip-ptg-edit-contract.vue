@@ -927,7 +927,7 @@ export default {
   mounted() {
     console.log('This is my first custom component !');
     console.log('mounted:', this);
-    var readonly = JSON.parse(this.dataJsonstr).readonly;
+    var readonly = this.readonly;
     console.log('readonly:', readonly);
     if (readonly == 1) {
       var ele = document.querySelectorAll("input");
@@ -1001,6 +1001,8 @@ export default {
           return saved;
         }
       }
+	  console.log('aaaa');
+	  console.log(pdata);
 
       self.readonly = pdata.readonly;
       self.rea = pdata.readonly? true: false;
@@ -1040,7 +1042,7 @@ export default {
       API.sessionId = event.sessionId;
       self.$set(self, 'isLogin', true);
       self.$set(self, 'isUnion', event.userInfo.isUnion);
-      API.ajaxContract(self.order_id, self.rea, function(isOk, res){
+      API.ajaxContract(self.order_id, self.readonly, function(isOk, res){
         setData(res);
       });
     });
@@ -1060,6 +1062,7 @@ export default {
   data() {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
+	console.log(pdata);
     // var data = pdata.order;
     // var master_price = data.master.price_26day; //月嫂价格
 
@@ -1113,12 +1116,16 @@ export default {
       isUnion:false,
       ajaxLoaded:false,
       order_id: pdata.id,
-      rea: false,
+	  readonly: pdata.readonly,
+      rea: pdata.readonly ? true: false,
       err: false,
       show_z: false,
       show_f: false,
       contract_is_offer_allday_ser: false,
-      master: 0,
+	  master: {
+	//	header:{
+     //   }
+	  },
       order: {},
       contract_mama_name: '',
       contract_mama_phone_number: '',

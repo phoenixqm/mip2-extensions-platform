@@ -880,6 +880,12 @@
 
 </div>
 
+  <div class="rec_a">
+    <a @click="handleUpdateYcq" mip-link>
+      <mip-img class="rec_icon" layout="fixed" width="78px" height="50px" src='i/bwtj.png' ></mip-img>
+    </a>
+  </div>
+
 </div>
 </template>
 <style scoped>
@@ -1363,7 +1369,22 @@
 	border:solid 1px #afd03b;
 	color:#afd03b;
   }
+    .rec_a {
+      display: block;
+      position: fixed;
+      right: 0px;
+      bottom: 60px;
+      width: 80px;
+      height: 50px;
+      z-index: 999;
+    }
 
+    .rec_a .rec_icon {
+      position: fixed;
+      display: inline-block;
+      width: 80px;
+      height: 50px;
+    }
 </style>
 <script>
 var API = {};
@@ -1453,8 +1474,8 @@ export default {
     var self = this;
     window.addEventListener('scroll',function(e){
 
-      console.log(document.documentElement.scrollTop);
-      console.log(document.body.scrollTop);
+      // console.log(document.documentElement.scrollTop);
+      // console.log(document.body.scrollTop);
       var scrollTop = document.documentElement.scrollTop;
       if (scrollTop == 0) {
         scrollTop = document.body.scrollTop;
@@ -1497,7 +1518,8 @@ export default {
      
       if (event.userInfo.isUnion && (API.next_cmd == 'order_list' || sessionStorage.next_cmd == 'order_list')) {
         console.log('logindone to order_list');
-        window.MIP.viewer.open('order_list', {});
+		console.log(window);
+        window.MIP.viewer.open('/order_list', {});
         API.next_cmd = '';
         sessionStorage.next_cmd = '';
       } else if (event.userInfo.isUnion && (API.next_cmd == 'coupon' || sessionStorage.next_cmd == 'coupon')) {
@@ -1591,9 +1613,6 @@ export default {
 
 
   },
-  firstInviewCallback() {
-    this.init()
-  },
   props: {
     src: {
       type: String,
@@ -1609,6 +1628,8 @@ export default {
     console.log(this);
 
     return {
+	  isLogin: false,
+	  isUnion: false,
       list: null,
       state: {
         isLoadingMore : false,
@@ -1657,16 +1678,24 @@ export default {
       if (!this.isLogin){
         API.next_cmd = cmd;
         sessionStorage.next_cmd = cmd;
+		console.log("go");
         this.$emit('login');
         return false;
       }
   
       return true;
     },
+    handleUpdateYcq(){
+      console.log('handleUpdateYcq');
+      if (!this.checkLogin_('update_ycq')) 
+        return;
+      window.MIP.viewer.open('/update_ycq ', {});
+    },  
     handleOrderList(){
       console.log('handleOrderList');
       if (!this.checkLogin_('order_list')) 
         return;
+	  console.log(window);
       window.MIP.viewer.open('/order_list ', {});
     },
     load_data() {

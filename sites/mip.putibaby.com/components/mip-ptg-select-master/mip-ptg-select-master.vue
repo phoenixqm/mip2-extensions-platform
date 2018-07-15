@@ -15,7 +15,7 @@
       <mip-img class="sousuo_icon mip-element mip-layout-container mip-img-loaded" src="/i/sousuo.png"></mip-img>
     
 
-    <a class="person" href="/order_list" mip-link><mip-img width="18px" height="22px" src="/i/card_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
+    <a class="person" @click="handleOrderList" mip-link><mip-img width="18px" height="22px" src="/i/card_per.png" class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded" style="width: 28px; height: 23px;"></mip-img></a></td>
   </tr>
 </tbody></table>    
 
@@ -1485,7 +1485,39 @@ export default {
       console.log(str);
     });
 
+    this.$element.customElement.addEventAction('logindone', event => {
+      // 这里可以输出登录之后的数据
 
+      // 获取用户信息
+      console.log(event);
+      API.sessionId = event.sessionId;
+
+      self.$set(self, 'isLogin', true);
+      self.$set(self, 'isUnion', event.userInfo.isUnion);
+     
+      if (event.userInfo.isUnion && (API.next_cmd == 'order_list' || sessionStorage.next_cmd == 'order_list')) {
+        console.log('logindone to order_list');
+        window.MIP.viewer.open('order_list', {});
+        API.next_cmd = '';
+        sessionStorage.next_cmd = '';
+      } else if (event.userInfo.isUnion && (API.next_cmd == 'coupon' || sessionStorage.next_cmd == 'coupon')) {
+        console.log('logindone to coupon');
+        window.MIP.viewer.open('/coupon', {});
+        API.next_cmd = '';
+        sessionStorage.next_cmd = '';
+      } else if (event.userInfo.isUnion 
+          && (API.next_cmd == 'update_ycq' || sessionStorage.next_cmd == 'update_ycq')) {
+        console.log('logindone to update_ycq');
+        window.MIP.viewer.open('/update_ycq', {});
+        API.next_cmd = '';
+        sessionStorage.next_cmd = '';        
+      } else if (!event.userInfo.isUnion) {
+        console.log('logindone to submit_ph');
+        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
+      }
+
+    });
+    
     var sortbar = document.querySelector("#sortbar");
     var sort_by = sortbar.dataset.sort_by;
     var sortZH = document.querySelector("#sortZH");
@@ -1620,7 +1652,23 @@ export default {
       });
 
     },
+    checkLogin_(cmd) {
 
+      if (!this.isLogin){
+        API.next_cmd = cmd;
+        sessionStorage.next_cmd = cmd;
+        this.$emit('login');
+        return false;
+      }
+  
+      return true;
+    },
+    handleOrderList(){
+      console.log('handleOrderList');
+      if (!this.checkLogin_('order_list')) 
+        return;
+      window.MIP.viewer.open('/order_list ', {});
+    },
     load_data() {
       console.log('should set data');
       var self = this;

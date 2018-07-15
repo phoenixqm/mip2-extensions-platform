@@ -1038,7 +1038,7 @@ export default {
       API.sessionId = event.sessionId;
       self.$set(self, 'isLogin', true);
       self.$set(self, 'isUnion', event.userInfo.isUnion);
-      API.ajaxContract(order_id, function(isOk, res){
+      API.ajaxContract(self.order_id, function(isOk, res){
         setData(res);
       });
     });

@@ -225,11 +225,11 @@
               </td>                    
 
               <td v-if="data.info.can_online_interview" class="td2">
-                  <a :href="'/update_time_mip?mcode=' + data.codeid" mip-link>预约视频面试</a>
+                  <a @click="handleUpdateTime">预约视频面试</a>
               </td>
 
               <td v-else class="td2">
-                  <a :href="'/order_list?mcode=' + data.codeid" mip-link>{{ data.info.order_desc_str }}-查看预约</a>
+                  <a @click="handleOrderList">{{ data.info.order_desc_str }}-查看预约</a>
               </td> 
               
           </tr>
@@ -872,7 +872,7 @@ export default {
      
       if (event.userInfo.isUnion &&  
           (API.next_cmd == 'fav' || sessionStorage.next_cmd == 'fav')) {
-        console.log('fav');
+        console.log('logindone to fav');
         API.next_cmd = '';
         sessionStorage.next_cmd = '';
         API.favMaster(self.data.info.id, function(isOk, res){
@@ -882,10 +882,17 @@ export default {
 
       } else if (event.userInfo.isUnion && 
           (API.next_cmd == 'update_time' || sessionStorage.next_cmd == 'update_time')) {
-        console.log('update_time');
+        console.log('logindone to update_time');
         API.next_cmd = '';        
         sessionStorage.next_cmd = '';
-        window.MIP.viewer.open('/update_time_mip ', {});
+        window.MIP.viewer.open('/update_time_mip?mcode=' + self.data.codeid, {});
+
+      } else if (event.userInfo.isUnion && 
+          (API.next_cmd == 'order_list' || sessionStorage.next_cmd == 'order_list')) {
+        console.log('logindone to order_list');
+        API.next_cmd = '';        
+        sessionStorage.next_cmd = '';
+        window.MIP.viewer.open('/order_list', {});
 
       } else if (!event.userInfo.isUnion) {
         console.log('go to submit_ph');
@@ -934,70 +941,58 @@ export default {
       console.log(this.dataJson);
       this.reload_();
     },
-  created() {
-
+    created() {
       this.reload_();
-  },
+    },
 
-  checkLogin_(cmd) {
+    checkLogin_(cmd) {
+      if (!this.isLogin){
+          API.next_cmd = cmd;
+          sessionStorage.next_cmd = cmd;
+          this.$emit('login');
+          return false;
+      }
+      return true;
+    },
 
-    if (!this.isLogin){
+    reload_() {
+      console.log('reloading');
+    },
+    handleUpdateTime(){
+      console.log('handleUpdateTime');
+      
+      if (!this.checkLogin_('update_time')) 
+        return;
 
-        API.next_cmd = cmd;
-        sessionStorage.next_cmd = cmd;
-        this.$emit('login');
-        return false;
-    }
-  
-    return true;
-  },
+      window.MIP.viewer.open('/update_time_mip?mcode=' + this.data.codeid, {});
 
-  reload_() {
-    console.log('reloading');
+    }, 
+    handleOrderList(){
+      console.log('handleOrderList');
+      if (!this.checkLogin_('order_list')) 
+        return;
+      window.MIP.viewer.open('/order_list', {});
+    },
+    handleFav(){
+      console.log('handleFav');
+      
+      if(this.data.info.isfav) {
+        if (!this.checkLogin_('unfav')) return;
+        this.$set(this.data.info,'isfav',false);
+        console.log(this.data.info);
+        console.log('unFav');
+        API.unfavMaster(this.data.info.id, this.reload_);
+      } else {
+        if (!this.checkLogin_('fav')) return;
 
-    var self = this;
-    // API.getMasterInfo(this.data.info.id, function(isOk, data){
-    //   if (isOk) {
-    //     self.$set(self.data.info, 'isfav', data.fav);
-    //     self.$set(self.data.info, 'can_online_interview', data.can_online_interview);
-    //     self.$set(self.data.info, 'order_desc_str', data.order_desc_str);
-    //     //console.log(self);
-    //   } else {
-    //     console.warn(data);
-    //   }
-    // });
-
-  },
-  handleUpdateTime(){
-    console.log('handleUpdateTime');
-    
-    if (!this.checkLogin_('update_time')) 
-      return;
-
-    window.MIP.viewer.open('/update_time_mip ', {});
-
-  },  
-  handleFav(){
-    console.log('handleFav');
-    
-    
-    if(this.data.info.isfav) {
-      if (!this.checkLogin_('unfav')) return;
-      this.$set(this.data.info,'isfav',false);
-      console.log(this.data.info);
-      console.log('unFav');
-      API.unfavMaster(this.data.info.id, this.reload_);
-    } else {
-      if (!this.checkLogin_('fav')) return;
-
-      this.$set(this.data.info,'isfav',true);
-      console.log(this.data.info);
-      console.log('Fav');
-      API.favMaster(this.data.info.id, this.reload_);
-    }
-  },
-  load_data () {
-      console.log('should set data');
+        this.$set(this.data.info,'isfav',true);
+        console.log(this.data.info);
+        console.log('Fav');
+        API.favMaster(this.data.info.id, this.reload_);
+      }
+    },
+    load_data () {
+        console.log('should set data');
     }
   }
 

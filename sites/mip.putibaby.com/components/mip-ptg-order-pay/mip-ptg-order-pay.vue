@@ -44,8 +44,8 @@
             {
                 "payConfig":{
                     "subject":"支付商品",
-                    "sessionId": "{{ data.sessionId }}",
-                    "fee": {{ (inservicePayAmount/100).toFixed(2) }},
+                    "sessionId": "",
+                    "fee": 0,
                     "redirectUrl": "https://mip.putibaby.com/pay/verifypay",
                     "endpoint":{
                         "baifubao":  "https://mip.putibaby.com/api/pay/baifubao",
@@ -53,13 +53,13 @@
                         "weixin":  "https://mip.putibaby.com/api/pay/weixin"
                     },
                     "postData":{
-                        "orderId": {{ data.order_number }},
-                        "pay_id": {{ data.pay_id }},
-                        "token": "{{ data.token }}",
+                        "orderId": 0,
+                        "pay_id": 0,
+                        "token": "",
                         "useBalance": false,
-                        "amount" : {{ inservicePayAmount }},
+                        "amount" : 0,
                         "balance_amount" : 0,
-                        "fee": {{ (inservicePayAmount/100).toFixed(2) }}
+                        "fee": 0
                     }
                 }
             }
@@ -301,6 +301,7 @@ export default {
           }
       };
 
+	  console.log(pay_config);
       MIP.setData({payConfig: pay_config});
 
 
@@ -316,7 +317,7 @@ export default {
       API.sessionId = event.sessionId;
       self.$set(self, 'isLogin', true);
       self.$set(self, 'isUnion', event.userInfo.isUnion);
-      API.ajaxDoPay(self.order_id, function(isOk, res){
+      API.ajaxDoPay(self.data.order_id, function(isOk, res){
         if (isOk) {
           setData(res);
         } else {
@@ -358,7 +359,7 @@ export default {
         "postData":{
             "orderId": pdata.order_id,
             "order_type": '',
-            "pay_id": pdata.pay_id,
+            "pay_id":0,
             "useBalance" : false,
             "token": '',
             "fee": 0,
@@ -406,8 +407,6 @@ export default {
   methods: {
     init() {
       console.log('should loading');
-      console.log(this.dataJson);
-
     },
 
     load_data() {

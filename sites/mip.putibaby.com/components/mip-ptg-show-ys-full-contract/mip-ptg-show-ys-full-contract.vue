@@ -2,7 +2,7 @@
 <template>
 <div class='paidan body'>
 
-  <h2>菩提果母婴护理服务合同</h2>
+  <!--<h2>菩提果母婴护理服务合同</h2>-->
 
   <div class='line'> </div>
 
@@ -22,7 +22,7 @@
       </br/>
     </div>
 
-    身份证号：<i> {{order.contract_mama_id_card}} </i><br/>
+    身份证号：<i class="id_card"> {{order.contract_mama_id_card}} </i><br/>
   </p>
 
   <p>
@@ -32,7 +32,7 @@
 
       联系方式：<i> {{master.phone_number}} </i><br/>
     </div>
-    身份证号：<i> {{master.id_card}} </i><br/>
+    身份证号：<i class="id_card"> {{master.id_card}} </i><br/>
   </p>
 
   <p>
@@ -329,30 +329,6 @@
 
 
 <style scoped>
-.wrapper {
-  margin: 0 auto;
-  text-align: center;
-}
-
-* {
-  margin: 0px;
-  padding: 0px;
-}
-
-body {
-  background-color: #F1F5E2;
-}
-
-
-p {
-  margin: 0px;
-  padding: 0px;
-  font-family: '黑体';
-}
-
-.root {
-  padding: 15px;
-}
 
 .body h2 {
   color: #000;
@@ -413,6 +389,14 @@ p {
 .body .footer {
   color: red;
 }
+.body .id_card{
+      font-style: normal;
+    display: inline;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: 1px solid #999;
+    color: #00a0ff;
+}
 </style>
 
 <script>
@@ -463,6 +447,58 @@ API.submit_ = function(content, mcode, cb) {
     },
     cb);
 };
+getChineseNumber = function(v) {
+	if(v > 10) {
+		return 'X';
+	}
+	return '零壹贰叁肆伍陆柒捌玖'.substr(v, 1) || 'X';
+};
+var Helper = {};
+Helper.fix_date = function(v) {
+	// 必须是Date类型，并且不能是invalid date(要求年份 >= 1900)
+	if(!(v instanceof Date && v.getFullYear() >= 1900)) {
+		return new Date('2000-01-01 00:00:00');
+	}
+	return v;
+}
+// 把数字 1 转换成 大写的 壹
+Helper.digit_to_chinese = function(v) {
+	v = Math.floor(+v) % 10;
+	if(isNaN(v) || v < 0) return '*';
+	return getChineseNumber(v);
+}
+
+// 把数 11 转换为 大写的 壹拾壹
+Helper.number_to_chinese = function(v) {
+	v = Math.floor(+v);
+	if(isNaN(v) || v < 0) return '*';
+
+	var ret = '';
+	if(v >= 10000) {
+		ret += this.number_to_chinese(Math.floor(v / 10000)) + '万';
+		v %= 10000;
+	}
+	if(v >= 1000) {
+		ret += this.digit_to_chinese(Math.floor(v / 1000)) + '仟';
+		v %= 1000;
+	}
+	if(v >= 100) {
+		ret += this.digit_to_chinese(Math.floor(v / 100)) + '佰';
+		v %= 100;
+	}
+	if(v >= 10) {
+		ret += this.digit_to_chinese(Math.floor(v / 10)) + '拾';
+		v %= 10;
+	}
+	if(v > 0) {
+		ret += this.digit_to_chinese(v);
+	}
+	if(!ret) {
+		ret = '零';
+	}
+	return ret;
+}
+
 
 export default {
   mounted() {
@@ -501,7 +537,9 @@ export default {
     order = pdata.data.order || {};
     master = pdata.data.master || {};
     ys_skills = pdata.data.ys_skills || [];
+    helper = pdata.data.helper || [];
 
+    console.log('helper:',helper);
     var cfhl = ys_skills.filter(function(x) {
       return x.title == '产妇护理';
     })[0].list.map(function(x) {
@@ -538,6 +576,7 @@ export default {
       order: order,
       master: master,
       ys_skills: ys_skills,
+	  helper: Helper,
       cfhl: cfhl,
       xsrhl: xsrhl,
       yrhl: yrhl,

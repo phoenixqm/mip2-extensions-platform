@@ -224,12 +224,12 @@
                   </a>
               </td>                    
 
-              <td v-if="data.info.can_online_interview" class="td2">
-                  <a @click="handleUpdateTime">预约视频面试</a>
+              <td v-if="data.info.can_online_interview" @click="handleUpdateTime" class="td2">
+                  <a>预约视频面试</a>
               </td>
 
-              <td v-else class="td2">
-                  <a @click="handleOrderList">{{ data.info.order_desc_str }}-查看预约</a>
+              <td v-else class="td2" @click="handleOrderList">
+                  <a>{{ data.info.order_desc_str }}-查看预约</a>
               </td> 
               
           </tr>

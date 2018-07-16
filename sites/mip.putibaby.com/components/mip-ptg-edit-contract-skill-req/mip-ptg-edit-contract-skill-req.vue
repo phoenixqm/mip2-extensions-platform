@@ -10,12 +10,12 @@
       <p for="it.id">
 				{{it.title}}
       </p>
-      <input type="checkbox" id="it.id" name="services" v-bind:disabled="rea" value="it.id" v-bind:checked="sk_c[it.id]" @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
+	  <input type="checkbox" id="it.id" name="services" v-bind:disabled="rea" value="it.id" v-bind:checked="sk_c[it.id]" @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
 
     </div>
   </div>
 
-  <input class="mbtn" type="submit" value="提交" @click="submit_" v-show:disabled="!rea">
+  <input class="mbtn" type="submit" value="提交" @click="submit_" v-show="!rea"></input>
 
 
 </div>
@@ -259,11 +259,7 @@ export default {
       self.$set(self, 'isUnion', event.userInfo.isUnion);
       API.ajaxContractSkillReq(self.order_id, function(isOk, res){
         var pdata = res;
-        if (pdata.readonly != '1') {
-          var readonly = false;
-        } else {
-          var readonly = true;
-        }
+		console.log('pdata',pdata);
         if (pdata.contract_skill_req.indexOf(',') != -1) {
           var skill_list = pdata.contract_skill_req.split(',');
 
@@ -277,7 +273,6 @@ export default {
         self.contract_skill_req = [];
         self.skill_req = skill_list;
         self.sk_c = pdata.sk_c;
-        self.rea = readonly;
 
         self.ajaxLoaded = true;
 
@@ -298,7 +293,7 @@ export default {
   data() {
     console.log('this', this);
     var pdata = JSON.parse(this.dataJsonstr);
-    if (pdata.readonly != '1') {
+    if (parseInt(pdata.readonly) != 1) {
       var readonly = false;
     } else {
       var readonly = true;

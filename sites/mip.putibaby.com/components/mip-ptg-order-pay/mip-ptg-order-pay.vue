@@ -260,13 +260,70 @@ API.payOrderWithBalance = function(orderId,type,amount, cb) {
     },
     cb);
 };
+API.ajaxDoPay = function(orderId, cb) {
+  API.wrapRet_(
+    '/api/ajax_do_pay', {
+      'order_id': orderId,
+
+    },
+    cb);
+};
 
 
 export default {
   mounted() {
     console.log('This is pty order pay component !');
+    var self = this;
+    function setData(ajaxData) {
+      console.log(ajaxData);
+      var pdata = ajaxData;
+
+      var pay_config = {
+          "subject":"支付商品",
+          "fee": (pdata.payamount/100).toFixed(2),
+          "sessionId": pdata.sessionId,
+          "redirectUrl": "https://mip.putibaby.com/pay/verifypay",
+          "endpoint":{
+              "baifubao":  "https://mip.putibaby.com/api/pay/baifubao",
+              "alipay":  "https://mip.putibaby.com/api/pay/alipay",
+              "weixin":  "https://mip.putibaby.com/api/pay/weixin"
+          },
+          "postData":{
+              "orderId": pdata.order_number,
+              "order_type": pdata.type,
+              "pay_id": pdata.pay_id,
+              "useBalance" : false,
+              "token": pdata.token,
+              "fee": (pdata.payamount/100).toFixed(2),
+              "amount" : pdata.payamount,
+              "balance_amount": 0,
+              "anyData" :{}
+          }
+      };
+
+      MIP.setData({payConfig: pay_config});
 
 
+      self.data = pdata;
+      self.balanceChecked = false;
+      self.inservicePayChecked = false;
+      self.payConfig = pay_config;  
+
+      self.ajaxLoaded = true;
+    }
+    this.$element.customElement.addEventAction('logindone', function(event, str) {
+      console.log(event);
+      API.sessionId = event.sessionId;
+      self.$set(self, 'isLogin', true);
+      self.$set(self, 'isUnion', event.userInfo.isUnion);
+      API.ajaxDoPay(self.order_id, function(isOk, res){
+        if (isOk) {
+          setData(res);
+        } else {
+          console.error(res);
+        }
+      });
+    });
 
   },
   firstInviewCallback() {
@@ -378,6 +435,10 @@ export default {
       this.inservicePayChecked = !this.inservicePayChecked;
     },
 	  submitBalancePay() {
+      if (!this.ajaxLoaded) {
+        console.error('can not do pay while data not loaded');
+        return false;
+      }
 	    API.payOrderWithBalance(
         this.data.order_id,
         this.data.type,

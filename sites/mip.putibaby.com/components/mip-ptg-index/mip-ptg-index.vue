@@ -291,27 +291,27 @@ export default {
       return true;
     },
 
-  reload_() {
-    console.log('reloading');
-  },
-  handleCoupon(){
-    console.log('handleCoupon');
-    if (!this.checkLogin_('coupon')) 
-      return;
-    window.MIP.viewer.open('/coupon ', {});
-  },
-  handleUpdateYcq(){
-    console.log('handleUpdateYcq');
-    if (!this.checkLogin_('update_ycq')) 
-      return;
-    window.MIP.viewer.open('/update_ycq ', {});
-  },  
-  handleOrderList(){
-    console.log('handleOrderList');
-    if (!this.checkLogin_('order_list')) 
-      return;
-    window.MIP.viewer.open('/order_list ', {});
-  },
+    reload_() {
+      console.log('reloading');
+    },
+    handleCoupon(){
+      console.log('handleCoupon');
+      if (!this.checkLogin_('coupon')) 
+        return;
+      window.MIP.viewer.open('/coupon ', {});
+    },
+    handleUpdateYcq(){
+      console.log('handleUpdateYcq');
+      if (!this.checkLogin_('update_ycq')) 
+        return;
+      window.MIP.viewer.open('/update_ycq ', {});
+    },  
+    handleOrderList(){
+      console.log('handleOrderList');
+      if (!this.checkLogin_('order_list')) 
+        return;
+      window.MIP.viewer.open('/order_list ', {});
+    },
     load_data () {
       console.log('should set data');
     }

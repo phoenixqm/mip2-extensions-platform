@@ -1518,7 +1518,6 @@ export default {
      
       if (event.userInfo.isUnion && (API.next_cmd == 'order_list' || sessionStorage.next_cmd == 'order_list')) {
         console.log('logindone to order_list');
-		console.log(window);
         window.MIP.viewer.open('/order_list', {});
         API.next_cmd = '';
         sessionStorage.next_cmd = '';

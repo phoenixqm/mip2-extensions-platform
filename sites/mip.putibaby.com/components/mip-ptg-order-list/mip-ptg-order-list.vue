@@ -318,10 +318,12 @@ export default {
     });
     this.$element.customElement.addEventAction('dook', function(event, str) {
       // console.log(event);
+      if (event.from) {
+        console.log(event.from);
+        event.from.bind(self)(event.data, true);
+        //var eval_str = 'this.' + event.handler + '(event_order)'        
+      }
 
-      console.log(event.from);
-      event.from.bind(self)(event.data, true);
-      //var eval_str = 'this.' + event.handler + '(event_order)'
     });
     this.$element.customElement.addEventAction('docancel', function(event, str) {
       console.log(event);
@@ -377,7 +379,15 @@ export default {
       console.log('should set data');
 
     },
-
+    show_alert(msg) {
+        var ele = document.getElementById('ptgconfirm');
+        // console.log(ele);
+        MIP.viewer.eventAction.execute('doshow', ele, { 
+          el_id: 'orderlist', 
+          title:'提示错误',
+          msg: msg,
+          from: null});
+    },
     reload_() {
       window.location.reload();
       var href = window.location.href;
@@ -409,6 +419,7 @@ export default {
             self.reload_();
           } else {
             console.warn(data);
+            self.show_alert(data);
           }
         });
 
@@ -442,6 +453,7 @@ export default {
             self.reload_();
           } else {
             console.warn(data);
+            self.show_alert(data);
           }
         });
 
@@ -468,6 +480,7 @@ export default {
             self.reload_();
           } else {
             console.warn(data);
+            self.show_alert(data);
           }
         });
 
@@ -516,6 +529,7 @@ export default {
             self.reload_();
           } else {
             console.warn(data);
+            self.show_alert(data);
           }
         });
 

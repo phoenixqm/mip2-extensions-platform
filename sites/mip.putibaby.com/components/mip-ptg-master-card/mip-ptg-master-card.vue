@@ -870,17 +870,38 @@ export default {
       self.$set(self, 'isLogin', true);
       self.$set(self, 'isUnion', event.userInfo.isUnion);
      
-      if (event.userInfo.isUnion && API.next_cmd == 'fav') {
-        console.log('Fav');
+      if (event.userInfo.isUnion &&  
+          (API.next_cmd == 'fav' || sessionStorage.next_cmd == 'fav')) {
+        console.log('fav');
+        API.next_cmd = '';
+        sessionStorage.next_cmd = '';
         API.favMaster(self.data.info.id, function(isOk, res){
           if (isOk) 
             self.$set(self.data.info, 'isfav', data.fav);
         });
-        API.next_cmd = '';
+
+      } else if (event.userInfo.isUnion && 
+          (API.next_cmd == 'update_time' || sessionStorage.next_cmd == 'update_time')) {
+        console.log('update_time');
+        API.next_cmd = '';        
+        sessionStorage.next_cmd = '';
+        window.MIP.viewer.open('/update_time_mip ', {});
+
       } else if (!event.userInfo.isUnion) {
         console.log('go to submit_ph');
         window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
       }
+
+      API.getMasterInfo(self.data.info.id, function(isOk, data){
+        if (isOk) {
+          self.$set(self.data.info, 'isfav', data.fav);
+          self.$set(self.data.info, 'can_online_interview', data.can_online_interview);
+          self.$set(self.data.info, 'order_desc_str', data.order_desc_str);
+          //console.log(self);
+        } else {
+          console.warn(data);
+        }
+      });
 
     });
   },
@@ -894,6 +915,10 @@ export default {
   data () {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
+    pdata.data.info = pdata.data.info || {};
+    pdata.data.info.isfav = false;
+    pdata.data.info.can_online_interview = true;
+    pdata.data.info.order_desc_str = '';
     return {
       data: pdata.data,
       isLogin:false,
@@ -917,17 +942,13 @@ export default {
   checkLogin_(cmd) {
 
     if (!this.isLogin){
-        // window.location.href = '/do_login?to=' + encodeURIComponent(window.location.href);
-        // return;
+
         API.next_cmd = cmd;
+        sessionStorage.next_cmd = cmd;
         this.$emit('login');
         return false;
     }
-    // if (false && !this.isUnion){
-    //     // window.location.href = '/submit_ph?to=' + encodeURIComponent(window.location.href);
-    //     window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
-    //     return false;
-    // }    
+  
     return true;
   },
 
@@ -935,18 +956,27 @@ export default {
     console.log('reloading');
 
     var self = this;
-    API.getMasterInfo(this.data.info.id, function(isOk, data){
-      if (isOk) {
-        self.$set(self.data.info, 'isfav', data.fav);
-        self.$set(self.data.info, 'can_online_interview', data.can_online_interview);
-        self.$set(self.data.info, 'order_desc_str', data.order_desc_str);
-        //console.log(self);
-      } else {
-        console.warn(data);
-      }
-    });
+    // API.getMasterInfo(this.data.info.id, function(isOk, data){
+    //   if (isOk) {
+    //     self.$set(self.data.info, 'isfav', data.fav);
+    //     self.$set(self.data.info, 'can_online_interview', data.can_online_interview);
+    //     self.$set(self.data.info, 'order_desc_str', data.order_desc_str);
+    //     //console.log(self);
+    //   } else {
+    //     console.warn(data);
+    //   }
+    // });
 
   },
+  handleUpdateTime(){
+    console.log('handleUpdateTime');
+    
+    if (!this.checkLogin_('update_time')) 
+      return;
+
+    window.MIP.viewer.open('/update_time_mip ', {});
+
+  },  
   handleFav(){
     console.log('handleFav');
     

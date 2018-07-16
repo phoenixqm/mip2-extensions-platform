@@ -162,6 +162,7 @@ export default {
     // API.getExtra_();
   },
   mounted() {
+var self =this;
     console.log('This is edit contract_extra component !');
     this.$element.customElement.addEventAction('echo', function(event, str) {
       console.log(event);

@@ -347,8 +347,8 @@ export default {
   
     var pay_config = {
         "subject":"支付商品",
-        "fee": (pdata.payamount/100).toFixed(2),
-        "sessionId": pdata.sessionId,
+        "fee": 0,
+        "sessionId": '',
         "redirectUrl": "https://mip.putibaby.com/pay/verifypay",
         "endpoint":{
             "baifubao":  "https://mip.putibaby.com/api/pay/baifubao",
@@ -356,25 +356,32 @@ export default {
             "weixin":  "https://mip.putibaby.com/api/pay/weixin"
         },
         "postData":{
-            "orderId": pdata.order_number,
-            "order_type": pdata.type,
+            "orderId": pdata.order_id,
+            "order_type": '',
             "pay_id": pdata.pay_id,
             "useBalance" : false,
-            "token": pdata.token,
-            "fee": (pdata.payamount/100).toFixed(2),
-            "amount" : pdata.payamount,
+            "token": '',
+            "fee": 0,
+            "amount" : 0,
             "balance_amount": 0,
             "anyData" :{}
         }
     };
 
-	  MIP.setData({payConfig: pay_config});
+    MIP.setData({payConfig: pay_config});
+
+    
+    pdata.amount = 0;
+    pdata.coupon = 0;
+    pdata.payamount = 0;
+    pdata.reward_balance = 0;
+    pdata.amount = 0;
 
     return {
       data:pdata,
       balanceChecked:false,
       inservicePayChecked:false,
-	    "payConfig": pay_config   
+	    payConfig: pay_config   
     }
   },
   computed: {

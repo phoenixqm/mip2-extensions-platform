@@ -1360,7 +1360,7 @@ export default {
 	  },
     contractDetail() {
       var id = this.order.id;
-      var url = '/v2_show_ptg_full_contract?id=' + id + '&type=YSPD';
+      var url = '/v2_show_ptg_ys_full_contract?id=' + id ;
       window.location.href = url;
     },
 

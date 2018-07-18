@@ -221,7 +221,8 @@ export default {
     },
 
     handleBtn(fav){
-      window.location.href = '/master_card?mcode=' + fav.master.mcode;
+      // window.location.href = '/master_card?mcode=' + fav.master.mcode;
+      window.MIP.viewer.open('/master_card?mcode=' + fav.master.mcode, {});
     },
 
   }

@@ -1700,6 +1700,8 @@ export default {
     },
     load_data() {
       console.log('should set data');
+      self.state.loadMessage = "点击加载数据";
+
       var self = this;
       this.filter.pn = 0;
       API.getSelectMaster(this.filter, function(isOk, res){
@@ -1776,8 +1778,8 @@ export default {
     },
   
     search(e){
-	  console.log(e);
-	  e.target.blur();
+      console.log(e);
+      e.target.blur();
       this.load_data();
     },
     reload_() {

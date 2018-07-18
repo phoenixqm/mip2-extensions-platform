@@ -222,27 +222,34 @@ export default {
 
       self.$set(self, 'isLogin', true);
       self.$set(self, 'isUnion', event.userInfo.isUnion);
+	  var origin = API.next_cmd || event.origin || localStorage.getItem('origin');
      
-      if (event.userInfo.isUnion && (API.next_cmd == 'order_list' || sessionStorage.next_cmd == 'order_list')) {
+      if (event.userInfo.isUnion && origin == 'order_list') {
         console.log('logindone to order_list');
         console.log(window.MIP);
         window.MIP.viewer.open('/order_list', {});
         API.next_cmd = '';
         sessionStorage.next_cmd = '';
-      } else if (event.userInfo.isUnion && (API.next_cmd == 'coupon' || sessionStorage.next_cmd == 'coupon')) {
+		localStorage.clear();
+      } else if (event.userInfo.isUnion && origin == 'coupon') {
         console.log('logindone to coupon');
         window.MIP.viewer.open('/coupon', {});
         API.next_cmd = '';
         sessionStorage.next_cmd = '';
-      } else if (event.userInfo.isUnion 
-      		&& (API.next_cmd == 'update_ycq' || sessionStorage.next_cmd == 'update_ycq')) {
+		localStorage.clear();
+      } else if (event.userInfo.isUnion && origin == 'update_ycq') {
         console.log('logindone to update_ycq');
         window.MIP.viewer.open('/update_ycq', {});
         API.next_cmd = '';
-        sessionStorage.next_cmd = '';        
-      } else if (!event.userInfo.isUnion) {
+        sessionStorage.next_cmd = '';
+		localStorage.clear();
+      } else if (!event.userInfo.isUnion && origin) {
         console.log('logindone to submit_ph');
-        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
+		var to = '/' + origin;
+        API.next_cmd = '';
+        sessionStorage.next_cmd = '';
+		localStorage.clear();
+        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(to), {});
       }
 
     });
@@ -278,12 +285,30 @@ export default {
     checkLogin_(cmd) {
 
       if (!this.isLogin){
-        // API.next_cmd = cmd;
-        // sessionStorage.next_cmd = cmd;
-        this.$emit('login', '/'+cmd);
+        API.next_cmd = cmd;
+        sessionStorage.next_cmd = cmd;
+		localStorage.setItem('origin', cmd);
+		if (cmd == 'coupon') {
+          this.$emit('login1');
+		}
+		else if (cmd == 'order_list') {
+          this.$emit('login2');
+		}
+		else if (cmd == 'update_ycq') {
+          this.$emit('login3');
+		}
         return false;
       }
-  
+      if (!this.isUnion){
+        //API.next_cmd = cmd;
+        //sessionStorage.next_cmd = cmd;
+		//localStorage.setItem('origin', cmd);
+		var to = '/' + cmd;
+        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(to), {});
+
+        return false;
+      }
+
       return true;
     },
 

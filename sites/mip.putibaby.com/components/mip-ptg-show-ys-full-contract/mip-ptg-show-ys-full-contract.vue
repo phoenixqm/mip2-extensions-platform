@@ -447,7 +447,7 @@ API.submit_ = function(content, mcode, cb) {
     },
     cb);
 };
-getChineseNumber = function(v) {
+function getChineseNumber(v) {
 	if(v > 10) {
 		return 'X';
 	}
@@ -533,11 +533,11 @@ export default {
   data() {
     console.log(this);
     var pdata = JSON.parse(this.dataJsonstr);
-    data = pdata.data || {};
-    order = pdata.data.order || {};
-    master = pdata.data.master || {};
-    ys_skills = pdata.data.ys_skills || [];
-    helper = pdata.data.helper || [];
+    var data = pdata.data || {};
+    var order = pdata.data.order || {};
+    var master = pdata.data.master || {};
+    var ys_skills = pdata.data.ys_skills || [];
+    var helper = pdata.data.helper || [];
 
     console.log('helper:',helper);
     var cfhl = ys_skills.filter(function(x) {
@@ -576,7 +576,7 @@ export default {
       order: order,
       master: master,
       ys_skills: ys_skills,
-	  helper: Helper,
+      helper: Helper,
       cfhl: cfhl,
       xsrhl: xsrhl,
       yrhl: yrhl,

@@ -1490,6 +1490,7 @@ export default {
     });
   },
   mounted() {
+    window.MIP.viewer.fixedElement.init();
     console.log('This is pty order list component !');
     var self = this;
     this.$element.customElement.addEventAction('echo', function(event, str) {

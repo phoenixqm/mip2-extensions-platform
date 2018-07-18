@@ -390,7 +390,7 @@ export default {
         if (isOk) {
           self.daojishi_();
         } else {
-          self.errMessage = '该号码已注册';
+          self.errMessage = res || '该号码已注册';
           self.err = true;
         }
       });

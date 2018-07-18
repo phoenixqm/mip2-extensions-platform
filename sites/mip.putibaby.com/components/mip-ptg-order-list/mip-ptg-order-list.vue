@@ -333,6 +333,10 @@ export default {
     this.$element.customElement.addEventAction('logindone', function(event, str) {
       console.log(event);
       API.sessionId = event.sessionId;
+      if (!event.userInfo.isUnion) {
+        console.log('logindone to submit_ph');
+        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
+      }
       API.ajaxOrderList({}, function(isOk, res){
         self.list = res.list;
       });

@@ -177,7 +177,10 @@ export default {
 
       self.$set(self, 'isLogin', true);
       self.$set(self, 'isUnion', event.userInfo.isUnion);
-     
+      if (!event.userInfo.isUnion) {
+        console.log('logindone to submit_ph');
+        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
+      }
     });
   },
   firstInviewCallback() {

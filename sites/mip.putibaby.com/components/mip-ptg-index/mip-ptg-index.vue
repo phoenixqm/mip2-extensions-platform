@@ -30,12 +30,12 @@
   <div>
     <div class="find">
       <a href="/select_master" mip-link>
-        <mip-img src="/i/find_ys.png"></mip-img>
+        <mip-img src="http://media-img.putibaby.com/admin_uploaded/4dafb3bc28880a48ab3105229a15bce0.jpg"></mip-img>
       </a>
     </div>
     <div class="help">  
       <a @click="handleUpdateYcq">
-        <mip-img src="/i/help_me.png"></mip-img> 
+        <mip-img src="http://media-img.putibaby.com/admin_uploaded/ab193f7e006ef5b65a6e5886a45d2769.jpg"></mip-img> 
       </a>
     </div>  
   </div>

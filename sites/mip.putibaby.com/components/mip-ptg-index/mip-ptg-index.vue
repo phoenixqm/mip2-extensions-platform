@@ -29,14 +29,10 @@
   </div>
   <div>
     <div class="find">
-      <a href="/select_master" mip-link>
-        <mip-img src="http://media-img.putibaby.com/admin_uploaded/4dafb3bc28880a48ab3105229a15bce0.jpg"></mip-img>
-      </a>
+        <mip-img @click="handleSelectMaster" src="http://media-img.putibaby.com/admin_uploaded/4dafb3bc28880a48ab3105229a15bce0.jpg"></mip-img>
     </div>
     <div class="help">  
-      <a @click="handleUpdateYcq">
-        <mip-img src="http://media-img.putibaby.com/admin_uploaded/ab193f7e006ef5b65a6e5886a45d2769.jpg"></mip-img> 
-      </a>
+        <mip-img @click="handleUpdateYcq" src="http://media-img.putibaby.com/admin_uploaded/ab193f7e006ef5b65a6e5886a45d2769.jpg"></mip-img> 
     </div>  
   </div>
   
@@ -282,9 +278,9 @@ export default {
     checkLogin_(cmd) {
 
       if (!this.isLogin){
-        API.next_cmd = cmd;
-        sessionStorage.next_cmd = cmd;
-        this.$emit('login');
+        // API.next_cmd = cmd;
+        // sessionStorage.next_cmd = cmd;
+        this.$emit('login', '/'+cmd);
         return false;
       }
   
@@ -300,12 +296,18 @@ export default {
         return;
       window.MIP.viewer.open('/coupon ', {});
     },
+    handleSelectMaster(){
+      console.log('handleSelectMaster');
+      // if (!this.checkLogin_('select_master')) 
+      //   return;
+      window.MIP.viewer.open('/select_master ', {});
+    },
     handleUpdateYcq(){
       console.log('handleUpdateYcq');
       if (!this.checkLogin_('update_ycq')) 
         return;
       window.MIP.viewer.open('/update_ycq ', {});
-    },  
+    },      
     handleOrderList(){
       console.log('handleOrderList');
       if (!this.checkLogin_('order_list')) 

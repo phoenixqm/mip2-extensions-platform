@@ -1481,7 +1481,7 @@ export default {
         scrollTop = document.body.scrollTop;
       }
 
-      if(scrollTop + window.innerHeight >= document.body.clientHeight - '100') {
+      if(scrollTop + window.innerHeight >= document.body.clientHeight - 200) {
         // 触发加载数据        
         console.log('加载数据')
         self.loadMoreAuto();

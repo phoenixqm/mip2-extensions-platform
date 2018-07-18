@@ -22,20 +22,24 @@
             </div>
         </div>
   </div>
-  <div>
+   <div>
     <a @click="handleCoupon">
       <mip-img src="/i/yhq_jt.png"></mip-img>
     </a>  
-  </div>
+  </div> 
   <div>
     <div class="find">
-        <mip-img @click="handleSelectMaster" src="http://media-img.putibaby.com/admin_uploaded/4dafb3bc28880a48ab3105229a15bce0.jpg"></mip-img>
+	  <a @click="handleSelectMaster" >
+        <mip-img src="/i/find_ys.png" ></mip-img>
+	  </a>
     </div>
     <div class="help">  
-        <mip-img @click="handleUpdateYcq" src="http://media-img.putibaby.com/admin_uploaded/ab193f7e006ef5b65a6e5886a45d2769.jpg"></mip-img> 
+	  <a @click="handleUpdateYcq" >
+        <mip-img  src="/i/help_me.png" ></mip-img> 
+	  </a>
     </div>  
   </div>
-  
+
   <div class="bottom">
     <a class="bottom_left" href="tel:4006188835">
       <mip-img src="/i/index_phone.png" width="132px" height="22px" class="bottom_left_img"></mip-img>
@@ -288,6 +292,7 @@ export default {
         API.next_cmd = cmd;
         sessionStorage.next_cmd = cmd;
 		localStorage.setItem('origin', cmd);
+		console.log(cmd);
 		if (cmd == 'coupon') {
           this.$emit('login1');
 		}

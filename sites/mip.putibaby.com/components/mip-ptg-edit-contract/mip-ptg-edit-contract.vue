@@ -1068,7 +1068,7 @@ export default {
   data () {
     console.log(this)
     var pdata = JSON.parse(this.dataJsonstr)
-    console.log(pdata)
+    console.log('ttt',pdata)
 
     var toContractExtra
     var toContractSkillReq
@@ -1090,7 +1090,7 @@ export default {
       err: false,
       show_z: false,
       show_f: false,
-      contract_is_offer_allday_ser: false,
+      contract_is_offer_allday_ser: true,
       master: {
 
       },
@@ -1105,7 +1105,7 @@ export default {
       contract_master_price: 0,
       contract_deposit: 0,
       contract_is_pay_monthly: false,
-      contract_is_offer_allday_service: false,
+      contract_is_offer_allday_service: 'true',
       contract_skill_req: 0,
 
       is_show_pay_monthly_btn: false,
@@ -1125,7 +1125,8 @@ export default {
   mounted () {
     console.log('This is my first custom component !')
     console.log('mounted:', this)
-    var readonly = this.readonly
+    console.log('mounted:', typeof(this.readonly))
+    var readonly = this.readonly?1:0
     console.log('readonly:', readonly)
     if (readonly === 1 || readonly === '1') {
       this.rea = true
@@ -1150,9 +1151,11 @@ export default {
       var pdata = ajaxData
       var data = pdata.order
 
+console.log('334',data)
       // var masterPrice = data.master.price_26day // 月嫂价格
-
-      var masterPrice = data.contract_is_offer_allday_service
+console.log('33',data.contract_is_offer_allday_service)
+console.log('33',typeof(data.contract_is_offer_allday_service))
+      var masterPrice = data.contract_is_offer_allday_service 
         ? data.master.yuesao_allday_price
         : data.master.yuesao_daytime_price
       masterPrice = masterPrice / 100
@@ -1208,7 +1211,9 @@ export default {
       self.err = false
       self.show_z = showz
       self.show_f = showf
-      self.contract_is_offer_allday_ser = data.contract_is_offer_allday_service === 1
+      console.log('ajaxData',data.contract_is_offer_allday_service)
+      console.log('ajaxData',typeof(data.contract_is_offer_allday_service))
+      self.contract_is_offer_allday_ser = data.contract_is_offer_allday_service ?true:false
       self.master = pdata.order.master
       self.order = pdata.order
       self.contract_mama_name = data.contract_mama_name
@@ -1221,7 +1226,7 @@ export default {
       self.contract_master_price = masterPrice
       self.contract_deposit = deposit
       self.contract_is_pay_monthly = !!data.contract_is_pay_monthly
-      self.contract_is_offer_allday_service = data.contract_is_offer_allday_service
+      self.contract_is_offer_allday_service = data.contract_is_offer_allday_service?'true':'false'
       self.contract_skill_req = skillLength
       self.is_show_pay_monthly_btn = data.contract_shanghu_length >= 42
       self.hardcode_deposit = data.hardcode_deposit
@@ -1302,7 +1307,7 @@ export default {
     },
     quantianChecked () {
       if (this.readonly !== '1' && this.readonly !== 1) {
-        this.contract_is_offer_allday_service = 1
+        this.contract_is_offer_allday_service = 'true'
         this.contract_is_offer_allday_ser = true
         this.contract_master_price = this.master.yuesao_allday_price / 100
         this.saveIt_()
@@ -1310,14 +1315,16 @@ export default {
     },
     baibanChecked () {
       if (this.readonly !== '1' && this.readonly !== 1) {
-        this.contract_is_offer_allday_service = 0
+        this.contract_is_offer_allday_service = 'false'
         this.contract_is_offer_allday_ser = false
         this.contract_master_price = this.master.yuesao_daytime_price / 100
         this.saveIt_()
       }
     },
     contract_is_offer_allday_service_change_ () {
-      if (this.contract_is_offer_allday_service) {
+	  console.log('999',this.contract_is_offer_allday_service)
+	  console.log('9998',typeof(this.contract_is_offer_allday_service))
+      if (this.contract_is_offer_allday_service==='true') {
         this.contract_is_offer_allday_ser = true
         this.contract_master_price = this.master.yuesao_allday_price / 100
       } else {
@@ -1375,7 +1382,8 @@ export default {
 
       var obj = {}
       var service
-      if (this.contract_is_offer_allday_service) {
+	  console.log('22',typeof(this.contract_is_offer_allday_service))
+      if (this.contract_is_offer_allday_service==='true') {
         service = 'true'
       } else {
         service = 'false'
@@ -1403,7 +1411,7 @@ export default {
 
       this._data.ts = new Date()
       localStorage.State = JSON.stringify(this._data)
-
+console.log('odj',obj)
       API.wrapRet_(
         '/api/set_contract', obj,
         function (isOk, res) {

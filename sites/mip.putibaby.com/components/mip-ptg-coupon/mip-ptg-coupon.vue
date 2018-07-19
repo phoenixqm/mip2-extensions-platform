@@ -50,7 +50,7 @@
     margin: 10px 0 0 0;
   }
   .close_btn{
-    background-color: #adff47;
+    background-color: #afd03b;
     text-align: center;
     height: 47px;
     line-height: 47px;

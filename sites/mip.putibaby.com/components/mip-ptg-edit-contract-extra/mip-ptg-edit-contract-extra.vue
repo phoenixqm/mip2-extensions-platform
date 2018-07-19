@@ -182,9 +182,9 @@ export default {
     }
   },
   data () {
-    console.log('data:', this)
     var pdata = JSON.parse(this.dataJsonstr)
-    var readonly
+    console.log('data1:', pdata)
+    var readonly 
     if (pdata.readonly !== '1') {
       readonly = false
     } else {
@@ -221,16 +221,17 @@ export default {
     function setData (ajaxData) {
       console.log(ajaxData)
       var pdata = ajaxData
-      var readonly
-      if (pdata.readonly !== '1') {
-        readonly = false
-      } else {
-        readonly = true
-      }
-      if (pdata.readonly === '1' && pdata.contract_extra === '') {
+    console.log('data2:', pdata)
+     // var readonly
+     // if (pdata.readonly !== '1') {
+     //   readonly = false
+     // } else {
+     //   readonly = true
+     // }
+      if ( pdata.contract_extra === '') {
         pdata.contract_extra = '无补充条款'
       }
-      self.rea = readonly
+     // self.rea = readonly
       self.contract_extra = pdata.contract_extra
       self.ajaxLoaded = true
     }

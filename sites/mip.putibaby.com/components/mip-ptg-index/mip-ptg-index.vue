@@ -48,14 +48,14 @@
         class="bottom_left"
         href="tel:4006188835">
         <mip-img
-          src="/i/index_phone.png"
+          src="../../common/i/index_phone.png"
           width="132px"
           height="22px"
           class="bottom_left_img"/>
       </a>
       <a @click="handleOrderList">
         <mip-img
-          src="/i/ind_person.png"
+          src="../../common/i/ind_person.png"
           width="38px"
           height="25px"
           class="bottom_right_img"/>

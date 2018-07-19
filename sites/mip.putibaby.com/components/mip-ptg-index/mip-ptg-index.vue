@@ -8,9 +8,9 @@
         height="277"
         layout="responsive"
         indicator-id="mip-carousel-example">
-        <mip-img src="/i/b1.png"/>
-        <mip-img src="/i/b2.png"/>
-        <mip-img src="/i/b3.png"/>
+        <mip-img src="../../common/i/b1.png"/>
+        <mip-img src="../../common/i/b2.png"/>
+        <mip-img src="../../common/i/b3.png"/>
       </mip-carousel>
       <div class="mip-carousel-indicator-wrapper">
         <div
@@ -25,18 +25,18 @@
     </div>
     <div>
       <a @click="handleCoupon">
-        <mip-img src="/i/yhq_jt.png"/>
+        <mip-img src="../../common/i/yhq_jt.png"/>
       </a>
     </div>
     <div>
       <div class="find">
         <a @click="handleSelectMaster">
-          <mip-img src="/i/find_ys.png"/>
+          <mip-img src="../../common/i/find_ys.png"/>
         </a>
       </div>
       <div class="help">
         <a @click="handleUpdateYcq">
-          <mip-img src="/i/help_me.png"/>
+          <mip-img src="../../common/i/help_me.png"/>
         </a>
       </div>
     </div>

@@ -1008,6 +1008,7 @@ export default {
   },
   mounted () {
     console.log('This is master card component !')
+    window.MIP.viewer.fixedElement.init()
     var self = this
     this.$element.customElement.addEventAction('logindone', event => {
       // 这里可以输出登录之后的数据

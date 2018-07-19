@@ -61,57 +61,57 @@
             <tr>
               <td
                 id="sortZH"
-                class="sort_td checked">综合
+                class="sort_td checked">
                 <mip-img
                   v-if="filter.sort_by == '' || !filter.sort_by"
-                  src="/i/select_master_jt_down_white.png" />
+                  src="/i/zh_g.png" />
                 <mip-img
                   v-else
-                  src="/i/select_master_jt_down.png" />
+                  src="/i/zh.png" />
               </td>
               <td
                 id="sortPrice"
-                class="sort_td">按价格
+                class="sort_td">
                 <mip-img
                   v-if="filter.sort_by == 'price_asc'"
-                  src="/i/select_master_jt_up_white.png" />
+                  src="/i/jgs_g.png" />
                 <mip-img
                   v-else-if="filter.sort_by == 'price_desc'"
-                  src="/i/select_master_jt_down_white.png" />
+                  src="/i/jgx_g.png" />
                 <mip-img
                   v-else
-                  src="/i/select_master_jt_down.png" />
+                  src="/i/jgx.png" />
               </td>
               <td
                 id="sortJY"
-                class="sort_td">按经验
+                class="sort_td">
                 <mip-img
                   v-if="filter.sort_by == 'jy_asc'"
-                  src="/i/select_master_jt_up_white.png" />
+                  src="/i/jys_g.png" />
                 <mip-img
                   v-else-if="filter.sort_by == 'jy_desc'"
-                  src="/i/select_master_jt_down_white.png" />
+                  src="/i/jyx_g.png" />
                 <mip-img
                   v-else
-                  src="/i/select_master_jt_down.png" />
+                  src="/i/jyx.png" />
               </td>
               <td
                 id="sortAge"
-                class="sort_td">按年龄
+                class="sort_td">
                 <mip-img
                   v-if="filter.sort_by == 'age_desc'"
-                  src="/i/select_master_jt_down_white.png" />
+                  src="/i/nlx_g.png" />
                 <mip-img
                   v-else-if="filter.sort_by == 'age_asc'"
-                  src="/i/select_master_jt_up_white.png" />
+                  src="/i/nls_g.png" />
                 <mip-img
                   v-else
-                  src="/i/select_master_jt_up.png" />
+                  src="/i/nls.png" />
               </td>
               <td
                 class="shaixuan_btn"
-                on="tap:right-sidebar.open">筛选
-                <mip-img src="/i/select_master_jt_down.png" />
+                on="tap:right-sidebar.open">
+                <mip-img src="/i/sx.png" />
               </td>
             </tr>
           </tbody>
@@ -194,6 +194,11 @@
               </tr>
             </tbody>
           </table>
+		  <span
+            id="lightbox-close"
+            class="lightbox-close_qx"
+            on="tap:my-lightbox2.toggle">取消</span>
+
           <span
             id="lightbox-close"
             class="lightbox-close"
@@ -1118,7 +1123,10 @@
     padding: 0% 2.5%;
     margin-top: 90px;
   }
-
+	
+  .cardList{
+	margin-top:5px;
+  }
   .cardList .masterCard {
     width: 100%;
     height: 70px;
@@ -1358,31 +1366,32 @@
   .sort_by {
     width: 100%;
     text-align: center;
-    border: solid 1px #f4f4f4;
     margin-top: 7px;
     background-color: #fff;
+	border-collapse: collapse;
   }
 
   .sort_by td {
     border-right: solid 1px #f4f4f4;
+	border-top: solid 1px #f4f4f4;
     height: 35px;
     line-height: 35px;
     padding-left: 0px;
-    padding-right: 5px;
     font-size: 13px;
     width: 20%;
+	text-align:center;
   }
 
-  .sort_by .checked {
-    background-color: #C2E64E;
+  .sort_td .checked {
+    background-color: #AFD03B;
+	border-top: solid 1px #f4f4f4;
     color: #fff;
+	border-right: solid 1px #f4f4f4;
   }
 
   .sort_by td mip-img {
-    width: 12.5px !important;
-    height: 7px;
-    float: right;
-    margin-top: 13px;
+    width: 100%;
+	margin: 0 auto;
   }
 
   .lightbox {
@@ -1450,9 +1459,8 @@
     color: #afd03b;
     border-radius: 3px;
   }
-
-  .lightbox-close {
-    width: 80%;
+  .lightbox-close_qx {
+    width: 35%;
     font-size: 14px;
     text-align: center;
     height: 40px;
@@ -1460,6 +1468,21 @@
     display: inline-block;
     margin-top: 30px;
     border-radius: 3px;
+    border:solid 1px #C2E64E;
+    color: #c2e64e;
+	margin-right:8%;
+  }
+
+  .lightbox-close {
+    width: 35%;
+    font-size: 14px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    margin-top: 30px;
+    border-radius: 3px;
+	border:solid 1px #c2e64e;
     background-color: #C2E64E;
     color: #fff;
   }
@@ -1555,21 +1578,6 @@
     line-height: 52px;
   }
 
-  #sortZH mip-img {
-    margin-left: -14px;
-  }
-
-  #sortZH {
-    padding-right: 15px;
-  }
-
-  .shaixuan_btn {
-    padding-right: 15px !important;
-  }
-
-  .shaixuan_btn mip-img {
-    margin-left: -14px;
-  }
 
   .mip-infinitescroll-loading {
     width: 100%;

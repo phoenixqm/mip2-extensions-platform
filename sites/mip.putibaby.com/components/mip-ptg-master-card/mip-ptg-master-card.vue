@@ -1,11 +1,13 @@
 
 <template>
-<div class="root">
-  <div class="master_div">
-  <div class="masterShow">
+  <div class="root">
+    <div class="master_div">
+      <div class="masterShow">
         <div style="padding: 10px 10px 0px 10px;">
           <div class="mS_headerBorder">
-            <mip-img class="mS_header" :src="data.info.header.small"></mip-img>
+            <mip-img
+              :src="data.info.header.small"
+              class="mS_header"/>
           </div>
           <div class="mS_info">
             <p class="mS_masterName">{{ data.info.name }}</p>
@@ -24,32 +26,53 @@
               上户城市：{{ data.info.expect_city }}
             </p>
           </div>
-          <div class="renZheng">	
-			<a href="/service_intro" mip-link>
-          	 <span v-if="data.info.certificated">
-             <mip-img src="i/master_card_certificated.png" width="12px" height="12px" ></mip-img>
-             <span>身份认证</span>
-             </span>
-		   </a>
-			<a href="/service_intro" mip-link>
-             <span v-if="data.info.market_certificated">
-             <mip-img src="i/market_certificated.png" width="12px" height="12px"></mip-img>
-             <span>推荐护理师</span>
-             </span>
-		   </a> 
-			<a :href="'/master_intro_detail?u='+data.info.username" mip-link>
+          <div class="renZheng">
+            <a
+              href="https://mip.putibaby.com/service_intro"
+              mip-link>
+              <span v-if="data.info.certificated">
+                <mip-img
+                  src="i/master_card_certificated.png"
+                  width="12px"
+                  height="12px" />
+                <span>身份认证</span>
+              </span>
+            </a>
+            <a
+              href="https://mip.putibaby.com/service_intro"
+              mip-link>
+              <span v-if="data.info.market_certificated">
+                <mip-img
+                  src="i/market_certificated.png"
+                  width="12px"
+                  height="12px"/>
+                <span>推荐护理师</span>
+              </span>
+            </a>
+            <a
+              :href="'https://mip.putibaby.com/master_intro_detail?u='+data.info.username"
+              mip-link>
               <div class="details">基本资料详情</div>
             </a>
-			<a class="yinzhang_a"  v-if="data.info.is_credited" href="/service_intro" mip-link></a>
-             <mip-img v-if="data.info.is_credited" src="i/yinzhang.png" width="60px" height="60px" class="yinzhang"></mip-img> 
+            <a
+              v-if="data.info.is_credited"
+              class="yinzhang_a"
+              href="https://mip.putibaby.com/service_intro"
+              mip-link/>
+            <mip-img
+              v-if="data.info.is_credited"
+              src="i/yinzhang.png"
+              width="60px"
+              height="60px"
+              class="yinzhang"/>
           </div>
         </div>
-        <div class="line"></div>
+        <div class="line"/>
         <div class="mS_other">
           <table>
             <tbody>
               <tr>
-                <td v-if="data.shanghu_data.feedback_cc == 0">客户评分：0</td>
+                <td v-if="data.shanghu_data.feedback_cc === 0">客户评分：0</td>
                 <td v-if="data.shanghu_data.feedback_cc != 0">客户评分：{{ data.shanghu_data.feedback_total_star / data.shanghu_data.feedback_cc }}</td>
                 <td>收藏：{{ data.info.fan_cc }}</td>
               </tr>
@@ -58,195 +81,300 @@
         </div>
       </div>
 
-  <div class="jieshao">
-      <div class="pJC_head">
-          <mip-img layout="responisve" width="12px" height="12px"
-            src="i/card_circle_1.png" ></mip-img>
+      <div class="jieshao">
+        <div class="pJC_head">
+          <mip-img
+            layout="responisve"
+            width="12px"
+            height="12px"
+            src="i/card_circle_1.png" />
           <span>自我介绍</span>
-      </div>    
-      <mip-showmore maxheight='40' animatetime='.3' id="showmore01">
-           <div class="jieshao_content">{{ data.info.my_intro }}</div>
-      </mip-showmore>
-      <div on="tap:showmore01.toggle" data-closetext="收起" class="mip-showmore-btn">展开</div>
-  </div>
-
-
-  <div v-if="data.info.offer_service" class="serverCard">
-     <a :href="'/skill_details?u=' + data.info.username" mip-link>
-      <div class="sC_head">
-        <mip-img layout="responisve" width="12px" height="12px"
-          src="i/card_circle_1.png" ></mip-img>
-        <span>月嫂服务项目</span>
-         <span>查看更多&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span>
-      </div>
-    </a>
-    <table>
-      <tbody>
-        <tr>
-          <td>{{ data.skill_list[0].title }}<br />{{ data.skill_list[0].ok_cc }}</td>
-          <td>{{ data.skill_list[1].title }}<br />{{ data.skill_list[1].ok_cc }}</td>
-          <td>{{ data.skill_list[2].title }}<br />{{ data.skill_list[2].ok_cc }}</td>
-          <td>{{ data.skill_list[3].title }}<br />{{ data.skill_list[3].ok_cc }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-
-  <div v-if="data.info.price_yuer.market_price > 0 || data.info.price_yuer.market_halfday_price > 0" class="serverCard">
-    <a :href="'/skill_details?is_yuer=1&u=' + data.info.username" mip-link>
-      <div class="sC_head">
-        <mip-img layout="responisve" width="12px" height="12px"
-          src="i/card_circle_1.png" ></mip-img>
-        <span>育儿嫂服务项目</span>
-        <span>查看更多&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span>
-      </div>
-    </a>
-    <table>
-      <tbody>
-        <tr>
-          <td>{{ data.skill_list_yuer[0].title }}<br />{{ data.skill_list_yuer[0].ok_cc }}</td>
-          <td>{{ data.skill_list_yuer[1].title }}<br />{{ data.skill_list_yuer[1].ok_cc }}</td>
-          <td>{{ data.skill_list_yuer[2].title }}<br />{{ data.skill_list_yuer[2].ok_cc }}</td>
-          <td>{{ data.skill_list_yuer[3].title }}<br />{{ data.skill_list_yuer[3].ok_cc }}</td>
-        </tr>
-      </tbody>
-    </table>
-   
-  </div>
-
-  <div class="albumCard">
-    <!-- <a href="https://h5.putibaby.com/999.999/master/dgxc?u=<%= m.info.username %>"> -->
-      <div class="aC_head">
-        <mip-img layout="responisve" width="12px" height="12px"
-          src="i/card_circle_1.png" ></mip-img>
-        <span>相册</span>
-        <!-- <span>查看相册&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span> -->
-      </div>
-    <!-- </a> -->
-    <div class="picList">
-      <p v-if="data.xc_list.length == 0">没有照片</p>
-      <div v-if="data.xc_list.length > 0">
-          <mip-img v-for="pic in data.xc_list" layout="responsive" popup width="70px" height="70px"
-           :src="pic.big" ></mip-img>            
+        </div>
+        <mip-showmore
+          id="showmore01"
+          maxheight="40"
+          animatetime=".3">
+          <div class="jieshao_content">{{ data.info.my_intro }}</div>
+        </mip-showmore>
+        <div
+          on="tap:showmore01.toggle"
+          data-closetext="收起"
+          class="mip-showmore-btn">展开</div>
       </div>
 
-    </div>
-  </div>
-
-  <div class="pingJiaCard">
-       <a :href="'https://mip.putibaby.com/master_shanghu_detail?u=' + data.info.username" mip-link>
-      <div class="pJC_head">
-        <mip-img layout="responisve" width="12px" height="12px"
-          src="i/card_circle_1.png" ></mip-img>
-        <span>客户评价</span>
-        <span>共{{ data.shanghu_data.cc }}条评价&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span>
-      </div>
-    </a>
-    <div class="pingJia">
-
-	  <p v-if="data.shanghu_data.cc == 0" class="no_pj" ><mip-img src="i/no_pj.png" width="131px" height="12.5px"></mip-img></p>
-      <div v-else>
+      <div
+        v-if="data.info.offer_service"
+        class="serverCard">
+        <a
+          :href="'https://mip.putibaby.com/skill_details?u=' + data.info.username"
+          mip-link>
+          <div class="sC_head">
+            <mip-img
+              layout="responisve"
+              width="12px"
+              height="12px"
+              src="i/card_circle_1.png" />
+            <span>月嫂服务项目</span>
+            <span>查看更多&nbsp;<mip-img
+              layout="responisve"
+              width="8px"
+              height="14px"
+              src="i/right_white.png" /></span>
+          </div>
+        </a>
         <table>
           <tbody>
             <tr>
-              <td>
-                综合评价
-                <div class="starBox">
-
-                    <mip-img v-for="j in data.shanghu_data.star_1_list" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_star.png" ></mip-img>
-
-                    <mip-img v-for="j in data.shanghu_data.star_0_list" layout="responisve" width="12px" height="12px" class="iconStar" src="/i/select_master_unstar.png" ></mip-img>
-
-                </div>
-              </td>
-            </tr> 
-            <tr>
-              <td>
-                <span>{{ data.last_feedback.shanghu_at }}</span>
-                <span>至</span>
-                <span>{{ data.last_feedback.end_at }}</span>
-                <span class="left">{{ data.last_feedback.days }}天</span>
-              </td>
-            </tr> 
-            <tr>
-              <td class="customer">
-                <mip-img layout="responisve" width="50px" height="50px" :src="data.last_feedback.mama_info.header.small" ></mip-img>
-                <div class="customerInfo">
-                  <p>
-                    <span>{{ data.last_feedback.mama_info.name }} &nbsp; {{ data.last_feedback.mama_info.role }}({{ data.last_feedback.mama_info.type=='history' ? '历史客户' : '菩提果签约' }}
-                    {{ data.last_feedback.mama_info.master_type == 'yuer' ? '育儿单' : '月嫂单' }}
-                    )
-                    </span>
-                  </p>
-                  <p>手机：{{ data.last_feedback.mama_info.phone_number }}</p>
-                </div>
-              </td>
-            </tr> 
-            <tr>
-              <td>
-                <span>拍照:{{ data.last_feedback.record_cc }}张</span>
-                <span class="left">护理记录:{{ data.last_feedback.care_cc }}</span>
-              </td>
+              <td>{{ data.skill_list[0].title }}<br >{{ data.skill_list[0].ok_cc }}</td>
+              <td>{{ data.skill_list[1].title }}<br >{{ data.skill_list[1].ok_cc }}</td>
+              <td>{{ data.skill_list[2].title }}<br >{{ data.skill_list[2].ok_cc }}</td>
+              <td>{{ data.skill_list[3].title }}<br >{{ data.skill_list[3].ok_cc }}</td>
             </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div
+        v-if="data.info.price_yuer.market_price > 0 || data.info.price_yuer.market_halfday_price > 0"
+        class="serverCard">
+        <a
+          :href="'https://mip.putibaby.com/skill_details?is_yuer=1&u=' + data.info.username"
+          mip-link>
+          <div class="sC_head">
+            <mip-img
+              layout="responisve"
+              width="12px"
+              height="12px"
+              src="i/card_circle_1.png" />
+            <span>育儿嫂服务项目</span>
+            <span>查看更多&nbsp;<mip-img
+              layout="responisve"
+              width="8px"
+              height="14px"
+              src="i/right_white.png" /></span>
+          </div>
+        </a>
+        <table>
+          <tbody>
             <tr>
-              <td class="customerEvaluate">
-                <!-- <p class="cE_title">客户评价</p> -->
-                <p class="cE_article">
-                  {{ data.last_feedback.feedback.comment }}
-                </p>
-                <div v-if="data.last_feedback.feedback && data.last_feedback.feedback.pics && data.last_feedback.feedback.pics.length > 0" >
-                  <mip-img v-for="p in data.last_feedback.feedback.pics" layout="responisve" width="50px" height="50px" :src="p.big" ></mip-img>
-                </div>
-              </td>
+              <td>{{ data.skill_list_yuer[0].title }}<br >{{ data.skill_list_yuer[0].ok_cc }}</td>
+              <td>{{ data.skill_list_yuer[1].title }}<br >{{ data.skill_list_yuer[1].ok_cc }}</td>
+              <td>{{ data.skill_list_yuer[2].title }}<br >{{ data.skill_list_yuer[2].ok_cc }}</td>
+              <td>{{ data.skill_list_yuer[3].title }}<br >{{ data.skill_list_yuer[3].ok_cc }}</td>
             </tr>
           </tbody>
         </table>
 
       </div>
+
+      <div class="albumCard">
+        <!-- <a href="https://h5.putibaby.com/999.999/master/dgxc?u=<%= m.info.username %>"> -->
+        <div class="aC_head">
+          <mip-img
+            layout="responisve"
+            width="12px"
+            height="12px"
+            src="i/card_circle_1.png" />
+          <span>相册</span>
+        <!-- <span>查看相册&nbsp;<mip-img layout="responisve" width="8px" height="14px" src="i/right_white.png" ></mip-img></span> -->
+        </div>
+        <!-- </a> -->
+        <div class="picList">
+          <p v-if="data.xc_list.length === 0">没有照片</p>
+          <div v-if="data.xc_list.length > 0">
+            <mip-img
+              v-for="pic in data.xc_list"
+              :key="pic.big"
+              :src="pic.big"
+              layout="responsive"
+              popup
+              width="70px"
+              height="70px" />
+          </div>
+
+        </div>
+      </div>
+
+      <div class="pingJiaCard">
+        <a
+          :href="'https://mip.putibaby.com/master_shanghu_detail?u=' + data.info.username"
+          mip-link>
+          <div class="pJC_head">
+            <mip-img
+              layout="responisve"
+              width="12px"
+              height="12px"
+              src="i/card_circle_1.png" />
+            <span>客户评价</span>
+            <span>共{{ data.shanghu_data.cc }}条评价&nbsp;<mip-img
+              layout="responisve"
+              width="8px"
+              height="14px"
+              src="i/right_white.png" /></span>
+          </div>
+        </a>
+        <div class="pingJia">
+
+          <p
+            v-if="data.shanghu_data.cc === 0"
+            class="no_pj" ><mip-img
+              src="i/no_pj.png"
+              width="131px"
+              height="12.5px"/></p>
+          <div v-else>
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    综合评价
+                    <div class="starBox">
+
+                      <mip-img
+                        v-for="(item,index) in data.shanghu_data.star_1_list"
+                        :key="index"
+                        layout="responisve"
+                        width="12px"
+                        height="12px"
+                        class="iconStar"
+                        src="/i/select_master_star.png" />
+
+                      <mip-img
+                        v-for="(item,index) in data.shanghu_data.star_0_list"
+                        :key="index"
+                        layout="responisve"
+                        width="12px"
+                        height="12px"
+                        class="iconStar"
+                        src="/i/select_master_unstar.png" />
+
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>{{ data.last_feedback.shanghu_at }}</span>
+                    <span>至</span>
+                    <span>{{ data.last_feedback.end_at }}</span>
+                    <span class="left">{{ data.last_feedback.days }}天</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="customer">
+                    <mip-img
+                      :src="data.last_feedback.mama_info.header.small"
+                      layout="responisve"
+                      width="50px"
+                      height="50px" />
+                    <div class="customerInfo">
+                      <p>
+                        <span>{{ data.last_feedback.mama_info.name }} &nbsp; {{ data.last_feedback.mama_info.role }}({{ data.last_feedback.mama_info.type==='history' ? '历史客户' : '菩提果签约' }}
+                          {{ data.last_feedback.mama_info.master_type === 'yuer' ? '育儿单' : '月嫂单' }}
+                          )
+                        </span>
+                      </p>
+                      <p>手机：{{ data.last_feedback.mama_info.phone_number }}</p>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span>拍照:{{ data.last_feedback.record_cc }}张</span>
+                    <span class="left">护理记录:{{ data.last_feedback.care_cc }}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="customerEvaluate">
+                    <!-- <p class="cE_title">客户评价</p> -->
+                    <p class="cE_article">
+                      {{ data.last_feedback.feedback.comment }}
+                    </p>
+                    <div v-if="data.last_feedback.feedback && data.last_feedback.feedback.pics && data.last_feedback.feedback.pics.length > 0" >
+                      <mip-img
+                        v-for="p in data.last_feedback.feedback.pics"
+                        :key="p.big"
+                        :src="p.big"
+                        layout="responisve"
+                        width="50px"
+                        height="50px" />
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<mip-fixed type="bottom">
-  <table class="tbl" cellspacing="0">
-      <tbody>
+    <mip-fixed type="bottom">
+      <table
+        class="tbl"
+        cellspacing="0">
+        <tbody>
           <tr>
-              <td class="td1">
-                  <a class="a" href='tel:400-618-8835'>
-                      <mip-img layout="responisve" width="38px" height="36px" src="i/card_ph.png" ></mip-img>
-                  </a>
-              </td>
-              <td class="td-fav" @click="this.handleFav">
-                  <a class="a">
-                      <mip-img v-if="data.info.isfav" layout="responisve" width="29px" height="35px" src="i/has_fav.png" ></mip-img>
-                      <mip-img v-else-if="!data.info.isfav" layout="responisve" width="29px" height="35px" src="i/un_fav.png" ></mip-img>
-                      <mip-img v-else layout="responisve" width="21px" height="35px" src="i/un_fav.png" ></mip-img>
-                  </a>
-              </td>                    
+            <td class="td1">
+              <a
+                class="a"
+                href="tel:400-618-8835">
+                <mip-img
+                  layout="responisve"
+                  width="38px"
+                  height="36px"
+                  src="i/card_ph.png" />
+              </a>
+            </td>
+            <td
+              class="td-fav"
+              @click="handleFav">
+              <a class="a">
+                <mip-img
+                  v-if="data.info.isfav"
+                  layout="responisve"
+                  width="29px"
+                  height="35px"
+                  src="i/has_fav.png" />
+                <mip-img
+                  v-else-if="!data.info.isfav"
+                  layout="responisve"
+                  width="29px"
+                  height="35px"
+                  src="i/un_fav.png" />
+                <mip-img
+                  v-else
+                  layout="responisve"
+                  width="21px"
+                  height="35px"
+                  src="i/un_fav.png" />
+              </a>
+            </td>
 
-              <td v-if="data.info.can_online_interview" @click="handleUpdateTime" class="td2">
-                  <a>预约视频面试</a>
-              </td>
+            <td
+              v-if="data.info.can_online_interview"
+              class="td2"
+              @click="handleUpdateTime">
+              <a>预约视频面试</a>
+            </td>
 
-              <td v-else class="td2" @click="handleOrderList">
-                  <a>{{ data.info.order_desc_str }}-查看预约</a>
-              </td> 
-              
+            <td
+              v-else
+              class="td2"
+              @click="handleOrderList">
+              <a>{{ data.info.order_desc_str }}-查看预约</a>
+            </td>
+
           </tr>
-      </tbody>
-  </table>
-  </mip-fixed>
-</div>
-    
+        </tbody>
+      </table>
+    </mip-fixed>
+  </div>
 
 </template>
 
-
 <style scoped>
 .no_pj{
-	text-align:center;
-	padding-top:10px;
-	padding-bottom:15px;
+  text-align:center;
+  padding-top:10px;
+  padding-bottom:15px;
 }
 .wrapper {
   margin: 0 auto;
@@ -277,10 +405,10 @@ body{
     background-color: #F3F3F3;
 }
 .root{
-	background-color:#F1F5E2;
+  background-color:#F1F5E2;
 }
 .master_div{
-	padding:10px;
+  padding:10px;
 }
 .masterShow{
     width: 100%;
@@ -299,8 +427,8 @@ body{
 .masterShow .mS_info{
     display: inline-block;
     padding-left: 10px;
-	position:relative;
-	z-index:99;
+  position:relative;
+  z-index:99;
 }
 .masterShow .mS_info p{
     margin: 0px;
@@ -318,7 +446,7 @@ body{
     margin-right:5px;
 }
 .masterShow .mS_info .mC_Des span:nth-of-type(3){
-    
+
 }
 .mS_headerBorder{
     border: 1px solid white;
@@ -326,10 +454,10 @@ body{
     vertical-align: top;
     border-radius: 2px;
     padding: 1px;
-	float:left;
+  float:left;
 }
 .mS_info .mS_masterName{
-    
+
 }
 .renZheng span{
     line-height: 2.5;
@@ -357,24 +485,24 @@ body{
     background-color: rgba(255,255,255,0.2);
     color: #fff;
     font-size: 12px;
-	padding-left:5px;
-	padding-right:5px;
-	z-index:99;
+  padding-left:5px;
+  padding-right:5px;
+  z-index:99;
 }
 .line{
     background: url(/i/show_master_card_footer_hb.png);
     width: 100%;
     height: 2px;
-    background-size: contain;  
+    background-size: contain;
     margin-top: 3px;
 }
 .mS_other{
     width: 100%;
-    background: rgba(193,230,78,0.2); 
-    border-radius: 0 0 5px 5px;  
+    background: rgba(193,230,78,0.2);
+    border-radius: 0 0 5px 5px;
     padding-top: 5px;
-	padding-bottom:5px;
-    
+  padding-bottom:5px;
+
 }
 
 .mS_other table{
@@ -411,7 +539,7 @@ body{
   height:60px;
   z-index:100;
 }
-   
+
 .albumCard{
     width: 100%;
     border-radius: 5px;
@@ -427,7 +555,7 @@ body{
 .albumCard .aC_head mip-img{
     width: 12px;
     height: 12px;
-	vertical-align:-1px;
+  vertical-align:-1px;
 }
 .albumCard .aC_head span mip-img{
     width: 8px;
@@ -487,12 +615,12 @@ body{
     background: #F16B57;
     background-color:#33CC99;
     padding: 0px 10px;
-    border-radius: 5px 5px 0px 0px;   
+    border-radius: 5px 5px 0px 0px;
 }
 .serverCard .sC_head mip-img{
     width: 12px;
     height: 12px;
-	vertical-align:-1px;
+  vertical-align:-1px;
 }
 .serverCard .sC_head span mip-img{
     width: 8px;
@@ -510,7 +638,7 @@ body{
     width: 100%;
     background-color: white;
     text-align: center;
-	border-radius: 0px 0px 5px 5px;
+  border-radius: 0px 0px 5px 5px;
 }
 .serverCard .price{
     width: 100%;
@@ -554,7 +682,7 @@ body{
 .pingJiaCard .pJC_head mip-img{
     width: 12px;
     height: 12px;
-	vertical-align:-1px;
+  vertical-align:-1px;
 }
 .pingJiaCard .pJC_head span mip-img{
     width: 8px;
@@ -571,7 +699,7 @@ body{
 .pingJiaCard .pingJia{
     background-color: white;
     border-radius: 0 0 5px 5px;
-	margin-top:7px;
+  margin-top:7px;
 }
 .pingjiacard .pingjia p:first-child{
   padding:10px 0px 10px 10px;
@@ -607,12 +735,12 @@ body{
     display: inline-block;
     position: absolute;
     right:20px;
-	text-align:right;
+  text-align:right;
 }
 .pingJiaCard .starBox mip-img{
     width: 12px;
     height: 12px;
-	margin-left:5px;
+  margin-left:5px;
 }
 .pingJiaCard .left{
     float: right;
@@ -620,7 +748,7 @@ body{
 .pingJiaCard .customer{
     padding: 10px;
     border-bottom: 1px solid #eee;
-	border-top:1px solid #eee;
+  border-top:1px solid #eee;
 }
 .pingJiaCard .customer mip-img{
     height: 50px;
@@ -654,7 +782,7 @@ body{
     display: inline-block;
     margin-right: 10px;
     border-radius: 5px;
-	margin-top:10px;
+  margin-top:10px;
 }
 
 .jieshao{
@@ -662,7 +790,7 @@ body{
     /*padding: 10px;*/
     padding-bottom: 1px;
     margin-top: 10px;
-	border-radius:5px;
+  border-radius:5px;
 }
 
 .jieshao .pJC_head{
@@ -740,9 +868,9 @@ td.secondCol {
     display:block;
     width:20px;
     margin:0 auto;
-    vertical-align: middle; 
+    vertical-align: middle;
 }
-    
+
 .fuwu{
     /*width: 95%;*/
     height: 70px;
@@ -754,10 +882,10 @@ td.secondCol {
 
 .expectCity{
     margin-top: 10px;
-	width:210px;
-	text-overflow: ellipsis;
+  width:210px;
+  text-overflow: ellipsis;
     overflow: hidden;
-	white-space: nowrap;
+  white-space: nowrap;
 }
 
 .red{
@@ -776,8 +904,8 @@ td.secondCol {
     border:none;
     background-color: white !important;
     margin-top: 5px;
-	color:#afd03b;
-	height:23px;
+  color:#afd03b;
+  height:23px;
 }
 
 .jieshao_content{
@@ -789,210 +917,200 @@ td.secondCol {
 
 <script>
 
-var API = {};
-function checkStatus(response) {
+var API = {}
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
-function parseJSON(response) {
-   return response.json()
+function parseJSON (response) {
+  return response.json()
 }
 
-API.wrapRet_ = function(api, opts, cb) {
-  console.log('posting to ' + api);
-  opts.mip_sid = API.sessionId || '';
-  fetch(api,{  
+API.wrapRet_ = function (api, opts, fn) {
+  console.log('posting to ' + api)
+  opts.mip_sid = API.sessionId || ''
+  fetch(api, {
     method: 'POST',
-    credentials: "same-origin",
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(opts)
   })
-  .then(checkStatus)
-  .then(parseJSON)
-  .then(ret => {
-  //console.log(ret);
-    if(ret.success) cb(true, ret.data);
-    else cb(false, ret.error);
-  })  
-  .catch(e => {
-    console.error(e.message); 
-    cb(false, e.message);
-  });
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(ret => {
+      // console.log(ret);
+      if (ret.success) fn(true, ret.data)
+      else fn(false, ret.error)
+    })
+    .catch(e => {
+      console.error(e.message)
+      fn(false, e.message)
+    })
 }
 
-
-API.getMasterInfo = function(masterId, cb) {
+API.getMasterInfo = function (masterId, fn) {
   API.wrapRet_(
-    '/api/get_master_info_for_me', 
+    '/api/get_master_info_for_me',
     {
       'master_id': masterId
     },
-    cb);
-};
+    fn)
+}
 
-API.favMaster = function(masterId, cb) {
+API.favMaster = function (masterId, fn) {
   API.wrapRet_(
-    '/api/fav_master', 
+    '/api/fav_master',
     {
       'master_id': masterId
     },
-    cb);
+    fn)
 }
 
-
-API.unfavMaster = function(masterId, cb) {
+API.unfavMaster = function (masterId, fn) {
   API.wrapRet_(
-    '/api/unfav_master', 
+    '/api/unfav_master',
     {
       'master_id': masterId
-    },cb);
+    }, fn)
 }
 
 export default {
-  mounted () {
-    console.log('This is master card component !');
-    var self = this;
-    this.$element.customElement.addEventAction('logindone', event => {
-      // 这里可以输出登录之后的数据
-
-      // 获取用户信息
-      console.log(event);
-      API.sessionId = event.sessionId;
-
-      self.$set(self, 'isLogin', true);
-      self.$set(self, 'isUnion', event.userInfo.isUnion);
-     
-      if (event.userInfo.isUnion &&  
-          (API.next_cmd == 'fav' || sessionStorage.next_cmd == 'fav')) {
-        console.log('logindone to fav');
-        API.next_cmd = '';
-        sessionStorage.next_cmd = '';
-        API.favMaster(self.data.info.id, function(isOk, res){
-          if (isOk) 
-            self.$set(self.data.info, 'isfav', true);
-        });
-
-      } else if (event.userInfo.isUnion && 
-          (API.next_cmd == 'update_time' || sessionStorage.next_cmd == 'update_time')) {
-        console.log('logindone to update_time');
-        API.next_cmd = '';        
-        sessionStorage.next_cmd = '';
-        window.MIP.viewer.open('/update_time_mip?mcode=' + self.data.codeid, {});
-
-      } else if (event.userInfo.isUnion && 
-          (API.next_cmd == 'order_list' || sessionStorage.next_cmd == 'order_list')) {
-        console.log('logindone to order_list');
-        API.next_cmd = '';        
-        sessionStorage.next_cmd = '';
-        window.MIP.viewer.open('/order_list', {});
-
-      } else if (!event.userInfo.isUnion) {
-        console.log('go to submit_ph');
-        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
-      }
-
-      API.getMasterInfo(self.data.info.id, function(isOk, data){
-        if (isOk) {
-          self.$set(self.data.info, 'isfav', data.fav);
-          self.$set(self.data.info, 'can_online_interview', data.can_online_interview);
-          self.$set(self.data.info, 'order_desc_str', data.order_desc_str);
-          //console.log(self);
-        } else {
-          console.warn(data);
-        }
-      });
-
-    });
-  },
 
   props: {
-    dataJsonstr :{
+    dataJsonstr: {
       type: String,
       default: null
     }
   },
   data () {
-    console.log(this);
-    var pdata = JSON.parse(this.dataJsonstr);
-    pdata.data.info = pdata.data.info || {};
-    pdata.data.info.isfav = false;
-    pdata.data.info.can_online_interview = true;
-    pdata.data.info.order_desc_str = '';
+    console.log(this)
+    var pdata = JSON.parse(this.dataJsonstr)
+    pdata.data.info = pdata.data.info || {}
+    pdata.data.info.isfav = false
+    pdata.data.info.can_online_interview = true
+    pdata.data.info.order_desc_str = ''
     return {
       data: pdata.data,
-      isLogin:false,
-      isUnion:false
+      isLogin: false,
+      isUnion: false
     }
   },
   computed: {
-    
+
+  },
+  mounted () {
+    console.log('This is master card component !')
+    var self = this
+    this.$element.customElement.addEventAction('logindone', event => {
+      // 这里可以输出登录之后的数据
+
+      // 获取用户信息
+      console.log(event)
+      API.sessionId = event.sessionId
+
+      self.$set(self, 'isLogin', true)
+      self.$set(self, 'isUnion', event.userInfo.isUnion)
+
+      if (event.userInfo.isUnion &&
+          (API.next_cmd === 'fav' || sessionStorage.next_cmd === 'fav')) {
+        console.log('logindone to fav')
+        API.next_cmd = ''
+        sessionStorage.next_cmd = ''
+        API.favMaster(self.data.info.id, function (isOk, res) {
+          if (isOk) { self.$set(self.data.info, 'isfav', true) }
+        })
+      } else if (event.userInfo.isUnion &&
+          (API.next_cmd === 'update_time' || sessionStorage.next_cmd === 'update_time')) {
+        console.log('logindone to update_time')
+        API.next_cmd = ''
+        sessionStorage.next_cmd = ''
+        window.MIP.viewer.open('https://mip.putibaby.com/update_time_mip?mcode=' + self.data.codeid, {})
+      } else if (event.userInfo.isUnion &&
+          (API.next_cmd === 'order_list' || sessionStorage.next_cmd === 'order_list')) {
+        console.log('logindone to order_list')
+        API.next_cmd = ''
+        sessionStorage.next_cmd = ''
+        window.MIP.viewer.open('https://mip.putibaby.com/order_list', {})
+      } else if (!event.userInfo.isUnion) {
+        console.log('go to submit_ph')
+        window.MIP.viewer.open('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href), {})
+      }
+
+      API.getMasterInfo(self.data.info.id, function (isOk, data) {
+        if (isOk) {
+          self.$set(self.data.info, 'isfav', data.fav)
+          self.$set(self.data.info, 'can_online_interview', data.can_online_interview)
+          self.$set(self.data.info, 'order_desc_str', data.order_desc_str)
+          // console.log(self);
+        } else {
+          console.warn(data)
+        }
+      })
+    })
   },
   methods: {
     init () {
-      console.log('should loading');
-      console.log(this.dataJson);
-      this.reload_();
+      console.log('should loading')
+      console.log(this.dataJson)
+      this.reload_()
     },
-    created() {
-      this.reload_();
+    created () {
+      this.reload_()
     },
 
-    checkLogin_(cmd) {
-      if (!this.isLogin){
-          API.next_cmd = cmd;
-          sessionStorage.next_cmd = cmd;
-          this.$emit('login');
-          return false;
+    checkLogin_ (cmd) {
+      if (!this.isLogin) {
+        API.next_cmd = cmd
+        sessionStorage.next_cmd = cmd
+        this.$emit('login')
+        return false
       }
-      return true;
+      return true
     },
 
-    reload_() {
-      console.log('reloading');
+    reload_ () {
+      console.log('reloading')
     },
-    handleUpdateTime(){
-      console.log('handleUpdateTime');
-      
-      if (!this.checkLogin_('update_time')) 
-        return;
+    handleUpdateTime () {
+      console.log('handleUpdateTime')
 
-      window.MIP.viewer.open('/update_time_mip?mcode=' + this.data.codeid, {});
+      if (!this.checkLogin_('update_time')) { return }
 
-    }, 
-    handleOrderList(){
-      console.log('handleOrderList');
-      if (!this.checkLogin_('order_list')) 
-        return;
-      window.MIP.viewer.open('/order_list', {});
+      window.MIP.viewer.open('https://mip.putibaby.com/update_time_mip?mcode=' + this.data.codeid, {})
     },
-    handleFav(){
-      console.log('handleFav');
-      
-      if(this.data.info.isfav) {
-        if (!this.checkLogin_('unfav')) return;
-        this.$set(this.data.info,'isfav',false);
-        console.log(this.data.info);
-        console.log('unFav');
-        API.unfavMaster(this.data.info.id, this.reload_);
+    handleOrderList () {
+      console.log('handleOrderList')
+      if (!this.checkLogin_('order_list')) { return }
+      window.MIP.viewer.open('https://mip.putibaby.com/order_list', {})
+    },
+    handleFav () {
+      console.log('handleFav')
+
+      if (this.data.info.isfav) {
+        if (!this.checkLogin_('unfav')) return
+        this.$set(this.data.info, 'isfav', false)
+        console.log(this.data.info)
+        console.log('unFav')
+        API.unfavMaster(this.data.info.id, this.reload_)
       } else {
-        if (!this.checkLogin_('fav')) return;
+        if (!this.checkLogin_('fav')) return
 
-        this.$set(this.data.info,'isfav',true);
-        console.log(this.data.info);
-        console.log('Fav');
-        API.favMaster(this.data.info.id, this.reload_);
+        this.$set(this.data.info, 'isfav', true)
+        console.log(this.data.info)
+        console.log('Fav')
+        API.favMaster(this.data.info.id, this.reload_)
       }
     },
     load_data () {
-        console.log('should set data');
+      console.log('should set data')
     }
   }
 

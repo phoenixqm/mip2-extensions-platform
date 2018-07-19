@@ -1,58 +1,136 @@
 <template>
   <div class="root">
-    <div class="row" v-for="order in list">
-      <p class='row_p'>
+    <div
+      v-for="order in list"
+      :key="order.order_number"
+      class="row">
+      <p class="row_p">
         <span class="status">
-                   {{ order.desc_str }}
-            </span>
+          {{ order.desc_str }}
+        </span>
         <span class="row_header">
-                   编号: {{ order.order_number }}
-            </span>
+          编号: {{ order.order_number }}
+        </span>
       </p>
-      <div class="info" @click="handleBtn(order)">
-        <mip-img layout="responsive" width="85px" height="22px" class="header" v-bind:src="order.master.header.small"></mip-img>
+      <div
+        class="info"
+        @click="handleBtn(order)">
+        <mip-img
+          :src="order.master.header.small"
+          layout="responsive"
+          width="85px"
+          height="22px"
+          class="header"/>
         <!-- <mip-img layout="responsive" width="85px" height="22px"
                   class="header" src="i/age.png" ></mip-img> -->
         <span class="name">{{ order.master.name }}</span>
-              <p class="starBox">
+        <p class="starBox">
 
-                <mip-img v-for="j in order.master.star_1_list" layout="responsive" width="12" height="12"
-                 class="iconStar" src="/i/select_master_star.png" /></mip-img>
-                <mip-img v-for="j in order.master.star_0_list" layout="responsive" width="12" height="12"
-                 class="iconStar iconStar_no" src="/i/select_master_unstar.png" /></mip-img>
+          <mip-img
+            v-for="(item,index) in order.master.star_1_list"
+            :key="index"
+            layout="responsive"
+            width="12"
+            height="12"
+            class="iconStar"
+            src="/i/select_master_star.png"/>
+          <mip-img
+            v-for="(item,index) in order.master.star_0_list"
+            :key="index"
+            layout="responsive"
+            width="12"
+            height="12"
+            class="iconStar iconStar_no"
+            src="/i/select_master_unstar.png"/>
 
-              </p>
-
+        </p>
 
         <span class="price">￥{{ order.master.ptg_price }}</span>
         <div class="message">
-          <mip-img layout="responsive" width="85px" height="22px" class="age_img" src="i/age.png"></mip-img>
+          <mip-img
+            layout="responsive"
+            width="85px"
+            height="22px"
+            class="age_img"
+            src="i/age.png"/>
           <span class="age">{{ order.master.age }}岁</span>
-          <mip-img layout="responsive" width="85px" height="22px" class="work_year_img" src="i/work_year.png"></mip-img>
+          <mip-img
+            layout="responsive"
+            width="85px"
+            height="22px"
+            class="work_year_img"
+            src="i/work_year.png"/>
           <span class="work_year">{{ order.master.work_year }}年</span>
-          <mip-img layout="responsive" width="85px" height="22px" class="jiguan_img" src="i/jiguan.png"></mip-img>
+          <mip-img
+            layout="responsive"
+            width="85px"
+            height="22px"
+            class="jiguan_img"
+            src="i/jiguan.png"/>
           <span class="jiguan">{{ order.master.jiguan }}</span>
         </div>
       </div>
       <div class="row_footer">
         <div class="btn_list">
-          <div class="tuijianBtn" v-if="order.showBtn_tuijian" @click="handleBtn_tuijian(order)">推荐</div>
-          <div class="tuijianBtn" v-if="order.showBtn_shipinyuyue" @click="handleBtn_shipinyuyue(order)">发起视频预约</div>
-          <div class="tuijianBtn" v-if="order.showBtn_qianyue" @click="handleBtn_qianyue(order)">签约</div>
-          <div class="" v-if="order.showBtn_chakanshipin" @click="handleBtn_chakanshipin(order)">查看视频</div>
-          <div class="tuijianBtn" v-if="order.showBtn_wodeyuyue" @click="handleBtn_wodeyuyue(order)">我的预约</div>
-          <div class="tuijianBtn" v-if="order.showBtn_buheshi" @click="handleBtn_buheshi(order)">不合适</div>
-          <div class="tuijianBtn" v-if="order.showBtn_shanchu" @click="handleBtn_shanchu(order)">删除</div>
-          <div class="tuijianBtn" v-if="order.showBtn_dianhualianxi" @click="handleBtn_dianhualianxi(order)">电话联系</div>
-          <div class="tuijianBtn" v-if="order.showBtn_nidinghetong" @click="handleBtn_nidinghetong(order)">拟定合同</div>
-          <div class="tuijianBtn" v-if="order.showBtn_chakanhetong" @click="handleBtn_chakanhetong(order)">查看合同</div>
-          <div class="tuijianBtn" v-if="order.showBtn_jiaodingjin" @click="handleBtn_jiaodingjin(order)">交定金</div>
-          <div class="tuijianBtn" v-if="order.showBtn_shanghu" @click="handleBtn_shanghu(order)">上户</div>
-          <div class="tuijianBtn" v-if="order.showBtn_lianxikefu" @click="handleBtn_lianxikefu(order)">联系客服</div>
-          <div class="tuijianBtn" v-if="order.showBtn_fukuan" @click="handleBtn_fukuan(order)">付款</div>
-          <!-- <div class="btn tuijianBtn" v-if="order.showBtn_xuqian" @click="handleBtn_xuqian(order)">续签</div> -->
+          <div
+            v-if="order.showBtn_tuijian"
+            class="tuijianBtn"
+            @click="handleBtn_tuijian(order)">推荐</div>
+          <div
+            v-if="order.showBtn_shipinyuyue"
+            class="tuijianBtn"
+            @click="handleBtn_shipinyuyue(order)">发起视频预约</div>
+          <div
+            v-if="order.showBtn_qianyue"
+            class="tuijianBtn"
+            @click="handleBtn_qianyue(order)">签约</div>
+          <div
+            v-if="order.showBtn_chakanshipin"
+            class=""
+            @click="handleBtn_chakanshipin(order)">查看视频</div>
+          <div
+            v-if="order.showBtn_wodeyuyue"
+            class="tuijianBtn"
+            @click="handleBtn_wodeyuyue(order)">我的预约</div>
+          <div
+            v-if="order.showBtn_buheshi"
+            class="tuijianBtn"
+            @click="handleBtn_buheshi(order)">不合适</div>
+          <div
+            v-if="order.showBtn_shanchu"
+            class="tuijianBtn"
+            @click="handleBtn_shanchu(order)">删除</div>
+          <div
+            v-if="order.showBtn_dianhualianxi"
+            class="tuijianBtn"
+            @click="handleBtn_dianhualianxi(order)">电话联系</div>
+          <div
+            v-if="order.showBtn_nidinghetong"
+            class="tuijianBtn"
+            @click="handleBtn_nidinghetong(order)">拟定合同</div>
+          <div
+            v-if="order.showBtn_chakanhetong"
+            class="tuijianBtn"
+            @click="handleBtn_chakanhetong(order)">查看合同</div>
+          <div
+            v-if="order.showBtn_jiaodingjin"
+            class="tuijianBtn"
+            @click="handleBtn_jiaodingjin(order)">交定金</div>
+          <div
+            v-if="order.showBtn_shanghu"
+            class="tuijianBtn"
+            @click="handleBtn_shanghu(order)">上户</div>
+          <div
+            v-if="order.showBtn_lianxikefu"
+            class="tuijianBtn"
+            @click="handleBtn_lianxikefu(order)">联系客服</div>
+          <div
+            v-if="order.showBtn_fukuan"
+            class="tuijianBtn"
+            @click="handleBtn_fukuan(order)">付款</div>
+            <!-- <div class="btn tuijianBtn" v-if="order.showBtn_xuqian" @click="handleBtn_xuqian(order)">续签</div> -->
         </div>
-        <div class="clear"></div>
+        <div class="clear"/>
       </div>
     </div>
   </div>
@@ -106,15 +184,15 @@ body {
 }
 
 .starBox{
-	position:absolute;
-	left:125px;
-	top:18px;
+  position:absolute;
+  left:125px;
+  top:18px;
 }
 
 .starBox mip-img{
   width: 10px;
-	height: 10px;
-	display: inline-block;
+  height: 10px;
+  display: inline-block;
   margin-left:2px;
   float:left;
 }
@@ -221,128 +299,93 @@ body {
 
 </style>
 <script>
-var API = {};
+var API = {}
 
-function checkStatus(response) {
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
-function parseJSON(response) {
+function parseJSON (response) {
   return response.json()
 }
 
-API.wrapRet_ = function(api, opts, cb) {
-  console.log('posting to ' + api);
-  opts.mip_sid = API.sessionId || '';
+API.wrapRet_ = function (api, opts, fn) {
+  console.log('posting to ' + api)
+  opts.mip_sid = API.sessionId || ''
   fetch(api, {
-      method: 'POST',
-      credentials: "same-origin",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(opts)
-    })
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opts)
+  })
     .then(checkStatus)
     .then(parseJSON)
     .then(ret => {
-      console.log(ret);
-      if (ret.success) cb(true, ret.data);
-      else cb(false, ret.error);
+      console.log(ret)
+      if (ret.success) fn(true, ret.data)
+      else fn(false, ret.error)
     })
     .catch(e => {
-      console.error(e.message);
-      cb(false, e.message);
-    });
+      console.error(e.message)
+      fn(false, e.message)
+    })
 }
 
-API.ajaxOrderList = function(obj, cb) {
+API.ajaxOrderList = function (obj, fn) {
   API.wrapRet_(
     '/api/ajax_order_list', obj,
-    cb);
-};
+    fn)
+}
 
-
-API.rejectInterview = function(orderId, cb) {
+API.rejectInterview = function (orderId, fn) {
   API.wrapRet_(
     '/api/reject_interview', {
       'id': orderId
     },
-    cb);
-};
+    fn)
+}
 
-API.zjqd = function(master_id, master_type,cb) {
+API.zjqd = function (masterId, masterType, fn) {
   API.wrapRet_(
     '/api/zjqd', {
-      'master_id': master_id,
-      'master_type': master_type
+      'master_id': masterId,
+      'master_type': masterType
     },
-    cb);
-};
+    fn)
+}
 
-
-API.changeToContract = function(orderId, cb) {
+API.changeToContract = function (orderId, fn) {
   API.wrapRet_(
     '/api/change_to_contract', {
       'id': orderId
     },
-    cb);
-};
+    fn)
+}
 
-API.hideFinishedOrder = function(orderId, cb) {
+API.hideFinishedOrder = function (orderId, fn) {
   API.wrapRet_(
     '/api/hide_finished_order', {
       'id': orderId
     },
-    cb);
-};
+    fn)
+}
 
-API.doShanghu = function(orderId, cb) {
+API.doShanghu = function (orderId, fn) {
   API.wrapRet_(
     '/api/do_shanghu', {
       'id': orderId
     },
-    cb);
-};
+    fn)
+}
 export default {
-  mounted() {
-    console.log('This is pty order list component !');
-    var self = this;
-    this.$element.customElement.addEventAction('echo', function(event, str) {
-      console.log(event);
-    });
-    this.$element.customElement.addEventAction('dook', function(event, str) {
-      // console.log(event);
-      if (event.from) {
-        console.log(event.from);
-        event.from.bind(self)(event.data, true);
-        //var eval_str = 'this.' + event.handler + '(event_order)'        
-      }
-
-    });
-    this.$element.customElement.addEventAction('docancel', function(event, str) {
-      console.log(event);
-      console.log(str);
-
-    });
-    this.$element.customElement.addEventAction('logindone', function(event, str) {
-      console.log(event);
-      API.sessionId = event.sessionId;
-      if (!event.userInfo.isUnion) {
-        console.log('logindone to submit_ph');
-        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
-      }
-      API.ajaxOrderList({}, function(isOk, res){
-        self.list = res.list;
-      });
-    });
-
-  },
 
   props: {
     src: {
@@ -355,9 +398,8 @@ export default {
 
     }
   },
-  data() {
-    console.log(this);
-
+  data () {
+    console.log(this)
 
     return {
       list: [],
@@ -365,159 +407,174 @@ export default {
         showTuijianBtn: true,
         show_confirm: false
 
-      },
+      }
     }
   },
   computed: {
 
   },
+  mounted () {
+    console.log('This is pty order list component !')
+    var self = this
+    this.$element.customElement.addEventAction('echo', function (event, str) {
+      console.log(event)
+    })
+    this.$element.customElement.addEventAction('dook', function (event, str) {
+      // console.log(event);
+      if (event.from) {
+        console.log(event.from)
+        event.from.bind(self)(event.data, true)
+        // var eval_str = 'this.' + event.handler + '(event_order)'
+      }
+    })
+    this.$element.customElement.addEventAction('docancel', function (event, str) {
+      console.log(event)
+      console.log(str)
+    })
+    this.$element.customElement.addEventAction('logindone', function (event, str) {
+      console.log(event)
+      API.sessionId = event.sessionId
+      if (!event.userInfo.isUnion) {
+        console.log('logindone to submit_ph')
+        window.MIP.viewer.open('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href), {})
+      }
+      API.ajaxOrderList({}, function (isOk, res) {
+        self.list = res.list
+      })
+    })
+  },
   methods: {
-    init() {
-      console.log('should loading');
+    init () {
+      console.log('should loading')
       // console.log(this.dataJson);
-
-
     },
 
-    load_data() {
-      console.log('should set data');
-
+    load_data () {
+      console.log('should set data')
     },
-    show_alert(msg) {
-        var ele = document.getElementById('ptgconfirm');
-        // console.log(ele);
-        MIP.viewer.eventAction.execute('doshow', ele, { 
-          el_id: 'orderlist', 
-          title:'提示错误',
-          msg: msg,
-          from: null});
+    show_alert (msg) {
+      var ele = document.getElementById('ptgconfirm')
+      // console.log(ele);
+      MIP.viewer.eventAction.execute('doshow', ele, {
+        el_id: 'orderlist',
+        title: '提示错误',
+        msg: msg,
+        from: null})
     },
-    reload_() {
-      window.location.reload();
-      var href = window.location.href;
+    reload_ () {
+      window.location.reload()
+      var href = window.location.href
       if (href.indexOf('?') >= 0) {
-        window.location.href = href + '&_=' + Math.random();
+        window.location.href = href + '&_=' + Math.random()
       } else {
-        window.location.href = href + '?_=' + Math.random();
+        window.location.href = href + '?_=' + Math.random()
       }
     },
-    handleBtn(order){
+    handleBtn (order) {
       // window.location.href = '/master_card?mcode=' + order.master.mcode;
-      window.MIP.viewer.open('/master_card?mcode=' + order.master.mcode, {});
+      window.MIP.viewer.open('https://mip.putibaby.com/master_card?mcode=' + order.master.mcode, {})
     },
-    handleBtn_tuijian(order) {
+    handleBtn_tuijian (order) {
       // window.location.href = '/master_card?mcode=' + order.master.mcode;
-      window.MIP.viewer.open('/master_card?mcode=' + order.master.mcode, {});
+      window.MIP.viewer.open('https://mip.putibaby.com/master_card?mcode=' + order.master.mcode, {})
     },
 
-    handleBtn_shipinyuyue(order) {
+    handleBtn_shipinyuyue (order) {
       // window.location.href = '/video_interview_master?master_id=' + order.master.id;
-      window.MIP.viewer.open('/video_interview_master?master_id=' + order.master.id, {});
+      window.MIP.viewer.open('https://mip.putibaby.com/video_interview_master?master_id=' + order.master.id, {})
     },
-    handleBtn_qianyue(order, skip) {
+    handleBtn_qianyue (order, skip) {
       // window.location.href = '/show_master?u=' + order.master.username;
-      var self = this;
+      var self = this
       if (skip) {
-        API.zjqd(order.master.id, 'yuesao', function(isOk, data) {
+        API.zjqd(order.master.id, 'yuesao', function (isOk, data) {
           if (isOk) {
-            self.reload_();
+            self.reload_()
           } else {
-            console.warn(data);
-            self.show_alert(data);
+            console.warn(data)
+            self.show_alert(data)
           }
-        });
-
+        })
       } else {
-
-        var ele = document.getElementById('ptgconfirm');
+        var ele = document.getElementById('ptgconfirm')
         // console.log(ele);
-        MIP.viewer.eventAction.execute('doshow', ele, { 
-          el_id: 'orderlist', 
-          title:'提示消息',
+        MIP.viewer.eventAction.execute('doshow', ele, {
+          el_id: 'orderlist',
+          title: '提示消息',
           msg: '确定签约?',
-          from: this.handleBtn_qianyue, 
-          data: order });
-
+          from: this.handleBtn_qianyue,
+          data: order })
       }
     },
-    handleBtn_chakanshipin(order) {
+    handleBtn_chakanshipin (order) {
       // window.location.href = '/show_my_qs_list?id=' + order.id;
-      window.MIP.viewer.open('/show_my_qs_list?id=' + order.id, {});
+      window.MIP.viewer.open('https://mip.putibaby.com/show_my_qs_list?id=' + order.id, {})
     },
-    handleBtn_wodeyuyue(order) {
+    handleBtn_wodeyuyue (order) {
       // window.location.href = '/show_my_realtime_video_interview?id=' + order.id;
-      window.MIP.viewer.open('/show_my_realtime_video_interview?id=' + order.id, {});
+      window.MIP.viewer.open('https://mip.putibaby.com/show_my_realtime_video_interview?id=' + order.id, {})
     },
-    handleBtn_buheshi(order, skip) {
-
-      var self = this;
+    handleBtn_buheshi (order, skip) {
+      var self = this
       if (skip) {
-        API.rejectInterview(order.id, function(isOk, data) {
+        API.rejectInterview(order.id, function (isOk, data) {
           if (isOk) {
-            self.reload_();
+            self.reload_()
           } else {
-            console.warn(data);
-            self.show_alert(data);
+            console.warn(data)
+            self.show_alert(data)
           }
-        });
-
+        })
       } else {
-
-        var ele = document.getElementById('ptgconfirm');
+        var ele = document.getElementById('ptgconfirm')
         // console.log(ele);
-        MIP.viewer.eventAction.execute('doshow', ele, { 
-          el_id: 'orderlist', 
-          title:'提示消息',
+        MIP.viewer.eventAction.execute('doshow', ele, {
+          el_id: 'orderlist',
+          title: '提示消息',
           msg: '确定不合适?',
-          from: this.handleBtn_buheshi, 
-          data: order });
-
+          from: this.handleBtn_buheshi,
+          data: order })
       }
-
     },
-    handleBtn_shanchu(order, skip) {
-      var self = this;
+    handleBtn_shanchu (order, skip) {
+      var self = this
       // if(!confirm('确定要删除?')) return;
       if (skip) {
-        API.hideFinishedOrder(order.id, function(isOk, data) {
+        API.hideFinishedOrder(order.id, function (isOk, data) {
           if (isOk) {
-            self.reload_();
+            self.reload_()
           } else {
-            console.warn(data);
-            self.show_alert(data);
+            console.warn(data)
+            self.show_alert(data)
           }
-        });
-
+        })
       } else {
-
-        var ele = document.getElementById('ptgconfirm');
+        var ele = document.getElementById('ptgconfirm')
         // console.log(ele);
-        MIP.viewer.eventAction.execute('doshow', ele, { 
-          el_id: 'orderlist', 
-          title:'提示消息',
+        MIP.viewer.eventAction.execute('doshow', ele, {
+          el_id: 'orderlist',
+          title: '提示消息',
           msg: '确定要删除?',
-          from: this.handleBtn_shanchu, 
-          data: order });
-
+          from: this.handleBtn_shanchu,
+          data: order })
       }
-
     },
-    handleBtn_dianhualianxi(order) {
-      window.location.href = 'tel:' + order.master.phone_number;
+    handleBtn_dianhualianxi (order) {
+      window.location.href = 'tel:' + order.master.phone_number
     },
-    handleBtn_nidinghetong(order) {
+    handleBtn_nidinghetong (order) {
       // window.location.href = '/edit_contract?id=' + order.id;
-      window.MIP.viewer.open('/edit_contract?id=' + order.id,{})
+      window.MIP.viewer.open('https://mip.putibaby.com/edit_contract?id=' + order.id, {})
     },
-    handleBtn_chakanhetong(order) {
+    handleBtn_chakanhetong (order) {
       // window.location.href = '/edit_contract?id=' + order.id + '&readonly=1';
-      window.MIP.viewer.open('/edit_contract?id=' + order.id + '&readonly=1',{})
+      window.MIP.viewer.open('https://mip.putibaby.com/edit_contract?id=' + order.id + '&readonly=1', {})
     },
-    handleBtn_jiaodingjin(order) {
+    handleBtn_jiaodingjin (order) {
       // window.location.href = '/pay/v2_do_pay?order_id=' + order.id;
-      window.MIP.viewer.open('/pay/v2_do_pay?order_id=' + order.id,{});
+      window.MIP.viewer.open('https://mip.putibaby.com/pay/v2_do_pay?order_id=' + order.id, {})
     },
-    handleBtn_shanghu(order, skip) {
+    handleBtn_shanghu (order, skip) {
       // var self = this;
       // API.doShanghu(order.id, function(isOk, data) {
       //   if (isOk) {
@@ -526,44 +583,40 @@ export default {
       //     console.warn(data);
       //   }
       // });
-      var self = this;
+      var self = this
       if (skip) {
-        API.doShanghu(order.id, function(isOk, data) {
+        API.doShanghu(order.id, function (isOk, data) {
           if (isOk) {
-            self.reload_();
+            self.reload_()
           } else {
-            console.warn(data);
-            self.show_alert(data);
+            console.warn(data)
+            self.show_alert(data)
           }
-        });
-
+        })
       } else {
-
-        var ele = document.getElementById('ptgconfirm');
+        var ele = document.getElementById('ptgconfirm')
         // console.log(ele);
-        MIP.viewer.eventAction.execute('doshow', ele, { 
-          el_id: 'orderlist', 
-          title:'提示消息',
+        MIP.viewer.eventAction.execute('doshow', ele, {
+          el_id: 'orderlist',
+          title: '提示消息',
           msg: '确定要现在执行上户?',
-          from: this.handleBtn_shanghu, 
-          data: order });
-
+          from: this.handleBtn_shanghu,
+          data: order })
       }
     },
 
-    handleBtn_lianxikefu(order) {
-      window.location.href = 'tel:400-618-8835';
+    handleBtn_lianxikefu (order) {
+      window.location.href = 'tel:400-618-8835'
     },
-    handleBtn_fukuan(order) {
+    handleBtn_fukuan (order) {
       // window.location.href = '/pay/v2_do_pay?order_id=' + order.id;
-      window.MIP.viewer.open('/pay/v2_do_pay?order_id=' + order.id,{});
+      window.MIP.viewer.open('https://mip.putibaby.com/pay/v2_do_pay?order_id=' + order.id, {})
     },
-    handleBtn_xuqian(order) {
+    handleBtn_xuqian (order) {
       // window.location.href = '/v2_edit_xudan_yuesao_contract?order_id=' + order.id;
-      window.MIP.viewer.open('/v2_edit_xudan_yuesao_contract?order_id=' + order.id,{});
-    },
+      window.MIP.viewer.open('https://mip.putibaby.com/v2_edit_xudan_yuesao_contract?order_id=' + order.id, {})
+    }
   }
-
 
 }
 </script>

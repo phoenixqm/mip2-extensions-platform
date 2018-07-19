@@ -1,24 +1,50 @@
 
 <template>
-<div class="root">
-  <mip-form method="get" url="https://www.mipengine.org?we=123">
-    <div class="warn">
-      <span class="span">尊敬的用户：</span><br>
-      <span>为了能让菩提果的老师和月嫂更好的为您服务，需要您提供正确的手机号码：</span>
-    </div>
-    <div class="get">
-      <input id="ph" class="ph" type="number" placeholder="请输入您的手机号码" v-model="phoneNumber" v-on:input="changePhoneNumber_">
-      <input id="code" class="code" type="number" placeholder="输入验证码" v-model="sms" v-on:input="changeVerifySms_">
-      <input class="smsSend" type="button" @click="getVerify_" v-bind:disabled="smsDisabled" v-bind:value="text"></input>
-    </div>
-    <div id="err" class="err" v-if="err">{{errMessage}}</div>
-    <div class="submit">
-      <input class="submitbtn" type="submit" value="确认提交" v-on:click="handleSubmit_" v-bind:disabled="subDisabled" />
-    </div>
-  </mip-form>
-</div>
+  <div class="root">
+    <mip-form
+      method="get"
+      url="https://www.mipengine.org?we=123">
+      <div class="warn">
+        <span class="span">尊敬的用户：</span><br>
+        <span>为了能让菩提果的老师和月嫂更好的为您服务，需要您提供正确的手机号码：</span>
+      </div>
+      <div class="get">
+        <input
+          id="ph"
+          v-model="phoneNumber"
+          class="ph"
+          type="number"
+          placeholder="请输入您的手机号码"
+          @input="changePhoneNumber_">
+        <input
+          id="code"
+          v-model="sms"
+          class="code"
+          type="number"
+          placeholder="输入验证码"
+          @input="changeVerifySms_">
+        <input
+          :disabled="smsDisabled"
+          :value="text"
+          class="smsSend"
+          type="button"
+          @click="getVerify_">
+      </div>
+      <div
+        v-if="err"
+        id="err"
+        class="err">{{ errMessage }}</div>
+      <div class="submit">
+        <input
+          :disabled="subDisabled"
+          class="submitbtn"
+          type="submit"
+          value="确认提交"
+          @click="handleSubmit_" >
+      </div>
+    </mip-form>
+  </div>
 </template>
-
 
 <style scoped>
 .wrapper {
@@ -57,7 +83,6 @@ a:hover {
   text-decoration: none !important;
 }
 
-
 .root {
   background: #fff;
   font-size: 14px;
@@ -87,7 +112,6 @@ a:hover {
   display: inline-block;
   margin-top: 10px;
 }
-
 
 .get {
   margin-top: 20px;
@@ -183,57 +207,56 @@ a:hover {
 </style>
 
 <script>
-var API = {};
+var API = {}
 
-function checkStatus(response) {
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
-function parseJSON(response) {
+function parseJSON (response) {
   return response.json()
 }
 
-API.wrapRet_ = function(api, opts, cb) {
-  console.log('posting to ' + api);
-  opts.mip_sid = API.sessionId || '';
+API.wrapRet_ = function (api, opts, fn) {
+  console.log('posting to ' + api)
+  opts.mip_sid = API.sessionId || ''
   fetch(api, {
-      method: 'POST',
-      credentials: "same-origin",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(opts)
-    })
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opts)
+  })
     .then(checkStatus)
     .then(parseJSON)
     .then(ret => {
-      if (ret.success) cb(true, ret.data);
-      else cb(false, ret.error);
+      if (ret.success) fn(true, ret.data)
+      else fn(false, ret.error)
     })
     .catch(e => {
-      console.error(e.message);
-      cb(false, e.message);
-    });
+      console.error(e.message)
+      fn(false, e.message)
+    })
 }
 
-
-API.sendPhoneNumberVerifySms = function(phoneNumber, cb) {
+API.sendPhoneNumberVerifySms = function (phoneNumber, fn) {
   API.wrapRet_(
     '/api/send_sms', {
       'phone_number': phoneNumber
     },
-    cb);
+    fn)
 }
 
-// API.sendPhoneNumberVerifySmsWithGt = function(phoneNumber, cb) {
+// API.sendPhoneNumberVerifySmsWithGt = function(phoneNumber, fn) {
 //   if (!/^1\d{10}$/.test(phoneNumber)) {
-//     cb(false, '错误的手机号');
+//     fn(false, '错误的手机号');
 //     return;
 //   }
 //   var handler = function(captchaObj) {
@@ -254,11 +277,10 @@ API.sendPhoneNumberVerifySms = function(phoneNumber, cb) {
 //           'geetest_validate': result.geetest_validate,
 //           'geetest_seccode': result.geetest_seccode
 //         },
-//         cb);
+//         fn);
 //     });
 //     window.captchaObj = captchaObj;
 //   };
-
 
 //   $.ajax({
 //     url: "/api/gt_register?t=" + (new Date()).getTime(),
@@ -279,32 +301,15 @@ API.sendPhoneNumberVerifySms = function(phoneNumber, cb) {
 //   });
 // }
 
-API.verifyPhoneNumber = function(phoneNumber, sms, cb) {
-
+API.verifyPhoneNumber = function (phoneNumber, sms, fn) {
   API.wrapRet_(
     '/api/verify_sms', {
       'phone_number': phoneNumber,
       'sms': sms
-    }, cb);
+    }, fn)
 }
 
-
 export default {
-  mounted() {
-    console.log('This is pty submit phone number component !');
-    var self = this;
-    this.$element.customElement.addEventAction('logindone', event => {
-      // 这里可以输出登录之后的数据
-
-      // 获取用户信息
-      console.log(event);
-      API.sessionId = event.sessionId;
-
-      self.$set(self, 'isLogin', true);
-      self.$set(self, 'isUnion', event.userInfo.isUnion);
-     
-    });
-  },
 
   props: {
     src: {
@@ -316,9 +321,9 @@ export default {
       default: null
     }
   },
-  data() {
-    console.log('data:', this);
-    var pdata = JSON.parse(this.dataJsonstr);
+  data () {
+    // console.log('data:', this)
+    // var pdata = JSON.parse(this.dataJsonstr)
     return {
       isLogin: false,
       isUnion: false,
@@ -332,96 +337,107 @@ export default {
       smsDisabled: true,
       subDisabled: true,
       err: false,
-      errMessage: '',
+      errMessage: ''
     }
   },
   computed: {
 
   },
+  mounted () {
+    console.log('This is pty submit phone number component !')
+    var self = this
+    this.$element.customElement.addEventAction('logindone', event => {
+      // 这里可以输出登录之后的数据
+
+      // 获取用户信息
+      console.log(event)
+      API.sessionId = event.sessionId
+
+      self.$set(self, 'isLogin', true)
+      self.$set(self, 'isUnion', event.userInfo.isUnion)
+    })
+  },
   methods: {
-    init() {
-      console.log('should loading');
-      console.log(this.dataJson);
+    init () {
+      console.log('should loading')
+      console.log(this.dataJson)
     },
-    load_data() {
-      console.log('should set data');
+    load_data () {
+      console.log('should set data')
     },
-    changePhoneNumber_() {
+    changePhoneNumber_ () {
       if (!/^1\d{10}$/.test(this.phoneNumber)) {
-        this.errMessage = '请输入正确的手机号码';
-        this.err = true;
+        this.errMessage = '请输入正确的手机号码'
+        this.err = true
       } else {
-        this.smsDisabled = false;
-        this.errMessage = '';
-        this.err = false;
+        this.smsDisabled = false
+        this.errMessage = ''
+        this.err = false
       }
     },
-    changeVerifySms_() {
+    changeVerifySms_ () {
       if (!/^\d{4,6}$/.test(this.sms)) {
-        this.errMessage = '请输入正确的验证码';
-        this.err = true;
+        this.errMessage = '请输入正确的验证码'
+        this.err = true
       } else {
-        this.subDisabled = false;
-        this.errMessage = '';
-        this.err = false;
+        this.subDisabled = false
+        this.errMessage = ''
+        this.err = false
       }
     },
-    daojishi_() {
-      if (this.djs == 1) {
-        var self = this;
-        var t = 60;
-        var daojishi = setInterval(function() {
-          self.errMessage = '';
-          self.err = false;
-          t--;
-          self.text = t + 'S后可重新获取';
-          if (t == 0) {
-            self.text = '获取验证码';
-            clearInterval(daojishi);
+    daojishi_ () {
+      if (this.djs === 1) {
+        var self = this
+        var t = 60
+        var daojishi = setInterval(function () {
+          self.errMessage = ''
+          self.err = false
+          t--
+          self.text = t + 'S后可重新获取'
+          if (t === 0) {
+            self.text = '获取验证码'
+            clearInterval(daojishi)
           }
-        }, 1000);
+        }, 1000)
       }
     },
-    getVerify_() {
-      this.verifyInput = false;
-      this.djs = 1;
-      var self = this;
-      API.sendPhoneNumberVerifySms(this.phoneNumber, function(isOk, res) {
+    getVerify_ () {
+      this.verifyInput = false
+      this.djs = 1
+      var self = this
+      API.sendPhoneNumberVerifySms(this.phoneNumber, function (isOk, res) {
         if (isOk) {
-          self.daojishi_();
+          self.daojishi_()
         } else {
-          self.errMessage = res || '该号码已注册';
-          self.err = true;
+          self.errMessage = res || '该号码已注册'
+          self.err = true
         }
-      });
+      })
     },
-    handleSubmit_() {
-
-      var self = this;
+    handleSubmit_ () {
+      var self = this
 
       if (!/^1\d{10}$/.test(this.phoneNumber)) {
-        self.errMessage = '请输入正确的手机号码';
-        self.err = true;
+        self.errMessage = '请输入正确的手机号码'
+        self.err = true
       } else {
         if (!/^\d{4,6}$/.test(this.sms)) {
-          self.errMessage = '请输入正确的验证码';
-          self.err = true;
+          self.errMessage = '请输入正确的验证码'
+          self.err = true
         } else {
-          self.errMessage = '';
-          self.err = false;
-          API.verifyPhoneNumber(this.phoneNumber, this.sms, function(isOk, res) {
+          self.errMessage = ''
+          self.err = false
+          API.verifyPhoneNumber(this.phoneNumber, this.sms, function (isOk, res) {
             if (isOk) {
-
-              window.location.href = JSON.parse(self.dataJsonstr).redirect;
+              window.location.href = JSON.parse(self.dataJsonstr).redirect
             } else {
-              self.errMessage = '请输入正确的验证码';
-              self.err = true;
+              self.errMessage = '请输入正确的验证码'
+              self.err = true
             }
-          });
+          })
         }
       }
-
-    },
+    }
   }
 }
 </script>

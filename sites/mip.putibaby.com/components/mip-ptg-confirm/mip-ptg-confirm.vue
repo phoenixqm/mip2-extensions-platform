@@ -1,18 +1,28 @@
 <template>
-  <div v-if="show" class="root">
-	<mip-fixed type="top" class="fix_back">
-    <div id='fullScreen'></div>
-	</mip-fixed>
-	<mip-fixed type="top" class="fix_con">
-    <div id='floatLayer'>
-      <p class="title">{{ title }}</p>
-      <p class="msg">{{ msg }}</p>
-      <div class="btn_div">
-        <span class="btn_cal" @click="cancelConfirm">取消</span>
-        <span class="btn_ok" @click="okConfirm">确定</span>
-      </div>  
-    </div>
-	</mip-fixed>
+  <div
+    v-if="show"
+    class="root">
+    <mip-fixed
+      type="top"
+      class="fix_back">
+      <div id="fullScreen"/>
+    </mip-fixed>
+    <mip-fixed
+      type="top"
+      class="fix_con">
+      <div id="floatLayer">
+        <p class="title">{{ title }}</p>
+        <p class="msg">{{ msg }}</p>
+        <div class="btn_div">
+          <span
+            class="btn_cal"
+            @click="cancelConfirm">取消</span>
+          <span
+            class="btn_ok"
+            @click="okConfirm">确定</span>
+        </div>
+      </div>
+    </mip-fixed>
   </div>
 </template>
 <style scoped>
@@ -20,7 +30,6 @@
   margin: 0 auto;
   text-align: center;
 }
-
 
 /* https://www.cnblogs.com/martianShu/p/5893355.html */
 .fix_back{
@@ -52,7 +61,7 @@
 .msg{
   margin-bottom: 15px;
   font-size: 15px;
-  color:#999; 
+  color:#999;
 }
 
 .title{
@@ -90,69 +99,48 @@
 }
 </style>
 <script>
-var API = {};
+var API = {}
 
-function checkStatus(response) {
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
-function parseJSON(response) {
+function parseJSON (response) {
   return response.json()
 }
 
-API.wrapRet_ = function(api, opts, cb) {
-  console.log('posting to ' + api);
-  opts.mip_sid = API.sessionId || '';
+API.wrapRet_ = function (api, opts, fn) {
+  console.log('posting to ' + api)
+  opts.mip_sid = API.sessionId || ''
   fetch(api, {
-      method: 'POST',
-      credentials: "same-origin",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(opts)
-    })
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opts)
+  })
     .then(checkStatus)
     .then(parseJSON)
     .then(ret => {
-      //console.log(ret);
-      if (ret.success) cb(true, ret.data);
-      else cb(false, ret.error);
+      // console.log(ret);
+      if (ret.success) fn(true, ret.data)
+      else fn(false, ret.error)
     })
     .catch(e => {
-      console.error(e.message);
-      cb(false, e.message);
-    });
+      console.error(e.message)
+      fn(false, e.message)
+    })
 }
 
-
 export default {
-  mounted() {
-    console.log('This is comfirm component !');
-    var self = this;
-    this.$element.customElement.addEventAction('doshow', function(event, str) {
-      // console.log(event);
-      // console.log(str);
-      self.show = true;
-      self.msg = event.msg;
-      self.current_el_event = event;
-      self.current_el_id = event.el_id;
-      self.current_el_data = event.data;
-    });
-  },
-  firstInviewCallback() {
-    this.init()
-  },
   props: {
-    show: {
-      type: Boolean,
-      default: false
-    },
     msg: {
       type: String,
       default: null
@@ -170,55 +158,67 @@ export default {
       default: null
     }
   },
-  data() {
-    console.log(this);
+  data () {
+    console.log(this)
     return {
       show: false
-    };
-
+    }
   },
   computed: {
 
   },
   watch: {
-    show: function(val, oldVal) {
-      console.log('new: %s, old: %s', val, oldVal);
+    show: function (val, oldVal) {
+      console.log('new: %s, old: %s', val, oldVal)
     }
   },
+  mounted () {
+    console.log('This is comfirm component !')
+    var self = this
+    this.$element.customElement.addEventAction('doshow', function (event, str) {
+      // console.log(event);
+      // console.log(str);
+      self.show = true
+      self.msg = event.msg
+      self.current_el_event = event
+      self.current_el_id = event.el_id
+      self.current_el_data = event.data
+    })
+  },
+  firstInviewCallback () {
+    this.init()
+  },
   methods: {
-    init() {
-      console.log('should loading');
-      this.reload_();
+    init () {
+      console.log('should loading')
+      this.reload_()
     },
-    created() {
-
-      this.reload_();
+    created () {
+      this.reload_()
     },
 
-    reload_() {
+    reload_ () {
 
     },
-    cancelConfirm() {
-
-      var ele = document.getElementById(this.current_el_id);
+    cancelConfirm () {
+      var ele = document.getElementById(this.current_el_id)
       // console.log(ele);
-      this.current_el_event.el_id = 'ptgconfirm';
-      MIP.viewer.eventAction.execute('docancel', ele, this.current_el_event);
-      this.current_el_event = {};
-      this.current_el_id = '';
-      this.current_el_data = {};
-      this.show = false;
+      this.current_el_event.el_id = 'ptgconfirm'
+      MIP.viewer.eventAction.execute('docancel', ele, this.current_el_event)
+      this.current_el_event = {}
+      this.current_el_id = ''
+      this.current_el_data = {}
+      this.show = false
     },
-    okConfirm() {
-      var ele = document.getElementById(this.current_el_id);
+    okConfirm () {
+      var ele = document.getElementById(this.current_el_id)
       // console.log(ele);
-      this.current_el_event.el_id = 'ptgconfirm';
-      MIP.viewer.eventAction.execute('dook', ele, this.current_el_event);
-      this.current_el_event = {};
-      this.current_el_id = '';
-      this.current_el_data = {};
-      this.show = false;
-
+      this.current_el_event.el_id = 'ptgconfirm'
+      MIP.viewer.eventAction.execute('dook', ele, this.current_el_event)
+      this.current_el_event = {}
+      this.current_el_id = ''
+      this.current_el_data = {}
+      this.show = false
     }
   }
 

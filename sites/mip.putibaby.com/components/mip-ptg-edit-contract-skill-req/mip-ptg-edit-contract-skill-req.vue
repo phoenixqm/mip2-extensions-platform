@@ -1,26 +1,43 @@
 
 <template>
-<div class='root'>
+  <div class="root">
 
-  <div class="part" v-for="items in list">
-    <div class="sub_head">
-      <p>{{items.title}}</p>
-    </div>
-    <div class="item" v-for="it in items.list">
-      <p for="it.id">
-				{{it.title}}
-      </p>
-	  <input type="checkbox" id="it.id" name="services" v-bind:disabled="rea" value="it.id" v-bind:checked="sk_c[it.id]" @click="changeChecked_(it.id,it.id)" v-on:change="Change_(it.id)"></input>
+    <div
+      v-for="items in list"
+      :key="items.title"
+      class="part">
+      <div class="sub_head">
+        <p>{{ items.title }}</p>
+      </div>
+      <div
+        v-for="it in items.list"
+        :key="it.title"
+        class="item">
+        <p for="it.id">
+          {{ it.title }}
+        </p>
+        <input
+          id="it.id"
+          :disabled="rea"
+          :checked="sk_c[it.id]"
+          type="checkbox"
+          name="services"
+          value="it.id"
+          @click="changeChecked_(it.id,it.id)"
+          @change="Change_(it.id)">
 
+      </div>
     </div>
+
+    <input
+      v-show="!rea"
+      class="mbtn"
+      type="submit"
+      value="提交"
+      @click="submit_">
+
   </div>
-
-  <input class="mbtn" type="submit" value="提交" @click="submit_" v-show="!rea"></input>
-
-
-</div>
 </template>
-
 
 <style scoped>
 .wrapper {
@@ -39,8 +56,6 @@ p {
   padding: 0px;
   font-family: '黑体';
 }
-
-body {}
 
 a {
   color: black !important;
@@ -174,111 +189,62 @@ input[type="checkbox"]:checked {
 </style>
 
 <script>
-var API = {};
+var API = {}
 
-function checkStatus(response) {
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
-function parseJSON(response) {
+function parseJSON (response) {
   return response.json()
 }
 
-API.wrapRet_ = function(api, opts, cb) {
-  console.log('posting to ' + api);
-  opts.mip_sid = API.sessionId || '';
+API.wrapRet_ = function (api, opts, fn) {
+  console.log('posting to ' + api)
+  opts.mip_sid = API.sessionId || ''
   fetch(api, {
-      method: 'POST',
-      credentials: "same-origin",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(opts)
-    })
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opts)
+  })
     .then(checkStatus)
     .then(parseJSON)
     .then(ret => {
-      if (ret.success) cb(true, ret.data);
-      else cb(false, ret.error);
+      if (ret.success) fn(true, ret.data)
+      else fn(false, ret.error)
     })
     .catch(e => {
-      console.error(e.message);
-      cb(false, e.message);
-    });
+      console.error(e.message)
+      fn(false, e.message)
+    })
 }
 
-API.saveIt_ = function(opts, cb) {
+API.saveIt_ = function (opts, fn) {
   API.wrapRet_(
     '/api/set_contract', {
       'contract_skill_req': opts.contract_skill_req,
       'id': opts.id,
-      'order_id': opts.order_id,
-    }, cb);
+      'order_id': opts.order_id
+    }, fn)
 }
 
-
-API.ajaxContractSkillReq = function(order_id, cb) {
+API.ajaxContractSkillReq = function (orderId, fn) {
   API.wrapRet_(
     '/api/ajax_contract_skill_req', {
-      'id': order_id,
-    }, cb);
+      'id': orderId
+    }, fn)
 }
 
 export default {
-  beforeMount() {
-
-  },
-  mounted() {
-    console.log('This is edit contract_skill_req component !');
-    var self = this;
-    this.$element.customElement.addEventAction('echo', function(event, str) {
-      console.log(event);
-    });
-    this.$element.customElement.addEventAction('dook', function(event, str) {
-      // console.log(event);
-
-      console.log(event.from);
-      event.from.bind(self)(event.data, true);
-      //var eval_str = 'this.' + event.handler + '(event_order)'
-    });
-    this.$element.customElement.addEventAction('docancel', function(event, str) {
-      console.log(event);
-      console.log(str);
-
-    });
-    this.$element.customElement.addEventAction('logindone', function(event, str) {
-      console.log(event);
-      API.sessionId = event.sessionId;
-      self.$set(self, 'isLogin', true);
-      self.$set(self, 'isUnion', event.userInfo.isUnion);
-      API.ajaxContractSkillReq(self.order_id, function(isOk, res){
-        var pdata = res;
-		console.log('pdata',pdata);
-        if (pdata.contract_skill_req.indexOf(',') != -1) {
-          var skill_list = pdata.contract_skill_req.split(',');
-
-        } else {
-          var skill_list = [];
-          skill_list.push(pdata.contract_skill_req);
-        }
-
-        self.list = pdata.list;
-        self.check = false;
-        self.contract_skill_req = [];
-        self.skill_req = skill_list;
-        self.sk_c = pdata.sk_c;
-
-        self.ajaxLoaded = true;
-
-      });
-    });
-  },
 
   props: {
     src: {
@@ -290,20 +256,20 @@ export default {
       default: null
     }
   },
-  data() {
-    console.log('this', this);
-    var pdata = JSON.parse(this.dataJsonstr);
-    if (parseInt(pdata.readonly) != 1) {
-      var readonly = false;
+  data () {
+    console.log('this', this)
+    var pdata = JSON.parse(this.dataJsonstr)
+    var readonly
+    if (parseInt(pdata.readonly) !== 1) {
+      readonly = false
     } else {
-      var readonly = true;
+      readonly = true
     }
-    // if (JSON.parse(this.dataJsonstr).contract_skill_req.indexOf(',') != -1) {
-    //   var skill_list = JSON.parse(this.dataJsonstr).contract_skill_req.split(',');
-
+    // if (JSON.parse(this.dataJsonstr).contract_skill_req.indexOf(',') !== -1) {
+    //   var skillList = JSON.parse(this.dataJsonstr).contract_skill_req.split(',');
     // } else {
-    //   var skill_list = [];
-    //   skill_list.push(JSON.parse(this.dataJsonstr).contract_skill_req);
+    //   var skillList = [];
+    //   skillList.push(JSON.parse(this.dataJsonstr).contract_skill_req);
     // }
     return {
       isLogin: false,
@@ -315,84 +281,128 @@ export default {
       contract_skill_req: [],
       skill_req: [],
       sk_c: {},
-      rea: readonly,
+      rea: readonly
     }
   },
   computed: {
 
   },
+  beforeMount () {
+
+  },
+  mounted () {
+    console.log('This is edit contract_skill_req component !')
+    var self = this
+    this.$element.customElement.addEventAction('echo', function (event, str) {
+      console.log(event)
+    })
+    this.$element.customElement.addEventAction('dook', function (event, str) {
+      // console.log(event);
+
+      console.log(event.from)
+      event.from.bind(self)(event.data, true)
+      // var eval_str = 'this.' + event.handler + '(event_order)'
+    })
+    this.$element.customElement.addEventAction('docancel', function (event, str) {
+      console.log(event)
+      console.log(str)
+    })
+    this.$element.customElement.addEventAction('logindone', function (event, str) {
+      console.log(event)
+      API.sessionId = event.sessionId
+      self.$set(self, 'isLogin', true)
+      self.$set(self, 'isUnion', event.userInfo.isUnion)
+      API.ajaxContractSkillReq(self.order_id, function (isOk, res) {
+        var pdata = res
+        console.log('pdata', pdata)
+        var skillList
+        if (pdata.contract_skill_req.indexOf(',') !== -1) {
+          skillList = pdata.contract_skill_req.split(',')
+        } else {
+          skillList = []
+          skillList.push(pdata.contract_skill_req)
+        }
+
+        self.list = pdata.list
+        self.check = false
+        self.contract_skill_req = []
+        self.skill_req = skillList
+        self.sk_c = pdata.sk_c
+
+        self.ajaxLoaded = true
+      })
+    })
+  },
   methods: {
-    init() {
-      console.log('should loading');
-      console.log(this.dataJson);
+    init () {
+      console.log('should loading')
+      console.log(this.dataJson)
     },
-    load_data() {
-      console.log('should set data');
+    load_data () {
+      console.log('should set data')
     },
-    changePhoneNumber_() {
+    changePhoneNumber_ () {
 
     },
-    checked_(id) {
-      return false;
+    checked_ (id) {
+      return false
     },
-    Checked_(id) {
-      this.checked_(id);
+    Checked_ (id) {
+      this.checked_(id)
     },
-    Change_(id) {},
-    check_: function(id) {
-      var self = this;
-      var skill = this.skill_req.length;
+    Change_ (id) {},
+    check_: function (id) {
+      var skill = this.skill_req.length
       for (var i = 0; i < skill; i++) {
-        if (id == this.skill_req[i]) {
-          return true;
+        if (id === this.skill_req[i]) {
+          return true
         } else {
-          return false;
+          return false
         }
       }
     },
-    changeChecked_(id, state) {
+    changeChecked_ (id, state) {
       if (!this.ajaxLoaded) {
-        console.error('can not save while data not loaded');
-        return false;
+        console.error('can not save while data not loaded')
+        return false
       }
-      var self = this;
-      var skill_list = this.skill_req;
-      var skill_req = [];
-      if (skill_list.indexOf(id.toString()) == -1) {
-        skill_req = skill_list;
-        skill_req.push(id.toString());
-
+      var self = this
+      var skillList = this.skill_req
+      var skillReq = []
+      if (skillList.indexOf(id.toString()) === -1) {
+        skillReq = skillList
+        skillReq.push(id.toString())
       } else {
-        var skill_list_ = skill_list;
-        var index = skill_list.indexOf(id.toString());
-        var c = skill_list.splice(index, 1);
-        for (var i = 0; i < skill_list_.length; i++) {
-          if (skill_list_[i] == c[0]) {} else {
-            skill_req.push(skill_list_[i]);
+        var skillList2 = skillList
+        var index = skillList.indexOf(id.toString())
+        var c = skillList.splice(index, 1)
+        for (var i = 0; i < skillList2.length; i++) {
+          if (skillList2[i] === c[0]) {} else {
+            skillReq.push(skillList2[i])
           }
         }
       }
-      var skill_l = [];
-      for (var i = 0; i < skill_req.length; i++) {
-        if (skill_req[i] == '') {} else {
-          skill_l.push(skill_req[i]);
+      var skillL = []
+      for (var j = 0; j < skillReq.length; j++) {
+        if (skillReq[j] === '') {} else {
+          skillL.push(skillReq[j])
         }
       }
-      var opts = {};
-      opts.id = JSON.parse(self.dataJsonstr).id;
-      opts.contract_skill_req = skill_l.join(',');
+      var opts = {}
+      opts.id = JSON.parse(self.dataJsonstr).id
+      opts.contract_skill_req = skillL.join(',')
 
-      API.saveIt_(opts, function(isOk, res) {
+      API.saveIt_(opts, function (isOk, res) {
         if (isOk) {
-          console.log('success');
+          console.log('success')
         }
-      });
+      })
     },
-    submit_() {
-	    var url =  '/edit_contract?id=' + JSON.parse(this.dataJsonstr).id;
+    submit_ () {
+      var url = '/edit_contract?id=' + JSON.parse(this.dataJsonstr).id
       // window.location.replace(url);
-      window.MIP.viewer.open(url,{replace:true});
-    },
+      window.MIP.viewer.open(url, {replace: true})
+    }
   }
 }
 </script>

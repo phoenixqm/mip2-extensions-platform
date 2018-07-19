@@ -1,23 +1,33 @@
 
 <template>
-<div class='root'>
+  <div class="root">
 
-  <div v-for="cat in categories" class="part">
-    <div class="sub_head">
-      <p>{{ cat.title }}</p>
+    <div
+      v-for="cat in categories"
+      :key="cat.title"
+      class="part">
+      <div class="sub_head">
+        <p>{{ cat.title }}</p>
+      </div>
+      <div
+        v-for="it in cat.children"
+        :key="it.title"
+        class="item">
+        <p for="it.id">
+          {{ it.title }}
+        </p>
+        <input
+          :disabled="read_only"
+          :checked="choiceDict[it.id]"
+          type="checkbox"
+          name="services"
+          readonly="true"
+          unselectable="on" >
+      </div>
     </div>
-    <div class="item" v-for="it in cat.children">
-      <p for="it.id">
-        {{ it.title }}
-      </p>
-	  <input type="checkbox" v-bind:disabled="read_only" name="services" readonly="true" unselectable="on" :checked="choiceDict[it.id]" ></input>
-	</div>
+
   </div>
-
-
-</div>
 </template>
-
 
 <style scoped>
 .wrapper {
@@ -171,54 +181,45 @@ input[type="checkbox"]:checked {
 </style>
 
 <script>
-var API = {};
+var API = {}
 
-function checkStatus(response) {
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
-function parseJSON(response) {
+function parseJSON (response) {
   return response.json()
 }
 
-API.wrapRet_ = function(api, opts, cb) {
-  console.log('posting to ' + api);
+API.wrapRet_ = function (api, opts, fn) {
+  console.log('posting to ' + api)
   fetch(api, {
-      method: 'POST',
-      credentials: "same-origin",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(opts)
-    })
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opts)
+  })
     .then(checkStatus)
     .then(parseJSON)
     .then(ret => {
-      if (ret.success) cb(true, ret.data);
-      else cb(false, ret.error);
+      if (ret.success) fn(true, ret.data)
+      else fn(false, ret.error)
     })
     .catch(e => {
-      console.error(e.message);
-      cb(false, e.message);
-    });
+      console.error(e.message)
+      fn(false, e.message)
+    })
 }
 
-
-
 export default {
-  beforeMount() {
-
-  },
-  mounted() {
-    console.log('This is my first custom component !')
-    console.log(this);
-  },
 
   props: {
     src: {
@@ -230,54 +231,54 @@ export default {
       default: null
     }
   },
-  data() {
-    var pdata = JSON.parse(this.dataJsonstr);
-    console.log(pdata);
-    var state = {};
-    var data = pdata;
-    var wholeList = data.whole_list;
-    var myList = data.my_list;
-    var readOnly = data.read_only;
+  data () {
+    var pdata = JSON.parse(this.dataJsonstr)
+    console.log(pdata)
+    var state = {}
+    var data = pdata
+    var wholeList = data.whole_list
+    var myList = data.my_list
+    // var readOnly = data.read_only
 
     // id => data mapping
-    var wholeDict = {};
-    wholeList.forEach(function(x) {
-      x.children = [];
-      wholeDict[x.id] = x;
-    });
-    wholeList.forEach(function(x) {
-      var parent = wholeDict[x.parent];
-      if(!parent) return;
-      parent.children.push(x);
-    });
+    var wholeDict = {}
+    wholeList.forEach(function (x) {
+      x.children = []
+      wholeDict[x.id] = x
+    })
+    wholeList.forEach(function (x) {
+      var parent = wholeDict[x.parent]
+      if (!parent) return
+      parent.children.push(x)
+    })
 
     // 分类
-    var categories = [];
-    wholeList.forEach(function(x) {
-      if(x.parent == 0) categories.push(x);
-    });
+    var categories = []
+    wholeList.forEach(function (x) {
+      if (x.parent === 0) categories.push(x)
+    })
 
     // 是否已经选择
-    var choiceDict = {};
-    myList.forEach(function(x) {
-      choiceDict[x.skill_id] = true;
-    });
-    wholeList.forEach(function(x) {
-      var v = state[x.id];
-      if (v === true) choiceDict[x.id] = true;
-      else if (v === false) choiceDict[x.id] = false;
-    }.bind(this));
+    var choiceDict = {}
+    myList.forEach(function (x) {
+      choiceDict[x.skill_id] = true
+    })
+    wholeList.forEach(function (x) {
+      var v = state[x.id]
+      if (v === true) choiceDict[x.id] = true
+      else if (v === false) choiceDict[x.id] = false
+    })
 
-    categories.sort(function(a, b) {
-      return a.order - b.order;
-    });
-    categories.map(function(c) {
-      c.children.sort(function(a,b) {
-        return a.order - b.order;
-      });
-    });
+    categories.sort(function (a, b) {
+      return a.order - b.order
+    })
+    categories.map(function (c) {
+      c.children.sort(function (a, b) {
+        return a.order - b.order
+      })
+    })
 
-    console.log(categories);
+    console.log(categories)
 
     return {
       whole_list: pdata.whole_list,
@@ -291,15 +292,21 @@ export default {
   computed: {
 
   },
-  methods: {
-    init() {
-      console.log('should loading');
-      console.log(this.dataJson);
-    },
-    load_data() {
-      console.log('should set data');
-    },
+  beforeMount () {
 
+  },
+  mounted () {
+    console.log('This is my first custom component !')
+    console.log(this)
+  },
+  methods: {
+    init () {
+      console.log('should loading')
+      console.log(this.dataJson)
+    },
+    load_data () {
+      console.log('should set data')
+    }
 
   }
 }

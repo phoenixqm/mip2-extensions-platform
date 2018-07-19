@@ -1,18 +1,33 @@
 
 <template>
-<div class="root">
-  <div class="text">
-    <p class="title">实时视频面试，可直接与护理师视频交流，与现场面试效果相似，但不受时间空间限制，免去车马劳顿，更加方便。</p>
-    <p class="title">需要先提交预约，由菩提果帮您协调视频时间。</p>
-    <mip-img layout="responsive" width="85px" height="22px" class="video_interview" src="i/v2/video_interview.png"></mip-img>
+  <div class="root">
+    <div class="text">
+      <p class="title">实时视频面试，可直接与护理师视频交流，与现场面试效果相似，但不受时间空间限制，免去车马劳顿，更加方便。</p>
+      <p class="title">需要先提交预约，由菩提果帮您协调视频时间。</p>
+      <mip-img
+        layout="responsive"
+        width="85px"
+        height="22px"
+        class="video_interview"
+        src="i/v2/video_interview.png"/>
+    </div>
+    <textarea
+      class="textarea hide"
+      name="mcode"
+      placeholder=""/>
+    <textarea
+      v-model="content"
+      class="textarea"
+      name="info"
+      placeholder="您方便的时间段，可不填"/>
+    <input
+      name="提交"
+      class="submit"
+      type="submit"
+      @click="handleSubmit_">
+
   </div>
-  <textarea class="textarea hide" name="mcode" placeholder=""></textarea>
-  <textarea class="textarea" name="info" placeholder="您方便的时间段，可不填" v-model="content"></textarea>
-  <input  name="提交" class="submit" @click="handleSubmit_" type="submit">
-
-</div>
 </template>
-
 
 <style scoped>
 .wrapper {
@@ -27,7 +42,6 @@
 body {
   background-color: #F1F5E2;
 }
-
 
 p {
   margin: 0px;
@@ -117,75 +131,55 @@ textarea.hide {
 </style>
 
 <script>
-var API = {};
+var API = {}
 
-function checkStatus(response) {
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
-function parseJSON(response) {
+function parseJSON (response) {
   return response.json()
 }
 
-API.wrapRet_ = function(api, opts, cb) {
-  console.log('posting to ' + api);
-  opts.mip_sid = API.sessionId || '';
+API.wrapRet_ = function (api, opts, fn) {
+  console.log('posting to ' + api)
+  opts.mip_sid = API.sessionId || ''
   fetch(api, {
-      method: 'POST',
-      credentials: "same-origin",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(opts)
-    })
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opts)
+  })
     .then(checkStatus)
     .then(parseJSON)
     .then(ret => {
-      if (ret.success) cb(true, ret.data);
-      else cb(false, ret.error);
+      if (ret.success) fn(true, ret.data)
+      else fn(false, ret.error)
     })
     .catch(e => {
-      console.error(e.message);
-      cb(false, e.message);
-    });
+      console.error(e.message)
+      fn(false, e.message)
+    })
 }
 
-API.submit_ = function(content,mcode, cb) {
+API.submit_ = function (content, mcode, fn) {
   API.wrapRet_(
     '/api/video_interview_master', {
       'info': content,
-      'mcode':mcode,
+      'mcode': mcode
     },
-    cb);
-};
+    fn)
+}
 
 export default {
-  mounted() {
-    var self = this;
-    this.$element.customElement.addEventAction('logindone', event => {
-      // 这里可以输出登录之后的数据
-
-      // 获取用户信息
-      console.log(event);
-      API.sessionId = event.sessionId;
-
-      self.$set(self, 'isLogin', true);
-      self.$set(self, 'isUnion', event.userInfo.isUnion);
-      if (!event.userInfo.isUnion) {
-        console.log('logindone to submit_ph');
-        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
-      }
-    });
-  },
-  firstInviewCallback() {
-    this.init()
-  },
   props: {
 
     src: {
@@ -198,42 +192,60 @@ export default {
 
     }
   },
-  data() {
-    console.log(this);
-    var pdata = JSON.parse(this.dataJsonstr);
-
-    var data = pdata.order;
+  data () {
+    console.log(this)
+    // var pdata = JSON.parse(this.dataJsonstr)
+    // var data = pdata.order
 
     return {
       content: '',
       isLogin: false,
-      isUnion: false,    
+      isUnion: false
     }
   },
   computed: {
 
   },
+  mounted () {
+    var self = this
+    this.$element.customElement.addEventAction('logindone', event => {
+      // 这里可以输出登录之后的数据
+
+      // 获取用户信息
+      console.log(event)
+      API.sessionId = event.sessionId
+
+      self.$set(self, 'isLogin', true)
+      self.$set(self, 'isUnion', event.userInfo.isUnion)
+      if (!event.userInfo.isUnion) {
+        console.log('logindone to submit_ph')
+        window.MIP.viewer.open('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href), {})
+      }
+    })
+  },
+  firstInviewCallback () {
+    this.init()
+  },
   methods: {
-    init() {
-      console.log('should loading');
-      console.log(this.dataJson);
+    init () {
+      console.log('should loading')
+      console.log(this.dataJson)
     },
-    load_data() {
-      console.log('should set data');
+    load_data () {
+      console.log('should set data')
     },
 
-    handleSubmit_() {
-      var mcode = JSON.parse(this.dataJsonstr).mcode;
+    handleSubmit_ () {
+      var mcode = JSON.parse(this.dataJsonstr).mcode
 
-      API.submit_(this.content,mcode,function(isOk,res){
-        if(isOk){
-          var url = '/update_time_ok?mcode=' + mcode ;
-          // window.location.replace(url);    
-          window.MIP.viewer.open(url,{replace:true});
+      API.submit_(this.content, mcode, function (isOk, res) {
+        if (isOk) {
+          var url = '/update_time_ok?mcode=' + mcode
+          // window.location.replace(url);
+          window.MIP.viewer.open(url, {replace: true})
         }
-      });
-
-    },
+      })
+    }
   }
 }
 </script>

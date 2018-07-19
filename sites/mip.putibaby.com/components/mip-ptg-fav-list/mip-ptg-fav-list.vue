@@ -1,35 +1,67 @@
 
 <template>
-<div class="row">
-  <div v-for="fav in favlist">
-    <div class="root" @click="handleBtn(fav)">
-      <mip-img layout="responsive" width="85px" height="22px"
-                  class="header" v-bind:src="fav.master.header.small" ></mip-img>
-      <!-- <img src={master.header.small} class="img"} /> -->
-      <div class="name">{{ fav.master.name }}</div>
-      <p class="starBox">
-          <mip-img v-for="j in fav.master.star_1_list" layout="responsive" width="12" height="12"
-           class="iconStar" src="/i/select_master_star.png" /></mip-img>
-          <mip-img v-for="j in fav.master.star_0_list" layout="responsive" width="12" height="12"
-           class="iconStar" src="/i/select_master_unstar.png" /></mip-img>
+  <div class="row">
+    <div
+      v-for="fav in favlist"
+      :key="fav.master.header.small"
+    >
+      <div
+        class="root"
+        @click="handleBtn(fav)">
+        <mip-img
+          :src="fav.master.header.small"
+          layout="responsive"
+          width="85px"
+          height="22px"
+          class="header" />
+        <!-- <img src={master.header.small} class="img"} /> -->
+        <div class="name">{{ fav.master.name }}</div>
+        <p class="starBox">
+          <mip-img
+            v-for="(item, index) in fav.master.star_1_list"
+            :key="index"
+            layout="responsive"
+            width="12"
+            height="12"
+            class="iconStar"
+            src="/i/select_master_star.png" />
+          <mip-img
+            v-for="(item, index) in fav.master.star_0_list"
+            :key="index"
+            layout="responsive"
+            width="12"
+            height="12"
+            class="iconStar"
+            src="/i/select_master_unstar.png" />
         </p>
-      <div class="price">￥{{ fav.master.price.ptg_price/100 }}</div>
-      <div class="info">
-        <mip-img layout="responsive" width="12px" height="12px"
-                    class="age_img" src="i/age.png" ></mip-img>
-        <span class="age">{{ fav.master.age }}岁</span>
-        <mip-img layout="responsive" width="12px" height="12px"
-                    class="work_year_img" src="i/work_year.png" ></mip-img>
-        <span class="work_year">{{ fav.master.work_year }}年</span>
-        <mip-img layout="responsive" width="12px" height="12px"
-                    class="jiguan_img" src="i/jiguan.png" ></mip-img>
-        <span class="jiguan">{{ fav.master.jiguan }}</span>
+        <div class="price">￥{{ fav.master.price.ptg_price/100 }}</div>
+        <div class="info">
+          <mip-img
+            layout="responsive"
+            width="12px"
+            height="12px"
+            class="age_img"
+            src="i/age.png" />
+          <span class="age">{{ fav.master.age }}岁</span>
+          <mip-img
+            layout="responsive"
+            width="12px"
+            height="12px"
+            class="work_year_img"
+            src="i/work_year.png" />
+          <span class="work_year">{{ fav.master.work_year }}年</span>
+          <mip-img
+            layout="responsive"
+            width="12px"
+            height="12px"
+            class="jiguan_img"
+            src="i/jiguan.png" />
+          <span class="jiguan">{{ fav.master.jiguan }}</span>
+        </div>
       </div>
     </div>
   </div>
-</div>  
 </template>
-
 
 <style scoped>
 .wrapper {
@@ -60,7 +92,7 @@ body{
   width: 68px;
   height: 68px;
   position: absolute;
- 
+
 }
 
 .name{
@@ -106,10 +138,10 @@ body{
   margin-right: 10px;
 }
  .age_img,.work_year_img,.jiguan_img{
- 	width:12px!important;
-	height:12px!important;
-	display:inline-block;
- } 
+  width:12px!important;
+  height:12px!important;
+  display:inline-block;
+ }
 
 .starBox {
   position: absolute;
@@ -127,106 +159,101 @@ body{
 
 <script>
 
-var API = {};
-function checkStatus(response) {
+var API = {}
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
-function parseJSON(response) {
-   return response.json()
+function parseJSON (response) {
+  return response.json()
 }
 
-API.wrapRet_ = function(api, opts, cb) {
-  console.log('posting to ' + api);
-  opts.mip_sid = API.sessionId || '';
-  fetch(api,{  
+API.wrapRet_ = function (api, opts, fn) {
+  console.log('posting to ' + api)
+  opts.mip_sid = API.sessionId || ''
+  fetch(api, {
     method: 'POST',
-    credentials: "same-origin",
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(opts)
   })
-  .then(checkStatus)
-  .then(parseJSON)
-  .then(ret => {
-    if(ret.success) cb(true, ret.data);
-    else cb(false, ret.error);
-  })  
-  .catch(e => {
-    console.error(e.message); 
-    cb(false, e.message);
-  });
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(ret => {
+      if (ret.success) fn(true, ret.data)
+      else fn(false, ret.error)
+    })
+    .catch(e => {
+      console.error(e.message)
+      fn(false, e.message)
+    })
 }
 
-
-
-API.ajaxFavList = function(opt, cb) {
+API.ajaxFavList = function (opt, fn) {
   API.wrapRet_(
-    '/api/ajax_fav_list', opt, cb);
-};
-
+    '/api/ajax_fav_list', opt, fn)
+}
 
 export default {
-  mounted () {
-    console.log('This is my first custom component !');
-    var self = this;
-    this.$element.customElement.addEventAction('logindone', function(event, str) {
-      console.log(event);
-      API.sessionId = event.sessionId;
-      API.ajaxFavList({}, function(isOk, res){
-        if (isOk) {
-          self.favlist = res.favlist;
-        } else {
-          console.error(res);
-        }
-      });
-    });
-  },
-   firstInviewCallback () {
-    this.init()
-  },
   props: {
     src: {
       type: String,
       default: null
     },
-	  dataJsonstr :{
-	    type: String,
-	    default: null  
-	  }        
+    dataJsonstr: {
+      type: String,
+      default: null
+    }
   },
   data () {
     return {
-		  favlist: []
+      favlist: []
     }
   },
   computed: {
-    
+
+  },
+  mounted () {
+    console.log('This is my first custom component !')
+    var self = this
+    this.$element.customElement.addEventAction('logindone', function (event, str) {
+      console.log(event)
+      API.sessionId = event.sessionId
+      API.ajaxFavList({}, function (isOk, res) {
+        if (isOk) {
+          self.favlist = res.favlist
+        } else {
+          console.error(res)
+        }
+      })
+    })
+  },
+  firstInviewCallback () {
+    this.init()
   },
   methods: {
     init () {
-      console.log('should loading');
+      console.log('should loading')
     },
 
     load_data () {
-      console.log('should set data');
-
+      console.log('should set data')
     },
 
-    handleBtn(fav){
+    handleBtn (fav) {
       // window.location.href = '/master_card?mcode=' + fav.master.mcode;
-      window.MIP.viewer.open('/master_card?mcode=' + fav.master.mcode, {});
-    },
+      window.MIP.viewer.open('https://mip.putibaby.com/master_card?mcode=' + fav.master.mcode, {})
+    }
 
   }
-
 
 }
 </script>

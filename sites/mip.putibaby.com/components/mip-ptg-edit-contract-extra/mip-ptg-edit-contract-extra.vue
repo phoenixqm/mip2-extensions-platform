@@ -1,11 +1,23 @@
 
 <template>
-<div class='root'>
-  <textarea class="textarea" name="edit_contract_extra" validatetype="must" :readonly="rea" required placeholder="点击输入补充条款，如：上户遇节假日工资多倍结算/休息日约定；双胞胎加收金额；特殊上户要求等……" v-model="contract_extra" v-on:change='saveIt_'></textarea>
-  <input class="mbtn" type="submit" value="提交" @click="submit_" v-show="!rea"></input>
-</div>
+  <div class="root">
+    <textarea
+      :readonly="rea"
+      v-model="contract_extra"
+      class="textarea"
+      name="edit_contract_extra"
+      validatetype="must"
+      required
+      placeholder="点击输入补充条款，如：上户遇节假日工资多倍结算/休息日约定；双胞胎加收金额；特殊上户要求等……"
+      @change="saveIt_"/>
+    <input
+      v-show="!rea"
+      class="mbtn"
+      type="submit"
+      value="提交"
+      @click="submit_">
+  </div>
 </template>
-
 
 <style scoped>
 .wrapper {
@@ -24,8 +36,6 @@ p {
   padding: 0px;
   font-family: '黑体';
 }
-
-body {}
 
 a {
   color: black !important;
@@ -101,109 +111,64 @@ a:hover {
 </style>
 
 <script>
-var API = {};
+var API = {}
 
-function checkStatus(response) {
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
-function parseJSON(response) {
+function parseJSON (response) {
   return response.json()
 }
 
-API.wrapRet_ = function(api, opts, cb) {
-  console.log('posting to ' + api);
-  opts.mip_sid = API.sessionId || '';
+API.wrapRet_ = function (api, opts, fn) {
+  console.log('posting to ' + api)
+  opts.mip_sid = API.sessionId || ''
   fetch(api, {
-      method: 'POST',
-      credentials: "same-origin",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(opts)
-    })
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opts)
+  })
     .then(checkStatus)
     .then(parseJSON)
     .then(ret => {
-      if (ret.success) cb(true, ret.data);
-      else cb(false, ret.error);
+      if (ret.success) fn(true, ret.data)
+      else fn(false, ret.error)
     })
     .catch(e => {
-      console.error(e.message);
-      cb(false, e.message);
-    });
+      console.error(e.message)
+      fn(false, e.message)
+    })
 }
 
-
-API.saveIt_ = function(opts, cb) {
+API.saveIt_ = function (opts, fn) {
   API.wrapRet_(
     '/api/set_contract', {
       'contract_extra': opts.contract_extra,
       'id': opts.id,
-      'order_id': opts.id,
+      'order_id': opts.id
     },
-    cb);
+    fn)
 }
-API.ajaxContractExtra = function(order_id, cb) {
+API.ajaxContractExtra = function (orderId, fn) {
   API.wrapRet_(
     '/api/ajax_contract_extra', {
-      'id': order_id,
-    }, cb);
+      'id': orderId
+    }, fn)
 }
 
 export default {
-  beforeMounted() {
+  beforeMounted () {
     // API.getExtra_();
-  },
-  mounted() {
-var self =this;
-    console.log('This is edit contract_extra component !');
-    this.$element.customElement.addEventAction('echo', function(event, str) {
-      console.log(event);
-    });
-    this.$element.customElement.addEventAction('dook', function(event, str) {
-      // console.log(event);
-      console.log(event.from);
-      event.from.bind(self)(event.data, true);
-      //var eval_str = 'this.' + event.handler + '(event_order)'
-    });
-    this.$element.customElement.addEventAction('docancel', function(event, str) {
-      console.log(event);
-      console.log(str);
-
-    });
-
-    function setData(ajaxData) {
-      console.log(ajaxData);
-      var pdata = ajaxData;
-      if (pdata.readonly != '1') {
-        var readonly = false;
-      } else {
-        var readonly = true;
-      }
-      if (pdata.readonly == '1' && pdata.contract_extra == '') {
-        pdata.contract_extra = '无补充条款';
-      }
-      self.rea = readonly;
-      self.contract_extra = pdata.contract_extra;
-      self.ajaxLoaded = true;
-    }
-
-    this.$element.customElement.addEventAction('logindone', function(event, str) {
-      console.log(event);
-      API.sessionId = event.sessionId;
-      self.$set(self, 'isLogin', true);
-      self.$set(self, 'isUnion', event.userInfo.isUnion);
-      API.ajaxContractExtra(self.order_id, function(isOk, res){
-        setData(res);
-      });
-    });
   },
 
   props: {
@@ -216,58 +181,101 @@ var self =this;
       default: null
     }
   },
-  data() {
-    console.log('data:', this);
-    var pdata = JSON.parse(this.dataJsonstr);
-    if (pdata.readonly != '1') {
-      var readonly = false;
+  data () {
+    console.log('data:', this)
+    var pdata = JSON.parse(this.dataJsonstr)
+    var readonly
+    if (pdata.readonly !== '1') {
+      readonly = false
     } else {
-      var readonly = true;
+      readonly = true
     }
 
     return {
       ajaxLoaded: false,
-      order_id : pdata.id,
+      order_id: pdata.id,
       rea: readonly,
-      contract_extra: '',
+      contract_extra: ''
     }
   },
   computed: {
 
   },
-  methods: {
-    init() {
-      console.log('should loading');
-      console.log(this.dataJson);
-    },
-    load_data() {
-      console.log('should set data');
-    },
-    saveIt_() {
-      if (!this.ajaxLoaded) {
-        console.error('can not save while data not loaded');
-        return false;
+  mounted () {
+    var self = this
+    console.log('This is edit contract_extra component !')
+    this.$element.customElement.addEventAction('echo', function (event, str) {
+      console.log(event)
+    })
+    this.$element.customElement.addEventAction('dook', function (event, str) {
+      // console.log(event);
+      console.log(event.from)
+      event.from.bind(self)(event.data, true)
+      // var eval_str = 'this.' + event.handler + '(event_order)'
+    })
+    this.$element.customElement.addEventAction('docancel', function (event, str) {
+      console.log(event)
+      console.log(str)
+    })
+
+    function setData (ajaxData) {
+      console.log(ajaxData)
+      var pdata = ajaxData
+      var readonly
+      if (pdata.readonly !== '1') {
+        readonly = false
+      } else {
+        readonly = true
       }
-      var self = this;
-      var opts = {};
-      opts.contract_extra = self.contract_extra;
-      opts.id = JSON.parse(self.dataJsonstr).id;
-      API.saveIt_(opts, function(isOk, res) {
+      if (pdata.readonly === '1' && pdata.contract_extra === '') {
+        pdata.contract_extra = '无补充条款'
+      }
+      self.rea = readonly
+      self.contract_extra = pdata.contract_extra
+      self.ajaxLoaded = true
+    }
+
+    this.$element.customElement.addEventAction('logindone', function (event, str) {
+      console.log(event)
+      API.sessionId = event.sessionId
+      self.$set(self, 'isLogin', true)
+      self.$set(self, 'isUnion', event.userInfo.isUnion)
+      API.ajaxContractExtra(self.order_id, function (isOk, res) {
+        setData(res)
+      })
+    })
+  },
+  methods: {
+    init () {
+      console.log('should loading')
+      console.log(this.dataJson)
+    },
+    load_data () {
+      console.log('should set data')
+    },
+    saveIt_ () {
+      if (!this.ajaxLoaded) {
+        console.error('can not save while data not loaded')
+        return false
+      }
+      var self = this
+      var opts = {}
+      opts.contract_extra = self.contract_extra
+      opts.id = JSON.parse(self.dataJsonstr).id
+      API.saveIt_(opts, function (isOk, res) {
         if (isOk) {
-          console.log('success');
+          console.log('success')
         } else {
 
         }
-      });
-
+      })
     },
-    submit_() {
-      var self = this;
-      var url = '/edit_contract?id=' + JSON.parse(self.dataJsonstr).id;
+    submit_ () {
+      var self = this
+      var url = '/edit_contract?id=' + JSON.parse(self.dataJsonstr).id
       // window.location.href = url;
-      window.MIP.viewer.open(url,{replace:true});
-
-    },
+      window.MIP.viewer.open(url, {replace: true})
+    }
   }
 }
 </script>

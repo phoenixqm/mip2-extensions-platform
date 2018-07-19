@@ -1,45 +1,79 @@
 
 <template>
-<div class="root">
-  <p class="title">需要您填写如下信息，让我们帮您更好的推荐。</p>
-  <h4>您希望找：</h4>
-  <div class="gap"></div>
-  <div class="ygap"></div>
-  <table class="radio">
-    <tr>
-      <td>
-        <div class="yuesao" :class="{'checked': tuijian,'unchecked':!tuijian}" @click="Checked"></div>
-        <input type="radio" name="masterType" value="true" v-on:change="checked_" :checked="tuijian" v-model="tuijian">月嫂&nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="root">
+    <p class="title">需要您填写如下信息，让我们帮您更好的推荐。</p>
+    <h4>您希望找：</h4>
+    <div class="gap"/>
+    <div class="ygap"/>
+    <table class="radio">
+      <tr>
+        <td>
+          <div
+            :class="{'checked': tuijian,'unchecked':!tuijian}"
+            class="yuesao"
+            @click="Checked"/>
+          <input
+            :checked="tuijian"
+            v-model="tuijian"
+            type="radio"
+            name="masterType"
+            value="true"
+            @change="checked_">月嫂&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="grayys">在月子期间护理新生儿和产妇</span></td>
-    </tr>
-    <tr>
-      <td>
-        <div class="yuer" :class="{'checked': !tuijian,'unchecked':tuijian}" @click="Checked"></div>
-        <input type="radio" name="masterType" value="false" v-on:change="checked_" :checked="!tuijian" v-model="tuijian">育儿嫂&nbsp;&nbsp;&nbsp;&nbsp;
+      </tr>
+      <tr>
+        <td>
+          <div
+            :class="{'checked': !tuijian,'unchecked':tuijian}"
+            class="yuer"
+            @click="Checked"/>
+          <input
+            :checked="!tuijian"
+            v-model="tuijian"
+            type="radio"
+            name="masterType"
+            value="false"
+            @change="checked_">育儿嫂&nbsp;&nbsp;&nbsp;&nbsp;
         <span class="grayyrs">为0-3岁幼儿提供照料和早教服务</span></td>
-    </tr>
-  </table>
-  <p class="margin"> </p>
-  <table class="name_table">
-    <tr>
-      <td>姓名：</td>
-      <td><input type="text" name="name" class="name your_name" v-model="name" required="required" placeholder="请填写您的称呼"></td>
-    </tr>
-  </table>
-  <div class="g"></div>
-  <table class="ycq_table">
-    <tr>
-      <td class="ycq_td">宝宝生日\预产期：</td>
-      <td><input type="date" name="ycq" class="name ycq" v-model="date" required="required"></td>
-    </tr>
-  </table>
-  <div class="err" v-show="rea">请填写姓名和宝宝预产期</div>
-  <div class="gl"></div>
-  <input type="submit" name="提交" class="submit" @click="handleSubmit_">
+      </tr>
+    </table>
+    <p class="margin"/>
+    <table class="name_table">
+      <tr>
+        <td>姓名：</td>
+        <td><input
+          v-model="name"
+          type="text"
+          name="name"
+          class="name your_name"
+          required="required"
+          placeholder="请填写您的称呼"></td>
+      </tr>
+    </table>
+    <div class="g"/>
+    <table class="ycq_table">
+      <tr>
+        <td class="ycq_td">宝宝生日\预产期：</td>
+        <td><input
+          v-model="date"
+          type="date"
+          name="ycq"
+          class="name ycq"
+          required="required"></td>
+      </tr>
+    </table>
+    <div
+      v-show="rea"
+      class="err">请填写姓名和宝宝预产期</div>
+    <div class="gl"/>
+    <input
+      type="submit"
+      name="提交"
+      class="submit"
+      @click="handleSubmit_">
 
-</div>
+  </div>
 </template>
-
 
 <style scoped>
 .wrapper {
@@ -148,7 +182,6 @@ table tr td {
   height: 44px;
 }
 
-
 .radio {
   position: relative;
   padding-left: 15px;
@@ -188,7 +221,6 @@ table tr td {
   background-color: #f3f3f3;
   margin-left: -10px;
 }
-
 
 .mip_form {
   margin-left: 10px;
@@ -292,76 +324,56 @@ table tr td {
 </style>
 
 <script>
-var API = {};
+var API = {}
 
-function checkStatus(response) {
+function checkStatus (response) {
   if (response.status >= 200 && response.status < 300) {
-    return response;
+    return response
   } else {
-    var error = new Error(response.statusText);
-    error.response = response;
-    throw error;
+    var error = new Error(response.statusText)
+    error.response = response
+    throw error
   }
 }
 
-function parseJSON(response) {
+function parseJSON (response) {
   return response.json()
 }
 
-API.wrapRet_ = function(api, opts, cb) {
-  console.log('posting to ' + api);
-  opts.mip_sid = API.sessionId || '';
+API.wrapRet_ = function (api, opts, fn) {
+  console.log('posting to ' + api)
+  opts.mip_sid = API.sessionId || ''
   fetch(api, {
-      method: 'POST',
-      credentials: "same-origin",
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(opts)
-    })
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(opts)
+  })
     .then(checkStatus)
     .then(parseJSON)
     .then(ret => {
-      if (ret.success) cb(true, ret.data);
-      else cb(false, ret.error);
+      if (ret.success) fn(true, ret.data)
+      else fn(false, ret.error)
     })
     .catch(e => {
-      console.error(e.message);
-      cb(false, e.message);
-    });
+      console.error(e.message)
+      fn(false, e.message)
+    })
 }
 
-API.update_ycq = function(name, ycq, masterType, cb) {
+API.update_ycq = function (name, ycq, masterType, fn) {
   API.wrapRet_(
     '/api/update_ycq', {
       'name': name,
       'ycq': ycq,
       'masterType': masterType
     },
-    cb);
-};
+    fn)
+}
 
 export default {
-  mounted() {
-    var self = this;
-    this.$element.customElement.addEventAction('logindone', event => {
-      // 这里可以输出登录之后的数据
-
-      // 获取用户信息
-      console.log(event);
-      API.sessionId = event.sessionId;
-
-      self.$set(self, 'isLogin', true);
-      self.$set(self, 'isUnion', event.userInfo.isUnion);
-      if (!event.userInfo.isUnion) {
-        console.log('logindone to submit_ph');
-        window.MIP.viewer.open('/submit_ph?to=' + encodeURIComponent(window.location.href), {});
-      }
-    });
-  },
-  firstInviewCallback() {
-    this.init()
-  },
   props: {
 
     src: {
@@ -374,11 +386,10 @@ export default {
 
     }
   },
-  data() {
-    console.log(this);
-    var pdata = JSON.parse(this.dataJsonstr);
-
-    var data = pdata.order;
+  data () {
+    console.log(this)
+    // var pdata = JSON.parse(this.dataJsonstr)
+    // var data = pdata.order
 
     return {
       isLogin: false,
@@ -387,43 +398,62 @@ export default {
       dateChecked: true,
       name: '',
       date: '',
-      tuijian: true,
+      tuijian: true
     }
   },
   computed: {
 
   },
+  mounted () {
+    var self = this
+    this.$element.customElement.addEventAction('logindone', event => {
+      // 这里可以输出登录之后的数据
+
+      // 获取用户信息
+      console.log(event)
+      API.sessionId = event.sessionId
+
+      self.$set(self, 'isLogin', true)
+      self.$set(self, 'isUnion', event.userInfo.isUnion)
+      if (!event.userInfo.isUnion) {
+        console.log('logindone to submit_ph')
+        window.MIP.viewer.open('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href), {})
+      }
+    })
+  },
+  firstInviewCallback () {
+    this.init()
+  },
   methods: {
-    init() {
-      console.log('should loading');
-      console.log(this.dataJson);
+    init () {
+      console.log('should loading')
+      console.log(this.dataJson)
     },
-    load_data() {
-      console.log('should set data');
+    load_data () {
+      console.log('should set data')
     },
 
-    Checked() {
-      this.tuijian = !this.tuijian;
-
+    Checked () {
+      this.tuijian = !this.tuijian
     },
-    handleSubmit_() {
-      if (this.name == '' || this.date == '') {
-        this.rea = true;
-        return;
+    handleSubmit_ () {
+      if (this.name === '' || this.date === '') {
+        this.rea = true
+        return
       }
-      if (this.tuijian == true) {
-        var masterType = 'yuesao';
+      var masterType
+      if (this.tuijian === true) {
+        masterType = 'yuesao'
       } else {
-        var masterType = 'yuersao';
+        masterType = 'yuersao'
       }
-      API.update_ycq(this.name, this.date, masterType, function(isOk, res){
+      API.update_ycq(this.name, this.date, masterType, function (isOk, res) {
         if (isOk) {
           // window.location.replace(url);
-          window.MIP.viewer.open('/update_ycq_ok',{replace:true});          
+          window.MIP.viewer.open('https://mip.putibaby.com/update_ycq_ok', {replace: true})
         }
-      });
-
-    },
+      })
+    }
   }
 }
 </script>

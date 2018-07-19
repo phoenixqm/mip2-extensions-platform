@@ -194,7 +194,7 @@
               </tr>
             </tbody>
           </table>
-		  <span
+          <span
             id="lightbox-close"
             class="lightbox-close_qx"
             on="tap:my-lightbox2.toggle">取消</span>
@@ -1123,9 +1123,9 @@
     padding: 0% 2.5%;
     margin-top: 90px;
   }
-	
+
   .cardList{
-	margin-top:5px;
+    margin-top:5px;
   }
   .cardList .masterCard {
     width: 100%;
@@ -1368,30 +1368,30 @@
     text-align: center;
     margin-top: 7px;
     background-color: #fff;
-	border-collapse: collapse;
+    border-collapse: collapse;
   }
 
   .sort_by td {
     border-right: solid 1px #f4f4f4;
-	border-top: solid 1px #f4f4f4;
+    border-top: solid 1px #f4f4f4;
     height: 35px;
     line-height: 35px;
     padding-left: 0px;
     font-size: 13px;
     width: 20%;
-	text-align:center;
+   text-align:center;
   }
 
   .sort_td .checked {
     background-color: #AFD03B;
-	border-top: solid 1px #f4f4f4;
+    border-top: solid 1px #f4f4f4;
     color: #fff;
-	border-right: solid 1px #f4f4f4;
+    border-right: solid 1px #f4f4f4;
   }
 
   .sort_by td mip-img {
     width: 100%;
-	margin: 0 auto;
+    margin: 0 auto;
   }
 
   .lightbox {
@@ -1470,7 +1470,7 @@
     border-radius: 3px;
     border:solid 1px #C2E64E;
     color: #c2e64e;
-	margin-right:8%;
+    margin-right:8%;
   }
 
   .lightbox-close {
@@ -1482,7 +1482,7 @@
     display: inline-block;
     margin-top: 30px;
     border-radius: 3px;
-	border:solid 1px #c2e64e;
+    border:solid 1px #c2e64e;
     background-color: #C2E64E;
     color: #fff;
   }
@@ -1577,7 +1577,6 @@
     display: inline-block;
     line-height: 52px;
   }
-
 
   .mip-infinitescroll-loading {
     width: 100%;

@@ -880,11 +880,11 @@
 
 </div>
 
-  <div class="rec_a">
+  <mip-fixed type="right" top="550px" class="rec_a">
     <a @click="handleUpdateYcq" mip-link>
       <mip-img class="rec_icon" layout="fixed" width="78px" height="50px" src='i/bwtj.png' ></mip-img>
     </a>
-  </div>
+  </mip-fixed>
 
 </div>
 </template>
@@ -1371,16 +1371,14 @@
   }
     .rec_a {
       display: block;
-      position: fixed;
       right: 0px;
-      bottom: 60px;
+      /*bottom: 60px;*/
       width: 80px;
       height: 50px;
       z-index: 999;
     }
 
     .rec_a .rec_icon {
-      position: fixed;
       display: inline-block;
       width: 80px;
       height: 50px;

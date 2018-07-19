@@ -40,12 +40,12 @@
     </div>  
   </div>
 
-  <div class="bottom">
+  <mip-fixed type="bottom" class="bottom">
     <a class="bottom_left" href="tel:4006188835">
       <mip-img src="/i/index_phone.png" width="132px" height="22px" class="bottom_left_img"></mip-img>
     </a>
     <a @click="handleOrderList"><mip-img src="/i/ind_person.png" width="38px" height="25px" class="bottom_right_img"></mip-img></a>
-  </div>
+  </mip-fixed>
 
   </div>
 </template>
@@ -147,13 +147,12 @@
 
       
       .bottom{
-        position: fixed;
         bottom: 0;
         height: 45px;
         line-height: 45px;
         background-color: #fff;
         width: 100%;
-		z-index:9999;
+        z-index:9999;
       }
       
       .bottom_left{

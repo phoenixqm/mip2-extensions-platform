@@ -877,7 +877,7 @@ export default {
         sessionStorage.next_cmd = '';
         API.favMaster(self.data.info.id, function(isOk, res){
           if (isOk) 
-            self.$set(self.data.info, 'isfav', data.fav);
+            self.$set(self.data.info, 'isfav', true);
         });
 
       } else if (event.userInfo.isUnion && 

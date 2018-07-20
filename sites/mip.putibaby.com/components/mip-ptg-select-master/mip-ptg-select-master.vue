@@ -1080,7 +1080,7 @@
 
     <mip-fixed
       type="right"
-      top="550px"
+      top="450px"
       class="rec_a">
       <a @click="handleUpdateYcq">
         <mip-img
@@ -1373,8 +1373,6 @@
 
   .sort_by td {
     border-right: solid 1px #f4f4f4;
-    height: 35px;
-    line-height: 35px;
     padding-left: 0px;
     font-size: 13px;
     width: 20%;
@@ -1431,7 +1429,7 @@
   }
 
   .citybar td {
-    width: 55px;
+    width: 53px;
     font-size: 12px;
     text-align: center;
     height: 30px;
@@ -1445,7 +1443,7 @@
   }
 
   .citybar td.checked {
-    width: 55px;
+    width: 53px;
     font-size: 12px;
     text-align: center;
     height: 30px;
@@ -1944,8 +1942,8 @@ export default {
     },
     load_data () {
       console.log('should set data')
-      this.state.loadMessage = '点击加载数据'
-
+      this.state.loadMessage = '数据正在加载中...'
+      this.list = []
       var self = this
       this.filter.pn = 0
       API.getSelectMaster(this.filter, function (isOk, res) {
@@ -1954,10 +1952,15 @@ export default {
           self.list = res.list
           if (res.list.length < 10) {
             self.state.loadMessage = '没有更多数据了!'
+          } else {
+            self.state.loadMessage = '点击加载数据'
           }
+        } else {
+          console.log(res)
+          self.state.loadMessage = '加载数据出错'
         }
       })
-    },
+     },
     load_more () {
       console.log('should set data')
       var self = this

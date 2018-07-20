@@ -1138,8 +1138,8 @@
   }
 
   .cardList .masterCard .mC_header {
-    width: 68px;
-    height: 68px;
+    width: 70px;
+    height: 70px;
   }
 
   .cardList .masterCard .mC_info {
@@ -1373,7 +1373,6 @@
 
   .sort_by td {
     border-right: solid 1px #f4f4f4;
-    border-top: solid 1px #f4f4f4;
     height: 35px;
     line-height: 35px;
     padding-left: 0px;
@@ -1384,7 +1383,6 @@
 
   .sort_td .checked {
     background-color: #AFD03B;
-    border-top: solid 1px #f4f4f4;
     color: #fff;
     border-right: solid 1px #f4f4f4;
   }
@@ -1502,6 +1500,7 @@
     background-color: #fff;
     padding-top: 7px;
     margin-top: 44px;
+    overflow: hidden;
   }
 
   .span_qt {
@@ -1627,7 +1626,7 @@
     /*bottom: 60px;*/
     width: 80px;
     height: 50px;
-    z-index: 999;
+    z-index: 999 !important;
   }
 
   .rec_a .rec_icon {

@@ -1800,28 +1800,28 @@ export default {
       // 获取用户信息
       console.log(event)
       API.sessionId = event.sessionId
-
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
-      var origin = API.next_cmd || sessionStorage.next_cmd
+      var origin = API.next_cmd || event.origin
+      // origin = origin || sessionStorage.next_cmd || localStorage.getItem('origin')
+
+      API.next_cmd = ''
+      // sessionStorage.next_cmd = ''
+      // localStorage.clear()
+
       if (event.userInfo.isUnion && origin === 'order_list') {
         console.log('logindone to order_list')
         window.MIP.viewer.open('https://mip.putibaby.com/order_list', {})
-        API.next_cmd = ''
-        sessionStorage.next_cmd = ''
-      } else if (event.userInfo.isUnionorigin === 'coupon') {
+      } else if (event.userInfo.isUnion && origin === 'coupon') {
         console.log('logindone to coupon')
         window.MIP.viewer.open('https://mip.putibaby.com/coupon', {})
-        API.next_cmd = ''
-        sessionStorage.next_cmd = ''
       } else if (event.userInfo.isUnion && origin === 'update_ycq') {
         console.log('logindone to update_ycq')
         window.MIP.viewer.open('https://mip.putibaby.com/update_ycq', {})
-        API.next_cmd = ''
-        sessionStorage.next_cmd = ''
-      } else if (!event.userInfo.isUnion) {
+      } else if (!event.userInfo.isUnion && origin) {
         console.log('logindone to submit_ph')
-        window.MIP.viewer.open('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href), {})
+        var to = '/' + origin
+        window.MIP.viewer.open('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to), {})
       }
     })
 
@@ -1914,12 +1914,26 @@ export default {
     clickBaiban () {
       this.filter2.shlxRow = '白班'
     },
+
     checkLogin_ (cmd) {
       if (!this.isLogin) {
         API.next_cmd = cmd
-        sessionStorage.next_cmd = cmd
-        console.log('go')
-        this.$emit('login')
+        // sessionStorage.next_cmd = cmd
+        // localStorage.setItem('origin', cmd)
+        // console.log(cmd)
+        if (cmd === 'coupon') {
+          this.$emit('login1')
+        } else if (cmd === 'order_list') {
+          this.$emit('login2')
+        } else if (cmd === 'update_ycq') {
+          this.$emit('login3')
+        }
+        return false
+      }
+      if (!this.isUnion) {
+        var to = '/' + cmd
+        window.MIP.viewer.open('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to), {})
+
         return false
       }
 
@@ -1960,7 +1974,7 @@ export default {
           self.state.loadMessage = '加载数据出错'
         }
       })
-     },
+    },
     load_more () {
       console.log('should set data')
       var self = this

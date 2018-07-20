@@ -1948,10 +1948,7 @@ export default {
     },
     handleOrderList () {
       console.log('handleOrderList')
-      if (!this.checkLogin_('order_list')) {
-        return
-      }
-      console.log(window)
+      if (!this.checkLogin_('order_list')) { return }
       window.MIP.viewer.open('https://mip.putibaby.com/order_list ', {})
     },
     load_data () {

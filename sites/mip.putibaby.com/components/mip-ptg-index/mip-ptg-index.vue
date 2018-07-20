@@ -119,6 +119,7 @@
   }
 
   .mip-carousel-indicator-wrapper {
+    display: none;
     text-align: center;
     background-color: rgba(0, 0, 0, .0);
     left: 44%;

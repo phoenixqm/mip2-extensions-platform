@@ -120,9 +120,8 @@
   .mip-carousel-indicator-wrapper {
     text-align: center;
     background-color: rgba(0, 0, 0, .0);
-    position: absolute;
-    top: 130px;
-    left: 190px;
+    left: 44%;
+    bottom: 10px;
   }
 
   .mip-layout-container {
@@ -272,10 +271,13 @@ export default {
 
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
-      var origin = API.next_cmd || event.origin || sessionStorage.next_cmd || localStorage.getItem('origin')
+      var origin = API.next_cmd || event.origin
+      // origin = origin || sessionStorage.next_cmd || localStorage.getItem('origin')
+
       API.next_cmd = ''
-      sessionStorage.next_cmd = ''
-      localStorage.clear()
+      // sessionStorage.next_cmd = ''
+      // localStorage.clear()
+
       if (event.userInfo.isUnion && origin === 'order_list') {
         console.log('logindone to order_list')
         window.MIP.viewer.open('https://mip.putibaby.com/order_list', {})

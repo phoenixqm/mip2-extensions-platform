@@ -84,6 +84,7 @@
   .top_level_1 {
     width: 100%;
     position: relative;
+    margin-top: 40px;
   }
 
   mip-form form {

@@ -1802,14 +1802,14 @@ export default {
       // 获取用户信息
       console.log(event)
       API.sessionId = event.sessionId
-      //self.$set(self, 'isLogin', true)
-      //self.$set(self, 'isUnion', event.userInfo.isUnion)
-	  self.isLogin = true
-	  self.isUnion = event.userInfo.isUnion
+      // self.$set(self, 'isLogin', true)
+      // self.$set(self, 'isUnion', event.userInfo.isUnion)
+      self.isLogin = true
+      self.isUnion = event.userInfo.isUnion
       var origin = API.next_cmd || event.origin
       // origin = origin || sessionStorage.next_cmd || localStorage.getItem('origin')
 
-	  console.log(origin);
+      console.log(origin)
       API.next_cmd = ''
       // sessionStorage.next_cmd = ''
       // localStorage.clear()

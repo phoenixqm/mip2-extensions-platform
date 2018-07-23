@@ -103,7 +103,7 @@
           <div
             v-if="true || order.showBtn_dianhualianxi"
             class="tuijianBtn"
-            @click="handleBtn_dianhualianxi(order)">电话联系</div>
+            @click="handleBtn_dianhualianxi(order)">联系客服</div>
           <div
             v-if="order.showBtn_nidinghetong"
             class="tuijianBtn boldBtn"

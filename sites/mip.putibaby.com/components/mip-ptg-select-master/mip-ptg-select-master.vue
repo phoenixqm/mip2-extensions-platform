@@ -1157,7 +1157,7 @@
     height: 16px;
     position: absolute;
     left: 135px;
-    margin-top: -22px;
+    margin-top: -18px;
   }
 
   .cardList .masterCard .mC_info .starBox mip-img {

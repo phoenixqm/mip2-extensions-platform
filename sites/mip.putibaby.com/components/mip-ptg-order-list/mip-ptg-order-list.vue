@@ -80,10 +80,7 @@
             v-if="order.showBtn_shipinyuyue"
             class="tuijianBtn"
             @click="handleBtn_shipinyuyue(order)">发起视频预约</div>
-          <div
-            v-if="order.showBtn_qianyue"
-            class="tuijianBtn boldBtn"
-            @click="handleBtn_qianyue(order)">签约</div>
+
           <div
             v-if="order.showBtn_chakanshipin"
             class=""
@@ -101,9 +98,13 @@
             class="tuijianBtn"
             @click="handleBtn_shanchu(order)">删除</div>
           <div
-            v-if="true || order.showBtn_dianhualianxi"
+            v-if="order.showBtn_dianhualianxi"
             class="tuijianBtn"
-            @click="handleBtn_dianhualianxi(order)">联系客服</div>
+            @click="handleBtn_dianhualianxi(order)">电话联系</div>
+          <div
+            v-if="true || order.showBtn_lianxikefu"
+            class="tuijianBtn"
+            @click="handleBtn_lianxikefu(order)">联系客服</div>
           <div
             v-if="order.showBtn_nidinghetong"
             class="tuijianBtn boldBtn"
@@ -117,13 +118,13 @@
             class="tuijianBtn boldBtn"
             @click="handleBtn_jiaodingjin(order)">交定金</div>
           <div
+            v-if="order.showBtn_qianyue"
+            class="tuijianBtn boldBtn"
+            @click="handleBtn_qianyue(order)">签约</div>
+          <div
             v-if="order.showBtn_shanghu"
             class="tuijianBtn boldBtn"
             @click="handleBtn_shanghu(order)">上户</div>
-          <div
-            v-if="order.showBtn_lianxikefu"
-            class="tuijianBtn"
-            @click="handleBtn_lianxikefu(order)">联系客服</div>
           <div
             v-if="order.showBtn_fukuan"
             class="tuijianBtn boldBtn"

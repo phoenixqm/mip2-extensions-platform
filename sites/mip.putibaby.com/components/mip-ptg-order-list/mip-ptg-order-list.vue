@@ -101,7 +101,7 @@
             class="tuijianBtn"
             @click="handleBtn_shanchu(order)">删除</div>
           <div
-            v-if="order.showBtn_dianhualianxi"
+            v-if="true || order.showBtn_dianhualianxi"
             class="tuijianBtn"
             @click="handleBtn_dianhualianxi(order)">电话联系</div>
           <div
@@ -173,7 +173,7 @@ body {
   color: #afd03b;
   cursor: pointer;
   float: right;
-  font-size: 13px;
+  font-size: 15px;
 }
 .row_header {
   height: 30px;
@@ -212,11 +212,11 @@ body {
 .tuijianBtn {
   border: 1px solid #afd03b;
   display: inline-block;
-  border-radius: 5px;
-  height: 13px;
-  line-height: 13px;
-  font-size: 13px;
-  padding: 3px 3px;
+    border-radius: 15px;
+    height: 14px;
+    line-height: 14px;
+    font-size: 14px;
+    padding: 3px 8px;
   margin: 5px 0px 8px 1px;
   color: #afd03b;
   cursor: pointer;

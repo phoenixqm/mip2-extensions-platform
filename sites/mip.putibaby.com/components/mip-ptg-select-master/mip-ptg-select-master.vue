@@ -1141,8 +1141,6 @@
     width: 70px;
     height: 70px;
     border-top-left-radius:2px;
-    border-top-right-radius:2px;
-    border-bottom-right-radius:2px;
     border-bottom-left-radius:2px;
   }
 

@@ -1836,14 +1836,14 @@ export default {
     var sorttd = document.querySelectorAll('.sort_td')
     var radiobtn = document.querySelectorAll('.radio_btn')
 
-    sortZH.addEventListener('click', function () {
+    sortZH.addEventListener('touchend', function () {
       removeClass(sorttd, 'checked')
       addClass(sortZH, 'checked')
       self.filter.sort_by = ''
       self.load_data()
     })
 
-    sortPrice.addEventListener('click', function () {
+    sortPrice.addEventListener('touchend', function () {
       removeClass(sorttd, 'checked')
       addClass(sortPrice, 'checked')
       if (self.filter.sort_by === 'price_desc') {
@@ -1854,7 +1854,7 @@ export default {
       self.load_data()
     })
 
-    sortJY.addEventListener('click', function () {
+    sortJY.addEventListener('touchend', function () {
       removeClass(sorttd, 'checked')
       addClass(sortJY, 'checked')
       if (self.filter.sort_by === 'jy_desc') {
@@ -1865,7 +1865,7 @@ export default {
       self.load_data()
     })
 
-    sortAge.addEventListener('click', function () {
+    sortAge.addEventListener('touchend', function () {
       removeClass(sorttd, 'checked')
       addClass(sortAge, 'checked')
       if (self.filter.sort_by === 'age_asc') {
@@ -1880,7 +1880,7 @@ export default {
     // var cityVal = document.querySelector('#btn-open').innerHTML
 
     for (var i = 0; i < citytd.length; i++) {
-      citytd[i].addEventListener('click', function () {
+      citytd[i].addEventListener('touchend', function () {
         removeClass(citytd, 'checked')
         addClass(this, 'checked')
         self.filter.city = this.innerHTML
@@ -1888,7 +1888,7 @@ export default {
     }
 
     for (var j = 0; j < radiobtn.length; j++) {
-      radiobtn[j].addEventListener('click', function () {
+      radiobtn[j].addEventListener('touchend', function () {
         removeClass(radiobtn, 'radio_check')
         addClass(this, 'radio_check')
         self.filter.shlxRow = this.innerHTML

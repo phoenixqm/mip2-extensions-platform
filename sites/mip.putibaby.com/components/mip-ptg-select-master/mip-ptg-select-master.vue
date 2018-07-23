@@ -35,7 +35,10 @@
                     validatetarget="kw"
                     placeholder="输入月嫂的姓名搜索"
                     @keyup.enter="search"></form>
-                <slot name="sousuo"/>
+                <mip-img
+                  class="sousuo_icon mip-element mip-layout-container mip-img-loaded"
+                  src="/i/sousuo.png" />
+
                 <a
                   class="person"
                   @touchend="handleOrderList">
@@ -1029,12 +1032,28 @@
 
                   </p>
                   <div class="mC_Des">
-                    <slot name="age"/>
-                    <span>{{ m.desc_list_0 }}</span>
-                    <slot name="workyear"/>
-                    <span>{{ m.desc_list_2 }}</span>
-                    <slot name="jiguan"/>
-                    <span>{{ m.desc_list_1 }}</span>
+                    <span>
+                      <mip-img
+                        layout="responsive"
+                        width="11"
+                        height="11"
+                        class="icon"
+                        src="/i/age.png"/>
+                      {{ m.desc_list_0 }}</span>
+                    <span><mip-img
+                      layout="responsive"
+                      width="11"
+                      height="11"
+                      class="icon"
+                      src="/i/work_year.png"/>
+                      {{ m.desc_list_2 }}</span>
+                    <span><mip-img
+                      layout="responsive"
+                      width="11"
+                      height="11"
+                      class="icon"
+                      src="/i/jiguan.png"/>
+                      {{ m.desc_list_1 }}</span>
                   </div>
                   <span class="ptgPrice"><b>￥{{ m.ptg_price }}</b></span>
                 </div>

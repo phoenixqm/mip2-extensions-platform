@@ -5,11 +5,11 @@
       :key="order.order_number"
       class="row">
       <p class="row_p">
-        <span class="status">
-          {{ order.desc_str }}
-        </span>
         <span class="row_header">
           编号: {{ order.order_number }}
+        </span>
+        <span class="status">
+          {{ order.desc_str }}
         </span>
       </p>
       <div
@@ -82,7 +82,7 @@
             @click="handleBtn_shipinyuyue(order)">发起视频预约</div>
           <div
             v-if="order.showBtn_qianyue"
-            class="tuijianBtn"
+            class="tuijianBtn boldBtn"
             @click="handleBtn_qianyue(order)">签约</div>
           <div
             v-if="order.showBtn_chakanshipin"
@@ -106,7 +106,7 @@
             @click="handleBtn_dianhualianxi(order)">电话联系</div>
           <div
             v-if="order.showBtn_nidinghetong"
-            class="tuijianBtn"
+            class="tuijianBtn boldBtn"
             @click="handleBtn_nidinghetong(order)">拟定合同</div>
           <div
             v-if="order.showBtn_chakanhetong"
@@ -114,11 +114,11 @@
             @click="handleBtn_chakanhetong(order)">查看合同</div>
           <div
             v-if="order.showBtn_jiaodingjin"
-            class="tuijianBtn"
+            class="tuijianBtn boldBtn"
             @click="handleBtn_jiaodingjin(order)">交定金</div>
           <div
             v-if="order.showBtn_shanghu"
-            class="tuijianBtn"
+            class="tuijianBtn boldBtn"
             @click="handleBtn_shanghu(order)">上户</div>
           <div
             v-if="order.showBtn_lianxikefu"
@@ -126,7 +126,7 @@
             @click="handleBtn_lianxikefu(order)">联系客服</div>
           <div
             v-if="order.showBtn_fukuan"
-            class="tuijianBtn"
+            class="tuijianBtn boldBtn"
             @click="handleBtn_fukuan(order)">付款</div>
             <!-- <div class="btn tuijianBtn" v-if="order.showBtn_xuqian" @click="handleBtn_xuqian(order)">续签</div> -->
         </div>
@@ -172,7 +172,7 @@ body {
   margin-right: 10px;
   color: #666;
   cursor: pointer;
-  float: right;
+  float: left;
   font-size: 13px;
 }
 
@@ -202,6 +202,8 @@ body {
   padding-left: 10px;
   color: #666;
   cursor: pointer;
+  float: right;
+  color: #afd03b;
   font-size: 13px;
 }
 
@@ -213,7 +215,7 @@ body {
 .tuijianBtn {
   border: 1px solid #afd03b;
   display: inline-block;
-  border-radius: 3px;
+  border-radius: 5px;
   height: 13px;
   line-height: 13px;
   font-size: 13px;
@@ -222,7 +224,10 @@ body {
   color: #afd03b;
   cursor: pointer;
 }
-
+.boldBtn{
+  background-color: #afd03b;
+  color: #fff;
+}
 .info {
   background: #fff;
   position: relative;

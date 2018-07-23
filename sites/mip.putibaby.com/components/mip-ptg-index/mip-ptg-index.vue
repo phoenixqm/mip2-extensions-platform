@@ -1,28 +1,6 @@
 <template>
   <div class="wrapper">
-    <div class="top_level_1">
-      <mip-carousel
-        autoplay
-        defer="3000"
-        width="400"
-        height="277"
-        layout="responsive"
-        indicator-id="mip-carousel-example">
-        <mip-img src="/i/b1.png"/>
-        <mip-img src="/i/b2.png"/>
-        <mip-img src="/i/b3.png"/>
-      </mip-carousel>
-      <div class="mip-carousel-indicator-wrapper">
-        <div
-          id="mip-carousel-example"
-          class="mip-carousel-indicatorDot">
-          <div class="mip-carousel-activeitem mip-carousel-indecator-item"/>
-          <div class="mip-carousel-indecator-item"/>
-          <div class="mip-carousel-indecator-item"/>
-          <div class="mip-carousel-indecator-item"/>
-        </div>
-      </div>
-    </div>
+ <slot name="banner"></slot>
     <div>
       <a @click="handleCoupon">
 		<slot name="yhq"></slot>
@@ -76,12 +54,6 @@
   }
 
   /* <!-- banner.css --> */
-
-  .top_level_1 {
-    width: 100%;
-    position: relative;
-    margin-top: 40px;
-  }
 
   mip-form form {
     position: relative;

@@ -26,6 +26,7 @@
 
               </td>
               <td class="sousuo_td">
+                <form action="">
                 <input
                   v-model="filter.kw"
                   type="search"
@@ -33,7 +34,7 @@
                   class="kw"
                   validatetarget="kw"
                   placeholder="输入月嫂的姓名搜索"
-                  @keyup.enter="search">
+                  @keyup.enter="search"></form>
                 <mip-img
                   class="sousuo_icon mip-element mip-layout-container mip-img-loaded"
                   src="/i/sousuo.png" />

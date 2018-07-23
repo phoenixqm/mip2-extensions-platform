@@ -166,16 +166,23 @@ body {
   border-bottom: 1px solid #f4f4f4;
 }
 
-.row_header {
+.status {
   height: 30px;
   line-height: 30px;
   margin-right: 10px;
-  color: #666;
+  color: #afd03b;
   cursor: pointer;
-  float: left;
+  float: right;
   font-size: 13px;
 }
-
+.row_header {
+  height: 30px;
+  line-height: 30px;
+  padding-left: 10px;
+  color: #666;
+  cursor: pointer;
+  font-size: 13px;
+}
 .row_footer {
   border-top: 1px solid #f4f4f4;
   background-color: #fff;
@@ -195,16 +202,6 @@ body {
   display: inline-block;
   margin-left:2px;
   float:left;
-}
-.status {
-  height: 30px;
-  line-height: 30px;
-  padding-left: 10px;
-  color: #666;
-  cursor: pointer;
-  float: right;
-  color: #afd03b;
-  font-size: 13px;
 }
 
 .btn_list {

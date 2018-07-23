@@ -36,6 +36,8 @@
                     placeholder="输入月嫂的姓名搜索"
                     @keyup.enter="search"></form>
                 <mip-img
+                  width="14px"
+                  height="14px"
                   class="sousuo_icon mip-element mip-layout-container mip-img-loaded"
                   src="/i/sousuo.png" />
 
@@ -1267,8 +1269,8 @@
   }
 
   .sousuo_icon {
-    width: 14px;
-    height: 14px;
+    /* width: 14px; */
+    /* height: 14px; */
     position: absolute;
     left: 10px;
     top: 7px;

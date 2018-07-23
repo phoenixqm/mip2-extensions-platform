@@ -25,18 +25,20 @@
     </div>
     <div>
       <a @click="handleCoupon">
-        <mip-img src="/i/yhq_jt.png"/>
+		<slot name="yhq"></slot>
       </a>
     </div>
     <div>
       <div class="find">
         <a @click="handleSelectMaster">
-          <mip-img src="/i/find_ys.png"/>
+
+		<slot name="sel"></slot>
         </a>
       </div>
       <div class="help">
         <a @click="handleUpdateYcq">
-          <mip-img src="/i/help_me.png"/>
+ 
+		<slot name="help"></slot>
         </a>
       </div>
     </div>
@@ -47,18 +49,12 @@
       <a
         class="bottom_left"
         href="tel:4006188835">
-        <mip-img
-          src="/i/index_phone.png"
-          width="132px"
-          height="22px"
-          class="bottom_left_img"/>
+ 
+		<slot name="call"></slot>
       </a>
       <a @click="handleOrderList">
-        <mip-img
-          src="/i/ind_person.png"
-          width="38px"
-          height="25px"
-          class="bottom_right_img"/>
+
+		<slot name="me"></slot>
       </a>
     </mip-fixed>
 

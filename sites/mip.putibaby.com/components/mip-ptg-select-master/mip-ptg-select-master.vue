@@ -1029,15 +1029,12 @@
 
                   </p>
                   <div class="mC_Des">
-                    <span>
-                      <slot name="age"/>
-                      {{ m.desc_list_0 }}</span>
-                    <span>
-                      <slot name="workyear"/>
-                      {{ m.desc_list_2 }}</span>
-                    <span>
-                      <slot name="jiguan"/>
-                      {{ m.desc_list_1 }}</span>
+                    <slot name="age"/>
+                    <span>{{ m.desc_list_0 }}</span>
+                    <slot name="workyear"/>
+                    <span>{{ m.desc_list_2 }}</span>
+                    <slot name="jiguan"/>
+                    <span>{{ m.desc_list_1 }}</span>
                   </div>
                   <span class="ptgPrice"><b>￥{{ m.ptg_price }}</b></span>
                 </div>

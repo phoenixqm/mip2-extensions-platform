@@ -1,22 +1,22 @@
 <template>
   <div class="wrapper">
- <slot name="banner"></slot>
+    <slot name="banner"/>
     <div>
       <a @click="handleCoupon">
-		<slot name="yhq"></slot>
+        <slot name="yhq"/>
       </a>
     </div>
     <div>
       <div class="find">
         <a @click="handleSelectMaster">
 
-		<slot name="sel"></slot>
+          <slot name="sel"/>
         </a>
       </div>
       <div class="help">
         <a @click="handleUpdateYcq">
- 
-		<slot name="help"></slot>
+
+          <slot name="help"/>
         </a>
       </div>
     </div>
@@ -27,12 +27,12 @@
       <a
         class="bottom_left"
         href="tel:4006188835">
- 
-		<slot name="call"></slot>
+
+        <slot name="call"/>
       </a>
       <a @click="handleOrderList">
 
-		<slot name="me"></slot>
+        <slot name="me"/>
       </a>
     </mip-fixed>
 

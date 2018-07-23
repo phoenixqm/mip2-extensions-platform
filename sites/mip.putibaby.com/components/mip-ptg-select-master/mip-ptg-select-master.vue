@@ -40,7 +40,7 @@
 
                 <a
                   class="person"
-                  @click="handleOrderList">
+                  @touchend="handleOrderList">
                   <mip-img
                     width="18px"
                     height="22px"
@@ -228,10 +228,10 @@
 
               <td class="qt_td"><span
                 class="radio_btn radio_check"
-                @click="clickQuantian">全天</span></td>
+                @touchend="clickQuantian">全天</span></td>
               <td class="bb_td"><span
                 class="radio_btn"
-                @click="clickBaiban">白班</span></td>
+                @touchend="clickBaiban">白班</span></td>
 
             </tr>
           </tbody>
@@ -1069,7 +1069,7 @@
         <div class="bg">
           <div
             class="mip-infinitescroll-loading"
-            @click="loadMoreClick">
+            @touchend="loadMoreClick">
             <p>{{ state.loadMessage }}</p>
           </div>
         </div>
@@ -1082,7 +1082,7 @@
       type="right"
       top="450px"
       class="rec_a">
-      <a @click="handleUpdateYcq">
+      <a @touchend="handleUpdateYcq">
         <mip-img
           class="rec_icon"
           layout="fixed"

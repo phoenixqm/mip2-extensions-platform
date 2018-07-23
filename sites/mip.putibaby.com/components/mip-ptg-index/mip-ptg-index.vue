@@ -8,9 +8,10 @@
         height="277"
         layout="responsive"
         indicator-id="mip-carousel-example">
-        <mip-img src="/i/b1.png"/>
+        <slot name="banner"></slot>
+        <!-- <mip-img src="/i/b1.png"/>
         <mip-img src="/i/b2.png"/>
-        <mip-img src="/i/b3.png"/>
+        <mip-img src="/i/b3.png"/> -->
       </mip-carousel>
       <div class="mip-carousel-indicator-wrapper">
         <div

@@ -1,6 +1,28 @@
 <template>
   <div class="wrapper">
-
+    <div class="top_level_1">
+      <mip-carousel
+        autoplay
+        defer="3000"
+        width="400"
+        height="277"
+        layout="responsive"
+        indicator-id="mip-carousel-example">
+        <mip-img src="/i/b1.png"/>
+        <mip-img src="/i/b2.png"/>
+        <mip-img src="/i/b3.png"/>
+      </mip-carousel>
+      <div class="mip-carousel-indicator-wrapper">
+        <div
+          id="mip-carousel-example"
+          class="mip-carousel-indicatorDot">
+          <div class="mip-carousel-activeitem mip-carousel-indecator-item"/>
+          <div class="mip-carousel-indecator-item"/>
+          <div class="mip-carousel-indecator-item"/>
+          <div class="mip-carousel-indecator-item"/>
+        </div>
+      </div>
+    </div>
     <div>
       <a @click="handleCoupon">
         <mip-img src="/i/yhq_jt.png"/>
@@ -57,7 +79,79 @@
     font-family: '黑体';
   }
 
- 
+  /* <!-- banner.css --> */
+
+  .top_level_1 {
+    width: 100%;
+    position: relative;
+    margin-top: 40px;
+  }
+
+  mip-form form {
+    position: relative;
+    left: 0px;
+    width: 90vw;
+  }
+
+  mip-form input[type='text'] {
+    padding-right: 30px;
+    width: 80%;
+    margin: auto;
+    position: relative;
+    top: 20px;
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  mip-form input[type='submit'] {
+    border: 1px solid #fe7834;
+    border-radius: 5px;
+    color: #333;
+    background-color: #fe7834;
+    width: 98%;
+    margin: auto;
+    position: relative;
+    top: 40px;
+  }
+
+  mip-carousel {
+    width: 100%;
+    height: 73.8%;
+  }
+
+  .mip-carousel-indicator-wrapper {
+    display: none;
+    text-align: center;
+    background-color: rgba(0, 0, 0, .0);
+    left: 44%;
+    bottom: 10px;
+  }
+
+  .mip-layout-container {
+    /* display: block; */
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin: auto;
+  }
+
+  .mip-login-container {
+    display: inline-block;
+  }
+
+  .test-login-div {
+    margin-bottom: 130px;
+  }
+
+  mip-form div {
+    display: none;
+    color: #ec1f5c;
+    font-size: 12px;
+    text-align: left;
+    padding: 0 10% 0 3%;
+    position: relative;
+    left: 30px;
+    top: 28px;
+  }
 
   .find {
     width: 44%;

@@ -27,27 +27,19 @@
               </td>
               <td class="sousuo_td">
                 <form action="">
-                <input
-                  v-model="filter.kw"
-                  type="search"
-                  name="kw"
-                  class="kw"
-                  validatetarget="kw"
-                  placeholder="输入月嫂的姓名搜索"
-                  @keyup.enter="search"></form>
-                <mip-img
-                  class="sousuo_icon mip-element mip-layout-container mip-img-loaded"
-                  src="/i/sousuo.png" />
-
+                  <input
+                    v-model="filter.kw"
+                    type="search"
+                    name="kw"
+                    class="kw"
+                    validatetarget="kw"
+                    placeholder="输入月嫂的姓名搜索"
+                    @keyup.enter="search"></form>
+                <slot name="sousuo"/>
                 <a
                   class="person"
                   @touchend="handleOrderList">
-                  <mip-img
-                    width="18px"
-                    height="22px"
-                    src="/i/card_per.png"
-                    class="mip-element mip-layout-fixed mip-layout-size-defined mip-img-loaded"
-                    style="width: 28px; height: 23px;" />
+                  <slot name="me"/>
                 </a>
               </td>
             </tr>
@@ -1038,26 +1030,13 @@
                   </p>
                   <div class="mC_Des">
                     <span>
-                      <mip-img
-                        layout="responsive"
-                        width="11"
-                        height="11"
-                        class="icon"
-                        src="/i/age.png"/>
+                      <slot name="age"/>
                       {{ m.desc_list_0 }}</span>
-                    <span><mip-img
-                      layout="responsive"
-                      width="11"
-                      height="11"
-                      class="icon"
-                      src="/i/work_year.png"/>
+                    <span>
+                      <slot name="workyear"/>
                       {{ m.desc_list_2 }}</span>
-                    <span><mip-img
-                      layout="responsive"
-                      width="11"
-                      height="11"
-                      class="icon"
-                      src="/i/jiguan.png"/>
+                    <span>
+                      <slot name="jiguan"/>
                       {{ m.desc_list_1 }}</span>
                   </div>
                   <span class="ptgPrice"><b>￥{{ m.ptg_price }}</b></span>
@@ -1084,12 +1063,7 @@
       bottom="50px"
       class="rec_a">
       <a @touchend="handleUpdateYcq">
-        <mip-img
-          class="rec_icon"
-          layout="fixed"
-          width="78px"
-          height="50px"
-          src="i/bwtj.png" />
+        <slot name="bwtj"/>
       </a>
     </mip-fixed>
 

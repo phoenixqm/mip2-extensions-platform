@@ -24,19 +24,19 @@
         </div>
       </div>
     </div>
-    <div @touchend="handleCoupon">
+    <div @click="handleCoupon">
       <mip-img src="https://mip.putibaby.com/i/yhq_jt.png"/>
       <!-- <slot name="yhq" /> -->
     </div>
     <div>
       <div
         class="find"
-        @touchend="handleSelectMaster">
+        @click="handleSelectMaster">
         <!-- <mip&#45;img src="https://mip.putibaby.com/i/find_ys.png"/> -->
       </div>
       <div
         class="help"
-        @touchend="handleUpdateYcq">
+        @click="handleUpdateYcq">
         <!-- <mip&#45;img src="https://mip.putibaby.com/i/help_me.png"/> -->
       </div>
     </div>
@@ -53,7 +53,7 @@
           height="22px"
           class="bottom_left_img"/>
       </a>
-      <a @touchend="handleOrderList">
+      <a @click="handleOrderList">
         <mip-img
           src="https://mip.putibaby.com/i/ind_person.png"
           width="38px"

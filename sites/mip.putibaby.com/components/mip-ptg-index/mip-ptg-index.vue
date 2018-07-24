@@ -1,23 +1,16 @@
 <template>
   <div class="wrapper">
-    <slot name="banner"/>
-    <div>
-      <a @click="handleCoupon">
-        <slot name="yhq"/>
-      </a>
+	<slot name="banner" />
+    <div @touchend="handleCoupon">
+        <mip-img src="https://mip.putibaby.com/i/yhq_jt.png"/>
+		<!-- <slot name="yhq" /> -->
     </div>
     <div>
-      <div class="find">
-        <a @click="handleSelectMaster">
-
-          <slot name="sel"/>
-        </a>
+      <div @touchend="handleSelectMaster" class="find">
+          <!-- <mip&#45;img src="https://mip.putibaby.com/i/find_ys.png"/> -->
       </div>
-      <div class="help">
-        <a @click="handleUpdateYcq">
-
-          <slot name="help"/>
-        </a>
+      <div @touchend="handleUpdateYcq" class="help">
+          <!-- <mip&#45;img src="https://mip.putibaby.com/i/help_me.png"/> -->
       </div>
     </div>
 
@@ -27,12 +20,18 @@
       <a
         class="bottom_left"
         href="tel:4006188835">
-
-        <slot name="call"/>
+         <mip-img
+        src="https://mip.putibaby.com/i/index_phone.png"
+    width="132px"
+    height="22px"
+    class="bottom_left_img"/> 
       </a>
-      <a @click="handleOrderList">
-
-        <slot name="me"/>
+      <a @touchend="handleOrderList">
+        <mip-img
+          src="https://mip.putibaby.com/i/ind_person.png"
+          width="38px"
+          height="25px"
+          class="bottom_right_img"/>
       </a>
     </mip-fixed>
 
@@ -54,6 +53,12 @@
   }
 
   /* <!-- banner.css --> */
+
+  .top_level_1 {
+    width: 100%;
+    position: relative;
+    margin-top: 40px;
+  }
 
   mip-form form {
     position: relative;
@@ -123,6 +128,8 @@
 
   .find {
     width: 44%;
+	background: url('https://mip.putibaby.com/i/find_ys.png') no-repeat;
+	background-size: contain;
     margin-left: 4%;
     margin-right: 2%;
     height: 150px;
@@ -132,6 +139,8 @@
 
   .help {
     width: 44%;
+	background: url('https://mip.putibaby.com/i/help_me.png') no-repeat;
+	background-size: contain;
     margin-left: 2%;
     margin-right: 4%;
     height: 150px;
@@ -156,7 +165,9 @@
     color: black;
     padding-left: 0;
   }
-
+	.call {
+	display:inline-block;
+	}
   .bottom_left_img {
     vertical-align: -6px;
   }

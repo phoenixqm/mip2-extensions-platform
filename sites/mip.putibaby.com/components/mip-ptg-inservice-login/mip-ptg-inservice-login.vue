@@ -60,7 +60,7 @@ API.wrapRet_ = function (api, opts, fn) {
 
 API.hideFinishedOrder = function (orderId, fn) {
   API.wrapRet_(
-    '/api/hide_finished_order', {
+    'https://mip.putibaby.com/api/hide_finished_order', {
       'id': orderId
     },
     fn)

@@ -114,12 +114,12 @@
               @change="changeZ" >
             <mip-img
               class="id_photo_z"
-              src="/i/camera_.png"
+              src="https://mip.putibaby.com/i/camera_.png"
               @click="fileSelectZ"/>
             <mip-img
               :class="{'show_opacity':show_z}"
               class="id_photo_zz"
-              src="/i/id_card_z.png"/>
+              src="https://mip.putibaby.com/i/id_card_z.png"/>
             <mip-img
               :src="contract_mama_id_card_zheng"
               :class="{'show_zheng':show_z}"
@@ -142,12 +142,12 @@
 
             <mip-img
               class="id_photo_f"
-              src="/i/camera_.png"
+              src="https://mip.putibaby.com/i/camera_.png"
               @click="fileSelectF"/>
             <mip-img
               :class="{'show_opacity':show_f}"
               class="id_photo_ff"
-              src="/i/id_card_f.png"/>
+              src="https://mip.putibaby.com/i/id_card_f.png"/>
             <mip-img
               :src="contract_mama_id_card_fan"
               :class="{'show_fan':show_f}"

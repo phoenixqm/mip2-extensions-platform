@@ -33,7 +33,7 @@
             width="12"
             height="12"
             class="iconStar"
-            src="/i/select_master_star.png"/>
+            src="https://mip.putibaby.com/i/select_master_star.png"/>
           <mip-img
             v-for="(item,index) in order.master.star_0_list"
             :key="index"
@@ -41,7 +41,7 @@
             width="12"
             height="12"
             class="iconStar iconStar_no"
-            src="/i/select_master_unstar.png"/>
+            src="https://mip.putibaby.com/i/select_master_unstar.png"/>
 
         </p>
 

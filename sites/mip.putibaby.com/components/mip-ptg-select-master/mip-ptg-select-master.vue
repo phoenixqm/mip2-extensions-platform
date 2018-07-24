@@ -39,7 +39,7 @@
                   width="14px"
                   height="14px"
                   class="sousuo_icon mip-element mip-layout-container mip-img-loaded"
-                  src="/i/sousuo.png" />
+                  src="https://mip.putibaby.com/i/sousuo.png" />
 
                 <a
                   class="person"
@@ -62,54 +62,54 @@
                 class="sort_td checked">
                 <mip-img
                   v-if="filter.sort_by == '' || !filter.sort_by"
-                  src="/i/zh_g.png" />
+                  src="https://mip.putibaby.com/i/zh_g.png" />
                 <mip-img
                   v-else
-                  src="/i/zh.png" />
+                  src="https://mip.putibaby.com/i/zh.png" />
               </td>
               <td
                 id="sortPrice"
                 class="sort_td">
                 <mip-img
                   v-if="filter.sort_by == 'price_asc'"
-                  src="/i/jgs_g.png" />
+                  src="https://mip.putibaby.com/i/jgs_g.png" />
                 <mip-img
                   v-else-if="filter.sort_by == 'price_desc'"
-                  src="/i/jgx_g.png" />
+                  src="https://mip.putibaby.com/i/jgx_g.png" />
                 <mip-img
                   v-else
-                  src="/i/jgx.png" />
+                  src="https://mip.putibaby.com/i/jgx.png" />
               </td>
               <td
                 id="sortJY"
                 class="sort_td">
                 <mip-img
                   v-if="filter.sort_by == 'jy_asc'"
-                  src="/i/jys_g.png" />
+                  src="https://mip.putibaby.com/i/jys_g.png" />
                 <mip-img
                   v-else-if="filter.sort_by == 'jy_desc'"
-                  src="/i/jyx_g.png" />
+                  src="https://mip.putibaby.com/i/jyx_g.png" />
                 <mip-img
                   v-else
-                  src="/i/jyx.png" />
+                  src="https://mip.putibaby.com/i/jyx.png" />
               </td>
               <td
                 id="sortAge"
                 class="sort_td">
                 <mip-img
                   v-if="filter.sort_by == 'age_desc'"
-                  src="/i/nlx_g.png" />
+                  src="https://mip.putibaby.com/i/nlx_g.png" />
                 <mip-img
                   v-else-if="filter.sort_by == 'age_asc'"
-                  src="/i/nls_g.png" />
+                  src="https://mip.putibaby.com/i/nls_g.png" />
                 <mip-img
                   v-else
-                  src="/i/nls.png" />
+                  src="https://mip.putibaby.com/i/nls.png" />
               </td>
               <td
                 class="shaixuan_btn"
                 on="tap:right-sidebar.open">
-                <mip-img src="/i/sx.png" />
+                <mip-img src="https://mip.putibaby.com/i/sx.png" />
               </td>
             </tr>
           </tbody>
@@ -1022,14 +1022,14 @@
                         width="12px"
                         height="12px"
                         class="star"
-                        src="/i/select_master_star.png"/>
+                        src="https://mip.putibaby.com/i/select_master_star.png"/>
                       <mip-img
                         v-else
                         layout="responisve"
                         width="12px"
                         height="12px"
                         class="star"
-                        src="/i/select_master_unstar.png"/>
+                        src="https://mip.putibaby.com/i/select_master_unstar.png"/>
                     </span>
 
                   </p>
@@ -1040,21 +1040,21 @@
                         width="11"
                         height="11"
                         class="icon"
-                        src="/i/age.png"/>
+                        src="https://mip.putibaby.com/i/age.png"/>
                       {{ m.desc_list_0 }}</span>
                     <span><mip-img
                       layout="responsive"
                       width="11"
                       height="11"
                       class="icon"
-                      src="/i/work_year.png"/>
+                      src="https://mip.putibaby.com/i/work_year.png"/>
                       {{ m.desc_list_2 }}</span>
                     <span><mip-img
                       layout="responsive"
                       width="11"
                       height="11"
                       class="icon"
-                      src="/i/jiguan.png"/>
+                      src="https://mip.putibaby.com/i/jiguan.png"/>
                       {{ m.desc_list_1 }}</span>
                   </div>
                   <span class="ptgPrice"><b>￥{{ m.ptg_price }}</b></span>

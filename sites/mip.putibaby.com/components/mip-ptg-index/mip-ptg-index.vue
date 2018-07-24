@@ -1,16 +1,20 @@
 <template>
   <div class="wrapper">
-	<slot name="banner" />
+    <slot name="banner" />
     <div @touchend="handleCoupon">
-        <mip-img src="https://mip.putibaby.com/i/yhq_jt.png"/>
-		<!-- <slot name="yhq" /> -->
+      <mip-img src="https://mip.putibaby.com/i/yhq_jt.png"/>
+      <!-- <slot name="yhq" /> -->
     </div>
     <div>
-      <div @touchend="handleSelectMaster" class="find">
-          <!-- <mip&#45;img src="https://mip.putibaby.com/i/find_ys.png"/> -->
+      <div
+        class="find"
+        @touchend="handleSelectMaster">
+        <!-- <mip&#45;img src="https://mip.putibaby.com/i/find_ys.png"/> -->
       </div>
-      <div @touchend="handleUpdateYcq" class="help">
-          <!-- <mip&#45;img src="https://mip.putibaby.com/i/help_me.png"/> -->
+      <div
+        class="help"
+        @touchend="handleUpdateYcq">
+        <!-- <mip&#45;img src="https://mip.putibaby.com/i/help_me.png"/> -->
       </div>
     </div>
 
@@ -20,11 +24,11 @@
       <a
         class="bottom_left"
         href="tel:4006188835">
-         <mip-img
-        src="https://mip.putibaby.com/i/index_phone.png"
-    width="132px"
-    height="22px"
-    class="bottom_left_img"/> 
+        <mip-img
+          src="https://mip.putibaby.com/i/index_phone.png"
+          width="132px"
+          height="22px"
+          class="bottom_left_img"/>
       </a>
       <a @touchend="handleOrderList">
         <mip-img
@@ -128,8 +132,7 @@
 
   .find {
     width: 44%;
-	background: url('https://mip.putibaby.com/i/find_ys.png') no-repeat;
-	background-size: contain;
+    background-size: contain;
     margin-left: 4%;
     margin-right: 2%;
     height: 150px;
@@ -139,8 +142,7 @@
 
   .help {
     width: 44%;
-	background: url('https://mip.putibaby.com/i/help_me.png') no-repeat;
-	background-size: contain;
+    background-size: contain;
     margin-left: 2%;
     margin-right: 4%;
     height: 150px;
@@ -165,9 +167,7 @@
     color: black;
     padding-left: 0;
   }
-	.call {
-	display:inline-block;
-	}
+
   .bottom_left_img {
     vertical-align: -6px;
   }

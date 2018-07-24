@@ -1,6 +1,29 @@
 <template>
   <div class="wrapper">
-    <slot name="banner" />
+    <!-- <slot name="banner" /> -->
+    <div class="top_level_1">
+      <mip-carousel
+        autoplay
+        defer="3000"
+        width="400"
+        height="277"
+        layout="responsive"
+        indicator-id="mip-carousel-example">
+        <mip-img src="https://mip.putibaby.com/i/b1.png"/>
+        <mip-img src="https://mip.putibaby.com/i/b2.png"/>
+        <mip-img src="https://mip.putibaby.com/i/b3.png"/>
+      </mip-carousel>
+      <div class="mip-carousel-indicator-wrapper">
+        <div
+          id="mip-carousel-example"
+          class="mip-carousel-indicatorDot">
+          <div class="mip-carousel-activeitem mip-carousel-indecator-item"/>
+          <div class="mip-carousel-indecator-item"/>
+          <div class="mip-carousel-indecator-item"/>
+          <div class="mip-carousel-indecator-item"/>
+        </div>
+      </div>
+    </div>
     <div @touchend="handleCoupon">
       <mip-img src="https://mip.putibaby.com/i/yhq_jt.png"/>
       <!-- <slot name="yhq" /> -->

@@ -35,7 +35,7 @@
           width="65"
           height="65"
           class="mama_header"
-          src="../i/logo.png"/>
+          src="https://mip.putibaby.com/i/logo.png"/>
         <div class="mama_name_b">丙方
           <span class="mama_info_span">天津菩提果科技有限公司</span>
         </div>

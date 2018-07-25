@@ -1222,7 +1222,7 @@
   }
 
   .line {
-    background: url('/i/show_master_card_footer_hb.png');
+    /* background: url('/i/show_master_card_footer_hb.png'); */
     width: 100%;
     height: 2px;
     background-size: contain;
@@ -1283,7 +1283,7 @@
     border-radius: 3px;
     font-size: 14px;
     height: 30px;
-    background-image: url('/i/sel_back.png');
+    /* background-image: url('/i/sel_back.png'); */
     background-size: 8px 14px;
     background-repeat: no-repeat;
     background-position: 60px;
@@ -1524,7 +1524,7 @@
     line-height: 15px;
     font-size: 14px;
     color: #666;
-    background-image: url('/i/date_back.png');
+    /* background-image: url('/i/date_back.png'); */
     background-size: 17px 18px;
     background-repeat: no-repeat;
     background-position: 135px;

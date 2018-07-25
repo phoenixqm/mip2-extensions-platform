@@ -466,7 +466,7 @@ export default {
     var master = pdata.data.master || {}
     var ysSkills = pdata.data.ys_skills || []
     var helper = pdata.data.helper || []
-	order.contract_shanghu_at = new Date(order.contract_shanghu_at)
+    order.contract_shanghu_at = new Date(order.contract_shanghu_at)
     var cfhl = ysSkills.filter(function (x) {
       return x.title === '产妇护理'
     })[0].list.map(function (x) {
@@ -506,8 +506,8 @@ export default {
       xsrhl: xsrhl,
       yrhl: yrhl,
       qtfw: qtfw,
-      bctk: bctk,
-	  
+      bctk: bctk
+
     }
   },
   computed: {
@@ -537,60 +537,57 @@ export default {
     load_data () {
       console.log('should set data')
     },
-getChineseNumber (v) {
-  if (v > 10) {
-    return 'X'
-  }
-  return '零壹贰叁肆伍陆柒捌玖'.substr(v, 1) || 'X'
-},
+    getChineseNumber (v) {
+      if (v > 10) {
+        return 'X'
+      }
+      return '零壹贰叁肆伍陆柒捌玖'.substr(v, 1) || 'X'
+    },
 
-// 必须是Date类型，并且不能是invalid date(要求年份 >= 1900)
-Helper_fix_date (v) {
-  
-  if (!(v instanceof Date && v.getFullYear() >= 1900)) {
-    return new Date('2009-01-01 00:00:00')
-  }
-  return v
-},
-// 把数字 1 转换成 大写的 壹
-Helper_digit_to_chinese (v) {
-  v = Math.floor(+v) % 10
-  if (isNaN(v) || v < 0) return '*'
-  return this.getChineseNumber(v)
-},
+    // 必须是Date类型，并且不能是invalid date(要求年份 >= 1900)
+    Helper_fix_date (v) {
+      if (!(v instanceof Date && v.getFullYear() >= 1900)) {
+        return new Date('2009-01-01 00:00:00')
+      }
+      return v
+    },
+    // 把数字 1 转换成 大写的 壹
+    Helper_digit_to_chinese (v) {
+      v = Math.floor(+v) % 10
+      if (isNaN(v) || v < 0) return '*'
+      return this.getChineseNumber(v)
+    },
 
-// 把数 11 转换为 大写的 壹拾壹
-Helper_number_to_chinese (v) {
-  v = Math.floor(+v)
-  if (isNaN(v) || v < 0) return '*'
+    // 把数 11 转换为 大写的 壹拾壹
+    Helper_number_to_chinese (v) {
+      v = Math.floor(+v)
+      if (isNaN(v) || v < 0) return '*'
 
-  var ret = ''
-  if (v >= 10000) {
-    ret += this.Helper_number_to_chinese(Math.floor(v / 10000)) + '万'
-    v %= 10000
-  }
-  if (v >= 1000) {
-    ret += this.Helper_digit_to_chinese(Math.floor(v / 1000)) + '仟'
-    v %= 1000
-  }
-  if (v >= 100) {
-    ret += this.Helper_digit_to_chinese(Math.floor(v / 100)) + '佰'
-    v %= 100
-  }
-  if (v >= 10) {
-    ret += this.Helper_digit_to_chinese(Math.floor(v / 10)) + '拾'
-    v %= 10
-  }
-  if (v > 0) {
-    ret += this.Helper_digit_to_chinese(v)
-  }
-  if (!ret) {
-    ret = '零'
-  }
-  return ret
-}
-
-
+      var ret = ''
+      if (v >= 10000) {
+        ret += this.Helper_number_to_chinese(Math.floor(v / 10000)) + '万'
+        v %= 10000
+      }
+      if (v >= 1000) {
+        ret += this.Helper_digit_to_chinese(Math.floor(v / 1000)) + '仟'
+        v %= 1000
+      }
+      if (v >= 100) {
+        ret += this.Helper_digit_to_chinese(Math.floor(v / 100)) + '佰'
+        v %= 100
+      }
+      if (v >= 10) {
+        ret += this.Helper_digit_to_chinese(Math.floor(v / 10)) + '拾'
+        v %= 10
+      }
+      if (v > 0) {
+        ret += this.Helper_digit_to_chinese(v)
+      }
+      if (!ret) {
+        ret = '零'
+      }
+      return ret
+    }
 
   }
 }

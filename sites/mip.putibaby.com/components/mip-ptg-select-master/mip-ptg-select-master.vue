@@ -1120,7 +1120,7 @@
   }
 
   .cardList{
-    margin-top:5px;
+   
   }
   .cardList .masterCard {
     width: 100%;
@@ -1129,7 +1129,8 @@
     border-radius: 3px;
     background-color: white;
     position: relative;
-    border: solid 1px #e5e5e5;
+	box-shadow:0px 5px 10px rgba(175,208,59,0.1);
+    
   }
 
   .cardList .masterCard .mC_header {
@@ -1493,9 +1494,9 @@
 
   .header {
     background-color: #fff;
-    padding-top: 7px;
     margin-top: 44px;
     overflow: hidden;
+	margin-bottom:10px;
   }
 
   .span_qt {

@@ -26,7 +26,7 @@
 
               </td>
               <td class="sousuo_td">
-                <form action="">
+				<form id="searchform" @submit.prevent="submit">
                   <input
                     v-model="filter.kw"
                     type="search"
@@ -34,7 +34,7 @@
                     class="kw"
                     validatetarget="kw"
                     placeholder="输入月嫂的姓名搜索"
-                    @keyup.enter="search"></form>
+					@keyup.enter.prevent="search"></form>
                 <mip-img
                   width="14px"
                   height="14px"
@@ -2035,6 +2035,9 @@ export default {
       e.target.blur()
       this.load_data()
     },
+	submit () {
+      return
+	},
     reload_ () {
       window.location.reload()
     }

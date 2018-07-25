@@ -147,7 +147,7 @@ a:hover {
 }
 
 .checked {
-  background-image: url('/i/balance_checked.png');
+  /* background-image: url('/i/balance_checked.png'); */
   background-size: 22px 22px;
   width: 22px;
   height: 22px;
@@ -158,7 +158,7 @@ a:hover {
 }
 
 .unchecked {
-  background-image: url('/i/balance_unchecked.png');
+  /* background-image: url('/i/balance_unchecked.png'); */
   background-size: 22px 22px;
   width: 22px;
   height: 22px;
@@ -170,7 +170,7 @@ a:hover {
 
 input[type="checkbox"] {
   -webkit-appearance: none;
-  background: #f4f4f4 url('/i/checkbox_22px.png');
+  /* background: #f4f4f4 url('/i/checkbox_22px.png'); */
   border-radius: 50%;
   border-style: none;
 }
@@ -202,9 +202,6 @@ API.wrapRet_ = function (api, opts, fn) {
   fetch(api, {
     method: 'POST',
     credentials: 'include',
-    headers: {
-      
-    },
     body: JSON.stringify(opts)
   })
     .then(checkStatus)

@@ -159,7 +159,7 @@
 }
 
 .checked {
-  background-image: url('/i/balance_checked.png');
+  /* background-image: url('/i/balance_checked.png'); */
   background-size: 22px 22px;
   width: 22px;
   height: 22px;
@@ -169,7 +169,7 @@
 }
 
 .unchecked {
-  background-image: url('/i/balance_unchecked.png');
+  /* background-image: url('/i/balance_unchecked.png'); */
   background-size: 22px 22px;
   width: 22px;
   height: 22px;
@@ -179,7 +179,7 @@
 }
 
 .go {
-  background-image: url('/i/jt-right.png');
+  /* background-image: url('/i/jt-right.png'); */
 }
 
 .tip {
@@ -243,9 +243,6 @@ API.wrapRet_ = function (api, opts, fn) {
   fetch(api, {
     method: 'POST',
     credentials: 'include',
-    headers: {
-      
-    },
     body: JSON.stringify(opts)
   })
     .then(checkStatus)

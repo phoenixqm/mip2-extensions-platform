@@ -107,9 +107,6 @@ API.wrapRet_ = function (api, opts, fn) {
   fetch(api, {
     method: 'POST',
     credentials: 'include',
-    headers: {
-      
-    },
     body: JSON.stringify(opts)
   })
     .then(checkStatus)

@@ -69,7 +69,7 @@
   .wrapper {
     margin: 0 auto;
     text-align: center;
-	margin-top:44px;
+    margin-top:44px;
   }
 
   /* <!-- index.css --> */

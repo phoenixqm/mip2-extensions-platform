@@ -97,11 +97,11 @@
 
         <div
           v-for="(f,index) in list"
-          :key="index"
+          :key="index" class="khpj_list"
         >
           <div class="khpj_row">
             <div class="khpj_row_left">{{ f.shanghu_at }} 至 {{ f.end_at ? f.end_at : '今' }}</div>
-            <div class="khpj_row_right">共{{ f.days }}天</div>
+            <div class="khpj_row_right">共<span class="days">{{ f.days }}</span>天</div>
             <div class="clear"/>
           </div>
 
@@ -177,12 +177,15 @@
             class="ptg_fk">
             <mip-img
               layout="responisve"
-              style="width:10px;margin-right:5px;"
+              style="width:10px;margin-right:5px;display: inline-block;"
               src="https://mip.putibaby.com/i/fankui.png"/>
             <span style="color:#88bd4e;font-size:14px;">菩提果客服反馈：</span>
             <span style="color:#666666;font-size:14px;">{{ f.feedback.ptg_reply }}</span>
           </div>
-
+        
+          <div class="mip-infinitescroll-results" />
+          <div class="bg">
+          </div>
         </div>
 
       </div>
@@ -206,10 +209,11 @@
 }
 
 .khpj_row {
-  height: 30px;
-  line-height: 30px;
-  /*border-bottom: 1px solid #eee;*/
-  border-top: 1px solid #eee;
+  height: 44px;
+  line-height: 44px;
+  border-bottom: 1px solid #e5e5e5;
+  color: #666;
+  /*border-top: 1px solid #eee;*/
 }
 
 .clear {
@@ -401,6 +405,13 @@
 height:44px;
 line-height:44px;
 }
+.khpj_list{
+  border-radius: 5px;
+  margin-top: 10px;
+}
+.days{
+  color: #afd03b;
+}
 </style>
 
 <script>
@@ -478,7 +489,16 @@ export default {
         ['月子营养餐制作', 'star_4'],
         ['护理师沟通', 'star_5'],
         ['护理师工作态度', 'star_6']
-      ]
+      ],
+      state: {
+        isLoadingMore: false,
+        loadMessage: '数据正在加载中...',
+        hasMoreData: false
+      },
+      filter: {
+        pn: 0,
+        kw: ''
+      }
     }
   },
   computed: {
@@ -487,6 +507,50 @@ export default {
   mounted () {
     console.log('This is shanghu detail component !')
   },
+  beforeMount () {
+    this.init()
+    var self = this
+    window.addEventListener('scroll', function (e) {
+      // console.log(document.documentElement.scrollTop);
+      // console.log(document.body.scrollTop);
+      var scrollTop = document.documentElement.scrollTop
+      if (scrollTop === 0) {
+        scrollTop = document.body.scrollTop
+      }
+
+      if (scrollTop + window.innerHeight >= document.body.clientHeight - 200) {
+        // 触发加载数据
+        console.log('加载数据')
+        self.loadMoreAuto()
+      };
+    })
+  },
+  loadMoreAuto () {
+    if (this.state.loadMessage === '点击加载数据') {
+      this.state.loadMessage = '数据正在加载中...'
+      this.load_more()
+    }
+  },
+  load_more () {
+    console.log('should set data')
+    var self = this
+    this.filter.pn += 1
+    API.getSelectMaster(this.filter, function (isOk, res) {
+      if (isOk) {
+        // console.log(res);
+        self.list = self.list.concat(res.list)
+        if (res.list.length >= 10) {
+          self.state.loadMessage = '点击加载数据'
+        } else {
+          self.state.loadMessage = '没有更多数据了!'
+        }
+      } else {
+        console.log(res)
+        self.state.loadMessage = '加载数据出错'
+      }
+    })
+  },
+
   methods: {
     init () {
       console.log('should loading')

@@ -61,7 +61,7 @@
             <tr>
               <td
                 id="sortZH"
-                class="sort_td checked">
+                class="sort_td checked" @click="sortClick('zh')">
                 <mip-img
                   v-if="filter.sort_by == '' || !filter.sort_by"
                   src="https://mip.putibaby.com/i/zh_g.png" />
@@ -71,7 +71,7 @@
               </td>
               <td
                 id="sortPrice"
-                class="sort_td">
+                class="sort_td" @click="sortClick('jg')">
                 <mip-img
                   v-if="filter.sort_by == 'price_asc'"
                   src="https://mip.putibaby.com/i/jgs_g.png" />
@@ -84,7 +84,7 @@
               </td>
               <td
                 id="sortJY"
-                class="sort_td">
+                class="sort_td" @click="sortClick('jy')">
                 <mip-img
                   v-if="filter.sort_by == 'jy_asc'"
                   src="https://mip.putibaby.com/i/jys_g.png" />
@@ -97,7 +97,7 @@
               </td>
               <td
                 id="sortAge"
-                class="sort_td">
+                class="sort_td" @click="sortClick('age')">
                 <mip-img
                   v-if="filter.sort_by == 'age_desc'"
                   src="https://mip.putibaby.com/i/nlx_g.png" />
@@ -1834,52 +1834,46 @@ export default {
     var sorttd = document.querySelectorAll('.sort_td')
     var radiobtn = document.querySelectorAll('.radio_btn')
 
-    sortZH.addEventListener('touchend', function () {
-      removeClass(sorttd, 'checked')
-      addClass(sortZH, 'checked')
-      self.filter.sort_by = ''
-	  self.$set(self.filter, 'sort_by', '');
-      self.load_data()
-    })
+    // sortZH.addEventListener('touchend', function () {
+    //   removeClass(sorttd, 'checked')
+    //   addClass(sortZH, 'checked')
+    //   self.filter.sort_by = ''
+    //   self.load_data()
+    // })
 
-    sortPrice.addEventListener('touchend', function () {
-      removeClass(sorttd, 'checked')
-      addClass(sortPrice, 'checked')
-      if (self.filter.sort_by === 'price_desc') {
-        self.filter.sort_by = 'price_asc'
-		self.$set(self.filter, 'sort_by', 'price_asc');
-      } else {
-        self.filter.sort_by = 'price_desc'
-		self.$set(self.filter, 'sort_by', 'price_desc');
-      }
-      self.load_data()
-    })
+    // sortPrice.addEventListener('touchend', function () {
+    //   removeClass(sorttd, 'checked')
+    //   addClass(sortPrice, 'checked')
+    //   if (self.filter.sort_by === 'price_desc') {
+    //     self.filter.sort_by = 'price_asc'
+    //   } else {
+    //     self.filter.sort_by = 'price_desc'
+    //   }
+    //   self.load_data()
+    // })
 
-    sortJY.addEventListener('touchend', function () {
-      removeClass(sorttd, 'checked')
-      addClass(sortJY, 'checked')
-      if (self.filter.sort_by === 'jy_desc') {
-        self.filter.sort_by = 'jy_asc'
-		self.$set(self.filter, 'sort_by', 'jy_asc');
-      } else {
-        self.filter.sort_by = 'jy_desc'
-		self.$set(self.filter, 'sort_by', 'jy_desc');
-      }
-      self.load_data()
-    })
+    // sortJY.addEventListener('touchend', function () {
+    //   removeClass(sorttd, 'checked')
+    //   addClass(sortJY, 'checked')
+    //   if (self.filter.sort_by === 'jy_desc') {
+    //     self.filter.sort_by = 'jy_asc'
+    //   } else {
+    //     self.filter.sort_by = 'jy_desc'
+    //   }
+    //   self.load_data()
+    // })
 
-    sortAge.addEventListener('touchend', function () {
-      removeClass(sorttd, 'checked')
-      addClass(sortAge, 'checked')
-      if (self.filter.sort_by === 'age_asc') {
-        self.filter.sort_by = 'age_desc'
-		self.$set(self.filter, 'sort_by', 'age_desc');
-      } else {
-        self.filter.sort_by = 'age_asc'
-		self.$set(self.filter, 'sort_by', 'age_asc');
-      }
-      self.load_data()
-    })
+    // sortAge.addEventListener('touchend', function () {
+    //   removeClass(sorttd, 'checked')
+    //   addClass(sortAge, 'checked')
+    //   if (self.filter.sort_by === 'age_asc') {
+    //     self.filter.sort_by = 'age_desc'
+    //   } else {
+    //     self.filter.sort_by = 'age_asc'
+    //   }
+    //   self.load_data()
+    // })
+
 
     var citytd = document.querySelectorAll('.citytd')
     // var cityVal = document.querySelector('#btn-open').innerHTML
@@ -2047,6 +2041,32 @@ export default {
     },
     reload_ () {
       window.location.reload()
+    },
+
+    sortClick(e){
+
+      if (e == 'zh') {
+        self.filter.sort_by = ''
+      }else if (e == 'jg') {
+        if (self.filter.sort_by === 'price_desc') {
+          self.filter.sort_by = 'price_asc'
+        } else {
+          self.filter.sort_by = 'price_desc'
+        }
+      }else if(e == 'jy'){
+        if (self.filter.sort_by === 'jy_desc') {
+          self.filter.sort_by = 'jy_asc'
+        } else {
+          self.filter.sort_by = 'jy_desc'
+        }
+      }else if (e == 'age') {
+        if (self.filter.sort_by === 'age_asc') {
+          self.filter.sort_by = 'age_desc'
+        } else {
+          self.filter.sort_by = 'age_asc'
+        }
+      } 
+      self.load_data();
     }
 
   }

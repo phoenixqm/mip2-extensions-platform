@@ -92,7 +92,7 @@
           </table>
         </div>
       </div>
-
+	</div>
       <div class="ptg_sy">
 
         <div
@@ -193,8 +193,6 @@
         </div>
       </div>
 
-    </div>
-
   </div>
 </template>
 
@@ -204,10 +202,6 @@
   text-align: center;
 }
 .ptg_sy {
-  /* background-image: url('/i/ptg_sy.png'); */
-  background-size: 160px;
-  background-repeat: repeat-y;
-  background-position: center;
 }
 
 .khpj_row {
@@ -243,7 +237,7 @@
 .khpj_card {
   position: relative;
   height: 70px;
-  /*border-bottom: 1px solid #eee;*/
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .khpj_mama_header {
@@ -261,6 +255,7 @@
   top: 11px;
   left: 75px;
   line-height:16px;
+  color:#666;
 }
 
 .khpj_mama_phone_number {
@@ -276,10 +271,12 @@
 
 .khpj_comment_head {
   font-size: 16px;
+  color:#666;
 }
 
 .khpj_comment_text {
   font-size: 14px;
+  color:#666;
 }
 
 .khpj_pics_list {
@@ -410,6 +407,12 @@ line-height:44px;
 .khpj_list{
   border-radius: 5px;
   margin-top: 10px;
+  background-color:#fff;
+  /* background-image: url('/i/ptg_sy.png'); */
+  background-size: 160px;
+  background-repeat: repeat-y;
+  background-position: center;
+
 }
 .days{
   color: #afd03b;
@@ -538,7 +541,21 @@ export default {
       };
     })
   },
-  loadMoreAuto () {
+ 
+  methods: {
+    init () {
+      console.log('should loading')
+      console.log(this.dataJson)
+      this.reload_()
+    },
+    created () {
+      this.reload_()
+    },
+
+    reload_ () {
+
+    },
+ loadMoreAuto () {
     if (this.state.loadMessage === '查看全部评价') {
       this.state.loadMessage = '数据正在加载中...'
       this.load_more()
@@ -565,20 +582,6 @@ export default {
       }
     })
   },
-
-  methods: {
-    init () {
-      console.log('should loading')
-      console.log(this.dataJson)
-      this.reload_()
-    },
-    created () {
-      this.reload_()
-    },
-
-    reload_ () {
-
-    },
 
     load_data () {
       console.log('should set data')

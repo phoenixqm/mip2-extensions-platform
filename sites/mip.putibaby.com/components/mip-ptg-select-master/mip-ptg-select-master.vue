@@ -1838,6 +1838,7 @@ export default {
       removeClass(sorttd, 'checked')
       addClass(sortZH, 'checked')
       self.filter.sort_by = ''
+	  self.$set(self.filter, 'sort_by', '');
       self.load_data()
     })
 
@@ -1846,8 +1847,10 @@ export default {
       addClass(sortPrice, 'checked')
       if (self.filter.sort_by === 'price_desc') {
         self.filter.sort_by = 'price_asc'
+		self.$set(self.filter, 'sort_by', 'price_asc');
       } else {
         self.filter.sort_by = 'price_desc'
+		self.$set(self.filter, 'sort_by', 'price_desc');
       }
       self.load_data()
     })
@@ -1857,8 +1860,10 @@ export default {
       addClass(sortJY, 'checked')
       if (self.filter.sort_by === 'jy_desc') {
         self.filter.sort_by = 'jy_asc'
+		self.$set(self.filter, 'sort_by', 'jy_asc');
       } else {
         self.filter.sort_by = 'jy_desc'
+		self.$set(self.filter, 'sort_by', 'jy_desc');
       }
       self.load_data()
     })
@@ -1868,8 +1873,10 @@ export default {
       addClass(sortAge, 'checked')
       if (self.filter.sort_by === 'age_asc') {
         self.filter.sort_by = 'age_desc'
+		self.$set(self.filter, 'sort_by', 'age_desc');
       } else {
         self.filter.sort_by = 'age_asc'
+		self.$set(self.filter, 'sort_by', 'age_asc');
       }
       self.load_data()
     })

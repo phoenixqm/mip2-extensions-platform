@@ -2044,26 +2044,26 @@ export default {
     },
 
     sortClick(e){
-
+		var self = this;
       if (e == 'zh') {
-        self.filter.sort_by = ''
+		self.$set(self.filter,'sort_by','');
       }else if (e == 'jg') {
         if (self.filter.sort_by === 'price_desc') {
-          self.filter.sort_by = 'price_asc'
+		  self.$set(self.filter,'sort_by','price_asc');
         } else {
-          self.filter.sort_by = 'price_desc'
+		  self.$set(self.filter,'sort_by','price_desc');
         }
       }else if(e == 'jy'){
         if (self.filter.sort_by === 'jy_desc') {
-          self.filter.sort_by = 'jy_asc'
+		  self.$set(self.filter,'sort_by','jy_asc');
         } else {
-          self.filter.sort_by = 'jy_desc'
+		  self.$set(self.filter,'sort_by','jy_desc');
         }
       }else if (e == 'age') {
         if (self.filter.sort_by === 'age_asc') {
-          self.filter.sort_by = 'age_desc'
+		  self.$set(self.filter,'sort_by','age_desc');
         } else {
-          self.filter.sort_by = 'age_asc'
+		  self.$set(self.filter,'sort_by','age_asc');
         }
       } 
       self.load_data();

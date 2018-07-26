@@ -1522,6 +1522,7 @@
   }
 
   .ycq {
+	-webkit-appearance:none;
     width: 170px;
     height: 30px;
     line-height: 15px;

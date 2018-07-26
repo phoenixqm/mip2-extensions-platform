@@ -28,7 +28,7 @@
       <mip-img src="https://mip.putibaby.com/i/yhq_jt.png"/>
       <!-- <slot name="yhq" /> -->
     </div>
-    <div>
+    <div class="clear_float">
       <div
         class="find"
         @click="handleSelectMaster">
@@ -82,10 +82,7 @@
 
   /* <!-- banner.css --> */
 
-  .top_level_1 {
-    width: 100%;
-    position: relative;
-  }
+ 
 
   mip-form form {
     position: relative;
@@ -162,7 +159,6 @@
     text-align: center;
     float: left;
     background-position:center;
-    margin-bottom:70px;
   }
 
   .help {
@@ -200,6 +196,10 @@
 
   .bottom_right_img {
     vertical-align: -6px;
+  }
+  .clear_float{
+	clear:both;
+	height:240px;
   }
 </style>
 

@@ -92,106 +92,106 @@
           </table>
         </div>
       </div>
-	</div>
-      <div class="ptg_sy">
+    </div>
+    <div class="ptg_sy">
+
+      <div
+        v-for="(f,index) in list"
+        :key="index"
+        class="khpj_list"
+      >
+        <div class="khpj_row">
+          <div class="khpj_row_left">{{ f.shanghu_at }} 至 {{ f.end_at ? f.end_at : '今' }}</div>
+          <div class="khpj_row_right">共<span class="days">{{ f.days }}</span>天</div>
+          <div class="clear"/>
+        </div>
+
+        <div class="khpj_card">
+          <mip-img
+            :src="f.mama_info.header.big"
+            layout="responisve"
+            class="khpj_mama_header"/>
+          <div class="khpj_mama_name">
+            {{ f.mama_info.name }}&nbsp;{{ f.mama_info.role }}
+            ({{ f.type == 'history' ? '历史客户' : '菩提果签约' }}&nbsp;
+            {{ f.master_type == 'yuer' ? ' 育儿单' : '月嫂单' }})
+          </div>
+          <div class="khpj_mama_phone_number">手机: {{ f.mama_info.phone_number }}</div>
+        </div>
 
         <div
-          v-for="(f,index) in list"
-          :key="index"
-          class="khpj_list"
-        >
-          <div class="khpj_row">
-            <div class="khpj_row_left">{{ f.shanghu_at }} 至 {{ f.end_at ? f.end_at : '今' }}</div>
-            <div class="khpj_row_right">共<span class="days">{{ f.days }}</span>天</div>
-            <div class="clear"/>
-          </div>
+          v-if="f.record_cc || f.care_cc"
+          class="khpj_row">
+          <div class="khpj_row_left">拍照: {{ f.record_cc }}张</div>
+          <div class="khpj_row_right">护理记录: {{ f.care_cc }}</div>
+          <div class="clear"/>
+        </div>
 
-          <div class="khpj_card">
-            <mip-img
-              :src="f.mama_info.header.big"
-              layout="responisve"
-              class="khpj_mama_header"/>
-            <div class="khpj_mama_name">
-              {{ f.mama_info.name }}&nbsp;{{ f.mama_info.role }}
-              ({{ f.type == 'history' ? '历史客户' : '菩提果签约' }}&nbsp;
-              {{ f.master_type == 'yuer' ? ' 育儿单' : '月嫂单' }})
-            </div>
-            <div class="khpj_mama_phone_number">手机: {{ f.mama_info.phone_number }}</div>
-          </div>
+        <div class="khpj_row">
+          <div class="khpj_row_left">客户评分:</div>
+          <div class="khpj_row_right">
 
-          <div
-            v-if="f.record_cc || f.care_cc"
-            class="khpj_row">
-            <div class="khpj_row_left">拍照: {{ f.record_cc }}张</div>
-            <div class="khpj_row_right">护理记录: {{ f.care_cc }}</div>
-            <div class="clear"/>
-          </div>
-
-          <div class="khpj_row">
-            <div class="khpj_row_left">客户评分:</div>
-            <div class="khpj_row_right">
-
-              <div
-                v-if="f.feedback"
-                class="feedback_stars">
-                <span
-                  v-for="idx in [1,2,3,4,5]"
-                  :key="idx">
-                  <mip-img
-                    v-if="idx <= (f.feedback.total_star||0)"
-                    class="star"
-                    src="https://mip.putibaby.com/i/star_yellow_2.png"/>
-                  <mip-img
-                    v-else
-                    class="star"
-                    src="https://mip.putibaby.com/i/unstar.png"/>
-                </span>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="khpj_commnet">
-            <div class="khpj_comment_head">客户评价:</div>
             <div
               v-if="f.feedback"
-              class="khpj_comment_text">{{ f.feedback.comment }}</div>
-            <div
-              v-else
-              class="khpj_comment_text">上户中，用户还没有评价。</div>
-          </div>
+              class="feedback_stars">
+              <span
+                v-for="idx in [1,2,3,4,5]"
+                :key="idx">
+                <mip-img
+                  v-if="idx <= (f.feedback.total_star||0)"
+                  class="star"
+                  src="https://mip.putibaby.com/i/star_yellow_2.png"/>
+                <mip-img
+                  v-else
+                  class="star"
+                  src="https://mip.putibaby.com/i/unstar.png"/>
+              </span>
+            </div>
 
-          <div
-            v-if="f.feedback && f.feedback.pics"
-            class="khpj_pics_list">
-            <mip-img
-              v-for="p in f.feedback.pics"
-              :key="p.big"
-              :src="p.big"
-              layout="responisve"
-              popup
-              class="khpj_pic"/>
-          </div>
-
-          <div
-            v-if="f.feedback && f.feedback.ptg_reply"
-            class="ptg_fk">
-            <mip-img
-              layout="responisve"
-              style="width:10px;margin-right:5px;display: inline-block;"
-              src="https://mip.putibaby.com/i/fankui.png"/>
-            <span style="color:#88bd4e;font-size:14px;">菩提果客服反馈：</span>
-            <span style="color:#666666;font-size:14px;">{{ f.feedback.ptg_reply }}</span>
           </div>
         </div>
-        <div class="bg">
+
+        <div class="khpj_commnet">
+          <div class="khpj_comment_head">客户评价:</div>
           <div
-            class="mip-infinitescroll-loading"
-            @click="loadMoreClick">
-            <p>{{ state.loadMessage }}</p>
-          </div>
+            v-if="f.feedback"
+            class="khpj_comment_text">{{ f.feedback.comment }}</div>
+          <div
+            v-else
+            class="khpj_comment_text">上户中，用户还没有评价。</div>
+        </div>
+
+        <div
+          v-if="f.feedback && f.feedback.pics"
+          class="khpj_pics_list">
+          <mip-img
+            v-for="p in f.feedback.pics"
+            :key="p.big"
+            :src="p.big"
+            layout="responisve"
+            popup
+            class="khpj_pic"/>
+        </div>
+
+        <div
+          v-if="f.feedback && f.feedback.ptg_reply"
+          class="ptg_fk">
+          <mip-img
+            layout="responisve"
+            style="width:10px;margin-right:5px;display: inline-block;"
+            src="https://mip.putibaby.com/i/fankui.png"/>
+          <span style="color:#88bd4e;font-size:14px;">菩提果客服反馈：</span>
+          <span style="color:#666666;font-size:14px;">{{ f.feedback.ptg_reply }}</span>
         </div>
       </div>
+      <div class="bg">
+        <div
+          class="mip-infinitescroll-loading"
+          @click="loadMoreClick">
+          <p>{{ state.loadMessage }}</p>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -541,7 +541,7 @@ export default {
       };
     })
   },
- 
+
   methods: {
     init () {
       console.log('should loading')
@@ -555,33 +555,33 @@ export default {
     reload_ () {
 
     },
- loadMoreAuto () {
-    if (this.state.loadMessage === '查看全部评价') {
-      this.state.loadMessage = '数据正在加载中...'
-      this.load_more()
-    }
-  },
-  loadMoreClick () {
-    if (this.state.loadMessage === '查看全部评价') {
-      this.state.loadMessage = '数据正在加载中...'
-      this.load_more()
-    }
-  },
-  load_more () {
-    console.log('should set data')
-    var self = this
-    API.ajaxMasterShanghuFull(self.info.username, function (isOk, res) {
-      if (isOk) {
-        // console.log(res);
-        self.list = res.list
-        self.info = res.info
-        self.state.loadMessage = '没有更多评价了!'
-      } else {
-        console.log(res)
-        self.state.loadMessage = '加载数据出错'
+    loadMoreAuto () {
+      if (this.state.loadMessage === '查看全部评价') {
+        this.state.loadMessage = '数据正在加载中...'
+        this.load_more()
       }
-    })
-  },
+    },
+    loadMoreClick () {
+      if (this.state.loadMessage === '查看全部评价') {
+        this.state.loadMessage = '数据正在加载中...'
+        this.load_more()
+      }
+    },
+    load_more () {
+      console.log('should set data')
+      var self = this
+      API.ajaxMasterShanghuFull(self.info.username, function (isOk, res) {
+        if (isOk) {
+        // console.log(res);
+          self.list = res.list
+          self.info = res.info
+          self.state.loadMessage = '没有更多评价了!'
+        } else {
+          console.log(res)
+          self.state.loadMessage = '加载数据出错'
+        }
+      })
+    },
 
     load_data () {
       console.log('should set data')

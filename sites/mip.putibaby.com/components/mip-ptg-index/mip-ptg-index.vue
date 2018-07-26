@@ -81,9 +81,6 @@
   }
 
   /* <!-- banner.css --> */
-
- 
-
   mip-form form {
     position: relative;
     left: 0px;
@@ -198,8 +195,8 @@
     vertical-align: -6px;
   }
   .clear_float{
-	clear:both;
-	height:240px;
+  clear:both;
+  height:240px;
   }
 </style>
 
@@ -265,6 +262,7 @@ export default {
   },
   mounted () {
     console.log('This is index component !')
+    window.MIP.viewer.fixedElement.init()
     var self = this
     this.$element.customElement.addEventAction('logindone', event => {
       // 这里可以输出登录之后的数据

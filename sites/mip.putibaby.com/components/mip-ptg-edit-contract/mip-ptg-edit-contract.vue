@@ -1456,7 +1456,7 @@ export default {
       var id = this.order.id
       var url = 'https://mip.putibaby.com/v2_show_ptg_ys_full_contract?id=' + id
       // window.location.href = url
-      window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com' + url), {})
+      window.MIP.viewer.open(MIP.util.makeCacheUrl(url), {})
     },
 
     handleSubmit_ (data, skip) {
@@ -1498,7 +1498,6 @@ export default {
       if (skip) {
         console.log(skip)
         API.wrapRet_(
-
           'https://mip.putibaby.com/api/submit_contract', {
             'id': this.order.id
           },

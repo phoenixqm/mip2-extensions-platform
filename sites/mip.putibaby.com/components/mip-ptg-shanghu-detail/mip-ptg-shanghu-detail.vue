@@ -97,7 +97,8 @@
 
         <div
           v-for="(f,index) in list"
-          :key="index" class="khpj_list"
+          :key="index"
+          class="khpj_list"
         >
           <div class="khpj_row">
             <div class="khpj_row_left">{{ f.shanghu_at }} 至 {{ f.end_at ? f.end_at : '今' }}</div>
@@ -182,7 +183,7 @@
             <span style="color:#88bd4e;font-size:14px;">菩提果客服反馈：</span>
             <span style="color:#666666;font-size:14px;">{{ f.feedback.ptg_reply }}</span>
           </div>
-        
+
           <div class="mip-infinitescroll-results" />
           <div class="bg">
             <div
@@ -190,6 +191,8 @@
               @click="loadMoreClick">
               <p>{{ state.loadMessage }}</p>
             </div>
+          </div>
+
         </div>
 
       </div>
@@ -197,7 +200,6 @@
     </div>
 
   </div>
-
 </template>
 
 <style scoped>
@@ -466,11 +468,11 @@ API.wrapRet_ = function (api, opts, fn) {
     })
 }
 
-API.getMasterInfo = function (masterId, fn) {
+API.ajaxMasterShanghuFull = function (username, fn) {
   API.wrapRet_(
-    'https://mip.putibaby.com/api/get_master_info_for_me',
+    'https://mip.putibaby.com/api/ajax_master_shanghu_detail',
     {
-      'master_id': masterId
+      'u': username
     },
     fn)
 }
@@ -507,7 +509,7 @@ export default {
       ],
       state: {
         isLoadingMore: false,
-        loadMessage: '数据正在加载中...',
+        loadMessage: '查看全部评价',
         hasMoreData: false
       },
       filter: {
@@ -541,13 +543,13 @@ export default {
     })
   },
   loadMoreAuto () {
-    if (this.state.loadMessage === '点击加载数据') {
+    if (this.state.loadMessage === '查看全部评价') {
       this.state.loadMessage = '数据正在加载中...'
       this.load_more()
     }
   },
   loadMoreClick () {
-    if (this.state.loadMessage === '点击加载数据') {
+    if (this.state.loadMessage === '查看全部评价') {
       this.state.loadMessage = '数据正在加载中...'
       this.load_more()
     }
@@ -555,16 +557,12 @@ export default {
   load_more () {
     console.log('should set data')
     var self = this
-    this.filter.pn += 1
-    API.getSelectMaster(this.filter, function (isOk, res) {
+    API.ajaxMasterShanghuFull(self.info.username, function (isOk, res) {
       if (isOk) {
         // console.log(res);
-        self.list = self.list.concat(res.list)
-        if (res.list.length >= 10) {
-          self.state.loadMessage = '点击加载数据'
-        } else {
-          self.state.loadMessage = '没有更多数据了!'
-        }
+        self.list = res.list
+        self.info = res.info
+        self.state.loadMessage = '没有更多评价了!'
       } else {
         console.log(res)
         self.state.loadMessage = '加载数据出错'

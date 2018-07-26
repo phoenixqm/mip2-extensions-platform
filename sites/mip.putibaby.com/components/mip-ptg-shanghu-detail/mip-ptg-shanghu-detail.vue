@@ -185,7 +185,11 @@
         
           <div class="mip-infinitescroll-results" />
           <div class="bg">
-          </div>
+            <div
+              class="mip-infinitescroll-loading"
+              @click="loadMoreClick">
+              <p>{{ state.loadMessage }}</p>
+            </div>
         </div>
 
       </div>
@@ -412,6 +416,17 @@ line-height:44px;
 .days{
   color: #afd03b;
 }
+.mip-infinitescroll-loading {
+  width: 100%;
+  background-color: #fff;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
 </style>
 
 <script>
@@ -526,6 +541,12 @@ export default {
     })
   },
   loadMoreAuto () {
+    if (this.state.loadMessage === '点击加载数据') {
+      this.state.loadMessage = '数据正在加载中...'
+      this.load_more()
+    }
+  },
+  loadMoreClick () {
     if (this.state.loadMessage === '点击加载数据') {
       this.state.loadMessage = '数据正在加载中...'
       this.load_more()

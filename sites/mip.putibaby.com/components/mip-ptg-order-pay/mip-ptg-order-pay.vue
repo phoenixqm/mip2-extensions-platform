@@ -75,11 +75,11 @@
       id="payDialog"
       m-bind:pay-config="payConfig"/>
     <button
-      v-if="inservicePayAmount>0"
+      v-if="ajaxLoaded && inservicePayAmount>0"
       class="button"
       on="tap:payDialog.toggle">确定支付</button>
     <button
-      v-else
+      v-else-if="ajaxLoaded"
       class="button"
       @click="submitBalancePay" >余额支付</button>
 

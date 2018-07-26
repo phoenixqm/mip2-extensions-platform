@@ -971,7 +971,6 @@ function parseJSON (response) {
 }
 
 API.wrapRet_ = function (api, opts, fn) {
-  console.log('posting to ' + api)
   opts.mip_sid = API.sessionId || ''
   fetch(api, {
     method: 'POST',
@@ -1067,9 +1066,7 @@ export default {
     }
   },
   data () {
-    console.log(this)
     var pdata = JSON.parse(this.dataJsonstr)
-    console.log('ttt', pdata)
 
     var toContractExtra
     var toContractSkillReq
@@ -1124,38 +1121,25 @@ export default {
 
   },
   mounted () {
-    console.log('This is my first custom component !')
-    // console.log('mounted:', this)
-    // console.log('mounted:', typeof(this.readonly))
     var readonly = this.readonly ? 1 : 0
-    console.log('readonly:', readonly)
     if (readonly === 1 || readonly === '1') {
       this.rea = true
     }
     var self = this
     this.$element.customElement.addEventAction('echo', function (event, str) {
-      console.log(event)
     })
     this.$element.customElement.addEventAction('dook', function (event, str) {
-      // console.log(event);
-      console.log(event.from)
       event.from.bind(self)(event.data, true)
       // var eval_str = 'this.' + event.handler + '(event_order)'
     })
     this.$element.customElement.addEventAction('docancel', function (event, str) {
-      console.log(event)
-      console.log(str)
     })
 
     function setData (ajaxData) {
-      console.log(ajaxData)
       var pdata = ajaxData
       var data = pdata.order
 
-      console.log('334', data)
       // var masterPrice = data.master.price_26day // 月嫂价格
-      console.log('33', data.contract_is_offer_allday_service)
-      console.log('33', typeof (data.contract_is_offer_allday_service))
       var masterPrice = data.contract_is_offer_allday_service
         ? data.master.yuesao_allday_price
         : data.master.yuesao_daytime_price
@@ -1212,8 +1196,6 @@ export default {
       self.err = false
       self.show_z = showz
       self.show_f = showf
-      // console.log('ajaxData', data.contract_is_offer_allday_service)
-      // console.log('ajaxData', typeof (data.contract_is_offer_allday_service))
       self.contract_is_offer_allday_ser = !!data.contract_is_offer_allday_service
       self.master = pdata.order.master
       self.order = pdata.order
@@ -1243,7 +1225,6 @@ export default {
     }
 
     this.$element.customElement.addEventAction('logindone', function (event, str) {
-      console.log(event)
       API.sessionId = event.sessionId
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
@@ -1254,11 +1235,8 @@ export default {
   },
   methods: {
     init () {
-      console.log('should loading')
-      console.log(this.dataJson)
     },
     load_data () {
-      console.log('should set data')
     },
     fileSelectZ () {
       this.cur_image_fn = 'zheng'
@@ -1271,7 +1249,6 @@ export default {
     changeZ () {
       // var pic = document.getElementById('preview')
       var file = document.getElementById('fz')
-      console.log('this', this)
       var ext = file.value.substring(file.value.lastIndexOf('.') + 1).toLowerCase()
       // gif在IE浏览器暂时无法显示
       if (ext !== 'png' && ext !== 'jpg' && ext !== 'jpeg') {
@@ -1286,7 +1263,6 @@ export default {
       var file = document.getElementById('ff')
       var ext = file.value.substring(file.value.lastIndexOf('.') + 1).toLowerCase()
       if (ext !== 'png' && ext !== 'jpg' && ext !== 'jpeg') {
-        console.log('图片的格式必须为png或者jpg或者jpeg格式! ')
         return
       }
       this.html5Reader(file)
@@ -1410,12 +1386,10 @@ export default {
 
       this._data.ts = new Date()
       localStorage.State = JSON.stringify(this._data)
-      console.log('odj', obj)
       API.wrapRet_(
         'https://mip.putibaby.com/api/set_contract', obj,
         function (isOk, res) {
           if (isOk) {
-            console.log(res)
           }
         })
     },
@@ -1515,37 +1489,8 @@ export default {
         this.contract_deposit = this.contract_price
       }
 
-      var idCard = this.contract_mama_id_card
-
-      function Trim (str) {
-        idCard = str.replace(/\s/gi, '')
-        return idCard
-      }
-      Trim(idCard)
-
-      // // 15位和18位身份证号码的正则表达式
-      // var regIdCard = /^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/
-      // // 如果通过该验证，说明身份证格式正确，但准确性还需计算
-      // if (regIdCard.test(idCard)) {
-      //   if (idCard.length === 18) {
-      //     var idCardWi = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2] // 将前17位加权因子保存在数组里
-      //     var idCardY = [1, 0, 10, 9, 8, 7, 6, 5, 4, 3, 2] // 这是除以11后，可能产生的11位余数、验证码，也保存成数组
-      //     var idCardWiSum = 0 // 用来保存前17位各自乖以加权因子后的总和
-      //     for (var i = 0; i < 17; i++) {
-      //       idCardWiSum += idCard.substring(i, i + 1) * idCardWi[i]
-      //     }
-      //     var idCardMod = idCardWiSum % 11 // 计算出校验码所在数组的位置
-      //     var idCardLast = idCard.substring(17) // 得到最后一位身份证号码
-      //     // 如果等于2，则说明校验码是10，身份证号码最后一位应该是X
-      //   }
-      // }
-
-      // var idCard_z = this.contract_mama_id_card_zheng
-      // var idCard_f = this.contract_mama_id_card_fan
-
       var self = this
       if (skip) {
-        console.log(skip)
         API.wrapRet_(
           'https://mip.putibaby.com/api/submit_contract', {
             'id': this.order.id
@@ -1559,7 +1504,6 @@ export default {
               self.err_message = '提交失败请重试'
               self.err = true
             }
-            console.log(res)
           })
       } else {
         var ele = document.getElementById('ptgconfirm')

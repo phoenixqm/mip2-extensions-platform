@@ -183,18 +183,14 @@
             <span style="color:#88bd4e;font-size:14px;">菩提果客服反馈：</span>
             <span style="color:#666666;font-size:14px;">{{ f.feedback.ptg_reply }}</span>
           </div>
-
-          <div class="mip-infinitescroll-results" />
-          <div class="bg">
-            <div
-              class="mip-infinitescroll-loading"
-              @click="loadMoreClick">
-              <p>{{ state.loadMessage }}</p>
-            </div>
-          </div>
-
         </div>
-
+        <div class="bg">
+          <div
+            class="mip-infinitescroll-loading"
+            @click="loadMoreClick">
+            <p>{{ state.loadMessage }}</p>
+          </div>
+        </div>
       </div>
 
     </div>

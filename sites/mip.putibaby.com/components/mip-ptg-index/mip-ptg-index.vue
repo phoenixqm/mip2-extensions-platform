@@ -320,7 +320,7 @@ export default {
         return false
       }
       if (!this.isUnion) {
-        var to = 'https://mip.putibaby.com/' + origin
+        var to = 'https://mip.putibaby.com/' + cmd
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
 
         return false

@@ -182,14 +182,20 @@
         <div class="picList">
           <p v-if="data.xc_list.length === 0">没有照片</p>
           <div v-if="data.xc_list.length > 0">
-            <mip-img
+            <!-- <mip-img
               v-for="pic in data.xc_list"
               :key="pic.big"
               :src="pic.big"
               layout="responsive"
               popup
               width="70px"
-              height="70px" />
+              height="70px" /> -->
+            <div
+              v-for="pic in data.xc_list"
+              :key="pic.big"
+              :src="pic.big"
+              :style="{backgroundImage: 'url(' + pic.big + ')', backgroundSize:'contain'}"/>
+
           </div>
 
         </div>
@@ -586,7 +592,14 @@ body{
     margin-right: 10px;
     border-radius: 5px;
 }
-
+.albumCard .picList div{
+    height: 70px;
+    width: 70px;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 10px;
+    border-radius: 5px;
+}
 .serverCard{
     width: 100%;
     border-radius: 5px;

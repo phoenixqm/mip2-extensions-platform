@@ -398,6 +398,9 @@ export default {
       API.sessionId = event.sessionId
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
+      if (event.userInfo.wx_url) {
+        window.location.href = event.userInfo.wx_url
+      }
       API.ajaxDoPay(self.data.order_id, function (isOk, res) {
         if (isOk) {
           setData(res)

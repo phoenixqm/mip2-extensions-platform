@@ -203,7 +203,7 @@
       
       <div v-if="showImg" @click="hideImg" class="img_back"></div>  
       <div v-if="showImg" @click="hideImg" class="img_div">
-         <mip-img src="this.imgUrl" @click="hideImg" ></mip-img>
+         <mip-img src="imgUrl" @click="hideImg" ></mip-img>
       </div>
 
       <div class="pingJiaCard">

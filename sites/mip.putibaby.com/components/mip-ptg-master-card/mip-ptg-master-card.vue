@@ -190,7 +190,7 @@
               popup
               width="70px"
               height="70px" /> -->
-            <div
+            <div @click="showImg(pic.big)"
               v-for="pic in data.xc_list"
               :key="pic.big"
               :src="pic.big"
@@ -199,6 +199,11 @@
           </div>
 
         </div>
+      </div>
+      
+      <div v-if="showImg" @click="hideImg" class="img_back"></div>  
+      <div v-if="showImg" @click="hideImg" class="img_div">
+         <mip-img src="this.imgUrl" @click="hideImg" ></mip-img>
       </div>
 
       <div class="pingJiaCard">
@@ -925,6 +930,26 @@ td.secondCol {
     margin-right: 10px;
 }
 
+.img_back{
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+.img_div{
+  width: 100%;
+  position: absolute;
+  z-index: 9999;
+  top: 200px;
+  left: 0;
+}
+.img_div mip-img{
+  width: 100%;
+}
 </style>
 
 <script>
@@ -1009,7 +1034,9 @@ export default {
     return {
       data: pdata.data,
       isLogin: false,
-      isUnion: false
+      isUnion: false,
+      showImg: false,
+      imgUrl:''
     }
   },
   computed: {
@@ -1123,6 +1150,13 @@ export default {
     },
     load_data () {
       console.log('should set data')
+    },
+    showImg(e){
+      this.showImg = true
+      this.imgUrl = e
+    },
+    hideImg(){
+      this.showImg = false
     }
   }
 

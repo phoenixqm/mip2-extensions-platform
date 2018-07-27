@@ -190,7 +190,7 @@
               popup
               width="70px"
               height="70px" /> -->
-            <div @click="showImg(pic.big)"
+            <div @click="show(pic.big)"
               v-for="pic in data.xc_list"
               :key="pic.big"
               :src="pic.big"
@@ -201,11 +201,11 @@
         </div>
       </div>
       
-      <div v-if="showImg" @click="hideImg" class="img_back"></div>  
-      <div v-if="showImg" @click="hideImg" class="img_div">
-         <mip-img src="this.imgUrl" @click="hideImg" ></mip-img>
+      <mip-fixed v-if="showImg" @click="hideImg" class="img_back" type="top">
+      <div v-if="showImg" @click="hideImg" @touchmove.prevent=""  class="img_div">
+		<mip-img :src="imgUrl" @click="hideImg" ></mip-img>
       </div>
-
+	 </mip-fixed>
       <div class="pingJiaCard">
         <a
           :href="'master_shanghu_detail?u=' + data.info.username"
@@ -934,17 +934,16 @@ td.secondCol {
   width: 100%;
   height: 100%;
   background-color: #000;
-  opacity: 0.5;
-  position: absolute;
   top: 0;
   left: 0;
-  z-index: 999;
+  bottom:0;
+  z-index: 9999;
 }
 .img_div{
   width: 100%;
   position: absolute;
-  z-index: 9999;
-  top: 200px;
+  z-index:99999;
+  top: 100px;
   left: 0;
 }
 .img_div mip-img{
@@ -1169,9 +1168,9 @@ export default {
     load_data () {
       console.log('should set data')
     },
-    showImg(e){
-      this.showImg = true
-      this.imgUrl = e
+    show(e){
+      this.showImg = true;
+      this.imgUrl = e;
     },
     hideImg(){
       this.showImg = false

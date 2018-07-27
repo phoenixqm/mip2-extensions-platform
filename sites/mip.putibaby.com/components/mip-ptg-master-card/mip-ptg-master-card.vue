@@ -1085,6 +1085,19 @@ export default {
         }
         return false
       }
+      if (!this.isUnion) {
+        var to = '/' + cmd
+        if (cmd === 'fav') {
+          window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href)), {})
+        } else if (cmd === 'order_list') {
+          window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
+        } else if (cmd === 'update_time') {
+          window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
+        }
+
+        return false
+      }
+
       return true
     },
 

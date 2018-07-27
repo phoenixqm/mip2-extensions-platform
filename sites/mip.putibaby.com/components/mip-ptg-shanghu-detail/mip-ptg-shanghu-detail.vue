@@ -220,12 +220,10 @@
 
 .khpj_row_left {
   float: left;
- 
 }
 
 .khpj_row_right {
-  float: right;
- 
+  float: right
 }
 
 .khpj_star {

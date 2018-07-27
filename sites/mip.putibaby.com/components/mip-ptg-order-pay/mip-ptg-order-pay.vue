@@ -364,7 +364,8 @@ export default {
         'subject': '支付商品',
         'fee': (pdata.payamount / 100).toFixed(2),
         'sessionId': pdata.sessionId,
-        'redirectUrl': 'https://mip.putibaby.com/pay/verifypay',
+        'redirectUrl': 'https://mip.putibaby.com/pay/verifypay?order_number=' +
+          pdata.order_number + '&pay_id=' + pdata.pay_id,
         'endpoint': {
           'baifubao': 'https://mip.putibaby.com/api/pay/baifubao',
           'alipay': 'https://mip.putibaby.com/api/pay/alipay',

@@ -190,22 +190,33 @@
               popup
               width="70px"
               height="70px" /> -->
-            <div @click="show(pic.big)"
+            <div
               v-for="pic in data.xc_list"
               :key="pic.big"
               :src="pic.big"
-              :style="{backgroundImage: 'url(' + pic.big + ')', backgroundSize:'contain'}"/>
+              :style="{backgroundImage: 'url(' + pic.big + ')', backgroundSize:'contain'}"
+              @click="show(pic.big)"/>
 
           </div>
 
         </div>
       </div>
-      
-      <mip-fixed v-if="showImg" @click="hideImg" class="img_back" type="top">
-      <div v-if="showImg" @click="hideImg" @touchmove.prevent=""  class="img_div">
-		<mip-img :src="imgUrl" @click="hideImg" ></mip-img>
-      </div>
-	 </mip-fixed>
+
+      <mip-fixed
+        v-if="showImg"
+        class="img_back"
+        type="top"
+        @click="hideImg">
+        <div
+          v-if="showImg"
+          class="img_div"
+          @click="hideImg"
+          @touchmove.prevent="noop">
+          <mip-img
+            :src="imgUrl"
+            @click="hideImg" />
+        </div>
+      </mip-fixed>
       <div class="pingJiaCard">
         <a
           :href="'master_shanghu_detail?u=' + data.info.username"
@@ -1035,7 +1046,7 @@ export default {
       isLogin: false,
       isUnion: false,
       showImg: false,
-      imgUrl:''
+      imgUrl: ''
     }
   },
   computed: {
@@ -1116,13 +1127,13 @@ export default {
       }
       if (!this.isUnion) {
         var to = '/' + cmd
-		console.log(to);
+        console.log(to)
         if (cmd === 'fav') {
           window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href)), {})
         } else if (cmd === 'order_list') {
           window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
         } else if (cmd === 'update_time') {
-		  to = 'https://mip.putibaby.com/update_time_mip?mcode=' + this.data.codeid
+          to = 'https://mip.putibaby.com/update_time_mip?mcode=' + this.data.codeid
           window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
         }
 
@@ -1168,12 +1179,14 @@ export default {
     load_data () {
       console.log('should set data')
     },
-    show(e){
-      this.showImg = true;
-      this.imgUrl = e;
+    show (e) {
+      this.showImg = true
+      this.imgUrl = e
     },
-    hideImg(){
+    hideImg () {
       this.showImg = false
+    },
+    noop () {
     }
   }
 

@@ -413,6 +413,9 @@ export default {
     },
     handleSubmit_ () {
       var self = this
+      if (this.subDisabled) {
+        return
+      }
       this.subDisabled = true
       if (!/^1\d{10}$/.test(this.phoneNumber)) {
         self.errMessage = '请输入正确的手机号码'

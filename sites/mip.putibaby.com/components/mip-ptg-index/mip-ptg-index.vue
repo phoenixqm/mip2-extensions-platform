@@ -273,12 +273,19 @@ export default {
 
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
+      MIP.setData({'#isLogin': true})
+      MIP.setData({'#isUnion': event.userInfo.isUnion})
+
+      console.log(MIP);
+
       var origin = API.next_cmd || event.origin
       // origin = origin || sessionStorage.next_cmd || localStorage.getItem('origin')
 
       API.next_cmd = ''
       // sessionStorage.next_cmd = ''
       // localStorage.clear()
+
+
 
       if (event.userInfo.isUnion && origin === 'order_list') {
         console.log('logindone to order_list')

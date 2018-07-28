@@ -413,14 +413,16 @@ export default {
     },
     handleSubmit_ () {
       var self = this
-
+      this.subDisabled = true
       if (!/^1\d{10}$/.test(this.phoneNumber)) {
         self.errMessage = '请输入正确的手机号码'
         self.err = true
+        this.subDisabled = false
       } else {
         if (!/^\d{4,6}$/.test(this.sms)) {
           self.errMessage = '请输入正确的验证码'
           self.err = true
+          this.subDisabled = false
         } else {
           self.errMessage = ''
           self.err = false
@@ -433,8 +435,9 @@ export default {
               MIP.setData({'#isUnion': true})
               window.MIP.viewer.open(MIP.util.makeCacheUrl(url), {replace: true})
             } else {
-              self.errMessage = '请输入正确的验证码'
+              self.errMessage = '验证码出错或手机号已经注册'
               self.err = true
+              this.subDisabled = false
             }
           })
         }

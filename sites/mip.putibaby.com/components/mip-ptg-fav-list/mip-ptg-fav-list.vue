@@ -223,6 +223,8 @@ export default {
     var self = this
     this.$element.customElement.addEventAction('logindone', function (event, str) {
       console.log(event)
+      MIP.setData({'#isLogin': true})
+      MIP.setData({'#isUnion': event.userInfo.isUnion})
       API.sessionId = event.sessionId
       API.ajaxFavList({}, function (isOk, res) {
         if (isOk) {

@@ -240,6 +240,14 @@ API.wrapRet_ = function (api, opts, fn) {
     })
 }
 
+API.checkUnionAgain = function (opt, fn) {
+  API.wrapRet_(
+    'https://mip.putibaby.com/api/check_union_again', {
+      'opt': opt
+    },
+    fn)
+}
+
 export default {
 
   props: {
@@ -264,6 +272,28 @@ export default {
     console.log('This is index component !')
     window.MIP.viewer.fixedElement.init()
     var self = this
+
+    window.addEventListener('show-page', () => {
+      console.log('show-page')
+      if (self.isUnion || !self.isLogin) {
+        return
+      }
+      API.checkUnionAgain('', function (isOk, res) {
+        if (isOk) {
+          console.log(res)
+          self.isLogin = res.isLogin
+          self.isUnion = res.isUnion
+          // MIP.setData({'#isLogin': true})
+          // MIP.setData({'#isUnion': event.userInfo.isUnion})
+        } else {
+          console.log(res)
+        }
+      })
+    })
+    window.addEventListener('hide-page', () => {
+
+    })
+
     this.$element.customElement.addEventAction('logindone', event => {
       // 这里可以输出登录之后的数据
 

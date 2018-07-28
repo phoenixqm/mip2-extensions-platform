@@ -297,6 +297,7 @@ export default {
       } else if (!event.userInfo.isUnion && origin) {
         console.log('logindone to submit_ph')
         var to = 'https://mip.putibaby.com/' + origin
+		console.log('ddd' + to);
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
       }
     })
@@ -327,6 +328,7 @@ export default {
       console.log(MIP.getData('isUnion'))
       if (!this.isUnion && !MIP.getData('isUnion')) {
         var to = 'https://mip.putibaby.com/' + cmd
+		console.log('uuu' + to);
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
 
         return false
@@ -341,23 +343,23 @@ export default {
     handleCoupon () {
       console.log('handleCoupon')
       if (!this.checkLogin_('coupon')) { return }
-      window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/coupon '), {})
+      window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/coupon'), {})
     },
     handleSelectMaster () {
       console.log('handleSelectMaster')
       // if (!this.checkLogin_('select_master'))
       //   return;
-      window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/select_master '), {})
+      window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/select_master'), {})
     },
     handleUpdateYcq () {
       console.log('handleUpdateYcq')
       if (!this.checkLogin_('update_ycq')) { return }
-      window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/update_ycq '), {})
+      window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/update_ycq'), {})
     },
     handleOrderList () {
       console.log('handleOrderList')
       if (!this.checkLogin_('order_list')) { return }
-      window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/order_list '), {})
+      window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/order_list'), {})
     },
     load_data () {
       console.log('should set data')

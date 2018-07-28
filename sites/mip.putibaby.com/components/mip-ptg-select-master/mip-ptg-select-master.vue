@@ -1804,6 +1804,9 @@ export default {
       // self.$set(self, 'isUnion', event.userInfo.isUnion)
       self.isLogin = true
       self.isUnion = event.userInfo.isUnion
+      MIP.setData({'#isLogin': true})
+      MIP.setData({'#isUnion': event.userInfo.isUnion})
+
       var origin = API.next_cmd || event.origin
       // origin = origin || sessionStorage.next_cmd || localStorage.getItem('origin')
 
@@ -1889,7 +1892,7 @@ export default {
         }
         return false
       }
-      if (!this.isUnion) {
+      if (!this.isUnion && !MIP.getData('isUnion')) {
         var to = 'https://mip.putibaby.com/' + cmd
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
 

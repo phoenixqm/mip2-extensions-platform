@@ -155,6 +155,8 @@ export default {
 
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
+      MIP.setData({'#isLogin': true})
+      MIP.setData({'#isUnion': event.userInfo.isUnion})
 
       API.ajaxCoupon({}, function (isOk, res) {
         if (isOk) {

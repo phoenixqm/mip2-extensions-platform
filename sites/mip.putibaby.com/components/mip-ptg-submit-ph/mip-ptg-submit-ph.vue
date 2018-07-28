@@ -429,6 +429,8 @@ export default {
               // window.location.href = JSON.parse(self.dataJsonstr).redirect
               var url = JSON.parse(self.dataJsonstr).redirect
               // window.location.replace(url);
+              MIP.setData({'#isLogin': true})
+              MIP.setData({'#isUnion': true})
               window.MIP.viewer.open(MIP.util.makeCacheUrl(url), {replace: true})
             } else {
               self.errMessage = '请输入正确的验证码'

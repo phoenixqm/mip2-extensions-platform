@@ -303,8 +303,6 @@ export default {
 
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
-      MIP.setData({'#isLogin': true})
-      MIP.setData({'#isUnion': event.userInfo.isUnion})
 
       console.log(MIP)
 
@@ -327,7 +325,6 @@ export default {
       } else if (!event.userInfo.isUnion && origin) {
         console.log('logindone to submit_ph')
         var to = 'https://mip.putibaby.com/' + origin
-		console.log('ddd' + to);
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
       }
     })
@@ -356,9 +353,9 @@ export default {
         return false
       }
       console.log(MIP.getData('isUnion'))
-      if (!this.isUnion && !MIP.getData('isUnion')) {
+      if (!this.isUnion) {
         var to = 'https://mip.putibaby.com/' + cmd
-		console.log('uuu' + to);
+        console.log('uuu' + to)
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
 
         return false

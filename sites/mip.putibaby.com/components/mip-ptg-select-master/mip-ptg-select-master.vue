@@ -1922,7 +1922,7 @@ export default {
         }
         return false
       }
-      if (!this.isUnion && !MIP.getData('isUnion')) {
+      if (!this.isUnion) {
         var to = 'https://mip.putibaby.com/' + cmd
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
 

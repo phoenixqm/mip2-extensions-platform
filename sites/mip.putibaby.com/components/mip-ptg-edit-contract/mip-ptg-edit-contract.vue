@@ -62,7 +62,7 @@
               validatetarget="username"
               validatetype="must"
               placeholder="中文姓名"
-              @input="contract_mama_name_change_">
+              @input="contract_mama_name_change_" v-on:change="contract_mama_name_change_">
             <div target="username">姓名不符合规范</div>
           </div>
         </div>
@@ -79,7 +79,7 @@
               validatetarget="phone_number"
               validatetype="must"
               placeholder="手机号码"
-              @input="contract_mama_phone_number_change_">
+              @input="contract_mama_phone_number_change_" v-on:change="contract_mama_phone_number_change_">
             <div target="phone_number">手机号码错误</div>
           </div>
         </div>
@@ -96,7 +96,7 @@
               validatetarget="identity"
               validatetype="must"
               placeholder="身份证号码"
-              @input="contract_mama_id_card_change_">
+              @input="contract_mama_id_card_change_" v-on:change="contract_mama_id_card_change_">
             <div target="identity">身份证号码错误</div>
           </div>
         </div>
@@ -215,7 +215,7 @@
               class="input_sc"
               type="number"
               value=""
-              @input="contract_shanghu_length_change_" >天
+              @input="contract_shanghu_length_change_" v-on:change="contract_shanghu_length_change_">天
           </div>
         </div>
         <div class="line"/>
@@ -295,7 +295,7 @@
               type="text"
               value=""
               placeholder="请输入上户的详细地址"
-              @input="contract_location_change_"/>
+              @input="contract_location_change_" v-on:change="contract_location_change_"/>
           </div>
         </div>
       </div>
@@ -1314,14 +1314,23 @@ export default {
     },
     contract_mama_name_change_ () {
       this.inspect_()
+if (this.ret != 2){
+	  return
+	  }
       this.saveIt_()
     },
     contract_mama_phone_number_change_ () {
       this.inspect_()
+if (this.ret != 2){
+	  return
+	  }
       this.saveIt_()
     },
     contract_mama_id_card_change_ () {
       this.inspect_()
+if (this.ret != 2){
+	  return
+	  }
       this.saveIt_()
     },
     contract_shanghu_at_change_ () {
@@ -1339,11 +1348,18 @@ export default {
         djb = 1.0
       }
       this.contract_deposit_min = djb
-
+	  this.inspect_()
+	  if (this.ret != 2){
+	  return
+	  }
       this.saveIt_()
+	  
     },
     contract_location_change_ (event) {
       this.inspect_()
+	  if (this.ret != 2){
+	  return
+	  }
       this.saveIt_()
     },
 

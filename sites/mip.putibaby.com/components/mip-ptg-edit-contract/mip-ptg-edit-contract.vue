@@ -1501,7 +1501,7 @@ export default {
           function (isOk, res) {
             if (isOk) {
               // window.location.href = 'https://mip.putibaby.com/order_list'
-              window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/order_list'), {})
+              window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/order_list'), {replace: true})
             } else {
               self.err_message = '提交失败请重试'
               self.err = true

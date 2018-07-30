@@ -181,7 +181,9 @@
         <!-- </a> -->
         <div class="picList">
           <p v-if="data.xc_list.length === 0">没有照片</p>
-          <div v-if="data.xc_list.length > 0">
+          <div
+            v-if="data.xc_list.length > 0"
+            class="allpic">
             <!-- <mip-img
               v-for="pic in data.xc_list"
               :key="pic.big"
@@ -609,6 +611,11 @@ body{
     display: inline-block;
     margin-right: 10px;
     border-radius: 5px;
+}
+.allpic{
+
+    display: inline-block;
+
 }
 .albumCard .picList .onepic{
     height: 70px;

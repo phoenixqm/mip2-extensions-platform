@@ -195,6 +195,7 @@
               :key="pic.big"
               :src="pic.big"
               :style="{backgroundImage: 'url(' + pic.big + ')', backgroundSize:'contain'}"
+              class="onepic"
               @click="show(pic.big)"/>
 
           </div>
@@ -202,7 +203,7 @@
         </div>
       </div>
 
-            <div class="pingJiaCard">
+      <div class="pingJiaCard">
         <a
           :href="'master_shanghu_detail?u=' + data.info.username"
           mip-link>
@@ -373,21 +374,21 @@
         </tbody>
       </table>
     </mip-fixed>
-	<mip-fixed
+    <mip-fixed
+      v-if="showImg"
+      class="img_back"
+      type="top"
+      @click="hideImg">
+      <div
         v-if="showImg"
-        class="img_back"
-        type="top"
-        @click="hideImg">
-        <div
-          v-if="showImg"
-          class="img_div"
-          @click="hideImg"
-          @touchmove.prevent="noop">
-          <mip-img
-            :src="imgUrl"
-            @click="hideImg" />
-        </div>
-      </mip-fixed>
+        class="img_div"
+        @click="hideImg"
+        @touchmove.prevent="noop">
+        <mip-img
+          :src="imgUrl"
+          @click="hideImg" />
+      </div>
+    </mip-fixed>
 
   </div>
 
@@ -609,7 +610,7 @@ body{
     margin-right: 10px;
     border-radius: 5px;
 }
-.albumCard .picList div{
+.albumCard .picList .onepic{
     height: 70px;
     width: 70px;
     cursor: pointer;

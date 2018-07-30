@@ -1786,6 +1786,9 @@ export default {
       };
     })
   },
+  prerenderAllowed () {
+    return true
+  },
   mounted () {
     window.MIP.viewer.fixedElement.init()
     console.log('This is pty order list component !')

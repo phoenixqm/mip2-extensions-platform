@@ -1412,7 +1412,11 @@ export default {
         this.err_message = '请填写正确的电话号码'
         this.err = true
         return
-      }
+	  }else if(!this.contract_mama_phone_number.match(/^1\d{10}/)){
+	  	this.err_message = '请填写正确的电话号码'
+        this.err = true
+        return
+	  }
 	  if (!/\S+/.test(this.contract_mama_id_card)){
 	    this.err_message = '请填写身份证号码'
         this.err = true

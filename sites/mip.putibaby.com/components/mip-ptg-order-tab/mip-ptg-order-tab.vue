@@ -48,6 +48,9 @@
 
 <script>
 export default {
+  prerenderAllowed () {
+    return true
+  },
   mounted () {
     console.log('This is my first custom component !')
   }

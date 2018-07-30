@@ -198,7 +198,7 @@
               :src="pic.big"
               :style="{backgroundImage: 'url(' + pic.big + ')', backgroundSize:'contain'}"
               class="onepic"
-              @click="show(pic.big)"/>
+              @click.prevent="show(pic.big)"/>
 
           </div>
 
@@ -384,11 +384,10 @@
       <div
         v-if="showImg"
         class="img_div"
-        @click="hideImg"
         @touchmove.prevent="noop">
         <mip-img
           :src="imgUrl"
-          @click="hideImg" />
+          />
       </div>
     </mip-fixed>
 
@@ -617,7 +616,7 @@ body{
     display: inline-block;
 
 }
-.albumCard .picList .onepic{
+.onepic{
     height: 70px;
     width: 70px;
     cursor: pointer;

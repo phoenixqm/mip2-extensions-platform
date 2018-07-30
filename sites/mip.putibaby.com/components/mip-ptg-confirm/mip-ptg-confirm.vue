@@ -6,23 +6,23 @@
       type="top"
       class="fix_back">
       <div id="fullScreen"/>
-     </mip-fixed>
-     <mip-fixed
-        type="top"
-        class="fix_con">
-        <div id="floatLayer">
-          <p class="title">{{ title }}</p>
-          <p class="msg">{{ msg }}</p>
-          <div class="btn_div">
-            <span
-              class="btn_cal"
-              @click="cancelConfirm">取消</span>
-            <span
-              class="btn_ok"
-              @click="okConfirm">确定</span>
-          </div>
+    </mip-fixed>
+    <mip-fixed
+      type="top"
+      class="fix_con">
+      <div id="floatLayer">
+        <p class="title">{{ title }}</p>
+        <p class="msg">{{ msg }}</p>
+        <div class="btn_div">
+          <span
+            class="btn_cal"
+            @click="cancelConfirm">取消</span>
+          <span
+            class="btn_ok"
+            @click="okConfirm">确定</span>
         </div>
-      </mip-fixed>
+      </div>
+    </mip-fixed>
 
   </div>
 </template>
@@ -210,6 +210,9 @@ export default {
       this.current_el_id = ''
       this.current_el_data = {}
       this.show = false
+      setTimeout(() => {
+        MIP.viewer.fixedElement.init()
+      }, 0)
     },
     okConfirm () {
       var ele = document.getElementById(this.current_el_id)
@@ -220,6 +223,9 @@ export default {
       this.current_el_id = ''
       this.current_el_data = {}
       this.show = false
+      setTimeout(() => {
+        MIP.viewer.fixedElement.init()
+      }, 0)
     }
   }
 

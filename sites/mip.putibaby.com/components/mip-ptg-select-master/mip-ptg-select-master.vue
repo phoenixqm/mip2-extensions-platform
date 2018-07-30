@@ -1588,6 +1588,7 @@
     font-size: 14px;
     border-radius: 5px;
     margin-top: 10px;
+	margin-bottom:50px;
   }
 
   .from_to {

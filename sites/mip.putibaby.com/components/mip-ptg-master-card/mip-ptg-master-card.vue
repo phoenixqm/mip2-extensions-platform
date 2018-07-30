@@ -202,22 +202,7 @@
         </div>
       </div>
 
-      <mip-fixed
-        v-if="showImg"
-        class="img_back"
-        type="top"
-        @click="hideImg">
-        <div
-          v-if="showImg"
-          class="img_div"
-          @click="hideImg"
-          @touchmove.prevent="noop">
-          <mip-img
-            :src="imgUrl"
-            @click="hideImg" />
-        </div>
-      </mip-fixed>
-      <div class="pingJiaCard">
+            <div class="pingJiaCard">
         <a
           :href="'master_shanghu_detail?u=' + data.info.username"
           mip-link>
@@ -388,6 +373,22 @@
         </tbody>
       </table>
     </mip-fixed>
+	<mip-fixed
+        v-if="showImg"
+        class="img_back"
+        type="top"
+        @click="hideImg">
+        <div
+          v-if="showImg"
+          class="img_div"
+          @click="hideImg"
+          @touchmove.prevent="noop">
+          <mip-img
+            :src="imgUrl"
+            @click="hideImg" />
+        </div>
+      </mip-fixed>
+
   </div>
 
 </template>
@@ -948,7 +949,7 @@ td.secondCol {
   top: 0;
   left: 0;
   bottom:0;
-  z-index: 9999;
+  z-index: 99996 !important;
 }
 .img_div{
   width: 100%;

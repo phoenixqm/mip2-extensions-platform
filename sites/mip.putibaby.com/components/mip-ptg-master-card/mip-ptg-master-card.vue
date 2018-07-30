@@ -387,7 +387,7 @@
         @touchmove.prevent="noop">
         <mip-img
           :src="imgUrl"
-          />
+        />
       </div>
     </mip-fixed>
 

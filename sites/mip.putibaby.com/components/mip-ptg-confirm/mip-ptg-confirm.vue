@@ -18,7 +18,8 @@
               @click="okConfirm">确定</span>
           </div>
         </div>
-      </mip-fixed>
+      </div>
+    </mip-fixed>
 
   </div>
 </template>

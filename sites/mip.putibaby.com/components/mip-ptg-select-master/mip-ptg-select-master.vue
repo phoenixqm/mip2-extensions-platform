@@ -1077,7 +1077,9 @@
             <p>{{ state.loadMessage }}</p>
           </div>
         </div>
-
+        <div v-if="state.isGif" class="gif">
+          <mip-img v-if="state.isGif" src="https://mip.putibaby.com/i/jiazai.gif" />
+        </div>
       </div>
 
     </div>
@@ -1095,6 +1097,15 @@
 </template>
 
 <style scoped>
+  .gif{
+    width: 100%;
+    text-align: center;
+    margin-top: 120px;
+  }
+  .gif mip-img{
+    width: 130px;
+    height: 130px;
+  }
   .wrapper {
     margin: 0 auto;
     text-align: center;
@@ -1743,8 +1754,9 @@ export default {
       list: null,
       state: {
         isLoadingMore: false,
-        loadMessage: '数据正在加载中...',
-        hasMoreData: false
+        loadMessage: '',
+        hasMoreData: false,
+        isGif: true
       },
       filter: {
         pn: 0,
@@ -1896,6 +1908,7 @@ export default {
         if (isOk) {
           console.log(res)
           self.list = res.list
+          self.state.isGif = false;
           if (res.list.length < 10) {
             self.state.loadMessage = '没有更多数据了!'
           } else {
@@ -1949,13 +1962,15 @@ export default {
     },
     load_data () {
       console.log('should set data')
-      this.state.loadMessage = '数据正在加载中...'
+      this.state.loadMessage = ''
+      this.state.isGif = true;
       this.list = []
       var self = this
       this.filter.pn = 0
       API.getSelectMaster(this.filter, function (isOk, res) {
         if (isOk) {
           console.log(res)
+          self.state.isGif = false;
           self.list = res.list
           if (res.list.length < 10) {
             self.state.loadMessage = '没有更多数据了!'
@@ -1975,6 +1990,7 @@ export default {
       API.getSelectMaster(this.filter, function (isOk, res) {
         if (isOk) {
           // console.log(res);
+          self.state.isGif = false;
           self.list = self.list.concat(res.list)
           if (res.list.length >= 10) {
             self.state.loadMessage = '点击加载数据'

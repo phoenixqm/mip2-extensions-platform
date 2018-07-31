@@ -916,10 +916,7 @@ p {
 .err {
   color: #f00;
   position: relative;
-  left: 50%;
-  margin-left: -167.5px;
   top: -14px;
-  width: 335px;
   text-align: center;
 
 }

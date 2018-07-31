@@ -1089,6 +1089,16 @@ export default {
           console.log(res)
         }
       })
+      API.getMasterInfo(self.data.info.id, function (isOk, data) {
+        if (isOk) {
+          self.$set(self.data.info, 'isfav', data.fav)
+          self.$set(self.data.info, 'can_online_interview', data.can_online_interview)
+          self.$set(self.data.info, 'order_desc_str', data.order_desc_str)
+          // console.log(self);
+        } else {
+          console.warn(data)
+        }
+      })
     })
     window.addEventListener('hide-page', () => {
 

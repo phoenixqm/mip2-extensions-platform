@@ -260,6 +260,8 @@ export default {
     this.$element.customElement.addEventAction('logindone', function (event, str) {
       console.log(event)
       API.sessionId = event.sessionId
+      self.$set(self, 'isLogin', true)
+      self.$set(self, 'isUnion', event.userInfo.isUnion)
       API.ajaxFavList({}, function (isOk, res) {
         if (isOk) {
           self.favlist = res.favlist

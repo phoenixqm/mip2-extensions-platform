@@ -468,6 +468,8 @@ export default {
     this.$element.customElement.addEventAction('logindone', function (event, str) {
       console.log(event)
       API.sessionId = event.sessionId
+      self.$set(self, 'isLogin', true)
+      self.$set(self, 'isUnion', event.userInfo.isUnion)
       if (!event.userInfo.isUnion) {
         console.log('logindone to submit_ph')
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href)), {})

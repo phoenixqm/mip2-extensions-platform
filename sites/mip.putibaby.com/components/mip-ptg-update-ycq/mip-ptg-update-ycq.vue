@@ -47,7 +47,8 @@
           name="name"
           class="name your_name"
           required="required"
-          placeholder="请填写您的称呼"></td>
+          placeholder="请填写您的称呼"
+          @change="checkAgain"></td>
       </tr>
     </table>
     <div class="g"/>
@@ -59,7 +60,8 @@
           type="date"
           name="ycq"
           class="name ycq"
-          required="required"></td>
+          required="required"
+          @change="checkAgain"></td>
       </tr>
     </table>
     <div
@@ -435,6 +437,11 @@ export default {
 
     Checked () {
       this.tuijian = !this.tuijian
+    },
+    checkAgain () {
+      if (this.name === '' || this.date === '') {
+        this.rea = true
+      }
     },
     handleSubmit_ () {
       if (this.name === '' || this.date === '') {

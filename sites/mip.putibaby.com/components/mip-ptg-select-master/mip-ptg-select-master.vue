@@ -1006,7 +1006,7 @@
           src="https://mip.putibaby.com/i/jiazai.gif" />
       </div>
       <div
-		v-if="list.length > 0"
+        v-if="list.length > 0"
         id="cardList"
         class="cardList">
         <div

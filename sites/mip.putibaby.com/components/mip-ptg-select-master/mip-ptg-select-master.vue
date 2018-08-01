@@ -1006,6 +1006,7 @@
           src="https://mip.putibaby.com/i/jiazai.gif" />
       </div>
       <div
+		v-if="list.length > 0"
         id="cardList"
         class="cardList">
         <div
@@ -1971,9 +1972,9 @@ export default {
       // document.documentElement.scrollTop = 0
       // document.body.scrollTop = 0
       this.state.loadMessage = ''
-      this.state.isGif = true
       this.list = []
       var self = this
+      this.state.isGif = true
       this.filter.pn = 0
       API.getSelectMaster(this.filter, function (isOk, res) {
         if (isOk) {

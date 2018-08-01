@@ -48,7 +48,7 @@
           class="name your_name"
           required="required"
           placeholder="请填写您的称呼"
-          @change="checkAgain"></td>
+          @keyup="checkAgain"></td>
       </tr>
     </table>
     <div class="g"/>
@@ -439,8 +439,11 @@ export default {
       this.tuijian = !this.tuijian
     },
     checkAgain () {
+	  console.log(this)
       if (this.name === '' || this.date === '') {
         this.rea = true
+      } else {
+        this.rea = false
       }
     },
     handleSubmit_ () {

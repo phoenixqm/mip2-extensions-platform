@@ -1968,6 +1968,8 @@ export default {
     },
     load_data () {
       console.log('should set data')
+      document.documentElement.scrollTop = 0
+      document.body.scrollTop = 0
       this.state.loadMessage = ''
       this.state.isGif = true
       this.list = []

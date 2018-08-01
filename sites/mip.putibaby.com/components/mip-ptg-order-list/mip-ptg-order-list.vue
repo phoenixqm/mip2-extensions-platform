@@ -150,6 +150,7 @@ body {
   background-color: #F1F5E2;
   padding:10px;
   padding-top: 1px;
+  padding-bottom: 40px;
 }
 
 .row {
@@ -419,6 +420,36 @@ export default {
   mounted () {
     console.log('This is pty order list component !')
     var self = this
+    window.addEventListener('show-page', () => {
+      console.log('show-page')
+      if (self.isLogin) {
+        API.ajaxOrderList({}, function (isOk, res) {
+          if (isOk) {
+            self.list = res.list
+          } else {
+            console.error(res)
+          }
+        })
+      }
+      // if (self.isUnion || !self.isLogin) {
+      //   return
+      // }
+
+      // API.checkUnionAgain('', function (isOk, res) {
+      //   if (isOk) {
+      //     console.log(res)
+      //     self.isLogin = res.isLogin
+      //     self.isUnion = res.isUnion
+      //     // MIP.setData({'#isLogin': true})
+      //     // MIP.setData({'#isUnion': event.userInfo.isUnion})
+      //   } else {
+      //     console.log(res)
+      //   }
+      // })
+    })
+    window.addEventListener('hide-page', () => {
+
+    })
     this.$element.customElement.addEventAction('echo', function (event, str) {
       console.log(event)
     })
@@ -442,7 +473,11 @@ export default {
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href)), {})
       }
       API.ajaxOrderList({}, function (isOk, res) {
-        self.list = res.list
+        if (isOk) {
+          self.list = res.list
+        } else {
+          console.error(res)
+        }
       })
     })
   },

@@ -439,7 +439,7 @@ export default {
       this.tuijian = !this.tuijian
     },
     checkAgain () {
-	  console.log(this)
+      console.log(this)
       if (this.name === '' || this.date === '') {
         this.rea = true
       } else {

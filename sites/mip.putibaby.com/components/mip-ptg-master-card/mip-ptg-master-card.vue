@@ -380,7 +380,7 @@
       v-if="showImg"
       class="img_back"
       type="top"
-	  still
+      still
       @click="hideImg">
       <div
         v-if="showImg"

@@ -598,6 +598,16 @@ export default {
       }
     },
     handleBtn_dianhualianxi (order) {
+      var self = this
+      if (self.doingTel2) {
+        return
+      }
+      self.doingTel2 = 1
+
+      setTimeout(function () {
+        self.doingTel2 = 0
+      }, 2000)
+
       window.location.href = 'tel:' + order.master.phone_number
     },
     handleBtn_nidinghetong (order) {
@@ -644,6 +654,16 @@ export default {
     },
 
     handleBtn_lianxikefu (order) {
+      var self = this
+      if (self.doingTel) {
+        return
+      }
+      self.doingTel = 1
+
+      setTimeout(function () {
+        self.doingTel = 0
+      }, 2000)
+
       window.location.href = 'tel:400-618-8835'
     },
     handleBtn_fukuan (order) {

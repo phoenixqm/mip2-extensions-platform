@@ -1077,7 +1077,11 @@
       <div
         v-if="state.isGif"
         class="gif">
-		<mip-anim layout="fixed" width=110 height=110 src="https://mip.putibaby.com/i/jiazai.gif"></mip-anim>
+        <mip-anim
+          layout="fixed"
+          width="110"
+          height="110"
+          src="https://mip.putibaby.com/i/jiazai.gif"/>
       </div>
       <div
         v-if="list.length > 0"
@@ -1957,8 +1961,6 @@ export default {
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
       }
     })
-
-
   },
   methods: {
 
@@ -2048,10 +2050,10 @@ export default {
       // document.body.scrollTop = 0
       this.state.loadMessage = ''
       this.list = []
-      //this.$set(this, 'list', [])
+      // this.$set(this, 'list', [])
       var self = this
       this.state.isGif = true
-      //this.$set(this.state, 'isGif', true)
+      // this.$set(this.state, 'isGif', true)
       this.filter.pn = 0
       API.getSelectMaster(this.filter, function (isOk, res) {
         if (isOk) {

@@ -1839,7 +1839,8 @@ export default {
   data () {
     console.log(this)
     var pdata = JSON.parse(this.dataJsonstr)
-    var city = pdata.cicy || '北京'
+    var city = pdata.city || '北京'
+	console.log(city)
     return {
       isLogin: false,
       isUnion: false,
@@ -1996,7 +1997,7 @@ export default {
       var self = this
       console.log('should loading')
       console.log(this.dataJson)
-      API.getSelectMaster({}, function (isOk, res) {
+      API.getSelectMaster(self.filter, function (isOk, res) {
         if (isOk) {
           console.log(res)
           self.list = res.list

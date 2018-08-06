@@ -1840,7 +1840,7 @@ export default {
     console.log(this)
     var pdata = JSON.parse(this.dataJsonstr)
     var city = pdata.city || '北京'
-	console.log(city)
+    console.log(city)
     return {
       isLogin: false,
       isUnion: false,

@@ -390,9 +390,9 @@ export default {
     // var pdata = JSON.parse(this.dataJsonstr)
     // var data = pdata.order
     if (sessionStorage.savedState) {
-	  var saved = JSON.parse(sessionStorage.savedState);
+      var saved = JSON.parse(sessionStorage.savedState)
       console.log(saved)
-	  sessionStorage.clear()
+      sessionStorage.clear()
       return {
         isLogin: false,
         isUnion: false,
@@ -466,7 +466,7 @@ export default {
         date: this.date,
         dateChecked: this.dateChecked,
         tuijian: this.tuijian
-      });
+      })
 
       if (!this.isUnion) {
         console.log('logindone to submit_ph')

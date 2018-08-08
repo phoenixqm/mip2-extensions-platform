@@ -389,7 +389,18 @@ export default {
     console.log(this)
     // var pdata = JSON.parse(this.dataJsonstr)
     // var data = pdata.order
-
+    if (sessionStorage.savedState) {
+      console.log(sessionStorage.savedState)
+      return {
+        isLogin: false,
+        isUnion: false,
+        rea: false,
+        dateChecked: sessionStorage.savedState.dateChecked,
+        name: sessionStorage.savedState.name,
+        date: sessionStorage.savedState.date,
+        tuijian: sessionStorage.savedState.tuijian
+      }
+    }
     return {
       isLogin: false,
       isUnion: false,
@@ -417,10 +428,10 @@ export default {
 
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
-      if (!event.userInfo.isUnion) {
-        console.log('logindone to submit_ph')
-        window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href)), {})
-      }
+      // if (!event.userInfo.isUnion) {
+      //   console.log('logindone to submit_ph')
+      //   window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href)), {})
+      // }
     })
   },
   firstInviewCallback () {
@@ -447,6 +458,18 @@ export default {
       }
     },
     handleSubmit_ () {
+      // save to sessionStorage
+      sessionStorage.savedState = {
+        name: this.name,
+        date: this.date,
+        dateChecked: this.dateChecked,
+        tuijian: this.tuijian
+      }
+
+      if (!event.userInfo.isUnion) {
+        console.log('logindone to submit_ph')
+        window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href)), {})
+      }
       if (this.name === '' || this.date === '') {
         this.rea = true
         return

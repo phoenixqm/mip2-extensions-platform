@@ -390,15 +390,17 @@ export default {
     // var pdata = JSON.parse(this.dataJsonstr)
     // var data = pdata.order
     if (sessionStorage.savedState) {
-      console.log(sessionStorage.savedState)
+	  var saved = JSON.parse(sessionStorage.savedState);
+      console.log(saved)
+	  sessionStorage.clear()
       return {
         isLogin: false,
         isUnion: false,
         rea: false,
-        dateChecked: sessionStorage.savedState.dateChecked,
-        name: sessionStorage.savedState.name,
-        date: sessionStorage.savedState.date,
-        tuijian: sessionStorage.savedState.tuijian
+        dateChecked: saved.dateChecked,
+        name: saved.name,
+        date: saved.date,
+        tuijian: saved.tuijian
       }
     }
     return {
@@ -459,16 +461,16 @@ export default {
     },
     handleSubmit_ () {
       // save to sessionStorage
-      sessionStorage.savedState = {
+      sessionStorage.savedState = JSON.stringify({
         name: this.name,
         date: this.date,
         dateChecked: this.dateChecked,
         tuijian: this.tuijian
-      }
+      });
 
-      if (!event.userInfo.isUnion) {
+      if (!this.isUnion) {
         console.log('logindone to submit_ph')
-        window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href)), {})
+        window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href)), {replace: true})
       }
       if (this.name === '' || this.date === '') {
         this.rea = true

@@ -1875,6 +1875,20 @@ export default {
 
   },
   beforeMount () {
+    function getParameterByName (name, url) {
+      if (!url) url = window.location.href
+      name = name.replace(/[\[\]]/g, '\\$&')
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)')
+      var results = regex.exec(url)
+      if (!results) return null
+      if (!results[2]) return ''
+      return decodeURIComponent(results[2].replace(/\+/g, ' '))
+    }
+    var qcity = getParameterByName('city')
+    this.filter.city = qcity.replace('市', '')
+    console.log(qcity)
+    console.log(this.filter)
+
     this.init()
     var self = this
     window.addEventListener('scroll', function (e) {
@@ -1897,6 +1911,7 @@ export default {
   },
   mounted () {
     window.MIP.viewer.fixedElement.init()
+
     console.log('This is pty order list component !')
     // 所有的图片（要是网络太好，自己加图片吧）
     const imgs = [

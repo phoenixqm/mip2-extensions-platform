@@ -5,7 +5,9 @@
     <div class="img"><mip-img src="https://mip.putibaby.com/i/four.png"/></div>
     <div class="bot_div">
       <img src="https://mip.putibaby.com/i/bot.png">
-      <div class="start" @click="handleUpdateYcq"><a>开始定制</a></div>
+      <div
+        class="start"
+        @click="handleUpdateYcq"><a>开始定制</a></div>
     </div>
     <!-- <mip-fixed
       type="bottom"
@@ -154,7 +156,7 @@ export default {
     }
 
     var city = this.city || ''
-    API.reportVisit(1, city, function (isOk, res) {
+    API.reportVisit(2, city, function (isOk, res) {
       if (isOk) {
         console.log(res)
       } else {

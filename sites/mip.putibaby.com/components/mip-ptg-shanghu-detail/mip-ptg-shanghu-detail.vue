@@ -479,6 +479,14 @@ API.ajaxMasterShanghuFull = function (username, fn) {
     fn)
 }
 
+API.reportVisit = function (zw, city, fn) {
+  API.wrapRet_(
+    'https://mip.putibaby.com/api/ajax_report_visit', {
+      'zw_id': zw,
+      'city': city
+    },
+    fn)
+}
 export default {
 
   props: {

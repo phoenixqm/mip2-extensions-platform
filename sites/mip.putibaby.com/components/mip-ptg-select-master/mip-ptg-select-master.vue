@@ -1794,6 +1794,15 @@ API.checkUnionAgain = function (opt, fn) {
     fn)
 }
 
+API.reportVisit = function (zw, city, fn) {
+  API.wrapRet_(
+    'https://mip.putibaby.com/api/ajax_report_visit', {
+      'zw_id': zw,
+      'city': city
+    },
+    fn)
+}
+
 function addClass (element, newName) {
   if (!element || !newName) return false
   if (element.className) {
@@ -1891,6 +1900,15 @@ export default {
       console.log(qcity)
       console.log(this.filter)
     }
+
+    var city = this.filter.city || ''
+    API.reportVisit(1, city, function (isOk, res) {
+      if (isOk) {
+        console.log(res)
+      } else {
+        console.log(res)
+      }
+    })
 
     this.init()
     var self = this

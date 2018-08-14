@@ -1153,7 +1153,7 @@ export default {
             'https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to2)), {})
         }
       } else {
-        console.warn('undefined origin while logindone')
+        console.log('no op while logindone')
       }
 
       API.getMasterInfo(self.data.info.id, function (isOk, data) {

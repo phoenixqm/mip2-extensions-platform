@@ -149,12 +149,11 @@ export default {
     var qcity = getParameterByName('city')
     var cities = ['北京市', '天津市', '哈尔滨市', '武汉市', '上海市', '长春市', '济南市', '长沙市', '广州市', '杭州市', '洛阳市', '南阳市', '深圳市', '沈阳市', '石家庄市', '西安市', '湘潭市', '徐州市', '成都市', '南京市', '黄石市', '郑州市', '青岛市', '大连市', '常州市', '唐山市', '保定市', '秦皇岛市', '襄阳市', '太原市', '昆明市', '兰州市', '呼和浩特市', '乌鲁木齐市', '合肥市', '南昌市', '福州市', '厦门市', '南宁市']
     if (cities.lastIndexOf(qcity) >= 0) {
-      this.filter.city = qcity.replace('市', '')
+      this.city = qcity.replace('市', '')
       console.log(qcity)
-      console.log(this.filter)
     }
 
-    var city = this.filter.city || ''
+    var city = this.city || ''
     API.reportVisit(1, city, function (isOk, res) {
       if (isOk) {
         console.log(res)

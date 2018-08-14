@@ -5,7 +5,7 @@
     <div class="img"><mip-img src="https://mip.putibaby.com/i/four.png"/></div>
     <div class="bot_div">
       <img src="https://mip.putibaby.com/i/bot.png">
-      <div class="start"><a @click="handleUpdateYcq">开始定制</a></div>
+      <div class="start" @click="handleUpdateYcq"><a>开始定制</a></div>
     </div>
     <!-- <mip-fixed
       type="bottom"
@@ -44,7 +44,7 @@
     /* background-color: #f1f5e2; */
   }
   .start{
-    margin-top: 15px;
+    margin-top: 25px;
     text-align: center;
     color: #fff;
     height: 47px;

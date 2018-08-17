@@ -1853,7 +1853,7 @@ export default {
     return {
       isLogin: false,
       isUnion: false,
-      list: null,
+      list: [],
       state: {
         isLoadingMore: false,
         loadMessage: '',
@@ -2033,7 +2033,7 @@ export default {
           console.log(res)
         }
       })
-      
+
       this.filter.city = this.filter.city || '北京'
       API.getSelectMaster(self.filter, function (isOk, res) {
         if (isOk) {

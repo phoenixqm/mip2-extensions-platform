@@ -338,7 +338,7 @@
                 </span>
               </p>
             </div>
-<input type="checkbox" class="checkbox_" checked="buy_dalibao" @change="contract_dalibao_">{{buy_dalibao}}</input>
+<input type="checkbox" class="checkbox_" :checked="buy_dalibao"  @change="contract_dalibao_">{{buy_dalibao}}</input>
 
           </div>
    
@@ -1188,7 +1188,9 @@ export default {
       to_contract_skill_req: toContractSkillReq,
       to_contract_extra: toContractExtra,
       err_message: '',
-      ret: 1
+      ret: 1,
+
+buy_dalibao : true
     }
   },
   computed: {
@@ -1367,7 +1369,12 @@ console.log('res',res);
       if (this.readonly !== '1' && this.readonly !== 1) {
         this.contract_is_offer_allday_service = 'true'
         this.contract_is_offer_allday_ser = true
+if(this.buy_dalibao){
+this.contract_master_price = this.master.member_yuesao_allday_price / 100
+
+}else{
         this.contract_master_price = this.master.yuesao_allday_price / 100
+}
         this.saveIt_()
       }
     },
@@ -1375,17 +1382,32 @@ console.log('res',res);
       if (this.readonly !== '1' && this.readonly !== 1) {
         this.contract_is_offer_allday_service = 'false'
         this.contract_is_offer_allday_ser = false
+if(this.buy_dalibao){
+this.contract_master_price = this.master.member_yuesao_daytime_price / 100
+
+}else{
         this.contract_master_price = this.master.yuesao_daytime_price / 100
+}
         this.saveIt_()
       }
     },
     contract_is_offer_allday_service_change_ () {
       if (this.contract_is_offer_allday_service === 'true') {
         this.contract_is_offer_allday_ser = true
+if(this.buy_dalibao){
+this.contract_master_price = this.master.member_yuesao_allday_price / 100
+
+}else{
         this.contract_master_price = this.master.yuesao_allday_price / 100
+}
       } else {
         this.contract_is_offer_allday_ser = false
+if(this.buy_dalibao){
+this.contract_master_price = this.master.member_yuesao_daytime_price / 100
+
+}else{
         this.contract_master_price = this.master.yuesao_daytime_price / 100
+}
       }
       this.saveIt_()
     },
@@ -1439,10 +1461,9 @@ console.log('res',res);
       this.saveIt_()
     },
     contract_dalibao_ (event) {
-      console.log(event.target.value);
-      console.log(!event.target.value);
-this.buy_dalibao = !event.target.value;
- console.log(this); 
+     
+this.buy_dalibao = event.target.checked;
+this.contract_is_offer_allday_service_change_(); 
      this.saveIt_();
     },
 
@@ -1492,7 +1513,7 @@ console.log(obj)
       this._data.ts = new Date()
       localStorage.State = JSON.stringify(this._data)
       API.wrapRet_(
-        'https://mip.putibaby.com/api/set_contract', obj,
+        'https://mip.putibaby.com/api/set_contract_new', obj,
         function (isOk, res) {
           if (isOk) {
           }

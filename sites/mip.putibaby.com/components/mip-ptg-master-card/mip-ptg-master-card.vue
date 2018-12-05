@@ -688,7 +688,7 @@ body{
     margin: 0px;
 }
 .serverCard .price p span:nth-of-type(1){
-    text-decoration:line-through;
+    /*text-decoration:line-through;*/
     color: #C32218;
 }
 .serverCard .price p span:nth-of-type(2){
@@ -1050,6 +1050,15 @@ API.reportVisit = function (zw, city, fn) {
     },
     fn)
 }
+API.zjqd = function (masterId, masterType, fn) {
+  API.wrapRet_(
+    'https://mip.putibaby.com/api/zjqd', {
+      'master_id': masterId,
+      'master_type': masterType
+    },
+    fn)
+}
+
 export default {
 
   props: {
@@ -1142,7 +1151,21 @@ export default {
     window.addEventListener('hide-page', () => {
 
     })
-
+    this.$element.customElement.addEventAction('echo', function (event, str) {
+      console.log(event)
+    })
+    this.$element.customElement.addEventAction('dook', function (event, str) {
+      // console.log(event);
+      if (event.from) {
+        console.log(event.from)
+        event.from.bind(self)(event.data, true)
+        // var eval_str = 'this.' + event.handler + '(event_order)'
+      }
+    })
+    this.$element.customElement.addEventAction('docancel', function (event, str) {
+      console.log(event)
+      console.log(str)
+    })
     this.$element.customElement.addEventAction('logindone', event => {
       // 这里可以输出登录之后的数据
 
@@ -1223,6 +1246,8 @@ export default {
           this.$emit('login2')
         } else if (cmd === 'update_time') {
           this.$emit('login3')
+        } else {
+          this.$emit('login1')
         }
         return false
       }
@@ -1236,6 +1261,8 @@ export default {
         } else if (cmd === 'update_time') {
           to = 'https://mip.putibaby.com/update_time_mip?mcode=' + this.data.codeid
           window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(to)), {})
+        } else {
+          window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/submit_ph?to=' + encodeURIComponent(window.location.href)), {})
         }
 
         return false
@@ -1263,6 +1290,44 @@ export default {
         window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/update_time_mip?mcode=' + self.data.codeid), {})
       })
     },
+    handleZjqd (info, skip) {
+      console.log('handleZjqd')
+      var self = this
+      var city = this.city || ''
+      API.reportVisit(7, city, function (isOk, res) {
+        if (isOk) {
+          console.log(res)
+        } else {
+          console.log(res)
+        }
+
+      })
+
+      if (!self.checkLogin_()) { return }
+
+      if (skip) {
+        API.zjqd(info.id, 'yuesao', function (isOk, data) {
+          if (isOk) {
+            window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/edit_contract?id=' + order.id), {})
+            // self.reload_()
+          } else {
+            console.warn(data)
+            self.show_alert(data)
+          }
+        })
+      } else {
+        var ele = document.getElementById('ptgconfirm')
+        // console.log(ele);
+        MIP.viewer.eventAction.execute('doshow', ele, {
+          el_id: 'mastercard',
+          title: '提示消息',
+          msg: '确定签约?',
+          from: this.handleZjqd,
+          data: info })
+      }
+
+    },
+
     handleOrderList () {
       console.log('handleOrderList')
       if (!this.checkLogin_('order_list')) { return }

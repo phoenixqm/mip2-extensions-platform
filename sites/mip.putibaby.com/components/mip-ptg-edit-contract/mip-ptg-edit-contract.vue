@@ -1162,8 +1162,8 @@ export default {
       toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.id + '&readonly=1'
       toContractExtra = 'edit_contract_extra_mip?id=' + pdata.id + '&readonly=1'
     }
-    toJinguoEvent = 'jinguo_event_mip'
-    toJinguoDetail = 'jinguo_detail_mip?id=' + pdata.id
+    toJinguoEvent = 'jinguo_event'
+    toJinguoDetail = 'jinguo_detail?id=' + pdata.id
 
 
     return {
@@ -1270,8 +1270,8 @@ buy_dalibao : true
         toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.order.id + '&readonly=1'
         toContractExtra = 'edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1'
       }
-      toJinguoEvent = 'jinguo_event_mip'
-      toJinguoDetail = 'jinguo_detail_mip?id=' + pdata.order.id
+      toJinguoEvent = 'jinguo_event'
+      toJinguoDetail = 'jinguo_detail?id=' + pdata.order.id
 
       var showz
       if (data.contract_mama_id_card_list[0] === '') {
@@ -1539,11 +1539,9 @@ this.contract_is_offer_allday_service_change_();
       obj.pics = []
       obj.mama_id = this.order.mama.id
 
-<<<<<<< HEAD
-obj.contract_buy_dalibao = this.buy_dalibao ? 0 : -1
-=======
+
       obj.contract_buy_dalibao = this.buy_dalibao ? 0 : -1
->>>>>>> ac6518181bd864ff97a8d143fda1feea0d57d84e
+
 
       this._data.ts = new Date()
       localStorage.State = JSON.stringify(this._data)

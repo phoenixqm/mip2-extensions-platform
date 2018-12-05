@@ -329,7 +329,7 @@
 	<div class="sub_head">
           <p>服务升级</p>
         </div>
-     
+
           <div class="row">
             <div class="left">金果会员服务</div>
             <div class="extra_text">
@@ -341,7 +341,7 @@
 <input type="checkbox" class="checkbox_" :checked="buy_dalibao"  @change="contract_dalibao_"></input>
 
           </div>
-   
+
         <div class="line"/>
         <a
           :href="to_contract_extra"
@@ -1217,7 +1217,6 @@ buy_dalibao : true
     function setData (ajaxData) {
       var pdata = ajaxData
       var data = pdata.order
-console.log('pdata',pdata);
       // var masterPrice = data.master.price_26day // 月嫂价格
       var masterPrice = data.contract_is_offer_allday_service
         ? data.master.yuesao_allday_price
@@ -1311,7 +1310,6 @@ self.buy_dalibao = pdata.order.dalibao_id == -1 ? false : true
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
       API.ajaxContract(self.order_id, self.readonly, function (isOk, res) {
-console.log('res',res);
         setData(res)
       })
     })
@@ -1461,9 +1459,9 @@ this.contract_master_price = this.master.member_yuesao_daytime_price / 100
       this.saveIt_()
     },
     contract_dalibao_ (event) {
-     
+
 this.buy_dalibao = event.target.checked;
-this.contract_is_offer_allday_service_change_(); 
+this.contract_is_offer_allday_service_change_();
      this.saveIt_();
     },
 
@@ -1507,9 +1505,9 @@ this.contract_is_offer_allday_service_change_();
       obj.hardcode_deposit = this.hardcode_deposit
       obj.pics = []
       obj.mama_id = this.order.mama.id
-console.log('22',this.buy_dalibao)
-obj.contract_buy_dalibao = this.buy_dalibao ? 0 : -1
-console.log(obj)
+
+      obj.contract_buy_dalibao = this.buy_dalibao ? 0 : -1
+
       this._data.ts = new Date()
       localStorage.State = JSON.stringify(this._data)
       API.wrapRet_(

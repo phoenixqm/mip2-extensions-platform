@@ -229,6 +229,8 @@
           <div class="right">
             <p>{{ contract_master_price }}</p> 元
           </div>
+<div v-if="!buy_dalibao && !in_m_expired" class="price_tag">（市场价）</div>
+          <div v-else="buy_dalibao" class="price_tag">（会员价）</div>
         </div>
         <div class="line"/>
         <div class="row">
@@ -236,6 +238,8 @@
           <div class="right">
             <p>{{ contract_price }}</p> 元
           </div>
+<div v-if="!buy_dalibao && !in_m_expired"  class="price_tag">（市场价）</div>
+          <div v-else="buy_dalibao" class="price_tag">（会员价）</div>
         </div>
         <div class="line"/>
         <div class="row">
@@ -325,7 +329,7 @@
       </div>
 
 
-<div class="other_info_">
+<div class="other_info_" v-if="!in_m_expired">
 	<div class="sub_head">
           <p>服务升级</p>
         </div>
@@ -1024,6 +1028,12 @@ p {
 margin-right:15px;
 margin-top:16px;
 }
+.price_tag{
+display:absolute;
+margin-left:215px;
+font-size:12px;
+color:#f00;
+}
 </style>
 
 <script>
@@ -1222,6 +1232,14 @@ console.log('pdata',pdata);
       var masterPrice = data.contract_is_offer_allday_service
         ? data.master.yuesao_allday_price
         : data.master.yuesao_daytime_price
+
+        var buy_dalibao = pdata.order.dalibao_id
+        if(data.in_m_expired){
+          var masterPrice = data.contract_is_offer_allday_service
+            ? data.master.member_yuesao_allday_price
+            : data.master.member_yuesao_daytime_price
+            var buy_dalibao = -1
+        }
       masterPrice = masterPrice / 100
 
       var price = Math.round(masterPrice / 26 * data.contract_shanghu_length) // 通过月嫂价格和上户时长计算的总金额
@@ -1302,7 +1320,8 @@ console.log('pdata',pdata);
 
       self.ajaxLoaded = true
 
-self.buy_dalibao = pdata.order.dalibao_id == -1 ? false : true
+self.buy_dalibao = buy_dalibao== -1 ? false : true
+self.in_m_expired = data.in_m_expired
 
     }
 
@@ -1311,7 +1330,7 @@ self.buy_dalibao = pdata.order.dalibao_id == -1 ? false : true
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
       API.ajaxContract(self.order_id, self.readonly, function (isOk, res) {
-console.log('res',res);
+
         setData(res)
       })
     })
@@ -1507,9 +1526,9 @@ this.contract_is_offer_allday_service_change_();
       obj.hardcode_deposit = this.hardcode_deposit
       obj.pics = []
       obj.mama_id = this.order.mama.id
-console.log('22',this.buy_dalibao)
+
 obj.contract_buy_dalibao = this.buy_dalibao ? 0 : -1
-console.log(obj)
+
       this._data.ts = new Date()
       localStorage.State = JSON.stringify(this._data)
       API.wrapRet_(
@@ -1635,7 +1654,7 @@ console.log(obj)
       }
       if (skip) {
         API.wrapRet_(
-          'https://mip.putibaby.com/api/submit_contract', {
+          'https://mip.putibaby.com/api/submit_contract_new', {
             'id': this.order.id
           },
           function (isOk, res) {

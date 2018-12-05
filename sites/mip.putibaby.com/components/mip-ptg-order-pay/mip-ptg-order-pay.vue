@@ -273,7 +273,7 @@ API.payOrderWithBalance = function (orderId, payId, type, amount, fn) {
 }
 API.ajaxDoPay = function (orderId, fn) {
   API.wrapRet_(
-    'https://mip.putibaby.com/api/ajax_do_pay', {
+    'https://mip.putibaby.com/api/ajax_do_pay_new', {
       'order_id': orderId
 
     },

@@ -1,6 +1,23 @@
 
 <template>
   <div class="root">
+    <div class="yifang">
+
+      <div class="">
+        <div class="mama_name">乙方
+          <span class="mama_info_span"> master.name </span>
+        </div>
+        <div class="mama_phone">电话
+          <span class="mama_info_span">
+            <a href="tel:400-618-8835"> master.phone_number </a>
+          </span>
+        </div>
+        <div class="mama_id_card">身份证
+          <span class="mama_info_span"> master.id_card 
+          </span>
+        </div>
+      </div>
+    </div>
     <mip-img
       layout="responsive"
       width="16"

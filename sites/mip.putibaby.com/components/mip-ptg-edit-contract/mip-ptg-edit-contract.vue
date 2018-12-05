@@ -338,7 +338,7 @@
                 </span>
               </p>
             </div>
-<input type="checkbox" class="checkbox_" :checked="buy_dalibao"  @change="contract_dalibao_">{{buy_dalibao}}</input>
+<input type="checkbox" class="checkbox_" :checked="buy_dalibao"  @change="contract_dalibao_"></input>
 
           </div>
    

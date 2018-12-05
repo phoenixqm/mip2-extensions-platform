@@ -50,6 +50,13 @@ p {
   color: #666;
   font-size: 14px;
 }
+.jt_xx {
+  width: 8px;
+  height: 13px;
+  position: absolute;
+  right: 14px;
+  top: 16px;
+}
 
 </style>
 

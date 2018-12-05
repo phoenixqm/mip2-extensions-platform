@@ -344,7 +344,7 @@
 
         <div class="line"/>
         <a
-          :href="to_contract_extra"
+          :href="to_jinguo_event"
           mip-link>
           <div class="row">
             <div class="left">金果会员特权</div>
@@ -360,7 +360,7 @@
         </a>
         <div class="line"/>
         <a
-          :href="to_contract_extra"
+          :href="to_jinguo_detail"
           mip-link>
           <div class="row">
             <div class="left">《金果会员服务详情》</div>
@@ -1143,6 +1143,8 @@ export default {
 
     var toContractExtra
     var toContractSkillReq
+    var toJinguoEvent
+    var toJinguoDetail
     if (pdata.readonly !== '1') {
       toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.id
       toContractExtra = 'edit_contract_extra_mip?id=' + pdata.id
@@ -1150,6 +1152,9 @@ export default {
       toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.id + '&readonly=1'
       toContractExtra = 'edit_contract_extra_mip?id=' + pdata.id + '&readonly=1'
     }
+    toJinguoEvent = 'jinguo_event_mip'
+    toJinguoDetail = 'jinguo_detail_mip?id=' + pdata.id
+
 
     return {
       isLogin: false,
@@ -1187,6 +1192,8 @@ export default {
       contract_deposit_min: 0,
       to_contract_skill_req: toContractSkillReq,
       to_contract_extra: toContractExtra,
+      to_jinguo_event: toJinguoEvent,
+      to_jinguo_detail: toJinguoDetail,
       err_message: '',
       ret: 1,
 
@@ -1236,6 +1243,8 @@ buy_dalibao : true
       }
       var toContractExtra
       var toContractSkillReq
+      var toJinguoEvent
+      var toJinguoDetail
       if (pdata.readonly !== '1' && pdata.readonly !== 1) {
         toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.order.id
         toContractExtra = 'edit_contract_extra_mip?id=' + pdata.order.id
@@ -1243,6 +1252,9 @@ buy_dalibao : true
         toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.order.id + '&readonly=1'
         toContractExtra = 'edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1'
       }
+      toJinguoEvent = 'jinguo_event_mip'
+      toJinguoDetail = 'jinguo_detail_mip?id=' + pdata.order.id
+
       var showz
       if (data.contract_mama_id_card_list[0] === '') {
         showz = false
@@ -1297,6 +1309,8 @@ buy_dalibao : true
       self.contract_deposit_min = data.contract_deposit_min
       self.to_contract_skill_req = toContractSkillReq
       self.to_contract_extra = toContractExtra
+      self.to_jinguo_event = toJinguoEvent
+      self.to_jinguo_detail = toJinguoDetail
       self.err_message = ''
 
       self.ajaxLoaded = true

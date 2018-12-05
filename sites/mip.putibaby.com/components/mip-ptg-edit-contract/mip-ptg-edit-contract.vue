@@ -333,7 +333,7 @@
 	<div class="sub_head">
           <p>服务升级</p>
         </div>
-     
+
           <div class="row">
             <div class="left">金果会员服务</div>
             <div class="extra_text">
@@ -345,10 +345,10 @@
 <input type="checkbox" class="checkbox_" :checked="buy_dalibao"  @change="contract_dalibao_"></input>
 
           </div>
-   
+
         <div class="line"/>
         <a
-          :href="to_contract_extra"
+          :href="to_jinguo_event"
           mip-link>
           <div class="row">
             <div class="left">金果会员特权</div>
@@ -364,7 +364,7 @@
         </a>
         <div class="line"/>
         <a
-          :href="to_contract_extra"
+          :href="to_jinguo_detail"
           mip-link>
           <div class="row">
             <div class="left">《金果会员服务详情》</div>
@@ -1153,6 +1153,8 @@ export default {
 
     var toContractExtra
     var toContractSkillReq
+    var toJinguoEvent
+    var toJinguoDetail
     if (pdata.readonly !== '1') {
       toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.id
       toContractExtra = 'edit_contract_extra_mip?id=' + pdata.id
@@ -1160,6 +1162,9 @@ export default {
       toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.id + '&readonly=1'
       toContractExtra = 'edit_contract_extra_mip?id=' + pdata.id + '&readonly=1'
     }
+    toJinguoEvent = 'jinguo_event_mip'
+    toJinguoDetail = 'jinguo_detail_mip?id=' + pdata.id
+
 
     return {
       isLogin: false,
@@ -1197,6 +1202,8 @@ export default {
       contract_deposit_min: 0,
       to_contract_skill_req: toContractSkillReq,
       to_contract_extra: toContractExtra,
+      to_jinguo_event: toJinguoEvent,
+      to_jinguo_detail: toJinguoDetail,
       err_message: '',
       ret: 1,
 
@@ -1227,7 +1234,6 @@ buy_dalibao : true
     function setData (ajaxData) {
       var pdata = ajaxData
       var data = pdata.order
-console.log('pdata',pdata);
       // var masterPrice = data.master.price_26day // 月嫂价格
       var masterPrice = data.contract_is_offer_allday_service
         ? data.master.yuesao_allday_price
@@ -1255,6 +1261,8 @@ console.log('pdata',pdata);
       }
       var toContractExtra
       var toContractSkillReq
+      var toJinguoEvent
+      var toJinguoDetail
       if (pdata.readonly !== '1' && pdata.readonly !== 1) {
         toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.order.id
         toContractExtra = 'edit_contract_extra_mip?id=' + pdata.order.id
@@ -1262,6 +1270,9 @@ console.log('pdata',pdata);
         toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.order.id + '&readonly=1'
         toContractExtra = 'edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1'
       }
+      toJinguoEvent = 'jinguo_event_mip'
+      toJinguoDetail = 'jinguo_detail_mip?id=' + pdata.order.id
+
       var showz
       if (data.contract_mama_id_card_list[0] === '') {
         showz = false
@@ -1316,6 +1327,8 @@ console.log('pdata',pdata);
       self.contract_deposit_min = data.contract_deposit_min
       self.to_contract_skill_req = toContractSkillReq
       self.to_contract_extra = toContractExtra
+      self.to_jinguo_event = toJinguoEvent
+      self.to_jinguo_detail = toJinguoDetail
       self.err_message = ''
 
       self.ajaxLoaded = true
@@ -1330,7 +1343,6 @@ self.in_m_expired = data.in_m_expired
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
       API.ajaxContract(self.order_id, self.readonly, function (isOk, res) {
-
         setData(res)
       })
     })
@@ -1480,9 +1492,9 @@ this.contract_master_price = this.master.member_yuesao_daytime_price / 100
       this.saveIt_()
     },
     contract_dalibao_ (event) {
-     
+
 this.buy_dalibao = event.target.checked;
-this.contract_is_offer_allday_service_change_(); 
+this.contract_is_offer_allday_service_change_();
      this.saveIt_();
     },
 
@@ -1527,7 +1539,11 @@ this.contract_is_offer_allday_service_change_();
       obj.pics = []
       obj.mama_id = this.order.mama.id
 
+<<<<<<< HEAD
 obj.contract_buy_dalibao = this.buy_dalibao ? 0 : -1
+=======
+      obj.contract_buy_dalibao = this.buy_dalibao ? 0 : -1
+>>>>>>> ac6518181bd864ff97a8d143fda1feea0d57d84e
 
       this._data.ts = new Date()
       localStorage.State = JSON.stringify(this._data)

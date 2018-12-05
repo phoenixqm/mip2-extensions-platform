@@ -364,10 +364,15 @@
               @click="handleUpdateTime">
               <a>预约视频面试</a>
             </td>
-
+			<td
+			  v-if="data.info.can_online_interview"
+              class="td2"
+			  @click="handleBtn_qianyue">
+			  <a>在线签约</a>
+			</td>  
             <td
               v-else
-              class="td2"
+              class="td3"
               @click="handleOrderList">
               <a>{{ data.info.order_desc_str }}-查看预约</a>
             </td>
@@ -710,7 +715,7 @@ body{
     color: #fff;
     line-height: 30px;
     font-size: 14px;
-    cursor: pointer;
+	cursor: pointer;
     background: #6BD4FA;
     padding: 0px 10px;
     border-radius: 5px 5px 0px 0px;
@@ -874,16 +879,16 @@ td.secondCol {
 .td1{
     cursor: pointer;
     background-color: #fff;
-    width: 25%;
+    width: 18%;
 }
 .td-fav{
-  width: 25%;
+  width: 18%;
 }
 .td2{
     cursor: pointer;
     background-color: #adcd41;
-    font-size: 15px;
-    width: 50%;
+    font-size: 14px;
+    width: 32%;
 }
 .td2 a{
     color:white !important;
@@ -893,6 +898,15 @@ td.secondCol {
     /*width:25px;*/
     /*height:25px;*/
     margin:0 auto;
+}
+.td3{
+	cursor: pointer;
+    background-color: #adcd41;
+    font-size: 14px;
+    width: 64%;
+}
+.td3 a{
+    color:white !important;
 }
 
 .fav_p{

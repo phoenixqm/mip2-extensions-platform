@@ -323,6 +323,58 @@
             src="i/contract_jt.png"/>
         </div>
       </div>
+
+
+<div class="other_info_">
+	<div class="sub_head">
+          <p>服务升级</p>
+        </div>
+     
+          <div class="row">
+            <div class="left">金果会员服务</div>
+            <div class="extra_text">
+              <p>
+                <span class="extra_i_">2880元
+                </span>
+              </p>
+            </div>
+<input type="checkbox" class="checkbox_" checked="buy_dalibao" @change="contract_dalibao_">{{buy_dalibao}}</input>
+
+          </div>
+   
+        <div class="line"/>
+        <a
+          :href="to_contract_extra"
+          mip-link>
+          <div class="row">
+            <div class="left">金果会员特权</div>
+            <div
+              class="extra_text"/>
+            <mip-img
+              layout="responsive"
+              width="16"
+              height="16"
+              class="jt"
+              src="i/contract_jt.png"/>
+          </div>
+        </a>
+        <div class="line"/>
+        <a
+          :href="to_contract_extra"
+          mip-link>
+          <div class="row">
+            <div class="left">《金果会员服务详情》</div>
+            <div
+              class="extra_text"/>
+            <mip-img
+              layout="responsive"
+              width="16"
+              height="16"
+              class="jt"
+              src="i/contract_jt.png"/>
+          </div>
+        </a>
+      </div>
       <div
         v-show="err"
         class="err">
@@ -473,6 +525,12 @@ p {
   width: 100%;
   margin: 10px auto 0;
 }
+.other_info_ {
+  background: #fff;
+  position: relative;
+  width: 100%;
+  /*margin: 10px auto 0;*/
+}
 
 .row {
   overflow: hidden;
@@ -523,9 +581,9 @@ p {
 }
 
 .contract_info {
-  margin-bottom: 13px;
+  /*margin-bottom: 13px;*/
   position: relative;
-  height: 100px;
+  /*height: 100px;*/
 }
 
 .sub_head {
@@ -581,6 +639,7 @@ p {
 
 .submit {
   margin: 0 auto;
+  margin-top: 25px;
 }
 
 .btn {
@@ -698,7 +757,13 @@ p {
   width: 13px;
   text-align: center;
 }
-
+.extra_i_ {
+  display: inline-block;
+  margin: 0 3px;
+  position: relative;
+  width: 65px;
+  text-align: center;
+}
 .radio {
   display: inline-block;
 }
@@ -954,6 +1019,11 @@ p {
   position: absolute;
   left: 15px;
 }
+.checkbox_ {
+ float:right;
+margin-right:15px;
+margin-top:16px;
+}
 </style>
 
 <script>
@@ -993,7 +1063,7 @@ API.wrapRet_ = function (api, opts, fn) {
 }
 API.ajaxContract = function (orderId, readonly, fn) {
   API.wrapRet_(
-    'https://mip.putibaby.com/api/ajax_contract', {
+    'https://mip.putibaby.com/api/ajax_contract_new', {
       'id': orderId,
       'readonly': readonly ? 1 : 0
     }, fn)
@@ -1145,7 +1215,7 @@ export default {
     function setData (ajaxData) {
       var pdata = ajaxData
       var data = pdata.order
-
+console.log('pdata',pdata);
       // var masterPrice = data.master.price_26day // 月嫂价格
       var masterPrice = data.contract_is_offer_allday_service
         ? data.master.yuesao_allday_price
@@ -1229,6 +1299,9 @@ export default {
       self.err_message = ''
 
       self.ajaxLoaded = true
+
+self.buy_dalibao = pdata.order.dalibao_id == -1 ? false : true
+
     }
 
     this.$element.customElement.addEventAction('logindone', function (event, str) {
@@ -1236,6 +1309,7 @@ export default {
       self.$set(self, 'isLogin', true)
       self.$set(self, 'isUnion', event.userInfo.isUnion)
       API.ajaxContract(self.order_id, self.readonly, function (isOk, res) {
+console.log('res',res);
         setData(res)
       })
     })
@@ -1364,6 +1438,13 @@ export default {
       }
       this.saveIt_()
     },
+    contract_dalibao_ (event) {
+      console.log(event.target.value);
+      console.log(!event.target.value);
+this.buy_dalibao = !event.target.value;
+ console.log(this); 
+     this.saveIt_();
+    },
 
     saveIt_ () {
       if (!this.ajaxLoaded) {
@@ -1405,7 +1486,9 @@ export default {
       obj.hardcode_deposit = this.hardcode_deposit
       obj.pics = []
       obj.mama_id = this.order.mama.id
-
+console.log('22',this.buy_dalibao)
+obj.contract_buy_dalibao = this.buy_dalibao ? 0 : -1
+console.log(obj)
       this._data.ts = new Date()
       localStorage.State = JSON.stringify(this._data)
       API.wrapRet_(

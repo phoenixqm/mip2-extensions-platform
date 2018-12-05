@@ -367,7 +367,7 @@
 			<td
 			  v-if="data.info.can_online_interview"
               class="td2"
-			  @click="handleBtn_qianyue">
+			  @click="handleZjqd(data.info)">
 			  <a>在线签约</a>
 			</td>  
             <td

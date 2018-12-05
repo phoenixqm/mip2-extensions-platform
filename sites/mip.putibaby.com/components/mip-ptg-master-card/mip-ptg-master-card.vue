@@ -1306,6 +1306,7 @@ export default {
     },
     handleZjqd (info, skip) {
       console.log('handleZjqd')
+	  console.log(info)
       var self = this
       var city = this.city || ''
       API.reportVisit(7, city, function (isOk, res) {
@@ -1322,7 +1323,7 @@ export default {
       if (skip) {
         API.zjqd(info.id, 'yuesao', function (isOk, data) {
           if (isOk) {
-            window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/edit_contract?id=' + order.id), {})
+            window.MIP.viewer.open(MIP.util.makeCacheUrl('https://mip.putibaby.com/order_list'), {})
             // self.reload_()
           } else {
             console.warn(data)

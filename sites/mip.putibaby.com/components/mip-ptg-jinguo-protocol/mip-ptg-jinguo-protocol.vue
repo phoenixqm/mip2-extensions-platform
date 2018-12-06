@@ -9,7 +9,7 @@
 
       <div >甲方（客户）：
         <i class="jiafang">
-          {contract_mama_name}
+		  {{contract_mama_name}}
         </i>
       </div>
       <div >乙方（公司）：
@@ -86,7 +86,7 @@
         <li>凡是标记“二选一”的项目，则表示在该项目中的两种服务内容，甲方可以自行根据需要选择其中一项进行。如对所选择的项目有疑问的，可以致电乙方客服电话进行咨询。</li>
       </ul>
       <p class="p_1" ><b>千元大礼包</b></p>
-      <table class="table_1">
+      <table class="table_1" cellspacing="0" cellpadding="0">
         <tr >  <th class="th1">妈妈大礼包</th></tr>
         <tr class="tr1">  <td>定制浴巾毛巾套装</td></tr>
         <tr class="tr1">  <td>时尚实用妈咪包</td></tr>
@@ -95,7 +95,7 @@
         <tr class="tr1">  <td>家用急救包</td></tr>
         <tr class="tr1">  <td>《菩提果母婴》杂志</td></tr>
       </table>
-      <table class="table_2">
+      <table class="table_2" cellspacing="0" cellpadding="0">
         <tr >  <th class="th1">宝宝大礼包</th></tr>
         <tr class="tr1">  <td>宝宝祈福开光福袋</td></tr>
         <tr class="tr1">  <td>宝宝口水巾</td></tr>

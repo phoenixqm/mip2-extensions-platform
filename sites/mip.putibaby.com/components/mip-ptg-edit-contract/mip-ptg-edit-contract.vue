@@ -1207,7 +1207,7 @@ export default {
       toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.id + '&readonly=1'
       toContractExtra = 'edit_contract_extra_mip?id=' + pdata.id + '&readonly=1'
     }
-    toJinguoDetail = 'jinguo_event'
+    toJinguoDetail = 'jinguo_detail'
     toJinguoProtocol = 'jinguo_protocol?id=' + pdata.id
 
     return {
@@ -1314,7 +1314,7 @@ export default {
         toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.order.id + '&readonly=1'
         toContractExtra = 'edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1'
       }
-      toJinguoDetail = 'jinguo_event'
+      toJinguoDetail = 'jinguo_detail'
       toJinguoProtocol = 'jinguo_protocol?id=' + pdata.order.id
 
       var showz

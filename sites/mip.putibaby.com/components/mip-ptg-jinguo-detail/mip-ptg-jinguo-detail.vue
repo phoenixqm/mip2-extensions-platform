@@ -5,7 +5,7 @@
     <mip-img
       layout="responsive"
       width="375"
-      height="375"
+      height="170"
 
       src="i/jghy_01_01.jpg"/>
     <mip-img

@@ -343,7 +343,9 @@
               </p>
             </div>
 <input type="checkbox" class="checkbox_" :checked="buy_dalibao"  @change="contract_dalibao_"></input>
-
+<div
+                :class="{'checked_' : buy_dalibao , 'unchecked_' : !buy_dalibao }"
+                @click="dalibaoChecked"/>
           </div>
 
         <div class="line"/>
@@ -367,7 +369,7 @@
           :href="to_jinguo_detail"
           mip-link>
           <div class="row">
-            <div class="left">《金果会员服务详情》</div>
+            <div class="left_">《金果会员服务详情》</div>
             <div
               class="extra_text"/>
             <mip-img
@@ -568,7 +570,15 @@ p {
   color: #666;
   left: 15px;
 }
-
+.row .left_ {
+  position: absolute;
+  display: inline-block;
+  
+  float: left;
+  clear: left;
+  color: #666;
+  left: 10px;
+}
 .left_address {
   width: 80px;
   float: left;
@@ -982,7 +992,29 @@ p {
   z-index: 22;
 
 }
+.checked_ {
+  background-image: url('/i/balance_checked.png'); 
+  background-size: 22px 22px;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  top: 11px;
+ right:15px; 
+  z-index: 22;
 
+}
+
+.unchecked_ {
+   background-image: url('/i/balance_unchecked.png'); 
+  background-size: 22px 22px;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  top: 11px;
+  right:15px;
+  z-index: 22;
+
+}
 .err {
   color: #f00;
   position: relative;
@@ -1025,7 +1057,7 @@ p {
 }
 .checkbox_ {
  float:right;
-margin-right:15px;
+margin-right:18px;
 margin-top:16px;
 }
 .price_tag{
@@ -1421,6 +1453,13 @@ this.contract_master_price = this.master.member_yuesao_daytime_price / 100
 }
         this.saveIt_()
       }
+    },
+    dalibaoChecked () {
+	  
+	  this.buy_dalibao = !this.buy_dalibao;
+	  this.contract_is_offer_allday_service_change_();
+            this.saveIt_()
+     
     },
     contract_is_offer_allday_service_change_ () {
       if (this.contract_is_offer_allday_service === 'true') {

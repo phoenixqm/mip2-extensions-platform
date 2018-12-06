@@ -1,47 +1,31 @@
 
 <template>
   <div class="root">
-    <div class="yifang">
 
-      <div class="">
-        <div class="mama_name">乙方
-          <span class="mama_info_span"> master.name </span>
-        </div>
-        <div class="mama_phone">电话
-          <span class="mama_info_span">
-            <a href="tel:400-618-8835"> master.phone_number </a>
-          </span>
-        </div>
-        <div class="mama_id_card">身份证
-          <span class="mama_info_span"> master.id_card
-          </span>
-        </div>
-      </div>
-    </div>
     <mip-img
       layout="responsive"
-      width="16"
-      height="16"
-      class="jt"
-      src="i/contract_jt.png"/>
+      width="375"
+      height="375"
+
+      src="i/jgyh_01_01.jpg"/>
     <mip-img
       layout="responsive"
-      width="16"
-      height="16"
-      class="jt"
-      src="i/contract_jt.png"/>
+      width="375"
+      height="646"
+
+      src="i/jgyh_01_02.jpg"/>
     <mip-img
       layout="responsive"
-      width="16"
-      height="16"
-      class="jt"
-      src="i/contract_jt.png"/>
+      width="375"
+      height="740"
+
+      src="i/jgyh_01_03.jpg"/>
     <mip-img
       layout="responsive"
-      width="16"
-      height="16"
-      class="jt"
-      src="i/contract_jt.png"/>
+      width="375"
+      height="414"
+
+      src="i/jgyh_01_04.jpg"/>
   </div>
 </template>
 <style scoped>
@@ -63,23 +47,10 @@ p {
 
 .root {
   background: #f4f4f4;
-  padding-bottom: 30px;
   color: #666;
   font-size: 14px;
-  padding:0px 10px;
 }
-.jt_xx {
-  width: 8px;
-  height: 13px;
-  position: absolute;
-  right: 14px;
-  top: 16px;
-}
-.td1 {
-border-top:1px solid #000;
-  font-size:10.5px;
 
-  }
 </style>
 
 <script>

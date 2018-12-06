@@ -1,12 +1,12 @@
-# mip-ptg-jinguo-event
+# mip-ptg-jinguo-protocol
 
-mip-ptg-jinguo-event 组件说明
+mip-ptg-jinguo-protocol 组件说明
 
 标题|内容
 ----|----
 类型|通用
 支持布局|responsive,fixed-height,fill,container,fixed
-所需脚本|https://c.mipcdn.com/extensions/platform/v2/mip.putibaby.com/mip-ptg-jinguo-event/mip-ptg-jinguo-event.js
+所需脚本|https://c.mipcdn.com/extensions/platform/v2/mip.putibaby.com/mip-ptg-jinguo-protocol/mip-ptg-jinguo-protocol.js
 
 ## 示例
 ### 基本用法
@@ -14,10 +14,10 @@ mip-ptg-jinguo-event 组件说明
 列表数据通过data-jsonstr传递
 
 ```html
-<mip-ptg-jinguo-event
+<mip-ptg-jinguo-protocol
     data-jsonstr="<%= JSON.stringify(data) %>"
     >
-</mip-ptg-jinguo-event>   
+</mip-ptg-jinguo-protocol>   
 ```
 
 ## 属性

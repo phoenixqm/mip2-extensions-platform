@@ -88,22 +88,22 @@
       <p class="p_1" ><b>千元大礼包</b></p>
       <table class="table_1" cellspacing="0" cellpadding="0">
         <tr >  <th class="th1">妈妈大礼包</th></tr>
-        <tr class="tr1">  <td>定制浴巾毛巾套装</td></tr>
-        <tr class="tr1">  <td>时尚实用妈咪包</td></tr>
-        <tr class="tr1">  <td>菩提果收纳包</td></tr>
-        <tr class="tr1">  <td>菩提果擦手巾</td></tr>
-        <tr class="tr1">  <td>家用急救包</td></tr>
-        <tr class="tr1">  <td>《菩提果母婴》杂志</td></tr>
+        <tr class="tr1">  <td class="td1">定制浴巾毛巾套装</td></tr>
+        <tr class="tr1">  <td class="td1">时尚实用妈咪包</td></tr>
+        <tr class="tr1">  <td class="td1">菩提果收纳包</td></tr>
+        <tr class="tr1">  <td class="td1">菩提果擦手巾</td></tr>
+        <tr class="tr1">  <td class="td1">家用急救包</td></tr>
+        <tr class="tr1">  <td class="td1">《菩提果母婴》杂志</td></tr>
       </table>
       <table class="table_2" cellspacing="0" cellpadding="0">
         <tr >  <th class="th1">宝宝大礼包</th></tr>
-        <tr class="tr1">  <td>宝宝祈福开光福袋</td></tr>
-        <tr class="tr1">  <td>宝宝口水巾</td></tr>
-        <tr class="tr1">  <td>果宝洗澡水温卡</td></tr>
-        <tr class="tr1">  <td>宝宝便携奶粉格</td></tr>
-        <tr class="tr1">  <td>宝宝纸尿裤/拉拉裤礼包</td></tr>
-        <tr class="tr1">  <td>宝宝辅食粥米</td></tr>
-        <tr class="tr1">  <td>*宝宝亲子游泳或早教（二选一）一次</td></tr>
+        <tr class="tr1">  <td class="td1">宝宝祈福开光福袋</td></tr>
+        <tr class="tr1">  <td class="td1">宝宝口水巾</td></tr>
+        <tr class="tr1">  <td class="td1">果宝洗澡水温卡</td></tr>
+        <tr class="tr1">  <td class="td1">宝宝便携奶粉格</td></tr>
+        <tr class="tr1">  <td class="td1">宝宝纸尿裤/拉拉裤礼包</td></tr>
+        <tr class="tr1">  <td class="td1">宝宝辅食粥米</td></tr>
+        <tr class="tr1">  <td class="td1">*宝宝亲子游泳或早教（二选一）一次</td></tr>
       </table>
       <ul
         class="ul_25"
@@ -174,17 +174,20 @@ p {
 
 .root {
   background: #f4f4f4;
-  padding-bottom: 30px;
+  padding:0px 10px;
   color: #666;
   font-size: 14px;
+text-align:justify;
 }
 .main{
   padding:1px 20px;
-  textAlign:justify;
+  text-align:justify;
 }
 .title_h2 {
   font-size:16px;
   color:#3f552a;
+padding-top:25px;
+padding-bottom:15px;
 }
 .line {
   height:1px;
@@ -234,7 +237,10 @@ margin:15px auto 0px;
   background:#e4eeda;
   font-size:12px;
 }
-
+.td1 {
+  border-top:1px solid #000;
+  font-size:10.5px;
+}
 </style>
 
 <script>

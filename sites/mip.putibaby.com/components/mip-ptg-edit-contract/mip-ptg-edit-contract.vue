@@ -229,8 +229,12 @@
           <div class="right">
             <p>{{ contract_master_price }}</p> 元
           </div>
-<div v-if="!buy_dalibao && !in_m_expired" class="price_tag">（市场价）</div>
-          <div v-else="buy_dalibao" class="price_tag">（会员价）</div>
+          <div
+            v-if="!buy_dalibao && !in_m_expired"
+            class="price_tag">（市场价）</div>
+          <div
+            v-else
+            class="price_tag">（会员价）</div>
         </div>
         <div class="line"/>
         <div class="row">
@@ -238,8 +242,12 @@
           <div class="right">
             <p>{{ contract_price }}</p> 元
           </div>
-<div v-if="!buy_dalibao && !in_m_expired"  class="price_tag">（市场价）</div>
-          <div v-else="buy_dalibao" class="price_tag">（会员价）</div>
+          <div
+            v-if="!buy_dalibao && !in_m_expired"
+            class="price_tag">（市场价）</div>
+          <div
+            v-else
+            class="price_tag">（会员价）</div>
         </div>
         <div class="line"/>
         <div class="row">
@@ -328,25 +336,30 @@
         </div>
       </div>
 
-
-<div class="other_info_" v-if="!in_m_expired">
-	<div class="sub_head">
+      <div
+        v-if="!in_m_expired"
+        class="other_info_">
+        <div class="sub_head">
           <p>服务升级</p>
         </div>
 
-          <div class="row">
-            <div class="left">金果会员服务</div>
-            <div class="extra_text">
-              <p>
-                <span class="extra_i_">2880元
-                </span>
-              </p>
-            </div>
-<input type="checkbox" class="checkbox_" :checked="buy_dalibao"  @change="contract_dalibao_"></input>
-<div
-                :class="{'checked_' : buy_dalibao , 'unchecked_' : !buy_dalibao }"
-                @click="dalibaoChecked"/>
+        <div class="row">
+          <div class="left">金果会员服务</div>
+          <div class="extra_text">
+            <p>
+              <span class="extra_i_">2880元
+              </span>
+            </p>
           </div>
+          <input
+            :checked="buy_dalibao"
+            type="checkbox"
+            class="checkbox_"
+            @change="contract_dalibao_" >
+          <div
+            :class="{'checked_' : buy_dalibao , 'unchecked_' : !buy_dalibao }"
+            @click="dalibaoChecked"/>
+        </div>
 
         <div class="line"/>
         <a
@@ -573,7 +586,7 @@ p {
 .row .left_ {
   position: absolute;
   display: inline-block;
-  
+
   float: left;
   clear: left;
   color: #666;
@@ -993,19 +1006,19 @@ p {
 
 }
 .checked_ {
-  background-image: url('/i/balance_checked.png'); 
+  background-image: url('/i/balance_checked.png');
   background-size: 22px 22px;
   width: 22px;
   height: 22px;
   position: absolute;
   top: 11px;
- right:15px; 
+ right:15px;
   z-index: 22;
 
 }
 
 .unchecked_ {
-   background-image: url('/i/balance_unchecked.png'); 
+   background-image: url('/i/balance_unchecked.png');
   background-size: 22px 22px;
   width: 22px;
   height: 22px;
@@ -1197,7 +1210,6 @@ export default {
     toJinguoEvent = 'jinguo_event'
     toJinguoDetail = 'jinguo_detail?id=' + pdata.id
 
-
     return {
       isLogin: false,
       isUnion: false,
@@ -1239,7 +1251,7 @@ export default {
       err_message: '',
       ret: 1,
 
-buy_dalibao : true
+      buy_dalibao: true
     }
   },
   computed: {
@@ -1271,13 +1283,13 @@ buy_dalibao : true
         ? data.master.yuesao_allday_price
         : data.master.yuesao_daytime_price
 
-        var buy_dalibao = pdata.order.dalibao_id
-        if(data.in_m_expired){
-          var masterPrice = data.contract_is_offer_allday_service
-            ? data.master.member_yuesao_allday_price
-            : data.master.member_yuesao_daytime_price
-            var buy_dalibao = -1
-        }
+      var buyDalibao = pdata.order.dalibao_id
+      if (data.in_m_expired) {
+        masterPrice = data.contract_is_offer_allday_service
+          ? data.master.member_yuesao_allday_price
+          : data.master.member_yuesao_daytime_price
+        buyDalibao = -1
+      }
       masterPrice = masterPrice / 100
 
       var price = Math.round(masterPrice / 26 * data.contract_shanghu_length) // 通过月嫂价格和上户时长计算的总金额
@@ -1365,9 +1377,8 @@ buy_dalibao : true
 
       self.ajaxLoaded = true
 
-self.buy_dalibao = buy_dalibao== -1 ? false : true
-self.in_m_expired = data.in_m_expired
-
+      self.buy_dalibao = buyDalibao !== -1
+      self.in_m_expired = data.in_m_expired
     }
 
     this.$element.customElement.addEventAction('logindone', function (event, str) {
@@ -1432,12 +1443,11 @@ self.in_m_expired = data.in_m_expired
       if (this.readonly !== '1' && this.readonly !== 1) {
         this.contract_is_offer_allday_service = 'true'
         this.contract_is_offer_allday_ser = true
-if(this.buy_dalibao){
-this.contract_master_price = this.master.member_yuesao_allday_price / 100
-
-}else{
-        this.contract_master_price = this.master.yuesao_allday_price / 100
-}
+        if (this.buy_dalibao) {
+          this.contract_master_price = this.master.member_yuesao_allday_price / 100
+        } else {
+          this.contract_master_price = this.master.yuesao_allday_price / 100
+        }
         this.saveIt_()
       }
     },
@@ -1445,39 +1455,34 @@ this.contract_master_price = this.master.member_yuesao_allday_price / 100
       if (this.readonly !== '1' && this.readonly !== 1) {
         this.contract_is_offer_allday_service = 'false'
         this.contract_is_offer_allday_ser = false
-if(this.buy_dalibao){
-this.contract_master_price = this.master.member_yuesao_daytime_price / 100
-
-}else{
-        this.contract_master_price = this.master.yuesao_daytime_price / 100
-}
+        if (this.buy_dalibao) {
+          this.contract_master_price = this.master.member_yuesao_daytime_price / 100
+        } else {
+          this.contract_master_price = this.master.yuesao_daytime_price / 100
+        }
         this.saveIt_()
       }
     },
     dalibaoChecked () {
-	  
-	  this.buy_dalibao = !this.buy_dalibao;
-	  this.contract_is_offer_allday_service_change_();
-            this.saveIt_()
-     
+      this.buy_dalibao = !this.buy_dalibao
+      this.contract_is_offer_allday_service_change_()
+      this.saveIt_()
     },
     contract_is_offer_allday_service_change_ () {
       if (this.contract_is_offer_allday_service === 'true') {
         this.contract_is_offer_allday_ser = true
-if(this.buy_dalibao){
-this.contract_master_price = this.master.member_yuesao_allday_price / 100
-
-}else{
-        this.contract_master_price = this.master.yuesao_allday_price / 100
-}
+        if (this.buy_dalibao) {
+          this.contract_master_price = this.master.member_yuesao_allday_price / 100
+        } else {
+          this.contract_master_price = this.master.yuesao_allday_price / 100
+        }
       } else {
         this.contract_is_offer_allday_ser = false
-if(this.buy_dalibao){
-this.contract_master_price = this.master.member_yuesao_daytime_price / 100
-
-}else{
-        this.contract_master_price = this.master.yuesao_daytime_price / 100
-}
+        if (this.buy_dalibao) {
+          this.contract_master_price = this.master.member_yuesao_daytime_price / 100
+        } else {
+          this.contract_master_price = this.master.yuesao_daytime_price / 100
+        }
       }
       this.saveIt_()
     },
@@ -1531,10 +1536,9 @@ this.contract_master_price = this.master.member_yuesao_daytime_price / 100
       this.saveIt_()
     },
     contract_dalibao_ (event) {
-
-this.buy_dalibao = event.target.checked;
-this.contract_is_offer_allday_service_change_();
-     this.saveIt_();
+      this.buy_dalibao = event.target.checked
+      this.contract_is_offer_allday_service_change_()
+      this.saveIt_()
     },
 
     saveIt_ () {
@@ -1578,9 +1582,7 @@ this.contract_is_offer_allday_service_change_();
       obj.pics = []
       obj.mama_id = this.order.mama.id
 
-
       obj.contract_buy_dalibao = this.buy_dalibao ? 0 : -1
-
 
       this._data.ts = new Date()
       localStorage.State = JSON.stringify(this._data)

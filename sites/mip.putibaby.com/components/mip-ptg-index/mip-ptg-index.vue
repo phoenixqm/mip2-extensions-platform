@@ -53,7 +53,7 @@
           height="36px"
           class="bottom_left_img"/>
       </a>
-	  <div class="line"></div>
+      <div class="line"/>
       <a @click="handleOrderList">
         <mip-img
           src="https://mip.putibaby.com/i/ind_person_2.png"
@@ -68,11 +68,11 @@
 
 <style scoped>
   .line{
-  	width:1px;
-	height:22px;
-	border-right:solid 1px #e5e5e5;
-	float:left;
-	margin-top:13px;
+    width:1px;
+    height:22px;
+    border-right:solid 1px #e5e5e5;
+    float:left;
+    margin-top:13px;
   }
   .wrapper {
     margin: 0 auto;
@@ -193,7 +193,7 @@
     display: inline-block;
     color: black;
     padding-left: 0;
-	float:left;
+    float:left;
   }
 
   .bottom_left_img {

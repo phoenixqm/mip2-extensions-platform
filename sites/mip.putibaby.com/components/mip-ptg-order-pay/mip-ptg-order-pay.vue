@@ -16,9 +16,11 @@
     <div class="row">
       <div class="left">实付金额</div>
       <div class="right text_red">¥{{ (data.payamount/100).toFixed(2) }} </div>
-	  </div>
-	  <div class="row_" v-if="data.pay_dalibao">
-	注：应付金额和实付金额均包含{{data.dalibao_name}}金额（{{(data.dalibao_price/100).toFixed(2)}}元）
+    </div>
+    <div
+      v-if="data.pay_dalibao"
+      class="row_">
+      注：应付金额和实付金额均包含{{ data.dalibao_name }}金额（{{ (data.dalibao_price/100).toFixed(2) }}元）
 
     </div>
     <div class="header">
@@ -128,7 +130,7 @@
   height: 35px;
   line-height: 14px;
   position: relative;
-  
+
   left: 15px;
   font-size:12px;
   color:#f00;

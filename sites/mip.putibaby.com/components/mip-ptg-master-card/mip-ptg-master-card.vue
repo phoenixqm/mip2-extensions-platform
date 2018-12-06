@@ -364,12 +364,12 @@
               @click="handleUpdateTime">
               <a>预约视频面试</a>
             </td>
-			<td
-			  v-if="data.info.can_online_interview"
+            <td
+              v-if="data.info.can_online_interview"
               class="td2"
-			  @click="handleZjqd(data.info)">
-			  <a>在线签约</a>
-			</td>  
+              @click="handleZjqd(data.info)">
+              <a>在线签约</a>
+            </td>
             <td
               v-else
               class="td3"
@@ -715,7 +715,7 @@ body{
     color: #fff;
     line-height: 30px;
     font-size: 14px;
-	cursor: pointer;
+    cursor: pointer;
     background: #6BD4FA;
     padding: 0px 10px;
     border-radius: 5px 5px 0px 0px;
@@ -900,7 +900,7 @@ td.secondCol {
     margin:0 auto;
 }
 .td3{
-	cursor: pointer;
+    cursor: pointer;
     background-color: #adcd41;
     font-size: 14px;
     width: 64%;
@@ -1306,7 +1306,7 @@ export default {
     },
     handleZjqd (info, skip) {
       console.log('handleZjqd')
-	  console.log(info)
+      // console.log(info)
       var self = this
       var city = this.city || ''
       API.reportVisit(7, city, function (isOk, res) {
@@ -1315,7 +1315,6 @@ export default {
         } else {
           console.log(res)
         }
-
       })
 
       if (!self.checkLogin_()) { return }
@@ -1340,7 +1339,6 @@ export default {
           from: this.handleZjqd,
           data: info })
       }
-
     },
 
     handleOrderList () {

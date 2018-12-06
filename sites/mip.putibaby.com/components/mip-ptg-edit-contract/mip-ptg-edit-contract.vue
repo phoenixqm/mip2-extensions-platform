@@ -5,7 +5,19 @@
       class="root"
       method="get"
       url="https://www.mipengine.org?we=123">
-
+  <a
+          :href="to_jijin_intro"
+          mip-link>
+      <div class="jijin">
+        <mip-img
+          src="i/jijin/banner12.png"
+          layout="responsive"
+          width="375"
+          height="150"
+          class="jijin_img"/>
+    
+      </div>
+</a>
       <div class="yifang">
         <mip-img
           :src="master.header.small"
@@ -433,7 +445,20 @@ p {
   color: #666;
   font-size: 14px;
 }
+.jijin {
+  width: 100%;
+  
+  margin: 0 auto;
+  position: relative;
+  background-color: #fff;
+  margin-bottom: 10px;
+}
+.jijin_img {
 
+  width: 100%;
+height: 100%; 
+
+}
 .yifang {
   width: 100%;
   height: 88px;
@@ -1200,6 +1225,7 @@ export default {
     var toContractSkillReq
     var toJinguoDetail
     var toJinguoProtocol
+var toJijinIntro
     if (pdata.readonly !== '1') {
       toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.id
       toContractExtra = 'edit_contract_extra_mip?id=' + pdata.id
@@ -1209,7 +1235,7 @@ export default {
     }
     toJinguoDetail = 'jinguo_detail'
     toJinguoProtocol = 'jinguo_protocol?id=' + pdata.id
-
+toJijinIntro = 'jijin_intro'
     return {
       isLogin: false,
       isUnion: false,
@@ -1248,6 +1274,7 @@ export default {
       to_contract_extra: toContractExtra,
       to_jinguo_detail: toJinguoDetail,
       to_jinguo_protocol: toJinguoProtocol,
+to_jijin_intro: toJijinIntro,
       err_message: '',
       ret: 1,
 
@@ -1307,6 +1334,7 @@ export default {
       var toContractSkillReq
       var toJinguoDetail
       var toJinguoProtocol
+var toJijinIntro
       if (pdata.readonly !== '1' && pdata.readonly !== 1) {
         toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.order.id
         toContractExtra = 'edit_contract_extra_mip?id=' + pdata.order.id
@@ -1316,7 +1344,7 @@ export default {
       }
       toJinguoDetail = 'jinguo_detail'
       toJinguoProtocol = 'jinguo_protocol?id=' + pdata.order.id
-
+toJijinIntro = 'jijin_intro'
       var showz
       if (data.contract_mama_id_card_list[0] === '') {
         showz = false
@@ -1373,6 +1401,7 @@ export default {
       self.to_contract_extra = toContractExtra
       self.to_jinguo_detail = toJinguoDetail
       self.to_jinguo_protocol = toJinguoProtocol
+self.to_jijin_intro = toJijinIntro
       self.err_message = ''
 
       self.ajaxLoaded = true

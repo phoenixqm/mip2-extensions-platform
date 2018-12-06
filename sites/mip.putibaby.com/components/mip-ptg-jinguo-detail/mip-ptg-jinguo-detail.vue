@@ -7,25 +7,25 @@
       width="375"
       height="375"
 
-      src="i/jgyh_01_01.jpg"/>
+      src="i/jghy_01_01.jpg"/>
     <mip-img
       layout="responsive"
       width="375"
       height="646"
 
-      src="i/jgyh_01_02.jpg"/>
+      src="i/jghy_01_02.jpg"/>
     <mip-img
       layout="responsive"
       width="375"
       height="740"
 
-      src="i/jgyh_01_03.jpg"/>
+      src="i/jghy_01_03.jpg"/>
     <mip-img
       layout="responsive"
       width="375"
       height="414"
 
-      src="i/jgyh_01_04.jpg"/>
+      src="i/jghy_01_04.jpg"/>
   </div>
 </template>
 <style scoped>

@@ -1,12 +1,12 @@
-# mip-ptg-jinguo-detail
+# mip-ptg-jijin-intro
 
-mip-ptg-jinguo-detail 组件说明
+mip-ptg-jijin-intro 组件说明
 
 标题|内容
 ----|----
 类型|通用
 支持布局|responsive,fixed-height,fill,container,fixed
-所需脚本|https://c.mipcdn.com/extensions/platform/v2/mip.putibaby.com/mip-ptg-jinguo-detail/mip-ptg-jinguo-detail.js
+所需脚本|https://c.mipcdn.com/extensions/platform/v2/mip.putibaby.com/mip-ptg-jijin-intro/mip-ptg-jijin-intro.js
 
 ## 示例
 ### 基本用法
@@ -14,10 +14,10 @@ mip-ptg-jinguo-detail 组件说明
 列表数据通过data-jsonstr传递
 
 ```html
-<mip-ptg-jinguo-detail
+<mip-ptg-jijin-intro
     data-jsonstr="<%= JSON.stringify(data) %>"
     >
-</mip-ptg-jinguo-detail>   
+</mip-ptg-jijin-intro>   
 ```
 
 ## 属性

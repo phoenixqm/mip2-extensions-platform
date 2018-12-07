@@ -1220,7 +1220,7 @@ export default {
   },
   data () {
     var pdata = JSON.parse(this.dataJsonstr)
-
+console.log('data',pdata);
     var toContractExtra
     var toContractSkillReq
     var toJinguoDetail
@@ -1234,7 +1234,7 @@ var toJijinIntro
       toContractExtra = 'edit_contract_extra_mip?id=' + pdata.id + '&readonly=1'
     }
     toJinguoDetail = 'jinguo_detail'
-    toJinguoProtocol = 'jinguo_protocol?id=' + pdata.id
+    toJinguoProtocol = 'jinguo_protocol?mcode=' + pdata.mcode
 toJijinIntro = 'jijin_intro'
     return {
       isLogin: false,
@@ -1305,6 +1305,7 @@ to_jijin_intro: toJijinIntro,
     function setData (ajaxData) {
       var pdata = ajaxData
       var data = pdata.order
+	  console.log('222',data);
       // var masterPrice = data.master.price_26day // 月嫂价格
       var masterPrice = data.contract_is_offer_allday_service
         ? data.master.yuesao_allday_price
@@ -1343,7 +1344,7 @@ var toJijinIntro
         toContractExtra = 'edit_contract_extra_mip?id=' + pdata.order.id + '&readonly=1'
       }
       toJinguoDetail = 'jinguo_detail'
-      toJinguoProtocol = 'jinguo_protocol?id=' + pdata.order.id
+      toJinguoProtocol = 'jinguo_protocol?mcode=' + pdata.order.mcode
 toJijinIntro = 'jijin_intro'
       var showz
       if (data.contract_mama_id_card_list[0] === '') {
@@ -1408,6 +1409,7 @@ self.to_jijin_intro = toJijinIntro
 
       self.buy_dalibao = buyDalibao !== -1
       self.in_m_expired = data.in_m_expired
+	  self.mcode = data.mcode
     }
 
     this.$element.customElement.addEventAction('logindone', function (event, str) {

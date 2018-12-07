@@ -198,54 +198,8 @@ p {
 <script>
 var API = {}
 
-function checkStatus (response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response
-  } else {
-    var error = new Error(response.statusText)
-    error.response = response
-    throw error
-  }
-}
 
-function parseJSON (response) {
-  return response.json()
-}
 
-API.wrapRet_ = function (api, opts, fn) {
-  opts.mip_sid = API.sessionId || ''
-  fetch(api, {
-    method: 'POST',
-    credentials: 'include',
-    body: JSON.stringify(opts)
-  })
-    .then(checkStatus)
-    .then(parseJSON)
-    .then(ret => {
-      if (ret.success) fn(true, ret.data)
-      else fn(false, ret.error)
-    })
-    .catch(e => {
-      console.error(e.message)
-      fn(false, e.message)
-    })
-}
-API.ajaxContract = function (orderId, readonly, fn) {
-  API.wrapRet_(
-    'https://mip.putibaby.com/api/ajax_contract_new', {
-      'id': orderId,
-      'readonly': readonly ? 1 : 0
-    }, fn)
-}
-
-API.uploadFile = function (data, fn) {
-  API.wrapRet_(
-    'https://mip.putibaby.com/api/upload_image', {
-      'data': data,
-      'target': 'media/image-[md5].jpg'
-    },
-    fn)
-}
 
 
 export default {
@@ -262,18 +216,13 @@ export default {
     }
   },
   data () {
-    var pdata = JSON.parse(this.dataJsonstr)
-
     return {
       isLogin: false,
       isUnion: false,
       ajaxLoaded: false,
-      order_id: pdata.id,
-      readonly: pdata.readonly,
-      rea: !!pdata.readonly,
+
       err: false,
 
-      contract_mama_name: '',
 
     }
   },
@@ -284,36 +233,7 @@ export default {
     return true
   },
   mounted () {
-    var readonly = this.readonly ? 1 : 0
-    if (readonly === 1 || readonly === '1') {
-      this.rea = true
-    }
-    var self = this
-    this.$element.customElement.addEventAction('echo', function (event, str) {
-    })
-    this.$element.customElement.addEventAction('dook', function (event, str) {
-      event.from.bind(self)(event.data, true)
-      // var eval_str = 'this.' + event.handler + '(event_order)'
-    })
-    this.$element.customElement.addEventAction('docancel', function (event, str) {
-    })
-
-    function setData (ajaxData) {
-      var pdata = ajaxData
-      var data = pdata.order
-
-      self.contract_mama_name = data.contract_mama_name
-
-    }
-
-    this.$element.customElement.addEventAction('logindone', function (event, str) {
-      API.sessionId = event.sessionId
-      self.$set(self, 'isLogin', true)
-      self.$set(self, 'isUnion', event.userInfo.isUnion)
-      API.ajaxContract(self.order_id, self.readonly, function (isOk, res) {
-        setData(res)
-      })
-    })
+  
   },
   methods: {
     init () {

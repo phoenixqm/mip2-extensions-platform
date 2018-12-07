@@ -349,7 +349,7 @@
       </div>
 
       <div
-        v-if="!in_m_expired"
+		v-if="((!in_m_expired && !rea)) || (rea && buy_dalibao)"
         class="other_info_">
         <div class="sub_head">
           <p>服务升级</p>
@@ -367,6 +367,7 @@
             :checked="buy_dalibao"
             type="checkbox"
             class="checkbox_"
+			:disabled="rea"
             @change="contract_dalibao_" >
           <div
             :class="{'checked_' : buy_dalibao , 'unchecked_' : !buy_dalibao }"
@@ -1305,14 +1306,14 @@ to_jijin_intro: toJijinIntro,
     function setData (ajaxData) {
       var pdata = ajaxData
       var data = pdata.order
-	  console.log('222',data);
+	  //console.log('222',pdata);
       // var masterPrice = data.master.price_26day // 月嫂价格
       var masterPrice = data.contract_is_offer_allday_service
         ? data.master.yuesao_allday_price
         : data.master.yuesao_daytime_price
 
       var buyDalibao = pdata.order.dalibao_id
-      if (data.in_m_expired) {
+      if (data.in_m_expired && !(!!pdata.readonly) ) {
         masterPrice = data.contract_is_offer_allday_service
           ? data.master.member_yuesao_allday_price
           : data.master.member_yuesao_daytime_price
@@ -1495,6 +1496,10 @@ self.to_jijin_intro = toJijinIntro
       }
     },
     dalibaoChecked () {
+	  
+	  if(this.rea == 1){
+		return;
+	  }
       this.buy_dalibao = !this.buy_dalibao
       this.contract_is_offer_allday_service_change_()
       this.saveIt_()
@@ -1567,6 +1572,9 @@ self.to_jijin_intro = toJijinIntro
       this.saveIt_()
     },
     contract_dalibao_ (event) {
+	  if(this.rea){
+		return;
+	  }
       this.buy_dalibao = event.target.checked
       this.contract_is_offer_allday_service_change_()
       this.saveIt_()

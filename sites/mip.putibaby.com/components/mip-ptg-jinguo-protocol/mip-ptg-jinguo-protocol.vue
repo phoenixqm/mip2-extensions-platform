@@ -326,7 +326,7 @@ export default {
       rea: !!pdata.readonly,
       err: false,
 
-      contract_mama_name: ''
+      contract_mama_name: pdata.name
 
     }
   },
@@ -338,34 +338,7 @@ export default {
   },
   mounted () {
     var readonly = this.readonly ? 1 : 0
-    if (readonly === 1 || readonly === '1') {
-      this.rea = true
-    }
-    var self = this
-    this.$element.customElement.addEventAction('echo', function (event, str) {
-    })
-    this.$element.customElement.addEventAction('dook', function (event, str) {
-      event.from.bind(self)(event.data, true)
-      // var eval_str = 'this.' + event.handler + '(event_order)'
-    })
-    this.$element.customElement.addEventAction('docancel', function (event, str) {
-    })
 
-    function setData (ajaxData) {
-      var pdata = ajaxData
-      var data = pdata.order
-
-      self.contract_mama_name = data.contract_mama_name
-    }
-
-    this.$element.customElement.addEventAction('logindone', function (event, str) {
-      API.sessionId = event.sessionId
-      self.$set(self, 'isLogin', true)
-      self.$set(self, 'isUnion', event.userInfo.isUnion)
-      API.ajaxContract(self.order_id, self.readonly, function (isOk, res) {
-        setData(res)
-      })
-    })
   },
   methods: {
     init () {

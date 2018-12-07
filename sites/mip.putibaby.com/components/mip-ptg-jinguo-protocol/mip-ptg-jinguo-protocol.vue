@@ -9,7 +9,7 @@
 
       <div >甲方（客户）：
         <i class="jiafang">
-          {contract_mama_name}
+		  {{contract_mama_name}}
         </i>
       </div>
       <div >乙方（公司）：
@@ -86,24 +86,24 @@
         <li>凡是标记“二选一”的项目，则表示在该项目中的两种服务内容，甲方可以自行根据需要选择其中一项进行。如对所选择的项目有疑问的，可以致电乙方客服电话进行咨询。</li>
       </ul>
       <p class="p_1" ><b>千元大礼包</b></p>
-      <table class="table_1">
+      <table class="table_1" cellspacing="0" cellpadding="0">
         <tr >  <th class="th1">妈妈大礼包</th></tr>
-        <tr class="tr1">  <td>定制浴巾毛巾套装</td></tr>
-        <tr class="tr1">  <td>时尚实用妈咪包</td></tr>
-        <tr class="tr1">  <td>菩提果收纳包</td></tr>
-        <tr class="tr1">  <td>菩提果擦手巾</td></tr>
-        <tr class="tr1">  <td>家用急救包</td></tr>
-        <tr class="tr1">  <td>《菩提果母婴》杂志</td></tr>
+        <tr class="tr1">  <td class="td1">定制浴巾毛巾套装</td></tr>
+        <tr class="tr1">  <td class="td1">时尚实用妈咪包</td></tr>
+        <tr class="tr1">  <td class="td1">菩提果收纳包</td></tr>
+        <tr class="tr1">  <td class="td1">菩提果擦手巾</td></tr>
+        <tr class="tr1">  <td class="td1">家用急救包</td></tr>
+        <tr class="tr1">  <td class="td1">《菩提果母婴》杂志</td></tr>
       </table>
-      <table class="table_2">
+      <table class="table_2" cellspacing="0" cellpadding="0">
         <tr >  <th class="th1">宝宝大礼包</th></tr>
-        <tr class="tr1">  <td>宝宝祈福开光福袋</td></tr>
-        <tr class="tr1">  <td>宝宝口水巾</td></tr>
-        <tr class="tr1">  <td>果宝洗澡水温卡</td></tr>
-        <tr class="tr1">  <td>宝宝便携奶粉格</td></tr>
-        <tr class="tr1">  <td>宝宝纸尿裤/拉拉裤礼包</td></tr>
-        <tr class="tr1">  <td>宝宝辅食粥米</td></tr>
-        <tr class="tr1">  <td>*宝宝亲子游泳或早教（二选一）一次</td></tr>
+        <tr class="tr1">  <td class="td1">宝宝祈福开光福袋</td></tr>
+        <tr class="tr1">  <td class="td1">宝宝口水巾</td></tr>
+        <tr class="tr1">  <td class="td1">果宝洗澡水温卡</td></tr>
+        <tr class="tr1">  <td class="td1">宝宝便携奶粉格</td></tr>
+        <tr class="tr1">  <td class="td1">宝宝纸尿裤/拉拉裤礼包</td></tr>
+        <tr class="tr1">  <td class="td1">宝宝辅食粥米</td></tr>
+        <tr class="tr1">  <td class="td1">*宝宝亲子游泳或早教（二选一）一次</td></tr>
       </table>
       <ul
         class="ul_25"
@@ -174,17 +174,20 @@ p {
 
 .root {
   background: #f4f4f4;
-  padding-bottom: 30px;
+  padding:0px 10px;
   color: #666;
   font-size: 14px;
+text-align:justify;
 }
 .main{
   padding:1px 20px;
-  textAlign:justify;
+  text-align:justify;
 }
 .title_h2 {
   font-size:16px;
   color:#3f552a;
+padding-top:25px;
+padding-bottom:15px;
 }
 .line {
   height:1px;
@@ -234,7 +237,10 @@ margin:15px auto 0px;
   background:#e4eeda;
   font-size:12px;
 }
-
+.td1 {
+  border-top:1px solid #000;
+  font-size:10.5px;
+}
 </style>
 
 <script>

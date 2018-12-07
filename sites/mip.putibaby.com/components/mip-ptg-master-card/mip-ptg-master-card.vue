@@ -749,8 +749,12 @@ body{
 .pingjiacard .pingjia tbody tr:first-child{
   padding:10px 0px 10px 10px;
 }
-.pingjiacard .pingjia tbody tr:nth-of-type(1) td,
-.pingjiacard .pingjia tbody tr:nth-of-type(2) td,
+.pingjiacard .pingjia tbody tr:nth-of-type(1) td
+{
+  line-height:30px;
+  border-bottom: 1px solid #eee;
+}
+.pingjiacard .pingjia tbody tr:nth-of-type(2) td 
 {
   line-height:30px;
   border-bottom: 1px solid #eee;

@@ -178,6 +178,7 @@ p {
   color: #666;
   font-size: 14px;
 text-align:justify;
+padding-bottom:20px;
 }
 .main{
   padding:1px 20px;
@@ -202,11 +203,16 @@ padding-bottom:15px;
   padding-right:10px;
 
 }
+p{
+margin-top:10px;
+}
 .p_1{
   color:#3f552a;
+  margin:10px 0px;
 }
 .p_2{
   margin-left:13px;
+  margin-top:10px;
 }
 .ul_15{
   padding-left:15px;

@@ -1,7 +1,7 @@
 
 <template>
   <div class="root">
-  <div style="main">
+  <div class="main">
 
               <div class="title_m">
                 <b class="title">菩提有爱专项基金介绍</b>
@@ -10,7 +10,7 @@
 
 
           <p class="p">北京天使妈妈慈善基金会，是一家5A级公募基金会，成立于2013年12月26日，多年来以汇聚爱心，保护弱势群体的生命、健康、生存、发展权利为宗旨，开展对特殊群体的医疗救助、康复关怀和信息咨询等公益活动。</p>
-            <div class="jijin">
+            <div class="jijin_">
               <mip-img   layout="responsive"
                 width="200"
                 height="100" src="i/jijin/jijinlogo2.png" class="jijin_img"  />
@@ -102,18 +102,15 @@ p {
 }
 
 .root {
-  background: #f4f4f4;
-  padding-bottom: 30px;
+  background: #f1f5e2;
   color: #666;
   font-size: 14px;
+  padding: 10px 10px;
 }
-.main{
-  padding:1px 20px;
-  text-align:justify;
-}
+
 .main{
   background:#fff;
-  margin:10px 10px;
+  
   padding:0px 10px;
   text-align:justify;
 }
@@ -142,14 +139,23 @@ p {
   margin-top:20px;
   margin-bottom:5px;
 }
-.jijin {
+.jijin_ {
   position: relative;
   height: 85px;
   color:#333333;
   margin-bottom:10px;
   font-size:15;
   width:100%;
-  height:100%;
+  
+  margin:10px 0px;
+}
+.jijin {
+  position: relative;
+  
+  color:#333333;
+  margin-bottom:10px;
+  font-size:15;
+ 
   margin:10px 0px;
 }
 .jijin_img {
@@ -158,12 +164,12 @@ p {
 }
 .jijinqrcode {
   position: relative;
-  height: 85;
+  height: 85px;
   color:#333333;
-  margin-bottom:10;
-  font-size:15;
-  width:130;
-  height:130;
+  margin-bottom:10px;
+  font-size:15px;
+  width:130px;
+  height:130px;
   margin:10px 0px;
   margin:10px auto;
   border-radius:5px;

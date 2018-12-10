@@ -754,7 +754,7 @@ body{
   line-height:30px;
   border-bottom: 1px solid #eee;
 }
-.pingjiacard .pingjia tbody tr:nth-of-type(2) td 
+.pingjiacard .pingjia tbody tr:nth-of-type(2) td
 {
   line-height:30px;
   border-bottom: 1px solid #eee;

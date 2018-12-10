@@ -5,19 +5,19 @@
       class="root"
       method="get"
       url="https://www.mipengine.org?we=123">
-  <a
-          :href="to_jijin_intro"
-          mip-link>
-      <div class="jijin">
-        <mip-img
-          src="i/jijin/banner12.png"
-          layout="responsive"
-          width="375"
-          height="150"
-          class="jijin_img"/>
-    
-      </div>
-</a>
+      <a
+        :href="to_jijin_intro"
+        mip-link>
+        <div class="jijin">
+          <mip-img
+            src="i/jijin/banner12.png"
+            layout="responsive"
+            width="375"
+            height="150"
+            class="jijin_img"/>
+
+        </div>
+      </a>
       <div class="yifang">
         <mip-img
           :src="master.header.small"
@@ -349,7 +349,7 @@
       </div>
 
       <div
-		v-if="((!in_m_expired && !rea)) || (rea && buy_dalibao)"
+        v-if="((!in_m_expired && !rea)) || (rea && buy_dalibao)"
         class="other_info_">
         <div class="sub_head">
           <p>服务升级</p>
@@ -365,9 +365,9 @@
           </div>
           <input
             :checked="buy_dalibao"
+            :disabled="rea"
             type="checkbox"
             class="checkbox_"
-			:disabled="rea"
             @change="contract_dalibao_" >
           <div
             :class="{'checked_' : buy_dalibao , 'unchecked_' : !buy_dalibao }"
@@ -448,7 +448,7 @@ p {
 }
 .jijin {
   width: 100%;
-  
+
   margin: 0 auto;
   position: relative;
   background-color: #fff;
@@ -457,7 +457,7 @@ p {
 .jijin_img {
 
   width: 100%;
-height: 100%; 
+height: 100%;
 
 }
 .yifang {
@@ -1221,12 +1221,12 @@ export default {
   },
   data () {
     var pdata = JSON.parse(this.dataJsonstr)
-console.log('data',pdata);
+    console.log('data', pdata)
     var toContractExtra
     var toContractSkillReq
     var toJinguoDetail
     var toJinguoProtocol
-var toJijinIntro
+    var toJijinIntro
     if (pdata.readonly !== '1') {
       toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.id
       toContractExtra = 'edit_contract_extra_mip?id=' + pdata.id
@@ -1236,7 +1236,7 @@ var toJijinIntro
     }
     toJinguoDetail = 'jinguo_detail'
     toJinguoProtocol = 'jinguo_protocol?mcode=' + pdata.mcode
-toJijinIntro = 'jijin_intro'
+    toJijinIntro = 'jijin_intro'
     return {
       isLogin: false,
       isUnion: false,
@@ -1275,7 +1275,7 @@ toJijinIntro = 'jijin_intro'
       to_contract_extra: toContractExtra,
       to_jinguo_detail: toJinguoDetail,
       to_jinguo_protocol: toJinguoProtocol,
-to_jijin_intro: toJijinIntro,
+      to_jijin_intro: toJijinIntro,
       err_message: '',
       ret: 1,
 
@@ -1306,14 +1306,14 @@ to_jijin_intro: toJijinIntro,
     function setData (ajaxData) {
       var pdata = ajaxData
       var data = pdata.order
-	  //console.log('222',pdata);
+      // console.log('222',pdata);
       // var masterPrice = data.master.price_26day // 月嫂价格
       var masterPrice = data.contract_is_offer_allday_service
         ? data.master.yuesao_allday_price
         : data.master.yuesao_daytime_price
 
       var buyDalibao = pdata.order.dalibao_id
-      if (data.in_m_expired && !(!!pdata.readonly) ) {
+      if (data.in_m_expired && !(pdata.readonly)) {
         masterPrice = data.contract_is_offer_allday_service
           ? data.master.member_yuesao_allday_price
           : data.master.member_yuesao_daytime_price
@@ -1336,7 +1336,7 @@ to_jijin_intro: toJijinIntro,
       var toContractSkillReq
       var toJinguoDetail
       var toJinguoProtocol
-var toJijinIntro
+      var toJijinIntro
       if (pdata.readonly !== '1' && pdata.readonly !== 1) {
         toContractSkillReq = 'edit_contract_skill_req_mip?id=' + pdata.order.id
         toContractExtra = 'edit_contract_extra_mip?id=' + pdata.order.id
@@ -1346,7 +1346,7 @@ var toJijinIntro
       }
       toJinguoDetail = 'jinguo_detail'
       toJinguoProtocol = 'jinguo_protocol?mcode=' + pdata.order.mcode
-toJijinIntro = 'jijin_intro'
+      toJijinIntro = 'jijin_intro'
       var showz
       if (data.contract_mama_id_card_list[0] === '') {
         showz = false
@@ -1403,14 +1403,14 @@ toJijinIntro = 'jijin_intro'
       self.to_contract_extra = toContractExtra
       self.to_jinguo_detail = toJinguoDetail
       self.to_jinguo_protocol = toJinguoProtocol
-self.to_jijin_intro = toJijinIntro
+      self.to_jijin_intro = toJijinIntro
       self.err_message = ''
 
       self.ajaxLoaded = true
 
       self.buy_dalibao = buyDalibao !== -1
       self.in_m_expired = data.in_m_expired
-	  self.mcode = data.mcode
+      self.mcode = data.mcode
     }
 
     this.$element.customElement.addEventAction('logindone', function (event, str) {
@@ -1496,10 +1496,9 @@ self.to_jijin_intro = toJijinIntro
       }
     },
     dalibaoChecked () {
-	  
-	  if(this.rea == 1){
-		return;
-	  }
+      if (this.rea) {
+        return
+      }
       this.buy_dalibao = !this.buy_dalibao
       this.contract_is_offer_allday_service_change_()
       this.saveIt_()
@@ -1572,9 +1571,9 @@ self.to_jijin_intro = toJijinIntro
       this.saveIt_()
     },
     contract_dalibao_ (event) {
-	  if(this.rea){
-		return;
-	  }
+      if (this.rea) {
+        return
+      }
       this.buy_dalibao = event.target.checked
       this.contract_is_offer_allday_service_change_()
       this.saveIt_()
